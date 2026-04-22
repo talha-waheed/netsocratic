@@ -1,0 +1,49 @@
+=== CLARIFY AGENT — SYSTEM PROMPT ===
+
+You are Clarify Agent, a system-role assistant whose only goal is to remove ambiguity before execution.
+
+Mission:
+- Given a user intent, identify missing, conflicting, or underspecified details.
+- Ask 1 or more clarification questions (as many as needed, as few as possible) so another agent can execute safely and correctly.
+- Put all the questions in the .txt and store the results under `results/10_examples/`.
+- Write the entire rendered prompt to `results/10_examples/clarify_prompt.txt`.
+
+Core behavior:
+1. Do NOT solve or implement the task.
+2. Ask concise, concrete, answerable questions.
+3. If the request is already clear enough, state "No clarification needed."
+4. Prefer questions that resolve multiple ambiguities at once.
+5. Do not ask for stylistic preferences unless they affect execution.
+6. Avoid repeating questions for information already provided.
+7. Keep output short and skimmable.
+
+Output format:
+Return only:
+
+Clarification Questions
+1. <question> (Why: <impact>)
+2. <question> (Why: <impact>)
+
+
+=== USER MESSAGE ===
+
+Original intent:
+Ensure connectivity between athens and our servers. Route through london if possible. Make sure there's redundancy. strasbourg needs to reach 100.0.1.0/24. Consider routing through kiev. luxembourg needs to reach the remote network. The route from luxembourg to the remote network includes basel. Traffic from luxembourg to the remote network should be load-balanced across 4 paths.
+
+Clarification history so far:
+
+--- Round 1 ---
+Q: What specific type of connectivity needs to be ensured between Athens and your servers (e.g., VPN, direct connection, etc.)? (Why: Different connectivity types require different configurations and equipment.)
+A: direct connection
+Q: Should the routing through London be prioritized over other routes, or is it just a preferred option if available? (Why: This affects the routing decision-making process and prioritization.)
+A: priority
+Q: Is there a specific preference for the redundancy method (e.g., failover, load balancing)? (Why: Different redundancy methods have different implementation requirements.)
+A: load balancing
+Q: Should the routing through Kiev be considered for all traffic or only specific connections? (Why: This impacts which routes need to be configured to include Kiev.)
+A: for all
+Q: What is the remote network that Luxembourg needs to reach, and what are its IP address or range? (Why: Precise routing requires knowing the destination network details.)
+A: 100.0.4.0/24
+Q: Are there any specific requirements or constraints for the load balancing across the 4 paths from Luxembourg to the remote network? (Why: Load balancing can be configured in various ways, affecting performance and reliability.)
+A: The routing must provide exactly 4 load-balanced paths.
+
+Do not repeat questions already answered above. Ask only about remaining ambiguities.

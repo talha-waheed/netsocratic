@@ -1,0 +1,8 @@
+Round 1 — Clarification Questions
+
+1. What specific type of connectivity needs to be ensured between Athens and your servers (e.g., VPN, direct connection, etc.)? (Why: Different connectivity types require different configurations and equipment.)
+2. Should the routing through London be prioritized over other routes, or is it just a preferred option if available? (Why: This affects the routing decision-making process and prioritization.)
+3. Is there a specific preference for the redundancy method (e.g., failover, load balancing)? (Why: Different redundancy methods have different implementation requirements.)
+4. Should the routing through Kiev be considered for all traffic or only specific connections? (Why: This impacts which routes need to be configured to include Kiev.)
+5. What is the remote network that Luxembourg needs to reach, and what are its IP address or range? (Why: Precise routing requires knowing the destination network details.)
+6. Are there any specific requirements or constraints for the load balancing across the 4 paths from Luxembourg to the remote network? (Why: Load balancing can be configured in various ways, affecting performance and reliability.)

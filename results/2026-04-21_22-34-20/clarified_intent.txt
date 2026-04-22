@@ -1,0 +1,6 @@
+────────────────────────────────────────────────
+Format A  (all ambiguity resolved):
+
+CLARIFIED
+Athens must be able to reach 100.0.29.0/24. Traffic from Athens should prefer paths that go through London. The routing must provide exactly 3 load-balanced paths, ensuring redundancy. Strasbourg must be able to reach 100.0.1.0/24. Traffic from Strasbourg must go through Kiev. The routing must provide exactly 2 load-balanced paths, ensuring redundancy. Luxembourg must be able to reach 100.0.4.0/24. All traffic from Luxembourg must go through Basel. The routing must provide exactly 4 load-balanced paths. All paths must be valid, reachable, and distinct where load balancing is required.
+────────────────────────────────────────────────

@@ -1,0 +1,10 @@
+Round 2 — Q&A
+
+Q: What specific type of redundancy is required for the connectivity between Athens and your servers, given that load balancing is preferred? (Why: Ensures correct implementation of redundancy with load balancing.)
+A: Traffic from Athens should prefer paths that go through London. The routing must provide exactly 3 load-balanced paths, ensuring redundancy.
+
+Q: Should the route from Strasbourg to 100.0.1.0/24 also prioritize passing through London or Kiev, or is there another preferred route? (Why: Determines the routing path and prioritization for Strasbourg's connectivity.)
+A: Traffic from Strasbourg should go through Kiev. The routing must provide exactly 2 load-balanced paths, ensuring redundancy.
+
+Q: Are there any specific constraints or requirements for routing through Basel when Luxembourg connects to the remote network? (Why: Ensures proper configuration and compliance with any specific routing policies or constraints.)
+A: All traffic from Luxembourg must go through Basel. The routing must provide exactly 4 load-balanced paths.
