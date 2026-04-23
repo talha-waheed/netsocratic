@@ -1,0 +1,4 @@
+MORE_QUESTIONS
+Clarification Questions
+1. Is routing through London a mandatory waypoint or just a preference for Athens to reach 100.0.29.0/24? (Why: To clarify the waypointing requirement for Athens.)
+2. Is routing through Kiev a mandatory waypoint or just a preference for Strasbourg reaching 100.0.1.0/24? (Why: To clarify the waypointing requirement for Strasbourg.)

@@ -1,0 +1,9 @@
+[dry-run candidate 3]
+Routers modified: Athens
+
+Reasoning:
+Athens connects to Sofia (10.0.0.26) and Istanbul (10.0.0.13).
+Both links kept at cost 1 to allow ECMP through both neighbours.
+London owns 100.0.29.0/24 — traffic from Athens must ultimately reach London.
+
+Limitations: None (dry-run placeholder).

@@ -122,18 +122,36 @@ class ClarificationAgent:
 
     # ── Public entry point ────────────────────────────────────────────────────
 
-    def run(self, vague_intent: str) -> str:
+    def run(self, vague_intent: str, runtime_context: str | None = None) -> str:
         """
         Run the interactive clarification loop.
         Returns the final clarified intent string.
+
+        Parameters
+        ----------
+        runtime_context : optional text from a previous failed Selection pass.
+            When provided it is appended to every LLM prompt so the model knows
+            what was already generated, compared, and ruled out.
         """
+        self._runtime_context = runtime_context  # stored for use in message builders
+
         self._interactor.display_banner("NetSocratic — Clarification Agent")
+        if runtime_context:
+            self._interactor.display(
+                "\n[Clarification] Resuming after a failed selection pass. "
+                "Previous context has been loaded.\n"
+            )
         self._interactor.display(
             "I will ask you a few questions to resolve any ambiguity in your intent.\n"
             "Please answer each question as precisely as possible."
         )
 
         self._save_intent(vague_intent)
+        if runtime_context:
+            self._write(
+                os.path.join(self._results_dir, "clarify_runtime_context.txt"),
+                runtime_context + "\n",
+            )
         history: list[QARound] = []
 
         for round_num in range(1, self._max_rounds + 1):
@@ -295,6 +313,9 @@ class ClarificationAgent:
                 "Ask only about remaining ambiguities."
             )
 
+        if getattr(self, "_runtime_context", None):
+            parts.append(f"\n{self._runtime_context}")
+
         return "\n".join(parts)
 
     def _build_sufficiency_user_message(
@@ -312,6 +333,9 @@ class ClarificationAgent:
                     parts.append(f"A: {a}")
         else:
             parts.append("\nNo clarification Q&A yet.")
+
+        if getattr(self, "_runtime_context", None):
+            parts.append(f"\n{self._runtime_context}")
 
         return "\n".join(parts)
 

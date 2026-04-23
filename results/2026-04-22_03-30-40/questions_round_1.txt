@@ -1,0 +1,7 @@
+Round 1 — Clarification Questions
+
+1. What is the exact source node and destination subnet for the connectivity between Athens and your servers? (Why: To ensure reachability with precise source and destination details.)
+2. Is routing through London mandatory or just a preference? (Why: To determine if London is a mandatory waypoint or a preferred one.)
+3. What is the exact remote network subnet that Luxembourg needs to reach? (Why: To ensure reachability with precise destination details.)
+4. Is routing through Kiev mandatory or just a preference for the Strasbourg to 100.0.1.0/24 route? (Why: To determine if Kiev is a mandatory waypoint or a preferred one.)
+5. Is the inclusion of Basel in the route from Luxembourg to the remote network mandatory or just a preference? (Why: To determine if Basel is a mandatory waypoint or a preferred one.)

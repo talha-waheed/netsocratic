@@ -1,0 +1,5 @@
+Round 1 — Clarification Questions
+
+1. What exact destination subnet should athens reach? (Why: determines reachability target)
+2. Is the London waypoint mandatory or a preference? (Why: affects path constraints)
+3. How many load-balanced paths are required for each source? (Why: specifies redundancy level)

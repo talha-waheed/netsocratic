@@ -1,0 +1,3 @@
+Athens must be able to reach 100.0.29.0/24. Traffic from Athens should prefer paths that go through London. The routing must provide exactly 3 load-balanced paths.
+
+[dry-run placeholder — replace with real LLM call]

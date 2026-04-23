@@ -1,0 +1,8 @@
+Round 1 — Clarification Questions
+
+1. What is the exact source node and destination subnet (CIDR notation) for the connectivity between Athens and your servers? (Why: To ensure reachability is clearly defined for Athens.)
+2. Is routing through London a mandatory waypoint or just a preference? (Why: To clarify the waypointing requirement for Athens to your servers.)
+3. What is the exact destination subnet (CIDR notation) for the remote network that Luxembourg needs to reach? (Why: To ensure reachability is clearly defined for Luxembourg.)
+4. Is routing through Kiev a mandatory waypoint or just a preference for Strasbourg reaching 100.0.1.0/24? (Why: To clarify the waypointing requirement for Strasbourg.)
+5. Is the route through Basel for Luxembourg to the remote network mandatory or just a preference? (Why: To clarify the waypointing requirement for Luxembourg.)
+6. Do you require a specific number of equal-cost paths for Strasbourg to reach 100.0.1.0/24, or is redundancy sufficient? (Why: To clarify the load balancing requirement for Strasbourg.)
