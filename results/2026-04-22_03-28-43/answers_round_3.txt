@@ -1,4 +1,0 @@
-Round 3 — Q&A
-
-Q: Is routing through Kiev a mandatory waypoint or just a preference for Strasbourg reaching 100.0.1.0/24? (Why: To clarify the waypointing requirement for Strasbourg.)
-A: 

@@ -1,9 +1,0 @@
-────────────────────────────────────────────────
-Format A  (all ambiguity resolved):
-
-CLARIFIED
-1. Establish a direct connection between Athens and the servers, ensuring traffic prefers paths through the London router. Configure exactly 3 load-balanced paths to ensure redundancy.
-2. Ensure Strasbourg can reach the subnet 100.0.1.0/24 by routing traffic through the Kiev router. Configure exactly 2 load-balanced paths for redundancy.
-3. Configure Luxembourg to reach the remote network at 100.0.4.0/24. All traffic must pass through the Basel router, with exactly 4 load-balanced paths.
-4. Consider routing all traffic through the Kiev router where applicable.
-────────────────────────────────────────────────

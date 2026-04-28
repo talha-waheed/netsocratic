@@ -1,7 +1,0 @@
-Round 1 — Clarification Questions
-
-1. What is the exact source node for the connectivity between Athens and your servers, and what is the destination subnet in CIDR notation? (Why: To ensure precise reachability configuration.)
-2. Is routing through London a mandatory waypoint or just a preference? (Why: To determine if London must always be traversed or if it's optional.)
-3. What is the exact destination subnet in CIDR notation for the "remote network" that Luxembourg needs to reach? (Why: To ensure precise reachability configuration for Luxembourg.)
-4. Is routing through Kiev a mandatory waypoint or just a preference for Strasbourg's connectivity to 100.0.1.0/24? (Why: To determine if Kiev must always be traversed or if it's optional.)
-5. Is routing through Basel a mandatory waypoint or just a preference for Luxembourg's connectivity to the remote network? (Why: To determine if Basel must always be traversed or if it's optional.)

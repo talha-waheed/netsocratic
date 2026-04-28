@@ -1,4 +1,0 @@
-Round 4 — Q&A
-
-Q: Is routing through Kiev a mandatory waypoint or just a preference for Strasbourg reaching 100.0.1.0/24? (Why: To clarify the waypointing requirement for Strasbourg.)
-A: Luxembourg must be able to reach 100.0.4.0/24. All traffic from Luxembourg must go through Basel. The routing must provide exactly 4 load-balanced paths.

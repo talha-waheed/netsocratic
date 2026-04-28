@@ -1,1 +1,0 @@
-Ensure connectivity between athens and our servers.

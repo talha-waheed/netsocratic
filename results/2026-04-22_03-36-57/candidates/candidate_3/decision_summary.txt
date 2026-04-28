@@ -1,4 +1,0 @@
-[dry-run candidate 3]
-Athens config with equal-cost paths to London via Istanbul and Sofia.
-Waypointing through London is implicit since London owns 100.0.29.0/24.
-Three equal-cost paths achieved by keeping all relevant link costs at 1.

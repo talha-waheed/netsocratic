@@ -1,5 +1,0 @@
-Round 2 — Clarification Questions
-
-1. Is routing through London a mandatory waypoint or just a preference for Athens to reach 100.0.29.0/24? (Why: To clarify the waypointing requirement for Athens.)
-2. Is routing through Kiev a mandatory waypoint or just a preference for Strasbourg reaching 100.0.1.0/24? (Why: To clarify the waypointing requirement for Strasbourg.)
-3. Do you require a specific number of equal-cost paths for Strasbourg to reach 100.0.1.0/24, or is redundancy sufficient? (Why: To clarify the load balancing requirement for Strasbourg.)
