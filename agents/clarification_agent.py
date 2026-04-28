@@ -23,33 +23,50 @@ from llm.base import BaseLLMClient, Message
 # ── Prompts ───────────────────────────────────────────────────────────────────
 
 CLARIFY_SYSTEM = """\
-You are Clarify Agent, a system-role assistant whose only goal is to remove ambiguity before execution.
+You are Clarify Agent. Your only job is to remove ambiguity so the Generator Agent can
+act without guessing. You do NOT solve or implement anything.
 
-Mission:
-- Given a user intent, identify missing, conflicting, or underspecified details.
-- Ask 1 or more clarification questions (as many as needed, as few as possible) so another agent can execute safely and correctly.
+## What the Generator needs (all three must be unambiguous)
 
-The downstream Generator Agent needs ALL three of the following to be fully unambiguous:
-1. REACHABILITY   : exact source node and exact destination subnet (CIDR notation) for every pair.
-2. WAYPOINTING    : whether each waypoint is mandatory (must always traverse) or a preference
-                    (prefer if possible), and the exact waypoint router name.
-3. LOAD BALANCING : an exact integer number of equal-cost paths for every destination pair.
+1. REACHABILITY   — exact source router name and exact destination subnet in CIDR notation
+                    (e.g. "athens" → "100.0.29.0/24") for every traffic pair.
+2. WAYPOINTING    — for each waypoint: the exact router name AND whether it is
+                    MANDATORY (traffic must always traverse it) or PREFERRED
+                    (use it when possible, but allow alternatives).
+3. LOAD BALANCING — an exact integer number of equal-cost ECMP paths for every
+                    source-destination pair (e.g. "3 paths", not "several paths").
 
-Core behavior:
-1. Do NOT solve or implement the task.
-2. Ask concise, concrete, answerable questions.
-3. If the request is already clear enough, state "No clarification needed."
-4. Prefer questions that resolve multiple ambiguities at once.
-5. Do not ask for stylistic preferences unless they affect execution.
-6. Avoid repeating questions for information already provided.
-7. Keep output short and skimmable.
+## Process — think before you ask
 
-Output format:
-Return only:
+Before writing any question, silently work through these steps:
+  a. List every piece of information that IS already provided.
+  b. List every piece that IS NOT provided or is ambiguous.
+  c. For each gap, decide which of REACHABILITY / WAYPOINTING / LOAD BALANCING it affects.
+  d. Combine gaps that can be resolved by a single compound question.
+  e. Write at most 3 questions total.
+
+## Question quality rules
+
+- Ask about concrete, answerable specifics — router names, CIDR subnets, exact integers.
+- Combine multiple gaps into one question when possible.
+- Do not ask about stylistic preferences, topological background, or anything that
+  does not affect REACHABILITY, WAYPOINTING, or LOAD BALANCING.
+- Never ask for information already supplied in the intent or earlier answers.
+
+## Example of a GOOD question vs a VAGUE one
+
+VAGUE : "What is the destination subnet?"
+GOOD  : "Should athens reach London's subnet (100.0.29.0/24) or a different prefix?
+         If a waypoint is required, name the exact router and state whether traffic
+         must always go through it (mandatory) or only prefer it (preferred)."
+
+## Output format — return ONLY this, no prose before or after
 
 Clarification Questions
-1. <question> (Why: <impact>)
+1. <question> (Why: <impact on reachability / waypointing / load-balancing>)
 2. <question> (Why: <impact>)
+
+If nothing is ambiguous, return exactly: No clarification needed.
 """
 
 SUFFICIENCY_SYSTEM = """\
@@ -271,11 +288,13 @@ class ClarificationAgent:
         """
         Called when the LLM said 'No clarification needed' or we hit max rounds.
         Uses the sufficiency prompt in 'force-clarify' mode to produce the final intent.
+        Falls back to the original vague intent if the LLM still returns MORE_QUESTIONS.
         """
         user_content = self._build_sufficiency_user_message(vague_intent, history)
         user_content += (
             "\n\nThe clarification phase has ended. "
-            "Produce the best possible CLARIFIED intent from the information gathered."
+            "You MUST respond with CLARIFIED followed by the best-effort intent. "
+            "Do NOT output MORE_QUESTIONS."
         )
 
         if self._dry_run:
@@ -286,8 +305,19 @@ class ClarificationAgent:
             Message(role="user", content=user_content),
         ]
         response = self._llm.complete(messages, temperature=0.2)
-        _, clarified = self._parse_sufficiency(response)
-        return clarified
+        is_done, result = self._parse_sufficiency(response)
+
+        if is_done:
+            return result
+
+        # LLM returned MORE_QUESTIONS despite the explicit instruction.
+        # Fall back to the original vague intent so downstream agents receive
+        # something actionable rather than a list of unanswered questions.
+        self._interactor.display(
+            "\n[Warning] LLM still returned MORE_QUESTIONS during synthesis. "
+            "Using the original vague intent as a best-effort fallback."
+        )
+        return vague_intent
 
     # ── Message builders ──────────────────────────────────────────────────────
 

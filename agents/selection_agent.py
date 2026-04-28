@@ -190,6 +190,10 @@ class SelectionAgent:
             return winner
 
         # ── Step 3: distinguishing Q&A loop ──────────────────────────────────
+        # asked_pairs tracks (i,j) pairs whose question got an unclear answer so
+        # we skip them next round rather than repeating the same question forever.
+        asked_pairs: set[tuple[int, int]] = set()
+
         for round_num in range(1, self._max_rounds + 1):
             if len(survivors) == 1:
                 break
@@ -199,12 +203,13 @@ class SelectionAgent:
                 f"({len(survivors)} candidates still in contention)",
             )
 
-            diff_info = self._find_best_pair(survivors, cand_names, pairwise)
+            diff_info = self._find_best_pair(survivors, cand_names, pairwise, skip_pairs=asked_pairs)
 
             if diff_info is None:
-                log_lines.append("Remaining candidates are behaviourally indistinguishable.")
+                log_lines.append("Remaining candidates are behaviourally indistinguishable "
+                                 "or all distinguishable pairs already asked.")
                 self._interactor.display(
-                    "[Selection] Remaining candidates are indistinguishable — selecting first."
+                    "[Selection] No more distinguishable pairs to ask about — selecting first."
                 )
                 break
 
@@ -232,8 +237,14 @@ class SelectionAgent:
                     f"[Selection] {len(survivors)} candidate(s) remain after round {round_num}."
                 )
             else:
+                # Answer was unclear — mark this pair so we don't repeat the question
+                pair_key = (
+                    min(diff_info["c1_orig_idx"], diff_info["c2_orig_idx"]),
+                    max(diff_info["c1_orig_idx"], diff_info["c2_orig_idx"]),
+                )
+                asked_pairs.add(pair_key)
                 self._interactor.display(
-                    "[Selection] Answer unclear — keeping all candidates and trying again."
+                    "[Selection] Answer unclear — will try a different pair next round."
                 )
 
             if not survivors:
@@ -364,17 +375,22 @@ class SelectionAgent:
         survivors: list[int],
         cand_names: list[str],
         pairwise: dict[tuple[int, int], dict],
+        skip_pairs: set[tuple[int, int]] | None = None,
     ) -> dict | None:
         """
         Scan survivor pairs for the most salient behavioural difference.
         Priority: reachability > waypointing > load-balancing.
+        Pairs in skip_pairs are ignored (already asked, answer was unclear).
         Returns a diff_info dict or None if all are indistinguishable.
         """
+        skip_pairs = skip_pairs or set()
         best: dict | None = None
         best_priority = -1
 
         for i, j in combinations(survivors, 2):
             key = (min(i, j), max(i, j))
+            if key in skip_pairs:
+                continue
             data = pairwise.get(key, {})
             adv  = data.get("adv_diff", {})
 

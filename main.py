@@ -92,6 +92,11 @@ def build_arg_parser() -> argparse.ArgumentParser:
         help="Run clarification + generation only; do not invoke the Selection Agent.",
     )
     p.add_argument(
+        "--no-strategies",
+        action="store_true",
+        help="Disable per-candidate strategy hints; use temperature variation only.",
+    )
+    p.add_argument(
         "--dry-run",
         action="store_true",
         help="Skip LLM calls; use canned responses for testing without an API key.",
@@ -176,6 +181,7 @@ def main() -> None:
             kb_dir=args.kb_dir,
             topo_dir=args.topo_dir,
             num_candidates=args.num_candidates,
+            use_strategies=not args.no_strategies,
             dry_run=args.dry_run,
         )
 
@@ -183,7 +189,7 @@ def main() -> None:
 
         print(f"\n[Generator] {len(candidates)} candidate(s) generated.")
         for i, candidate in enumerate(candidates, start=1):
-            router_names = [k for k in candidate if k != "decision_summary.txt"]
+            router_names = [k for k in candidate if k not in ("decision_summary.txt", "__rules__")]
             print(f"  Candidate {i}: {len(router_names)} router(s) configured — "
                   f"{', '.join(sorted(router_names))}")
 
