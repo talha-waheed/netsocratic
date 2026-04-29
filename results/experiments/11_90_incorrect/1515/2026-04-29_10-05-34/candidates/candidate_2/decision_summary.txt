@@ -1,0 +1,10 @@
+Routers modified: Amsterdam, Budapest, Rotterdam
+
+Reasoning:
+1. Reachability requirements for Amsterdam to 100.0.29.0/24 specify that traffic must use London as a mandatory waypoint. The only paths bypassing London were set to a high cost of 1000.
+2. For Budapest to reach 100.0.9.0/24, it must pass through Rotterdam. Therefore, the cost for the route directly to Rotterdam was kept low (1), while bypass paths were given a high cost (1000).
+3. Rotterdam must also maintain low-cost routes to accommodate the path from Budapest, thus its configuration remains unchanged with low costs to Amsterdam and Budapest.
+4. Load balancing requirements from Amsterdam to 100.0.29.0/24 demand two paths, so appropriate costs were set to ensure only two paths are available at cost 1.
+
+Limitations (if any):
+None

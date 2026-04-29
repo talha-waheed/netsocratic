@@ -1,0 +1,7 @@
+Round 1 — Q&A
+
+Q: What is the exact router hostname you are referring to when you mention "use rotterdam as intermediate hop"? (Why: impact on waypointing)
+A: I am referring to the router hostname associated with the waypoint for Bucharest, which is "rotterdam."
+
+Q: What is the exact integer path count for load balancing when reaching 100.0.9.0/24 from bucharest? (Why: impact on load balancing)
+A: The exact integer path count for load balancing when reaching 100.0.9.0/24 from Bucharest is 2.

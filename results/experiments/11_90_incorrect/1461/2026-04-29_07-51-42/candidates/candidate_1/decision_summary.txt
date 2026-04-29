@@ -1,0 +1,10 @@
+Routers modified: Strasbourg, Paris
+
+Reasoning:
+1. The routing rules specify that Strasbourg must reach 100.0.29.0/24 (London's subnet) via London, and there should be 2 equal-cost paths.
+2. To enforce the waypoint through London, I set the cost of the Fa0/1 interface (bypassing London) to 1000, while keeping the cost of the Fa1/0 and Fa1/1 interfaces (towards London) at 1.
+3. For Paris, the same logic applies: the Fa0/1 interface cost is set to 1000 to enforce the waypoint through London, while the Fa1/0 and Fa1/1 interfaces are set to 1 to allow for two paths to 100.0.9.0/24 (via Kiev).
+4. This configuration allows for redundancy and load balancing as required by the routing rules.
+
+Limitations (if any):
+None

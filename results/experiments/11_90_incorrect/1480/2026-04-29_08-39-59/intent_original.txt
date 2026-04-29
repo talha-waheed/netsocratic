@@ -1,0 +1,8 @@
+100.0.4.0/24 is accessible from brussels.
+Route through basel if possible.
+Traffic from brussels to 100.0.4.0/24 should be load-balanced across 2 paths.
+Ensure connectivity between frankfurt and 100.0.4.0/24.
+Route through basel if possible.
+To reach 100.0.4.0/24 from frankfurt, traffic is balanced on 2 paths.
+Ensure connectivity between warsaw and our servers.
+Use kiev as intermediate hop if available.

@@ -1,0 +1,20 @@
+Routers modified: Milan, Strasbourg, Madrid
+
+Reasoning:
+1. **Milan to 100.0.4.0/24**: 
+   - Milan has a direct path to 100.0.4.0/24 via Strasbourg. 
+   - Set costs to 1 on all interfaces leading to 100.0.4.0/24 to ensure connectivity.
+   
+2. **Strasbourg to 100.0.9.0/24**: 
+   - Strasbourg can reach 100.0.9.0/24 via Rotterdam and Amsterdam.
+   - Set costs to 1 on the paths through Rotterdam and Amsterdam to enable 2 equal-cost paths.
+
+3. **Madrid to 100.0.4.0/24**: 
+   - Madrid can reach 100.0.4.0/24 via three paths: 
+     - Madrid → Paris → Strasbourg → 100.0.4.0/24
+     - Madrid → Barcelona → Strasbourg → 100.0.4.0/24
+     - Madrid → Paris → Rotterdam → 100.0.4.0/24
+   - Set costs to 1 on all interfaces leading to these paths to enable 3 equal-cost paths.
+
+Limitations (if any):
+None

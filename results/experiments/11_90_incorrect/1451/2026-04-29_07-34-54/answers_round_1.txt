@@ -1,0 +1,7 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from milan should reach? (Why: impacts reachability)
+A: The exact destination subnet that traffic from Milan should reach is 100.0.4.0/24.
+
+Q: What is the exact router hostname you are referring to when you mention "the remote network"? (Why: impacts waypointing)
+A: The exact router hostname is not specified in the requirements. The focus is on the reachability and waypointing for the specified networks.

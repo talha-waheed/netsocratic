@@ -1,0 +1,33 @@
+Routers modified: [Rotterdam, Sofia, Strasbourg, Bratislava]
+
+Reasoning:
+1. **Rotterdam to 100.0.9.0/24**: 
+   - Mandatory waypoint is Rotterdam. 
+   - Set all bypass paths (e.g., to Sofia) to cost 1000, and keep the path to Sofia via Rotterdam at cost 1.
+   - Total costs: 
+     - Route via Rotterdam: Cost 1 (to Sofia) + Cost 1 (to 100.0.9.0) = 2
+     - Bypass paths: Cost 1000, thus effectively blocked.
+
+2. **Sofia to 100.0.9.0/24**: 
+   - Traffic must go through Rotterdam (mandatory waypoint).
+   - Set path to Rotterdam at cost 1 and bypass paths (if any) to cost 1000.
+   - Total costs:
+     - Route via Rotterdam: Cost 1 (to Rotterdam) + Cost 1 (to 100.0.9.0) = 2
+     - Bypass paths: Cost 1000, thus effectively blocked.
+
+3. **Strasbourg to 100.0.29.0/24**: 
+   - Mandatory waypoint is London.
+   - Set all paths not going through London (e.g., to Frankfurt) to cost 1000.
+   - Total costs:
+     - Route via London: Cost 1 (to London) + Cost 1 (to 100.0.29.0) = 2
+     - Bypass paths: Cost 1000, thus effectively blocked.
+
+4. **Bratislava to 100.0.4.0/24**:
+   - Needs 4 equal-cost paths to 100.0.4.0/24.
+   - Set paths to Frankfurt, Budapest, and Praha at cost 1 and ensure they all equal the same total cost.
+   - Total costs:
+     - All paths: Cost 1 (to Budapest) + Cost 1 (to 100.0.4.0) = 2
+     - Ensure four paths can be utilized.
+
+Limitations (if any):
+None

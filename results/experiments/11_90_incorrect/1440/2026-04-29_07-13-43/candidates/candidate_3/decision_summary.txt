@@ -1,0 +1,9 @@
+Routers modified: ['Brussels', 'Lyon', 'Warsaw']
+
+Reasoning:
+1. **Brussels** has to reach `100.0.29.0/24` via **London** (mandatory waypoint). All paths bypassing London were set to a high cost of `1000`, while the direct path to London maintains a cost of `1`. Ensuring there are exactly 2 equal-cost paths requires controlling the cost of relevant interfaces appropriately.
+2. **Lyon** must reach `100.0.29.0/24` through **London**, which means both outbound paths to London must have a cost of `1`, allowing for redundancy and maintaining required ECMP. The interfaces leading elsewhere were already sufficiently high.
+3. **Warsaw** also mandates routing through **London** towards `100.0.29.0/24`. The pathways to other routers were increased to `1000` to ensure mandatory traversal through London, while direct paths remain at cost `1`, aligning with the requirements.
+
+Limitations (if any):
+None.

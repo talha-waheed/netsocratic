@@ -1,0 +1,12 @@
+Routers modified: Amsterdam, Brussels, Budapest, Kiev, Milan, Rotterdam
+
+Reasoning:
+1. **Amsterdam to 100.4.0/24**: Traffic must go through Rotterdam. Set costs to 1000 for all bypass paths (Fa1/1 to Frankfurt, Fa0/1 to Brussels, Fa2/0 to Rotterdam, Fa1/0 to London).
+2. **Brussels to 100.9.0/24**: Traffic must go through Rotterdam. Set cost to 1000 on Fa3/0 to Amsterdam and Fa1/0 to Frankfurt to enforce the use of Fa1/1 towards Rotterdam.
+3. **Budapest to 100.4.0/24**: Traffic should prefer Basel as a waypoint. Set cost to 1000 for the bypass path to Frankfurt (Fa1/0 to Frankfurt).
+4. **Kiev to 100.4.0/24**: Traffic should prefer Basel as a waypoint. Set cost to 1000 for the bypass path to Frankfurt (Fa0/1 to Bucharest).
+5. **Milan to 100.29.0/24**: Traffic should go through London. Set cost to 1 on Fa1/1 (towards Zurich) to allow for multiple paths, and set cost to 1000 for the bypass path (Fa0/1 towards Marseille).
+6. **Rotterdam to 100.9.0/24**: Set the cost to 1000 on Fa0/1 to enforce the use of Fa1/0 towards Brussels.
+
+Limitations (if any):
+None

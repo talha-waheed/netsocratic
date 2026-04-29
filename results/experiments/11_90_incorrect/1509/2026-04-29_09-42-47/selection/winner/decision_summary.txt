@@ -1,0 +1,19 @@
+Routers modified: Basel, Rotterdam, London, Istanbul
+
+Reasoning:
+1. **Basel** must be a mandatory waypoint for traffic from Sofia and Rotterdam to 100.0.4.0/24. Therefore, all paths bypassing Basel must have a high cost (1000).
+   - Set costs on Basel's interfaces leading away from it to 1000.
+   
+2. **Rotterdam** must also have a mandatory waypoint to London for traffic to 100.0.29.0/24. Thus, paths bypassing London must be set to a high cost (1000).
+   - Set costs on Rotterdam's interfaces leading away from it to London to 1000.
+
+3. **London** must be a mandatory waypoint for traffic from Istanbul to 100.0.29.0/24. Therefore, all paths bypassing London must have a high cost (1000).
+   - Set costs on London’s interfaces leading away from it to 1000.
+
+4. **Istanbul** must have three equal-cost paths to 100.0.29.0/24. The paths through London must be preferred, so the costs to London are kept low (1).
+   - Set costs on Istanbul's interfaces leading to London to 1.
+
+5. The load balancing requirement for Istanbul to 100.0.29.0/24 is satisfied by ensuring three paths through London, while the waypointing requirements are enforced by setting high costs on bypass paths.
+
+Limitations (if any):
+None

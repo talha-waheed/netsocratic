@@ -1,0 +1,13 @@
+Routers modified: Amsterdam, Budapest, Brussels, Frankfurt, Luxembourg, Madrid, Bratislava
+
+Reasoning:
+1. **Amsterdam to 100.0.29.0/24 (London)**: Must pass through London. Set costs on all bypass paths (to Brussels, Rotterdam, Frankfurt) to 1000.
+2. **Budapest to 100.0.9.0/24 (Rotterdam)**: Must pass through Rotterdam. Set costs on all bypass paths to 1000. Two equal-cost paths to Rotterdam are maintained.
+3. **Brussels to 100.0.9.0/24 (Rotterdam)**: Must pass through Rotterdam. Set costs on all bypass paths to 1000.
+4. **Frankfurt to 100.0.4.0/24 (Basel)**: Must pass through Basel. Set costs on all bypass paths to 1000.
+5. **Luxembourg to 100.0.1.0/24 (Kiev)**: Must pass through Kiev. Set costs on all bypass paths to 1000.
+6. **Madrid to 100.0.29.0/24 (London)**: Must pass through London. Set costs on all bypass paths to 1000.
+7. **Bratislava to 100.0.9.0/24 (Rotterdam)**: Must pass through Rotterdam. Set costs on all bypass paths to 1000. Seven equal-cost paths to Rotterdam are maintained.
+
+Limitations (if any):
+None

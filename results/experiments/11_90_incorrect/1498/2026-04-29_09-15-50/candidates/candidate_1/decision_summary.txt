@@ -1,0 +1,22 @@
+Routers modified: Frankfurt, Istanbul, Rotterdam
+
+Reasoning:
+1. **Reachability**: 
+   - Frankfurt needs to reach 100.0.29.0/24 (London). 
+   - Istanbul needs to reach 100.0.9.0/24 (Rotterdam). 
+   - Budapest needs to reach 100.0.1.0/24 (Kiev).
+   
+2. **Waypointing**: 
+   - No mandatory waypoints specified in the rules, so no costs are set to 1000.
+   - Traffic from Frankfurt to London can use multiple paths through Rotterdam.
+   - Traffic from Istanbul to Rotterdam is preferred but can use other paths.
+
+3. **Load Balancing**: 
+   - Frankfurt to London needs 2 paths. By ensuring paths through Rotterdam are equal cost (cost 1), we achieve redundancy.
+   - Istanbul to Rotterdam is set to cost 1 to allow for redundancy.
+
+4. **Cost Adjustments**: 
+   - All modified routers maintain cost 1 on all relevant interfaces to ensure paths are available without blocking alternatives.
+
+Limitations (if any):
+None

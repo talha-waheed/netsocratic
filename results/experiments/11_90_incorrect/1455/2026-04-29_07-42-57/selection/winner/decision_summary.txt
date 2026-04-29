@@ -1,0 +1,24 @@
+Routers modified: Rotterdam, Warsaw, Zurich
+
+Reasoning:
+1. **Reachability**: 
+   - Warsaw must reach 100.0.9.0/24 (Rotterdam's subnet).
+   - Zurich must reach 100.0.4.0/24 (Basel's subnet).
+   
+2. **Waypointing**:
+   - For Warsaw to reach 100.0.9.0/24, it must pass through Rotterdam. Therefore, all paths bypassing Rotterdam must have a high cost (set to 1000).
+   - For Zurich to reach 100.0.4.0/24, it must pass through Basel. Thus, all paths bypassing Basel must also have a high cost (set to 1000).
+
+3. **Load Balancing**:
+   - Warsaw to 100.0.9.0/24 must have 2 equal-cost paths. The paths through Rotterdam are set to cost 1, while bypassing paths are set to 1000.
+   - Zurich to 100.0.4.0/24 must also have 2 equal-cost paths. The paths through Basel are set to cost 1, while bypassing paths are set to 1000.
+
+4. **Cost Configuration**:
+   - For Rotterdam, the cost to Warsaw is set to 1, while the cost to bypass it is set to 1000.
+   - For Warsaw, the cost to reach Rotterdam is set to 1, while the cost to bypass it is set to 1000.
+   - For Zurich, the cost to reach Basel is set to 1, while the cost to bypass it is set to 1000.
+
+All constraints are satisfied with the above configurations.
+
+Limitations (if any):
+None

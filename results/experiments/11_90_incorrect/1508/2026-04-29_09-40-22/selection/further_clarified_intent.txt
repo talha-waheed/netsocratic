@@ -1,0 +1,22 @@
+Traffic from rotterdam to 100.0.29.0/24 must pass through london.  
+Traffic from rotterdam to the remote network must pass through kiev if possible.  
+Traffic from basel to 100.0.9.0/24 must be load-balanced across exactly 1 equal-cost path.  
+Traffic from brussels to 100.0.4.0/24 must pass through basel.  
+Traffic from frankfurt to 100.0.4.0/24 must pass through basel.  
+Traffic from warsaw to 100.0.1.0/24 must pass through kiev.  
+Traffic from warsaw to 100.0.4.0/24 must pass through kiev.  
+Traffic from vienna to 100.0.1.0/24 must pass through kiev.  
+Traffic from 100.0.1.0/24 to 100.0.1.0/24 must pass through kiev.  
+Traffic from 100.0.4.0/24 to 100.0.4.0/24 must pass through basel.  
+Connectivity from basel to 100.0.9.0/24 is established.  
+Connectivity from frankfurt to 100.0.4.0/24 is established.  
+Connectivity from brussels to 100.0.4.0/24 is established.  
+Connectivity from warsaw to 100.0.1.0/24 is established.  
+Connectivity from warsaw to 100.0.4.0/24 is established.  
+Connectivity from zurich to 100.0.1.0/24 is established.  
+The path between zurich and the main subnet involves basel.  
+The main subnet is accessible from zurich.  
+100.0.1.0/24 is accessible from vienna.  
+Ensure connectivity between warsaw and the target subnets 100.0.1.0/24 and 100.0.4.0/24.  
+Distribute traffic across available paths.  
+Use multiple paths for reliability.

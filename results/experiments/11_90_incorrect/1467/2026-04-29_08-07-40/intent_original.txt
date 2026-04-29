@@ -1,0 +1,21 @@
+praha and 100.0.9.0/24. need connectivity.
+To reach 100.0.9.0/24 from praha, traffic is balanced on 2 paths.
+Connect strasbourg to 100.0.4.0/24.
+The route from strasbourg to 100.0.4.0/24 includes basel.
+Connectivity from vienna to the remote network is established.
+Use multiple paths for reliability.
+Connect sofia to the destination network.
+Consider routing through london.
+Ensure good redundancy.
+Connect bratislava to 100.0.9.0/24..
+Traffic from bratislava to 100.0.9.0/24 passes through rotterdam.
+Ensure roma can access 100.0.1.0/24.. Apply the same policy to other relevant connections.
+Use kiev as intermediate hop if available.
+Ensure good redundancy.
+Connect barcelona to 100.0.4.0/24..
+The path between barcelona and 100.0.4.0/24 involves basel.
+Ensure fault tolerance with multiple routes.
+istanbul can reach 100.0.1.0/24.
+Traffic from istanbul to 100.0.1.0/24 passes through kiev.
+Ensure good redundancy.
+Connectivity from amsterdam to 100.0.29.0/24 is established.

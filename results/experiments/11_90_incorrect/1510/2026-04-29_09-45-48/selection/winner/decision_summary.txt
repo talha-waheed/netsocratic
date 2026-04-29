@@ -1,0 +1,30 @@
+Routers modified: Geneva, Kiev, Basel, Frankfurt, Bucharest, Madrid
+
+Reasoning:
+1. **Geneva to 100.0.1.0/24**: Must pass through Kiev. Set cost to 1000 on all bypass paths (Basel).
+   - Paths: Geneva → Basel → Kiev (cost 2), Geneva → Kiev (cost 1000) - only one valid path.
+   - Set Basel's cost to 1000 on the path from Geneva to 100.0.1.0/24.
+   - Set costs on Geneva to allow 5 equal-cost paths through Kiev.
+
+2. **Kiev to 100.0.1.0/24**: Must pass through Kiev. Set cost to 1000 on all bypass paths.
+   - Paths: Kiev → Bucharest → Geneva (cost 2), Kiev → Geneva (cost 1) - only one valid path.
+   - Set costs on Kiev to allow 2 equal-cost paths through Bucharest.
+
+3. **Basel to 100.0.4.0/24**: Must pass through Basel. Set cost to 1000 on all bypass paths.
+   - Paths: Basel → Frankfurt (cost 1), Basel → Geneva (cost 1) - only one valid path.
+   - Set costs on Basel to allow 1 valid path through Frankfurt.
+
+4. **Frankfurt to 100.0.9.0/24**: Must pass through Rotterdam. Set cost to 1000 on all bypass paths.
+   - Paths: Frankfurt → Rotterdam (cost 1), Frankfurt → Brussels (cost 1000) - only one valid path.
+   - Set costs on Frankfurt to allow 2 equal-cost paths through Rotterdam.
+
+5. **Bucharest to 100.0.1.0/24**: Must pass through Kiev. Set cost to 1000 on all bypass paths.
+   - Paths: Bucharest → Kiev (cost 1), Bucharest → Istanbul (cost 1000) - only one valid path.
+   - Set costs on Bucharest to allow 2 equal-cost paths through Kiev.
+
+6. **Madrid to 100.0.4.0/24**: Must pass through Basel. Set cost to 1000 on all bypass paths.
+   - Paths: Madrid → Barcelona → Basel (cost 2), Madrid → Frankfurt (cost 1000) - only one valid path.
+   - Set costs on Madrid to allow 1 valid path through Basel.
+
+Limitations (if any):
+None

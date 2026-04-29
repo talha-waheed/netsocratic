@@ -1,0 +1,13 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from brussels should reach? (Why: impacts reachability)
+A: Traffic from Brussels should reach the subnet 100.0.9.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from warsaw should reach for related traffic? (Why: impacts reachability)
+A: Traffic from Warsaw should reach the destination subnet 100.0.9.0/24.
+
+Q: What is the exact router hostname you are referring to when you mention "our servers"? (Why: impacts waypointing)
+A: I am not referring to a specific router hostname when I mention "our servers." The routing requirements focus on reachability and waypointing without specifying hostnames.
+
+Q: What is the exact router hostname you are referring to when you mention "the available paths"? (Why: impacts load-balancing)
+A: The specification does not provide an exact router hostname. It only outlines reachability, waypoints, and load balancing for specific networks.

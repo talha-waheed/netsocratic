@@ -1,0 +1,22 @@
+Routers modified: Amsterdam, Brussels, Kiev, Rotterdam
+
+Reasoning:
+1. Reachability Requirements:
+   - London must reach 100.0.1.0/24 via Kiev.
+   - Madrid must reach 100.0.9.0/24 via Rotterdam.
+   - Brussels must reach 100.0.29.0/24 via London.
+
+2. Waypoint Requirements:
+   - A mandatory waypoint is set for London's access to 100.0.1.0 (must pass through Kiev).
+   - A mandatory waypoint is set for Madrid's access to 100.0.9.0 (must pass through Rotterdam).
+   - A mandatory endpoint for Brussels going to London for 100.0.29.0.
+
+3. Load Balancing Requirements:
+   - The path from Brussels to 100.0.29.0 must load balance across 2 equal cost paths.
+
+4. Implementation Strategy:
+   - For the waypoint (Kiev) to London from Amsterdam, and (Rotterdam) to Madrid from Brussels, the cost to bypass these routers was set to 1000 while keeping the preferred paths at cost 1.
+   - The interface costs on bypass paths (to Kiev and Rotterdam) were increased to ensure they are effectively blocked, satisfying mandatory waypointing.
+
+Limitations (if any):
+- None

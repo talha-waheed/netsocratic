@@ -1,0 +1,5 @@
+Round 1 — Clarification Questions
+
+1. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from praha should reach? (Why: This impacts reachability for the connectivity requirement.)
+2. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from lyon should reach? (Why: This impacts reachability for the connectivity requirement.)
+3. What is the exact integer path count for load balancing the traffic? (Why: This impacts load balancing for the traffic distribution requirement.)

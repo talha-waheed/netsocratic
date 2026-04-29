@@ -1,0 +1,11 @@
+Routers modified: Basel, Sofia, Rotterdam
+
+Reasoning:
+1. Basel is required as a waypoint for traffic from Sofia and Rotterdam to 100.0.4.0/24 (Budapest's subnet).
+2. To satisfy the waypoint condition, the cost to routes bypassing Basel (to Sofia for Basel and to Amsterdam for Rotterdam) is set to 1000.
+3. For Rotterdam to load balance traffic across exactly 3 paths to 100.0.4.0/24, while ensuring all include Basel, the cost is set to 1 for paths through Frankfurt (another local subnet) and back to Amsterdam from Rotterdam.
+4. Each router has one path through Basel (cost 1) and blocks bypass paths (cost 1000) to ensure compliance.
+5. Sofia and Basel have their respective paths set to ensure they all lead to the destination subnet via the defined waypoint.
+
+Limitations (if any):
+None

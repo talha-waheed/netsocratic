@@ -1,0 +1,1 @@
+Traffic from our servers should reach 100.0.1.0/24 for Amsterdam, 100.0.1.0/24 for Warsaw, and 100.0.9.0/24 for Budapest. Route through kiev if possible. Ensure good redundancy with 2 paths for each route from Amsterdam and Warsaw to Kiev, and 2 paths for the route from Budapest to Rotterdam. Use rotterdam as an intermediate hop if available.

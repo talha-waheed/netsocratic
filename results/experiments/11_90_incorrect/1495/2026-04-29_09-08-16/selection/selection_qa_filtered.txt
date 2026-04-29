@@ -1,0 +1,2 @@
+Q: Did your original intent require traffic from bucharest to 100.0.29.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+A: My original intent required that traffic from Bucharest to 100.0.29.0/24 should not pass through Kiev. Instead, the required waypoint for this traffic is London.

@@ -1,0 +1,11 @@
+Routers modified: Athens, Kiev, Warsaw
+
+Reasoning:
+1. **Reachability**: Athens must reach 100.0.1.0/24 (Kiev). This is achieved by ensuring that the path through Kiev is available with a low cost.
+2. **Waypointing**: No mandatory waypointing is specified, but we ensure that paths through Kiev are preferred by setting costs appropriately.
+3. **Load Balancing**: The intent is to allow multiple paths from Athens to 100.0.1.0/24. By keeping the cost to Kiev low, we allow for load balancing across the available paths.
+4. **Connectivity for Paris to 100.0.4.0/24**: This is satisfied by the existing topology, so no changes are needed for Paris.
+5. **Roma to 100.0.9.0/24**: This is also satisfied by the existing topology, so no changes are needed for Roma.
+
+Limitations (if any):
+None

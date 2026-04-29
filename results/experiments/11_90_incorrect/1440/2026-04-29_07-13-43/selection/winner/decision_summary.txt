@@ -1,0 +1,17 @@
+Routers modified: Lyon, Warsaw, Brussels
+
+Reasoning:
+1. **Reachability**: The subnet 100.0.29.0/24 must be reachable from Lyon, Warsaw, and Brussels. This is inherently satisfied by OSPF's redistribution of connected subnets.
+2. **Waypointing**: Traffic from Lyon and Warsaw to 100.0.29.0/24 should prefer to go through London. However, we do not block alternative paths, so we set costs to 1 on the paths through London.
+3. **Load Balancing**: 
+   - For Lyon to 100.0.29.0/24, we ensure there are 2 equal-cost paths:
+     - Path 1: Lyon → Paris → London
+     - Path 2: Lyon → Geneva → London
+   - For Brussels to 100.0.29.0/24, we also ensure there are 2 equal-cost paths:
+     - Path 1: Brussels → London
+     - Path 2: Brussels → Frankfurt → London
+   - Both paths are set to cost 1, allowing for equal-cost multi-path routing.
+4. **Cost Adjustments**: The costs on the relevant interfaces were adjusted to ensure that the paths through London are preferred while still allowing for redundancy through alternative routes.
+
+Limitations (if any):
+None

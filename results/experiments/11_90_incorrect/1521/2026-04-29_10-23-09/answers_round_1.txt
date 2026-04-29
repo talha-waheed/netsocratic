@@ -1,0 +1,13 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from luxembourg should reach? (Why: impacts reachability)
+A: The exact destination subnet that traffic from Luxembourg should reach is 100.0.1.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from strasbourg should reach for related traffic? (Why: impacts reachability)
+A: Traffic from Strasbourg should reach the destination subnet 100.0.1.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from marseille should reach? (Why: impacts reachability)
+A: Traffic from Marseille should reach the subnet 100.0.9.0/24.
+
+Q: What is the exact integer path count for load balancing the traffic? (Why: impacts load balancing)
+A: The exact integer path count for load balancing the traffic is 10.

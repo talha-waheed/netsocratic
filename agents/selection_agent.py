@@ -40,6 +40,7 @@ import json
 import re
 import subprocess
 import sys
+import time
 from dataclasses import dataclass, field
 from itertools import combinations
 
@@ -84,6 +85,12 @@ Rules:
 - Preserve ALL constraints already in the clarified intent — never drop or weaken them.
 - From selection Q&A: incorporate ONLY concrete routing constraints such as specific
   router names, exact ECMP path counts, or mandatory/preferred waypoint requirements.
+- If an answer says a constraint was "not required", "not needed", or should not be
+  required, omit that constraint entirely. Do NOT convert absence of a requirement
+  into a negative policy such as "must not be reachable".
+- Do NOT turn a waypoint router into a new traffic source. A waypoint answer for
+  "traffic from A to P via W" only constrains A→P; it does not create W→P reachability
+  or load-balancing requirements.
 - Rewrite the result as explicit per-flow policy statements. For every source→prefix
   pair, name the source router and destination prefix directly in each reachability,
   waypoint, and load-balancing sentence.
@@ -161,6 +168,8 @@ class SelectionAgent:
     kb_dir            : knowledge-base directory passed to the synthesis generator
     topo_dir          : base topology directory passed to the synthesis generator
     max_rounds        : max distinguishing-question rounds before triggering recovery
+    auto_start_batfish: run "docker start <container>" once if Batfish is down
+    batfish_container : Docker container name for the Batfish service
     dry_run           : skip Batfish + LLM; return first candidate immediately
     """
 
@@ -172,6 +181,8 @@ class SelectionAgent:
         kb_dir: str = "agents/knowledge-base",
         topo_dir: str = "",
         max_rounds: int = 10,
+        auto_start_batfish: bool = True,
+        batfish_container: str = "batfish",
         dry_run: bool = False,
     ) -> None:
         self._llm = llm
@@ -180,7 +191,10 @@ class SelectionAgent:
         self._kb_dir = kb_dir
         self._topo_dir = topo_dir
         self._max_rounds = max_rounds
+        self._auto_start_batfish = auto_start_batfish
+        self._batfish_container = batfish_container
         self._dry_run = dry_run
+        self._batfish_start_attempted = False
 
     # ── Public entry point ────────────────────────────────────────────────────
 
@@ -330,8 +344,12 @@ class SelectionAgent:
             ci, cj = cand_names[i], cand_names[j]
             print(f"[Selection]   Batfish: {ci} vs {cj}…")
 
-            reach_out = self._run_script("diff_analysis.py", cands_dir, ci, cj)
-            adv_out   = self._run_script("diff_advanced.py",  cands_dir, ci, cj)
+            reach_out = self._run_script_with_batfish_retry(
+                "diff_analysis.py", cands_dir, ci, cj, log_lines,
+            )
+            adv_out = self._run_script_with_batfish_retry(
+                "diff_advanced.py", cands_dir, ci, cj, log_lines,
+            )
 
             # Save raw output to files
             _write(os.path.join(bat_dir, f"{ci}_vs_{cj}_reachability.txt"), reach_out)
@@ -352,6 +370,29 @@ class SelectionAgent:
 
         return pairwise
 
+    def _run_script_with_batfish_retry(
+        self,
+        script_name: str,
+        folder: str,
+        c1: str,
+        c2: str,
+        log_lines: list[str],
+    ) -> str:
+        output = self._run_script(script_name, folder, c1, c2)
+        if not _batfish_script_failed(output):
+            return output
+
+        if self._auto_start_batfish and _looks_like_batfish_down(output):
+            if self._start_batfish_container(log_lines):
+                output = self._run_script(script_name, folder, c1, c2)
+                if not _batfish_script_failed(output):
+                    return output
+
+        raise RuntimeError(
+            f"Batfish diff failed for {script_name} ({c1} vs {c2}). "
+            f"Last output:\n{output[-2000:]}"
+        )
+
     def _run_script(self, script_name: str, folder: str, c1: str, c2: str) -> str:
         """Call a batfish diff script as a subprocess; return its captured stdout+stderr."""
         cmd = [
@@ -366,9 +407,40 @@ class SelectionAgent:
             output = result.stdout
             if result.stderr:
                 output += f"\nERRORS:\n{result.stderr}"
+            if result.returncode != 0:
+                output += f"\n[Script exited with status {result.returncode}]"
             return output
         except Exception as e:
             return f"[Script execution failed: {e}]"
+
+    def _start_batfish_container(self, log_lines: list[str]) -> bool:
+        if self._batfish_start_attempted:
+            return False
+        self._batfish_start_attempted = True
+
+        cmd = ["docker", "start", self._batfish_container]
+        log_lines.append(f"Batfish unavailable; attempting: {' '.join(cmd)}")
+        self._interactor.display(
+            f"[Selection] Batfish appears unavailable; starting Docker container "
+            f"'{self._batfish_container}'..."
+        )
+        try:
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+        except Exception as exc:
+            log_lines.append(f"Failed to start Batfish container: {exc}")
+            return False
+
+        output = ((result.stdout or "") + (result.stderr or "")).strip()
+        if result.returncode != 0:
+            log_lines.append(
+                f"docker start {self._batfish_container} failed "
+                f"with status {result.returncode}: {output}"
+            )
+            return False
+
+        log_lines.append(f"Started Batfish container: {output}")
+        time.sleep(3)
+        return True
 
     # ── EC count (verification) ───────────────────────────────────────────────
 
@@ -558,7 +630,25 @@ class SelectionAgent:
             )
             return clarified_intent
 
-        qa_text = "\n".join(f"Q: {q}\nA: {a}" for q, a in selection_qa)
+        filtered_qa = _filter_selection_qa_for_synthesis(clarified_intent, selection_qa)
+        if len(filtered_qa) != len(selection_qa):
+            dropped = [qa for qa in selection_qa if qa not in filtered_qa]
+            _write(
+                os.path.join(sel_dir, "selection_qa_filtered.txt"),
+                "\n\n".join(f"Q: {q}\nA: {a}" for q, a in filtered_qa) + "\n",
+            )
+            _write(
+                os.path.join(sel_dir, "selection_qa_dropped.txt"),
+                "\n\n".join(f"Q: {q}\nA: {a}" for q, a in dropped) + "\n",
+            )
+        if not filtered_qa:
+            _write(
+                os.path.join(sel_dir, "further_clarified_intent.txt"),
+                clarified_intent + "\n",
+            )
+            return clarified_intent
+
+        qa_text = "\n".join(f"Q: {q}\nA: {a}" for q, a in filtered_qa)
         user_content = (
             f"Clarified intent:\n{clarified_intent}\n\n"
             f"Selection Q&A:\n{qa_text}"
@@ -943,6 +1033,108 @@ def _is_rejection(answer: str) -> bool:
         "none of them", "go back", "redo", "incorrect", "all wrong",
     ]
     return any(s in lower for s in signals)
+
+
+def _batfish_script_failed(output: str) -> bool:
+    failure_markers = [
+        "[Script execution failed:",
+        "[Script exited with status",
+        "Traceback (most recent call last):",
+        "ConnectionRefusedError",
+        "MaxRetryError",
+        "HTTPConnectionPool(host='localhost', port=9996)",
+        "An error occurred during analysis:",
+    ]
+    return any(marker in output for marker in failure_markers)
+
+
+def _looks_like_batfish_down(output: str) -> bool:
+    down_markers = [
+        "ConnectionRefusedError",
+        "MaxRetryError",
+        "Failed to establish a new connection",
+        "HTTPConnectionPool(host='localhost', port=9996)",
+    ]
+    return any(marker in output for marker in down_markers)
+
+
+def _filter_selection_qa_for_synthesis(
+    clarified_intent: str,
+    selection_qa: list[tuple[str, str]],
+) -> list[tuple[str, str]]:
+    """
+    Keep only Q&A that can add positive constraints for source-prefix pairs in
+    the clarified intent. This prevents selection artifacts like waypoint-owner
+    reachability from becoming new policy.
+    """
+    intent_pairs = _extract_intent_pairs(clarified_intent)
+    filtered: list[tuple[str, str]] = []
+
+    for question, answer in selection_qa:
+        if _answer_declines_requirement(answer):
+            continue
+
+        pair = _extract_question_pair(question)
+        if pair is not None and intent_pairs and pair not in intent_pairs:
+            continue
+
+        filtered.append((question, answer))
+
+    return filtered
+
+
+def _answer_declines_requirement(answer: str) -> bool:
+    lower = answer.lower()
+    patterns = [
+        r"\b(no|not|none)\s+(exact\s+)?(path\s+count|waypoint|requirement)\b",
+        r"\b(no|not)\s+(required|needed|specified)\b",
+        r"\bdid\s+not\s+require\b",
+        r"\bdoes\s+not\s+require\b",
+        r"\bshould\s+not\s+be\s+required\b",
+        r"\bnot\s+be\s+reachable\b",
+        r"\bshould\s+not\s+.*reachable\b",
+    ]
+    return any(re.search(pattern, lower) for pattern in patterns)
+
+
+def _extract_question_pair(question: str) -> tuple[str, str] | None:
+    lower = question.lower()
+    prefix = _first_prefix(lower)
+    if not prefix:
+        return None
+
+    source_patterns = [
+        r"traffic\s+from\s+([a-z][a-z0-9_-]*)\s+to\s+\d+\.\d+\.\d+\.\d+/\d+",
+        r"from\s+([a-z][a-z0-9_-]*)\s+to\s+\d+\.\d+\.\d+\.\d+/\d+",
+    ]
+    for pattern in source_patterns:
+        match = re.search(pattern, lower)
+        if match:
+            return match.group(1), prefix
+    return None
+
+
+def _extract_intent_pairs(intent: str) -> set[tuple[str, str]]:
+    lower = intent.lower()
+    pairs: set[tuple[str, str]] = set()
+
+    patterns = [
+        r"traffic\s+(?:originating\s+)?from\s+([a-z][a-z0-9_-]*)\s+(?:can\s+)?(?:reach|to)\s+(?:the\s+)?(?:subnet\s+|target\s+subnet\s+|main\s+subnet\s+)?(\d+\.\d+\.\d+\.\d+/\d+)",
+        r"connect(?:ivity\s+from)?\s+([a-z][a-z0-9_-]*)\s+(?:to\s+)?(?:the\s+)?(?:subnet\s+|target\s+subnet\s+)?(\d+\.\d+\.\d+\.\d+/\d+)",
+        r"([a-z][a-z0-9_-]*)\s+(?:needs?|should|can)\s+(?:to\s+)?(?:reach|connect\s+to|access)\s+(?:the\s+)?(?:subnet\s+|target\s+subnet\s+)?(\d+\.\d+\.\d+\.\d+/\d+)",
+        r"([a-z][a-z0-9_-]*)\s+and\s+(?:the\s+)?(?:subnet\s+)?(\d+\.\d+\.\d+\.\d+/\d+)\s+(?:need|should)\s+connectivity",
+        r"([a-z][a-z0-9_-]*)\s*\(\s*(\d+\.\d+\.\d+\.\d+/\d+)\s*\)\s+is\s+accessible",
+    ]
+    for pattern in patterns:
+        for match in re.finditer(pattern, lower):
+            pairs.add((match.group(1), match.group(2)))
+
+    return pairs
+
+
+def _first_prefix(text: str) -> str | None:
+    match = re.search(r"\d+\.\d+\.\d+\.\d+/\d+", text)
+    return match.group(0) if match else None
 
 
 def _classify_answer(

@@ -1,0 +1,11 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Geneva, Budapest, Bratislava, Zagreb
+
+Reasoning:
+1. Each target router must connect to various subnets as specified in the routing rules.
+2. The connections from Amsterdam, Brussels, and Frankfurt to 100.0.4.0/24 (Basel) are routed via Basel.
+3. Other paths bypass Basel, necessitating a high cost (1000) to enforce the waypoint requirement on the connection.
+4. Therefore, costs are set to 1000 on all bypass paths and 1 on the Basel path.
+5. Each router modification maintains the connectivity requirement and load-balanced paths according to prescribed policies.
+
+Limitations (if any):
+- The requirement for ECMP paths (exactly 2 in some cases) was inferred from vague language and mandates detailed path assessments that may not fully use the connections available given the imposed waypoints.

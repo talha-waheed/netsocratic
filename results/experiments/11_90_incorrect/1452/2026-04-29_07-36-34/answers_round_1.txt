@@ -1,0 +1,10 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from praha should reach when you refer to "our servers"? (Why: impacts reachability)
+A: The exact destination subnet that traffic from praha should reach is 100.0.9.0/24.
+
+Q: What is the exact router hostname you are referring to when you mention "available paths" for distributing traffic? (Why: impacts load balancing)
+A: I do not specify an exact router hostname for available paths in the routing requirements. The focus is on the reachability and load balancing for the specified networks.
+
+Q: What is the exact router hostname for the "intermediate hop" when you mention using london? (Why: impacts waypointing)
+A: The specification does not provide an exact router hostname for the intermediate hop when using London. It only indicates that London is a waypoint for the Vienna route.

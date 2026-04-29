@@ -1,0 +1,26 @@
+Routers modified: London, Bratislava, Basel
+
+Reasoning:
+1. **London to 100.0.9.0/24**: 
+   - Paths: 
+     - London → Amsterdam → Rotterdam (cost 2)
+     - London → Brussels → Rotterdam (cost 2)
+     - London → Brussels → Frankfurt → Rotterdam (cost 3)
+   - Set costs to ensure 3 equal-cost paths to 100.0.9.0/24.
+   
+2. **Bratislava to 100.0.1.0/24**: 
+   - Paths:
+     - Bratislava → Budapest → Kiev (cost 2)
+     - Bratislava → Vienna → Kiev (cost 2)
+   - Set costs to ensure 2 equal-cost paths to 100.0.1.0/24.
+
+3. **Basel to 100.0.9.0/24**: 
+   - Paths:
+     - Basel → Strasbourg → Frankfurt → Rotterdam (cost 3)
+     - Basel → Geneva → Frankfurt → Rotterdam (cost 3)
+   - Set costs to ensure 2 equal-cost paths to 100.0.9.0/24.
+
+4. All modifications ensure that the required reachability and load balancing are satisfied without blocking any bypass paths.
+
+Limitations (if any):
+None

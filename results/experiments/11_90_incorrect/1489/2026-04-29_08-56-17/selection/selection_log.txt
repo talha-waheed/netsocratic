@@ -1,0 +1,22 @@
+candidate_1 vs candidate_2: reach_diff=True, waypoint_diff=True, lb_diff=True
+candidate_1 vs candidate_3: reach_diff=True, waypoint_diff=True, lb_diff=True
+candidate_2 vs candidate_3: reach_diff=True, waypoint_diff=True, lb_diff=True
+EC pruning: 3 candidates → 3 survivors: ['candidate_1', 'candidate_2', 'candidate_3']
+Round 1  Q: Did your original intent require traffic from budapest to 100.0.4.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+Round 1  A: My original intent required traffic from Budapest to 100.0.4.0/24 to pass through Basel.
+Round 2  Q: Did your original intent require traffic from roma to 100.0.1.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+Round 2  A: My original intent required traffic from roma to 100.0.1.0/24 to pass through kiev as the specified waypoint.
+Round 3  Q: Did your original intent require traffic from budapest to 100.0.1.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+Round 3  A: My original intent did not require traffic from Budapest to 100.0.1.0/24 to pass through Kiev. The waypoint specified for the prefix 100.0.1.0/24 (Roma) is Kiev, but this requirement only applies to traffic destined for that prefix, not for traffic originating from Budapest. Therefore, no waypoint is required for traffic from Budapest to 100.0.1.0/24.
+Round 4  Q: Did your original intent require traffic from praha to 100.0.9.0/24 to pass through rotterdam, was no waypoint required, or was a different waypoint required?
+Round 4  A: Yes, my original intent required traffic from praha to 100.0.9.0/24 to pass through rotterdam as the specified waypoint.
+Round 5  Q: Did your original intent require traffic from budapest to 100.0.1.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+Round 5  A: My original intent required traffic from Budapest to 100.0.1.0/24 to be load-balanced across exactly 2 paths.
+Round 6  Q: Did your original intent require traffic from praha to 100.0.9.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+Round 6  A: My original intent required traffic from praha to 100.0.9.0/24 to be load-balanced across exactly 2 paths.
+Round 7  Q: Did your original intent require traffic from roma to 100.0.1.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+Round 7  A: My original intent required traffic from roma to 100.0.1.0/24 to be load-balanced across exactly 2 paths.
+Round 8  Q: Did your original intent require traffic from budapest to 100.0.1.0/24 to be reachable, or should that reachability not be required?
+Round 8  A: My original intent did not require traffic from Budapest to 100.0.1.0/24 to be reachable. The reachability requirement specifically mentions only Roma, Praha, and Budapest as destinations for their respective prefixes.
+Remaining candidates are behaviourally indistinguishable or all distinguishable pairs already asked.
+Synthesized corrected candidate from further clarified intent.

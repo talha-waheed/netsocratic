@@ -1,0 +1,25 @@
+Routers modified: Basel, Frankfurt, Kiev, Geneva
+
+Reasoning:
+1. Vienna must reach 100.0.4.0/24 via Basel.
+   - Paths considered: 
+     - Vienna → Frankfurt → Basel → 100.0.4.0 (cost 2)
+     - Vienna → other paths bypassing Basel (cost 1000)
+   - Set Basel's cost to 1 for the path through Basel and 1000 for bypass paths.
+
+2. Frankfurt must reach 100.0.1.0/24 via Kiev.
+   - Paths considered:
+     - Frankfurt → Kiev → 100.0.1.0 (cost 2)
+     - Frankfurt → other paths bypassing Kiev (cost 1000)
+   - Set Frankfurt's cost to 1 for the path through Kiev and 1000 for bypass paths.
+
+3. Geneva must connect to 100.0.29.0/24.
+   - Paths considered:
+     - Geneva → Paris → London → 100.0.29.0 (cost 2)
+     - Geneva → other paths bypassing London (cost 1000)
+   - Set Geneva's cost to 1 for the path through London and 1000 for bypass paths.
+
+4. All adjustments maintain the reachability and waypoint requirements, ensuring paths are correctly defined.
+
+Limitations (if any):
+None

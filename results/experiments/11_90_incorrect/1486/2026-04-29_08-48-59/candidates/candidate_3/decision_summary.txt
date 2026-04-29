@@ -1,0 +1,10 @@
+Routers modified: Kiev, Bucharest, Madrid, Basel
+
+Reasoning:
+1. Reachability for Bucharest to 100.0.1.0/24 (Kiev) requires bypass paths to be blocked. Set costs to 1000 on the interface to bypass Kiev. 
+2. Madrid must reach 100.0.4.0/24 via Basel. To ensure this, set the cost through Basel to 1 and block other paths (cost set to 1000).
+3. Madrid requires 3 equal-cost paths to 100.0.1.0/24. Set costs of viable paths through different routers to 1 and isolate non-designated paths at 1000.
+4. Basel has been modified for load balance towards the nightly route restriction for Madrid's connections.
+ 
+Limitations (if any):
+None. All requirements and constraints have been implemented as specified, with valid paths enforced through specific routing policy configurations.

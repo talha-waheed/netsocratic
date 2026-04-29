@@ -1,0 +1,25 @@
+The subnet 100.0.9.0/24 is reachable from warsaw.
+Traffic from warsaw to 100.0.9.0/24 passes through rotterdam.
+Make sure there's redundancy.
+100.0.4.0/24 is accessible from athens.
+Traffic from athens to 100.0.4.0/24 passes through basel.
+It should also have redundancy.
+zurich needs to reach 100.0.4.0/24. The same connectivity requirements apply to the other subnets as well.
+Traffic should go through basel when feasible.
+Make sure there's redundancy.
+Ensure geneva can access 100.0.29.0/24.. Apply the same policy to other relevant connections.
+Use multiple paths for reliability.
+Traffic originating from bucharest can reach the subnet 100.0.4.0/24.
+The path between bucharest and 100.0.4.0/24 involves basel.
+Ensure good redundancy.
+Connect milan to 100.0.29.0/24..
+Traffic from milan to 100.0.29.0/24 passes through london.
+Ensure good redundancy.
+the remote network is accessible from brussels.
+Route through rotterdam if possible.
+rotterdam and 100.0.1.0/24 should be connected.
+Traffic should go through kiev when feasible.
+Load balance the traffic appropriately.
+amsterdam needs to reach that network. The same connectivity requirements apply to the other subnets as well.
+Consider routing through rotterdam.
+The number of paths between amsterdam and that network should be 2.

@@ -1,0 +1,28 @@
+Routers modified: Rotterdam, Strasbourg
+
+Reasoning:
+1. Reachability from Bratislava to 100.0.9.0/24 (Rotterdam) is required with a waypoint of Rotterdam.
+   - Paths from Bratislava to Rotterdam:
+     - Bratislava → Vienna → Frankfurt → Rotterdam (cost 3)
+     - Bratislava → Budapest → Frankfurt → Rotterdam (cost 3)
+   - Non-waypoint paths that need to be blocked to enforce the waypoint:
+     - Bratislava → Frankfurt → Amsterdam (cost 2)
+     - Therefore, set the cost from Rotterdam to Amsterdam (Fa0/1) to 1000 to block that path.
+  
+2. For Strasbourg to 100.0.4.0/24, we need 3 equal-cost paths.
+   - Potential paths:
+     - Strasbourg → Frankfurt → Basel (cost 2)
+     - Strasbourg → Frankfurt → Zurich → Basel (cost 3)
+     - Strasbourg → Luxembourg → Basel (cost 3)
+   - We need to ensure 3 paths can be created:
+     - Set costs on the outgoing links from Strasbourg such that three routes can have the same total cost:
+       - Fa1/0 to Frankfurt remains at cost 1.
+       - Fa0/1 to Basel remains at cost 1.
+       - Fa1/1 to Luxembourg remains at cost 1.
+   - This configuration allows three paths to 100.0.4.0/24: 
+     - Strasbourg → Frankfurt → Basel
+     - Strasbourg → Luxembourg → Basel
+     - Strasbourg → Frankfurt → Zurich → Basel
+
+Limitations (if any):
+None

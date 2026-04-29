@@ -1,0 +1,28 @@
+Routers modified: Amsterdam, Luxembourg, Kiev, Athens
+
+Reasoning:
+1. **Amsterdam to 100.0.1.0/24**: 
+   - Path options: Amsterdam → Brussels → Frankfurt → Kiev → 100.0.1.0/24
+   - Cost: 1 + 1 + 1 + 1 = 4
+   - All costs are set to 1, allowing for the path to be used.
+
+2. **Luxembourg to 100.0.29.0/24**: 
+   - Path options: Luxembourg → Brussels → London → 100.0.29.0/24
+   - Cost: 1 + 1 + 1 = 3
+   - Set costs to 1 to allow two paths through Brussels and Frankfurt.
+
+3. **Kiev to 100.0.1.0/24**: 
+   - Path options: Kiev → Bucharest → Frankfurt → 100.0.1.0/24
+   - Cost: 1 + 1 + 1 = 3
+   - Costs set to 1 to allow for the path to be used.
+
+4. **Athens to 100.0.4.0/24**: 
+   - Path options: Athens → Sofia → Budapest → Basel → 100.0.4.0/24
+   - Cost: 1 + 1 + 1 + 1 = 4
+   - Costs set to 1 to allow for the path to be used.
+
+5. **Load Balancing**: 
+   - Luxembourg's traffic to 100.0.29.0/24 is balanced across two paths through Brussels and Frankfurt, both set to cost 1.
+
+Limitations (if any):
+None

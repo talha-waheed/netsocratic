@@ -1,0 +1,24 @@
+Routers modified: Basel, Frankfurt, Vienna
+
+Reasoning:
+1. **Reachability**: 
+   - Milan needs to reach 100.0.9.0/24 (Rotterdam).
+   - Sofia and Vienna need to reach 100.0.4.0/24 (Basel).
+   - All routers are connected via OSPF, so reachability is inherently satisfied.
+
+2. **Waypointing**: 
+   - No mandatory waypointing is specified in the rules, so we do not need to block any paths. 
+   - However, we ensure that the paths through Basel are preferred by setting costs to 1 on the relevant interfaces.
+
+3. **Load Balancing**: 
+   - For Vienna to reach 100.0.4.0/24, we need to ensure 2 equal-cost paths.
+   - The paths from Vienna to Basel and then to Frankfurt (via Basel) will be set to cost 1.
+   - Other paths can remain at cost 1 as well, allowing for load balancing without blocking any routes.
+
+4. **Cost Changes**: 
+   - Basel: Set costs on Fa1/0 and Fa0/1 to 1 to facilitate the paths through Basel.
+   - Frankfurt: Set costs on Fa1/0 and Fa3/0 to 1 to facilitate the paths through Frankfurt.
+   - Vienna: Set costs on Fa1/0 and Fa1/1 to 1 to facilitate the paths through Vienna.
+
+Limitations (if any):
+None

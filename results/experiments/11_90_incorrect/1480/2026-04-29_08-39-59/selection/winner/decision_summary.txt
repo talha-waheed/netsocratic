@@ -1,0 +1,28 @@
+Routers modified: Basel, Brussels, Frankfurt, Kiev
+
+Reasoning:
+1. **Brussels to 100.0.4.0/24**: 
+   - Paths: Brussels → Frankfurt → Basel (cost 2), Brussels → Basel (cost 1).
+   - To enforce the waypoint (Basel), set the cost of the bypass path (Brussels → Frankfurt) to 1000.
+   - Set the cost of the path through Basel to 1.
+   - Result: 2 equal-cost paths (Brussels → Basel and Brussels → Frankfurt → Basel).
+
+2. **Frankfurt to 100.0.4.0/24**: 
+   - Paths: Frankfurt → Basel (cost 1), Frankfurt → Brussels → Basel (cost 2).
+   - To achieve 2 equal-cost paths, set the cost of the bypass path (Frankfurt → Brussels) to 1000.
+   - Result: 2 equal-cost paths (Frankfurt → Basel and Frankfurt → Brussels → Basel).
+
+3. **Warsaw to 100.0.1.0/24**: 
+   - Paths: Warsaw → Kiev (cost 1) → Bucharest → ... (cost 2).
+   - To enforce the waypoint (Kiev), set the cost of the bypass path (Warsaw → Bucharest) to 1000.
+   - Result: Only 1 path available (Warsaw → Kiev).
+
+4. **Basel**: 
+   - The cost to Frankfurt is kept at 1 to allow the path through Basel.
+   - The cost to Brussels is set to 1000 to enforce the waypoint.
+
+5. **Kiev**: 
+   - The cost to bypass (Warsaw → Bucharest) is set to 1000 to enforce the waypoint.
+
+Limitations (if any):
+- The topology constraints limit the number of equal-cost paths for Warsaw to 100.0.1.0/24 to only 1, as there are no alternative paths available.

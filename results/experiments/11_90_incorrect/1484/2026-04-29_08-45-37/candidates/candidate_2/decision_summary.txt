@@ -1,0 +1,20 @@
+Routers modified: Amsterdam, Sofia
+
+Reasoning:
+1. **Reachability**: 
+   - Amsterdam needs to reach 100.0.9.0/24 (Rotterdam's subnet).
+   - Sofia also needs to reach 100.0.9.0/24 (Rotterdam's subnet).
+
+2. **Mandatory Waypointing**:
+   - For traffic from Sofia to reach 100.0.9.0/24 via Rotterdam, we have to set the cost of all non-Rotterdam paths from Sofia to 1000.
+   - This means adjusting the cost on Sofia's outgoing interface towards the route not going through Rotterdam to 1000, while keeping the path to Rotterdam at cost 1.
+
+3. **Cost Adjustments**:
+   - On Amsterdam, all outgoing links towards Rotterdam have been set to 1000 to enforce the requirement that traffic must go through Rotterdam.
+   - On Sofia, the route towards Rotterdam is given a cost of 1, while all other routes are set to 1000 to ensure that traffic must pass through Rotterdam.
+
+4. **Verification**: 
+   - The routing intention for both routers is satisfied. Amsterdam can reach Rotterdam (and hence 100.0.9.0/24) directly, and Sofia is forced to use the route through Rotterdam.
+
+Limitations (if any):
+None

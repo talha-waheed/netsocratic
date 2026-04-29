@@ -1,0 +1,8 @@
+--- Initializing Snapshots ---
+Searching for behavioral divergences...
+
+[DIVERGENCE DISCOVERED]
+Flow: start=athens [10.0.0.13->100.0.0.0 ICMP (type=8, code=0)]
+- Waypointing Difference:
+  * Candidate 1 uniquely transits: {'zurich', 'frankfurt', 'istanbul', 'bucharest', 'geneva', 'warsaw', 'kiev'}
+  * Candidate 2 uniquely transits: {'vienna', 'bratislava', 'sofia', 'milan', 'budapest', 'marseille'}

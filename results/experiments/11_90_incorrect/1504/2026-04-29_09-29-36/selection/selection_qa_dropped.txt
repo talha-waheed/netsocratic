@@ -1,0 +1,8 @@
+Q: Did your original intent require traffic from paris to 100.0.1.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+A: Yes, my original intent required traffic from Paris to 100.0.1.0/24 to pass through Kiev as the specified waypoint.
+
+Q: Did your original intent require traffic from paris to 100.0.1.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent required traffic from Paris to 100.0.1.0/24 to be load-balanced across exactly 2 paths.
+
+Q: Did your original intent require that Bucharest have exactly 3 paths to 100.0.9.0/24, or was it acceptable to have more than 3 paths?
+A: My original intent did not require that Bucharest have exactly 3 paths to 100.0.9.0/24; it was acceptable to have more than 3 paths. The requirement was for load balancing with 2 paths, but additional paths beyond that would not violate the intent.

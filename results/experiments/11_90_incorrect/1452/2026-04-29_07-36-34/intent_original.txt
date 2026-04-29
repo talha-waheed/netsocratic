@@ -1,0 +1,8 @@
+Connectivity from praha to our servers is established.
+Traffic from praha to our servers passes through rotterdam.
+Distribute traffic across available paths.
+strasbourg and 100.0.4.0/24 should be connected.
+Ensure good redundancy.
+Ensure vienna can access 100.0.29.0/24.. Apply the same policy to other relevant connections.
+Use london as intermediate hop if available.
+Ensure fault tolerance with multiple routes.

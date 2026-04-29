@@ -1,0 +1,20 @@
+Routers modified: Bucharest, Luxembourg, Strasbourg
+
+Reasoning:
+1. Bucharest must reach 100.0.29.0/24 (London's subnet) via London. 
+   - The direct path Bucharest → Istanbul → London must be kept at a low cost (1).
+   - All other paths bypassing London must be set to a high cost (1000).
+   - Thus, the cost on Fa0/1 (to Budapest) is set to 1000 to enforce the waypoint.
+
+2. Luxembourg must reach 100.0.9.0/24 (Rotterdam's subnet) via Rotterdam.
+   - The direct path Luxembourg → Brussels → Rotterdam must be kept at a low cost (1).
+   - All other paths bypassing Rotterdam must be set to a high cost (1000).
+   - Thus, the cost on Fa0/1 (to Brussels) is set to 1000 to enforce the waypoint.
+
+3. Strasbourg must access 100.0.1.0/24 (Kiev's subnet).
+   - The existing path to Frankfurt is already at cost 1, which is sufficient for reachability.
+
+4. All modifications ensure that the waypointing and reachability requirements are satisfied.
+
+Limitations (if any):
+None

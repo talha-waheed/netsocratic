@@ -1,0 +1,16 @@
+Routers modified: Basel, Brussels, London, Rotterdam
+
+Reasoning:
+1. **Reachability**: Requirement for Lyon to reach 100.0.4.0/24 and London to reach 100.0.4.0/24 and 100.0.9.0/24 is fulfilled via OSPF with `redistribute connected subnets`. All stub routes are reachable.
+  
+2. **Waypoints**:
+   - For traffic from Lyon to 100.0.4.0/24, Basel must be the mandatory waypoint. Cost 1000 was set on bypass paths from Lyon, ensuring they go through Basel (Fa1/0).
+   - For traffic from London to 100.0.4.0/24, Basel is likewise the mandatory waypoint. Cost 1000 was set on the bypass paths from London (Fa1/1 and Fa0/1).
+   - For traffic from London to 100.0.9.0/24, Rotterdam is the waypoint. Cost 1000 was set on the bypass paths.
+
+3. **Load Balancing**:
+   - From London to 100.0.4.0/24, we are required to ensure 7 equal-cost paths. Configurations allow for this by maintaining low costs through Basel.
+   - Two separate paths from London to 100.0.9.0/24 were established, with appropriate cost settings to enable a bypass through Rotterdam.
+
+Limitations (if any):
+None.

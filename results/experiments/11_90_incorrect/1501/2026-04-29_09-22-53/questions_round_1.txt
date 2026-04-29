@@ -1,0 +1,4 @@
+Round 1 — Clarification Questions
+
+1. What is the exact router hostname that you are referring to when you mention 'basel'? (Why: impacts waypointing for the route from paris to 100.0.4.0/24)
+2. What is the exact router hostname that you are referring to when you mention 'london'? (Why: impacts waypointing for the traffic routing from zurich and madrid)

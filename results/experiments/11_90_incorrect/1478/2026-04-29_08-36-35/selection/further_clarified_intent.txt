@@ -1,0 +1,1 @@
+Traffic from brussels to 100.0.1.0/24 must pass through kiev. Traffic from brussels to 100.0.1.0/24 must be load-balanced across exactly 4 equal-cost paths. Connectivity between marseille and 100.0.1.0/24 must be ensured. Traffic from marseille to 100.0.1.0/24 must pass through kiev.

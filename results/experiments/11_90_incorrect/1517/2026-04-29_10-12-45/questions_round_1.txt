@@ -1,0 +1,7 @@
+Round 1 — Clarification Questions
+
+1. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that the remote network refers to? (Why: impacts reachability for traffic from frankfurt and other subnets.)
+2. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that the target subnet refers to? (Why: impacts reachability for traffic from sofia.)
+3. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that our servers refers to? (Why: impacts reachability for traffic from brussels and barcelona.)
+4. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that the destination network refers to? (Why: impacts reachability for traffic from zurich, warsaw, and other connections.)
+5. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that the main subnet refers to? (Why: impacts reachability for traffic from marseille and brussels.)

@@ -1,0 +1,12 @@
+Routers modified: lyon, zurich, luxembourg
+
+Reasoning:
+1. For Lyon to reach 100.0.4.0/24 (Basel), the path must go through Basel. Therefore, the cost to Basel is set to 1, while all other paths are set to 1000 to enforce the waypoint.
+2. For Zurich to reach 100.0.1.0/24 (Kiev), the path must go through Kiev. The cost to Kiev is set to 1, while all other paths are set to 1000 to enforce the waypoint.
+3. For Luxembourg to reach 100.0.29.0/24 (London), the path must go through London. The cost to London is set to 1, while all other paths are set to 1000 to enforce the waypoint.
+4. Load balancing for Lyon to 100.0.4.0/24 requires 2 equal-cost paths. The configuration allows for this by ensuring that the paths through Basel are equal in cost.
+5. Load balancing for Zurich to 100.0.1.0/24 requires 3 equal-cost paths. The configuration allows for this by ensuring that the paths through Kiev are equal in cost.
+6. Load balancing for Luxembourg to 100.0.29.0/24 requires 2 equal-cost paths. The configuration allows for this by ensuring that the paths through London are equal in cost.
+
+Limitations (if any):
+None

@@ -1,0 +1,18 @@
+Routers modified: Amsterdam, Budapest, Kiev
+
+Reasoning:
+1. **Reachability**:
+   - Roma needs to reach 100.1.0.0/24 via Kiev.
+   - Budapest needs to reach 100.4.0.0/24 via Basel.
+   - Praha needs to reach 100.9.0.0/24 via Rotterdam.
+
+2. **Waypointing**:
+   - Set cost 1000 on all routes from Amsterdam to bypass Kiev, ensuring traffic to 100.1.0.0/24 must go through Kiev.
+   - Set cost 1000 on all routes from Budapest to bypass Basel, ensuring traffic to 100.4.0.0/24 must go through Basel.
+
+3. **Load Balancing**:
+   - Budapest to 100.4.0.0/24 requires 4 equal-cost paths. Adjusted outgoing link costs from Budapest to meet this requirement by setting costs on interfaces leading away from the routes to Basel.
+   - Adjusted costs on routes from Kiev to ensure traffic to 100.1.0.0/24 is forced through it.
+
+Limitations (if any):
+None

@@ -1,0 +1,27 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that the remote network refers to? (Why: impacts reachability for traffic from frankfurt and other subnets.)
+A: The exact destination subnets that the remote network refers to are:
+
+- For Vienna: 100.0.4.0/24, 100.0.9.0/24, 100.0.1.0/24
+- For Frankfurt: 100.0.1.0/24, 100.0.4.0/24
+- For Geneva: 100.0.29.0/24
+- For Marseille: 100.0.4.0/24, 100.0.1.0/24, 100.0.29.0/24
+- For Sofia: 100.0.29.0/24, 100.0.4.0/24
+- For Basel: 100.0.1.0/24, 100.0.29.0/24, 100.0.9.0/24
+- For Praha: 100.0.1.0/24, 100.0.29.0/24
+- For Paris: 100.0.9.0/24
+- For Kiev: 100.0.9.0/24
+- For Roma: 100.0.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that the target subnet refers to? (Why: impacts reachability for traffic from sofia.)
+A: The target subnet that impacts reachability for traffic from Sofia is 100.0.29.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that our servers refers to? (Why: impacts reachability for traffic from brussels and barcelona.)
+A: The exact destination subnet referred to by your servers is 100.0.1.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that the destination network refers to? (Why: impacts reachability for traffic from zurich, warsaw, and other connections.)
+A: The exact destination subnet that the destination network refers to is 100.0.1.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that the main subnet refers to? (Why: impacts reachability for traffic from marseille and brussels.)
+A: The exact destination subnet that the main subnet refers to is 100.0.4.0/24.

@@ -1,0 +1,26 @@
+Routers modified: Rotterdam, Bucharest, Barcelona
+
+Reasoning:
+1. **Bucharest to 100.0.9.0/24 (Rotterdam)**:
+   - Paths: 
+     - Bucharest → Istanbul → (no direct path to Rotterdam)
+     - Bucharest → Sofia → Budapest → (no direct path to Rotterdam)
+     - Bucharest → Istanbul → Bucharest → (no direct path to Rotterdam)
+   - To enforce the waypoint through Rotterdam, set the cost of all bypass paths to 1000.
+   - Set the cost of the path through Rotterdam to 1.
+   - Result: 2 paths through Rotterdam (Bucharest → Sofia → Budapest → Rotterdam and Bucharest → Istanbul → Bucharest → Rotterdam) with equal cost.
+
+2. **Barcelona to 100.0.29.0/24 (London)**:
+   - Paths:
+     - Barcelona → Madrid → (no direct path to London)
+     - Barcelona → Marseille → (no direct path to London)
+   - To enforce the waypoint through London, set the cost of all bypass paths to 1000.
+   - Set the cost of the path through London to 1.
+   - Result: 2 paths through London (Barcelona → Marseille → London and Barcelona → Madrid → London) with equal cost.
+
+3. **Rotterdam**:
+   - The cost to reach Bucharest from Rotterdam must be set to 1 to allow the paths through Rotterdam to be valid.
+   - The cost to reach all other routers from Rotterdam must be set to 1000 to enforce the waypoint.
+
+Limitations (if any):
+None

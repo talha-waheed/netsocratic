@@ -1,0 +1,33 @@
+Routers modified: ['kiev', 'istanbul', 'milan', 'london']
+
+Reasoning:
+1. **Kiev to 100.0.9.0/24**
+   - Required paths: 2 (to London)
+   - Current paths: 
+     - Kiev → Bucharest → Frankfurt → London (cost = 3)
+     - Kiev → Warsaw → Frankfurt → London (cost = 3)
+   - Set cost on Fa0/1 to 1000 to block non-London paths.
+   - Set cost on Fa0/0 and Fa1/0 to 1 for paths through London.
+
+2. **Istanbul to 100.0.29.0/24**
+   - Required paths: 3 (to London)
+   - Current paths: 
+     - Istanbul → Bucharest → Frankfurt → London (cost = 3)
+     - Istanbul → Athens → Frankfurt → London (cost = 3)
+     - Istanbul → Athens → Sofia → Budapest → Frankfurt → London (cost = 5)
+   - Set cost on Fa1/0 to 1000 to block paths that do not go through London.
+   - Set costs on Fa0/1 to 1 for the path through London.
+
+3. **Milan to 100.0.1.0/24**
+   - Required paths: 2 (to London)
+   - Current paths: 
+     - Milan → Zurich → Frankfurt → London (cost = 3)
+     - Milan → Roma → Frankfurt → London (cost = 3)
+   - Set cost on Fa0/1 to 1000 to block non-London paths.
+   - Set costs on Fa1/0 to 1 for the paths through London.
+
+4. **London**
+   - No changes needed here; interfaces are already set to cost 1 for paths leading to other routers.
+
+Limitations (if any):
+None

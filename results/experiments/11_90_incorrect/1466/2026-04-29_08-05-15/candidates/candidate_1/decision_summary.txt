@@ -1,0 +1,10 @@
+Routers modified: Amsterdam, Budapest, Frankfurt, Strasbourg
+
+Reasoning:
+1. **Amsterdam** needs to connect to 100.0.1.0/24. The existing paths through London, Brussels, and Rotterdam are sufficient. No changes needed to block paths, as they can still reach the destination.
+2. **Budapest** must connect to 100.0.9.0/24 with 2 equal-cost paths. The paths through Sofia and Zagreb can be maintained with cost 1, allowing for redundancy.
+3. **Frankfurt** must connect to 100.0.4.0/24 via Basel. The existing paths through Strasbourg are sufficient, and costs can remain at 1 to allow for redundancy.
+4. **Strasbourg** must connect to 100.0.9.0/24 with 2 equal-cost paths through Rotterdam. The existing paths can be maintained with cost 1, allowing for redundancy.
+
+Limitations (if any):
+None

@@ -1,0 +1,19 @@
+Routers modified: geneva, bucharest, milan
+
+Reasoning:
+1. Geneva needs to reach 100.0.29.0/24 (London) with 8 equal-cost paths.
+2. Bucharest also needs to reach 100.0.29.0/24, and Milan needs to connect to it as well.
+3. The paths from Geneva to London can be established via:
+   - Geneva → Paris → London
+   - Geneva → Lyon → Marseille → Barcelona → London
+   - Geneva → Basel → Frankfurt → Brussels → London
+   - Geneva → Basel → Frankfurt → Vienna → London
+   - Geneva → Basel → Frankfurt → Warsaw → London
+   - Geneva → Basel → Frankfurt → Bucharest → London
+   - Geneva → Basel → Frankfurt → Milan → London
+   - Geneva → Basel → Frankfurt → Zurich → London
+4. To achieve 8 equal-cost paths, the costs on the interfaces leading to London must be set to 1, while other paths can remain at their base cost of 1.
+5. Bucharest and Milan also need to connect to London, so their costs to the relevant paths are set to 1 to ensure they can reach London without being blocked.
+
+Limitations (if any):
+None

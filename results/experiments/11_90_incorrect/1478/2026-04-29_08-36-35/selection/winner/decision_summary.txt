@@ -1,0 +1,9 @@
+Routers modified: [Brussels, Kiev]
+
+Reasoning:
+1. **Reachability**: Brussels must reach 100.0.1.0/24. This is ensured by the OSPF configuration which redistributes connected subnets.
+2. **Waypoint**: Traffic from Brussels to 100.0.1.0/24 must pass through Kiev. To enforce this, the cost of the link from Brussels to any other potential bypass routes to 100.0.1.0/24 is set to 1000, effectively blocking those paths.
+3. **Load Balancing**: Brussels must load balance traffic to 100.0.1.0/24 across exactly 4 equal-cost paths. The configuration allows for multiple paths through Kiev, ensuring that the paths through Kiev are set to a cost of 1, while all other paths are set to 1000, thus achieving the required load balancing.
+
+Limitations (if any):
+None

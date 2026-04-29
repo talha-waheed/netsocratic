@@ -1,0 +1,9 @@
+Routers modified: Frankfurt, Warsaw
+
+Reasoning:
+1. Reachability from Frankfurt to 100.0.4.0/24 is established through Basel. To ensure this, the paths from Frankfurt to 100.0.4.0/24 via other routes must be blocked. Therefore, the costs on Fa2/0 and Fa1/0 are set to 1000.
+2. Warsaw must reach both 100.0.1.0/24 and 100.0.4.0/24 via Kiev. To enforce this, the cost on Fa1/0 (the path to Kiev) is set to 1000, ensuring that traffic must go through Kiev.
+3. The routing rules do not specify any mandatory waypoints, so the costs are adjusted only to ensure reachability and redundancy without blocking alternative paths.
+
+Limitations (if any):
+None

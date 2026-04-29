@@ -1,0 +1,26 @@
+Q: Did your original intent require traffic from luxembourg to 100.0.1.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+A: Yes, my original intent required traffic from Luxembourg to 100.0.1.0/24 to pass through Kiev as the specified waypoint.
+
+Q: Did your original intent require traffic from marseille to 100.0.9.0/24 to pass through rotterdam, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from marseille to 100.0.9.0/24 to pass through rotterdam.
+
+Q: Did your original intent require traffic from kiev to 100.0.1.0/24 to pass through bucharest, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from kiev to 100.0.1.0/24 to pass through kiev as the waypoint. No traffic should pass through bucharest for this route.
+
+Q: Did your original intent require traffic from luxembourg to 100.0.6.0/24 to pass through brussels, was no waypoint required, or was a different waypoint required?
+A: My original intent did not require traffic from Luxembourg to 100.0.6.0/24 to pass through Brussels. There was no waypoint specified for that traffic. The only waypoints mentioned are for the prefixes 100.0.1.0/24 (Luxembourg and Strasbourg) which require passing through Kiev, and for 100.0.9.0/24 (Marseille) which requires passing through Rotterdam.
+
+Q: Did your original intent require traffic from marseille to 100.0.21.0/24 to pass through lyon, was no waypoint required, or was a different waypoint required?
+A: My original intent did not require traffic from marseille to 100.0.21.0/24 to pass through lyon. There was no waypoint specified for that traffic. The only waypoint specified was for traffic to 100.0.9.0/24 from marseille, which is through rotterdam.
+
+Q: Did your original intent require traffic from rotterdam to 100.0.9.0/24 to pass through brussels, was no waypoint required, or was a different waypoint required?
+A: My original intent did not require traffic from Rotterdam to 100.0.9.0/24 to pass through Brussels. Instead, the required waypoint for this traffic is Rotterdam, as specified in the requirements.
+
+Q: Did your original intent require traffic from strasbourg to 100.0.10.0/24 to pass through frankfurt, was no waypoint required, or was a different waypoint required?
+A: My original intent did not require traffic from Strasbourg to 100.0.10.0/24 to pass through Frankfurt. Instead, the requirement specified that traffic from Strasbourg to 100.0.1.0/24 should pass through Kiev as the waypoint.
+
+Q: Did your original intent require traffic from kiev to 100.0.1.0/24 to be load-balanced across exactly 10 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent required traffic from kiev to 100.0.1.0/24 to be load-balanced across exactly 6 paths (4 for luxembourg and 2 for strasbourg).
+
+Q: Did your original intent require traffic from luxembourg to 100.0.1.0/24 to be load-balanced across exactly 10 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent required traffic from luxembourg to 100.0.1.0/24 to be load-balanced across exactly 4 paths.

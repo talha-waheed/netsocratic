@@ -1,0 +1,2 @@
+Q: Did your original intent require traffic from strasbourg to 100.0.4.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+A: My original intent required that traffic from Strasbourg to 100.0.4.0/24 must pass through Basel as the waypoint. London was not required as a waypoint for this traffic.

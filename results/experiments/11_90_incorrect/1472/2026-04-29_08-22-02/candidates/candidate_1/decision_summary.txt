@@ -1,0 +1,13 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Luxembourg, Milan, Strasbourg, Warsaw
+
+Reasoning:
+1. **Amsterdam**: Needs to reach 100.0.29.0/24 and 100.0.4.0/24 via Brussels and Frankfurt. Set costs to 1 on all interfaces to ensure connectivity.
+2. **Brussels**: Must reach 100.0.1.0/24 via Luxembourg and Frankfurt. Set costs to 1 on all interfaces to ensure connectivity.
+3. **Frankfurt**: Needs to reach 100.0.29.0/24 and 100.0.4.0/24 via Brussels and Strasbourg. Set costs to 1 on all interfaces to ensure connectivity.
+4. **Luxembourg**: Must reach 100.0.29.0/24 via Brussels. Set costs to 1 on all interfaces to ensure connectivity.
+5. **Milan**: Needs to reach 100.0.1.0/24 via Zurich and Roma. Set costs to 1 on all interfaces to ensure connectivity.
+6. **Strasbourg**: Must reach 100.0.29.0/24 via Frankfurt. Set costs to 1 on all interfaces to ensure connectivity.
+7. **Warsaw**: Needs to reach 100.0.4.0/24 via Frankfurt. Set costs to 1 on all interfaces to ensure connectivity.
+
+Limitations (if any):
+None

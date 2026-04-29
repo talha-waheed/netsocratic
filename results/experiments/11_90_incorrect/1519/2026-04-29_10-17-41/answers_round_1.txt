@@ -1,0 +1,16 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from luxembourg should reach when referring to the remote network? (Why: impact on reachability)
+A: Traffic from Luxembourg should reach the destination subnets 100.0.9.0/24, 100.0.1.0/24, and 100.0.29.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from bratislava should reach when referring to the target subnet? (Why: impact on reachability)
+A: Traffic from Bratislava should reach the target subnet 100.0.4.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from athens should reach when referring to the destination network? (Why: impact on reachability)
+A: Traffic from Athens should reach the destination subnet 100.0.9.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from strasbourg should reach when referring to the remote network? (Why: impact on reachability)
+A: Traffic from Strasbourg should reach the subnet 100.0.1.0/24 when referring to the remote network.
+
+Q: What is the exact router hostname you are referring to when you mention "our servers"? (Why: impact on waypointing)
+A: I am not referring to a specific router hostname when I mention "our servers." The routing requirements are based on reachability and waypointing for various locations, but no specific hostname is provided.

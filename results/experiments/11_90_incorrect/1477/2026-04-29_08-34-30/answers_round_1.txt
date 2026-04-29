@@ -1,0 +1,16 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from bratislava should reach? (Why: impacts reachability for bratislava)
+A: The exact destination subnet that traffic from Bratislava should reach is 100.0.29.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from that network should reach? (Why: impacts reachability for that network)
+A: The exact destination subnets are:
+- For Athens: 100.0.1.0/24
+- For Vienna: 100.0.9.0/24
+- For Bratislava: 100.0.29.0/24
+
+Q: What is the exact integer path count for load balancing when routing from athens to 100.0.1.0/24? (Why: impacts load balancing for this route)
+A: The exact integer path count for load balancing when routing from Athens to 100.0.1.0/24 is 2.
+
+Q: What is the exact integer path count for load balancing when routing from vienna to 100.0.9.0/24? (Why: impacts load balancing for this route)
+A: The exact integer path count for load balancing when routing from Vienna to 100.0.9.0/24 is 3.

@@ -1,0 +1,1 @@
+Connectivity from praha to the destination network 100.0.1.0/24 is established. Use kiev as intermediate hop if available. Make sure there's redundancy with 2 paths. Paris and 100.0.9.0/24 should be connected. Consider routing through rotterdam. 100.0.9.0/24 is accessible from kiev. Consider routing through rotterdam.

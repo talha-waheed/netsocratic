@@ -1,0 +1,1 @@
+Traffic from Geneva to the subnet 100.0.1.0/24 must pass through Kiev. Traffic from Geneva to the subnet 100.0.1.0/24 must be load-balanced across exactly 11 equal-cost paths. Connectivity from Luxembourg to the subnet 100.0.9.0/24 is established. Traffic from Luxembourg to the subnet 100.0.9.0/24 must pass through Basel. The subnet 100.0.9.0/24 is reachable from Frankfurt.

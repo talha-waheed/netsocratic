@@ -1,0 +1,14 @@
+Routers modified: Amsterdam, Sofia, Bratislava, Rotterdam, Roma
+
+Reasoning:
+1. **Reachability from Sofia to 100.0.29.0/24**: Initially, all paths through routes to London must be made available. To ensure traffic from Sofia (to London) goes through London:
+   - Set routes bypassing London at cost 1000 (high).
+2. **Reachability from Bratislava to 100.0.9.0/24**: Ensure all routes to 100.0.9.0/24 go through Rotterdam:
+   - Set routes bypassing Rotterdam at cost 1000 (high).
+3. **Reachability from Roma to 100.0.1.0/24**: Traffic from Roma must go through Kiev:
+   - Set routes bypassing Kiev at cost 1000 (high).
+4. **Load balancing for Sofia, Bratislava and Roma**: All modified routers' adjusted paths create one path through the required waypoint and an alternative path.
+   - All required interfaces are set to a high adjustment to prevent unneeded routes from being used.
+
+Limitations (if any):
+None

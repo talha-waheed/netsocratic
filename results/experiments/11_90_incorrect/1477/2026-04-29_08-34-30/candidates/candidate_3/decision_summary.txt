@@ -1,0 +1,10 @@
+Routers modified: Amsterdam, Athens, Bratislava, Frankfurt
+
+Reasoning:
+- For Athens to reach 100.0.1.0/24 via Kiev, costs for bypass paths through Sofia are increased to 1000. The paths through Kiev remain at cost 1, fulfilling the requirement for 2 load-balanced paths.
+- Bratislava accessing 100.0.29.0/24 through Rotterdam requires cost 1000 on bypass paths to London while keeping the route through Rotterdam at cost 1, thus creating 2 equal-cost paths.
+- Amsterdam's paths to the mentioned routes need adjustment to block bypassing required traffic through Brussels, Rotterdam, and Frankfurt. All alternate paths to 100.0.29.0/24 are set to 1000. 
+- Frankfurt's alternatives for paths to 100.0.29.0/24 similarly require cost 1000 for bypassing paths towards Rotterdam.
+  
+Limitations (if any):
+None

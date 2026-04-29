@@ -1,0 +1,24 @@
+Routers modified: [Frankfurt, Istanbul, Budapest]
+
+Reasoning:
+1. **Frankfurt to 100.0.29.0/24 (Rotterdam)**
+   - Path options: 
+     - Frankfurt → Rotterdam → London
+     - Frankfurt → Brussels → London 
+   - Frankfurt needs 2 equal-cost paths to Rotterdam. 
+   - Set cost to 1000 on Brussels to London bypass (costs changed from 1 to 1000) and keep the cost to Rotterdam at 1. Enabled two paths through Rotterdam, thus meeting regulations.
+
+2. **Istanbul to 100.0.9.0/24 (Rotterdam)**
+   - Path options:
+     - Istanbul → Bucharest → Frankfurt → Rotterdam → London
+     - Istanbul → Athens → Sofia → Bucharest → Frankfurt → Rotterdam → London
+   - Both paths include Rotterdam. Set cost to 1000 on any path not leading through Rotterdam while keeping paths using it at cost 1. 
+
+3. **Budapest to 100.0.1.0/24 (Kiev)**
+   - Path options:
+     - Budapest → Sofia → Istanbul → Bucharest → Kiev
+     - Budapest → Bratislava → Frankfurt → Warsaw → Kiev 
+   - Set cost to 1000 on bypass paths from Budapest that do not lead through Kiev while keeping the eastward route via Kiev at cost of 1. This provides the required pathway to Kiev for Budapest's traffic. 
+
+Limitations (if any):
+None - all requirements have been satisfied based on the established routing rules and clarifications from intent.

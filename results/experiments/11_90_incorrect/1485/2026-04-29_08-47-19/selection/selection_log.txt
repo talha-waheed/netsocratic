@@ -1,0 +1,14 @@
+candidate_1 vs candidate_2: reach_diff=True, waypoint_diff=True, lb_diff=False
+candidate_1 vs candidate_3: reach_diff=True, waypoint_diff=True, lb_diff=True
+candidate_2 vs candidate_3: reach_diff=True, waypoint_diff=True, lb_diff=True
+EC pruning: 3 candidates → 3 survivors: ['candidate_1', 'candidate_2', 'candidate_3']
+Round 1  Q: Did your original intent require traffic from geneva to 100.0.1.0/24 to pass through rotterdam, was no waypoint required, or was a different waypoint required?
+Round 1  A: My original intent required that traffic from geneva to 100.0.1.0/24 should pass through kiev, as specified in the waypoint requirement for that prefix. Therefore, no traffic should pass through rotterdam for this route.
+Round 2  Q: Did your original intent require traffic from luxembourg to 100.0.9.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+Round 2  A: My original intent did not require traffic from Luxembourg to 100.0.9.0/24 to pass through Basel. No waypoint was required for that traffic.
+Round 3  Q: Did your original intent require traffic from luxembourg to 100.0.9.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+Round 3  A: My original intent did not require an exact path count for traffic from Luxembourg to 100.0.9.0/24. The requirement was specifically for load balancing to occur for the prefixes associated with Geneva, Luxembourg, and Frankfurt, but no specific path count was mandated for traffic from Luxembourg to 100.0.9.0/24.
+Round 4  Q: Did your original intent require traffic from frankfurt to 100.0.9.0/24 to be reachable, or should that reachability not be required?
+Round 4  A: Yes, my original intent required traffic from Frankfurt to 100.0.9.0/24 to be reachable.
+Remaining candidates are behaviourally indistinguishable or all distinguishable pairs already asked.
+Synthesized corrected candidate from further clarified intent.

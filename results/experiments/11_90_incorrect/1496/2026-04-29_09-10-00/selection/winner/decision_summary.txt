@@ -1,0 +1,20 @@
+Routers modified: Vienna, Istanbul, Geneva
+
+Reasoning:
+1. **Vienna to 100.0.29.0/24 (London)**:
+   - Paths: Vienna → Frankfurt → Brussels → London (cost 3)
+   - Paths: Vienna → Milan → Zurich → Frankfurt → Brussels → London (cost 5)
+   - Set cost to London at 1 and block bypass paths to ensure only 2 paths are available.
+
+2. **Istanbul to 100.0.1.0/24 (Kiev)**:
+   - Paths: Istanbul → Bucharest → Kiev (cost 2)
+   - Paths: Istanbul → Athens → Sofia → Bucharest → Kiev (cost 4)
+   - Set cost to Kiev at 1 and block bypass paths to ensure 4 paths are available.
+
+3. **Geneva to 100.0.9.0/24 (Rotterdam)**:
+   - Paths: Geneva → Basel → Strasbourg → Frankfurt → Brussels → Rotterdam (cost 5)
+   - Paths: Geneva → Lyon → Marseille → Barcelona → Madrid → Rotterdam (cost 6)
+   - Set cost to Rotterdam at 1 and block bypass paths to ensure 3 paths are available.
+
+Limitations (if any):
+None

@@ -1,0 +1,10 @@
+Round 1 — Q&A
+
+Q: What is the exact router hostname you are referring to when you mention "basel"? (Why: impact on waypointing)
+A: I cannot provide the exact router hostname for "basel."
+
+Q: What is the exact router hostname you are referring to when you mention "rotterdam"? (Why: impact on waypointing)
+A: I do not have the exact router hostname for "rotterdam." My specification only indicates it as a waypoint for the subnet 100.0.9.0/24 in Lyon.
+
+Q: How many paths should be used for load balancing to ensure redundancy and fault tolerance? (Why: impact on load-balancing)
+A: For load balancing, you should use 2 paths for the Praha subnet (100.0.4.0/24) and 2 paths for the Lyon subnet (100.0.29.0/24). For the other Lyon subnet (100.0.9.0/24), you should use 6 paths. This distribution ensures redundancy and fault tolerance by allowing traffic to be distributed across multiple paths, reducing the risk of a single point of failure.

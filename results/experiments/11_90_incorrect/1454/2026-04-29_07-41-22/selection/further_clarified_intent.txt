@@ -1,0 +1,1 @@
+Traffic from barcelona to 100.0.4.0/24 must pass through basel. Traffic from barcelona to 100.0.4.0/24 must be load-balanced across exactly 3 equal-cost paths. Ensure connectivity between istanbul and 100.0.1.0/24. Traffic from amsterdam to 100.0.29.0/24 must pass through london. Traffic from amsterdam to 100.0.29.0/24 must be load-balanced across exactly 2 equal-cost paths.

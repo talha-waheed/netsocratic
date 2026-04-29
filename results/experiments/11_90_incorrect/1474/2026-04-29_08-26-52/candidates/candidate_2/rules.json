@@ -1,0 +1,15 @@
+{
+  "reachability": {
+    "marseille": ["100.0.4.0/24"],
+    "sofia": ["100.0.29.0/24"],
+    "basel": ["100.0.1.0/24"]
+  },
+  "waypoint": {
+    "(marseille,100.0.4.0/24)": ["basel"],
+    "(sofia,100.0.29.0/24)": ["london"],
+    "(basel,100.0.1.0/24)": ["kiev"]
+  },
+  "loadbalancing": {
+    "(basel,100.0.1.0/24)": 2
+  }
+}

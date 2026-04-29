@@ -1,0 +1,17 @@
+Routers modified: Geneva, Bucharest, Madrid, Milan, Frankfurt, Strasbourg
+
+Reasoning:
+1. **Geneva to 100.0.1.0/24** requires 5 paths through Kiev. Set costs to facilitate this:
+   - Paths through Kiev are established by setting appropriate costs on Geneva's interfaces to allow equidistance.
+   - Setting high cost paths (1000) on alternatives ensures all traffic routes through Kiev.
+
+2. **Reachability from Bucharest to 100.0.1.0/24** must also go through Kiev. Set paths through Bucharest appropriately to aggregate traffic.
+
+3. **Madrid to 100.0.4.0/24** necessitates a path through Basel. Other potential paths are blocked by high costs.
+
+4. **Milan and Frankfurt** must route traffic to 100.0.1.0/24 through Kiev, affecting their interface costs to comply.
+
+5. **Strasbourg to 100.0.29.0/24** links to Frankfurt with a load balance of 2, thus required costs are adjusted to maintain traffic flow through Rotterdam.
+
+Limitations (if any):
+None

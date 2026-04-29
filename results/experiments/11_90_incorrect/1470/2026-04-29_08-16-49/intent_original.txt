@@ -1,0 +1,86 @@
+Traffic originating from paris can reach the subnet 100.0.1.0/24.
+Use multiple paths for reliability.
+sofia and 100.0.1.0/24. should be connected.
+Traffic should go through kiev when feasible.
+Ensure fault tolerance with multiple routes.
+100.0.4.0/24 is accessible from london.
+Route through basel if possible.
+Use multiple paths for reliability.
+100.0.9.0/24 is accessible from kiev.
+Traffic from kiev to 100.0.9.0/24 passes through rotterdam.
+Make sure there's redundancy.
+Traffic originating from istanbul can reach the subnet the target subnet
+Distribute traffic across available paths.
+Traffic originating from milan can reach the subnet our servers
+The number of paths between milan and 100.0.1.0/24 should be 2.
+Ensure connectivity between lyon and 100.0.4.0/24..
+Preferably route via basel.
+Connectivity from zurich to our servers is established.
+The path between zurich and our servers involves kiev.
+Use multiple paths for reliability.
+luxembourg can reach our servers
+The same routing applies here.
+Connect praha to 100.0.29.0/24.
+Preferably route via london.
+It should also have redundancy.
+The subnet the destination network is reachable from madrid.
+The route from madrid to the destination network includes rotterdam.
+Ensure connectivity between barcelona and the destination network.
+Traffic should go through rotterdam when feasible.
+Make sure there's redundancy.
+Ensure lyon can access 100.0.29.0/24. Apply the same policy to other relevant connections.
+Use london as intermediate hop if available.
+Use multiple paths for reliability.
+The subnet the target subnet is reachable from warsaw.
+Route through london if possible.
+Load balance the traffic appropriately.
+brussels and 100.0.29.0/24 should be connected.
+That traffic should be load balanced.
+100.0.9.0/24 is accessible from london.
+Consider routing through rotterdam.
+It should also have redundancy.
+Ensure connectivity between bratislava and 100.0.1.0/24.
+Consider routing through kiev.
+To reach 100.0.1.0/24 from bratislava, traffic is balanced on 2 paths.
+Ensure connectivity between basel and our servers.
+This connection needs fault tolerance too.
+The subnet the remote network is reachable from paris.
+Route through rotterdam if possible.
+This connection needs fault tolerance too.
+Connectivity from basel to the target subnet is established.
+Consider routing through london.
+Distribute traffic across available paths.
+athens and 100.0.9.0/24. should be connected.
+The path between athens and 100.0.9.0/24 involves rotterdam.
+Apply similar rules to this flow.
+Ensure connectivity between athens and 100.0.1.0/24.
+Traffic from athens to 100.0.1.0/24 should be load-balanced across 2 paths.
+Connectivity from paris to 100.0.4.0/24 is established.
+Use basel as intermediate hop if available.
+Use multiple paths for reliability.
+roma should connect to 100.0.9.0/24, and similar routing should be used for related traffic.
+Ensure fault tolerance with multiple routes.
+marseille needs to reach 100.0.1.0/24. The same connectivity requirements apply to the other subnets as well.
+The path between marseille and 100.0.1.0/24 involves kiev.
+Use multiple paths for reliability.
+Connect frankfurt to 100.0.1.0/24.
+Consider routing through kiev.
+Distribute traffic across available paths.
+Ensure connectivity between zurich and our servers.
+Traffic should go through london when feasible.
+Use multiple paths for reliability.
+praha can reach our servers
+It should also have redundancy.
+lyon should connect to the target subnet, and similar routing should be used for related traffic.
+The route from lyon to 100.0.1.0/24 includes kiev.
+Load balance the traffic appropriately.
+istanbul can reach the main subnet
+Route through basel if possible.
+Make sure there's redundancy.
+milan and 100.0.9.0/24. need connectivity.
+Preferably route via rotterdam.
+Load balance the traffic appropriately.
+Connect sofia to 100.0.4.0/24.
+Route through basel if possible.
+Make sure there's redundancy.
+vienna and 100.0.4.0/24. should be connected.

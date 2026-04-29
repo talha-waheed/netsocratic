@@ -1,0 +1,19 @@
+{
+  "reachability": {
+    "athens": ["100.0.1.0/24"],
+    "paris": ["100.0.4.0/24"],
+    "roma": ["100.0.9.0/24"],
+    "marseille": ["remote network"],
+    "frankfurt": ["100.0.1.0/24"],
+    "zurich": ["100.0.29.0/24"],
+    "praha": ["100.0.1.0/24"],
+    "lyon": ["100.0.1.0/24"],
+    "istanbul": ["100.0.4.0/24"]
+  },
+  "waypoint": {},
+  "loadbalancing": {
+    "(athens,100.0.1.0/24)": 2,
+    "(frankfurt,100.0.1.0/24)": 2,
+    "(praha,100.0.1.0/24)": 2
+  }
+}

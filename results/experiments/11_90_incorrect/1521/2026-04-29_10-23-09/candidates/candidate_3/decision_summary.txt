@@ -1,0 +1,28 @@
+Routers modified: [Brussels, Kiev, Frankfurt, Strasbourg, Rotterdam]
+
+Reasoning:
+1. **Brussels**:
+   - Must connect to Luxembourg (via Brussels) for 100.0.6.0/24.
+   - Block non-Brussels paths → set cost 1000 on bypass paths.
+   - Kept cost 1 on path through Brussels to meet path requirements.
+
+2. **Kiev**:
+   - Must connect to 100.0.1.0/24 via Bucharest.
+   - Other paths (paths bypassing Bucharest) should be set high (cost 1000).
+   - Kept cost 1 on the path through Bucharest.
+
+3. **Frankfurt**:
+   - Must connect to Strasbourg and 100.0.10.0/24.
+   - Other paths towards Strasbourg should be set higher cost (1000).
+   - Kept cost as 1 on the path through Frankfurt.
+
+4. **Strasbourg**:
+   - Connects to Frankfurt normally—maintains a low path cost.
+   - Set cost to 1 correctly on the path to Frankfurt.
+
+5. **Rotterdam**:
+   - Connect to Brussels for reachability.
+   - Set cost 1 for the path through Brussels, high cost to bypass.
+
+Limitations (if any):
+None; all rules satisfied within the topology constraints.

@@ -1,0 +1,7 @@
+Traffic originating from vienna can reach the subnet the remote network
+Preferably route via basel.
+Make sure there's redundancy.
+frankfurt can reach the target subnet
+Consider routing through kiev.
+Make sure there's redundancy.
+geneva and 100.0.29.0/24. should be connected.

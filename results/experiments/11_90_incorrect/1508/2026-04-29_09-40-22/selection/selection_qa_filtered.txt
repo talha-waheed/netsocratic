@@ -1,0 +1,11 @@
+Q: Did your original intent require traffic from frankfurt to 100.0.4.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from Frankfurt to 100.0.4.0/24 to pass through Basel, as indicated by the waypoint requirement for that prefix.
+
+Q: Did your original intent require traffic from 100.0.1.0/24 to 100.0.1.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from 100.0.1.0/24 to 100.0.1.0/24 to pass through kiev, as specified in the waypoint requirement for (rotterdam,100.0.1.0/24) and (warsaw,100.0.1.0/24).
+
+Q: Did your original intent require traffic from 100.0.29.0/24 to 100.0.29.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from 100.0.29.0/24 to pass through london, as specified in the waypoint requirement for (praha,100.0.29.0/24).
+
+Q: Did your original intent require traffic from 100.0.4.0/24 to 100.0.4.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from 100.0.4.0/24 to 100.0.4.0/24 to pass through basel, as it is specified as the waypoint for both brussels and frankfurt, which are the destinations for that prefix.

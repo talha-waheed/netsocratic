@@ -1,0 +1,26 @@
+Routers modified: Amsterdam, Luxembourg, Athens
+
+Reasoning:
+1. **Amsterdam to 100.0.1.0/24**:
+   - Paths: 
+     - Amsterdam → Brussels → Frankfurt → Strasbourg → Geneva → Basel → Kiev (cost 6)
+     - Amsterdam → Rotterdam → Frankfurt → Strasbourg → Geneva → Basel → Kiev (cost 6)
+   - Set costs to ensure both paths have the same total cost of 6.
+   - Set costs on bypass paths (to Frankfurt, Rotterdam, Brussels) to 1000 to enforce mandatory waypoint through Kiev.
+
+2. **Luxembourg to 100.0.29.0/24**:
+   - Paths:
+     - Luxembourg → Brussels → Frankfurt → Vienna → Warsaw → London (cost 5)
+     - Luxembourg → Brussels → Frankfurt → Amsterdam → London (cost 5)
+   - Set costs to ensure both paths have the same total cost of 5.
+   - Set costs on bypass paths (to Frankfurt, Amsterdam) to 1000 to enforce mandatory waypoint through London.
+
+3. **Athens to 100.0.4.0/24**:
+   - Paths:
+     - Athens → Sofia → Budapest → Bratislava → Frankfurt → Basel (cost 5)
+     - Athens → Istanbul → Bucharest → Budapest → Bratislava → Frankfurt → Basel (cost 5)
+   - Set costs to ensure both paths have the same total cost of 5.
+   - Set costs on bypass paths (to Sofia, Bucharest) to 1000 to enforce mandatory waypoint through Basel.
+
+Limitations (if any):
+None

@@ -1,0 +1,1 @@
+Traffic from Budapest to 100.0.9.0/24 must be routed via the router associated with Budapest. Traffic from Budapest to 100.0.9.0/24 must be load-balanced across exactly 2 equal-cost paths. Traffic from Amsterdam to 100.0.29.0/24 must pass through London. Traffic from Sofia to 100.0.1.0/24 must pass through Kiev. Traffic from Sofia to 100.0.1.0/24 must be load-balanced.

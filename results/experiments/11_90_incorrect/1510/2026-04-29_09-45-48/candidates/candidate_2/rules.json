@@ -1,0 +1,23 @@
+{
+  "reachability": {
+    "geneva": ["100.0.1.0/24", "100.0.4.0/24"],
+    "bucharest": ["100.0.1.0/24"],
+    "madrid": ["100.0.1.0/24", "100.0.4.0/24"],
+    "milan": ["100.0.1.0/24"],
+    "strasbourg": ["100.0.29.0/24"],
+    "frankfurt": ["100.0.9.0/24"],
+    "luxembourg": ["100.0.4.0/24"]
+  },
+  "waypoint": {
+    "(geneva,100.0.1.0/24)": ["kiev", "basel"],
+    "(geneva,100.0.4.0/24)": ["kiev", "basel"],
+    "(madrid,100.0.4.0/24)": ["basel"],
+    "(milan,100.0.1.0/24)": ["kiev"],
+    "(frankfurt,100.0.9.0/24)": ["rotterdam"],
+    "(geneva,100.0.1.0/24)": ["basel"]
+  },
+  "loadbalancing": {
+    "(geneva,100.0.1.0/24)": 5,
+    "(frankfurt,100.0.9.0/24)": 2
+  }
+}

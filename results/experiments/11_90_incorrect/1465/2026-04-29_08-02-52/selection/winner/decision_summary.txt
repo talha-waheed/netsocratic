@@ -1,0 +1,25 @@
+Routers modified: milan, rotterdam, sofia, basel, bucharest
+
+Reasoning:
+1. **Milan to 100.0.9.0/24 (Rotterdam)**: 
+   - Paths: Milan → Rotterdam (cost 1) and Milan → Brussels → Amsterdam (cost 2).
+   - Set cost to 1000 on the bypass path (Brussels) to enforce the waypoint through Rotterdam.
+
+2. **Sofia to 100.0.4.0/24 (Basel)**:
+   - Paths: Sofia → Budapest → Bratislava → Basel (cost 3) and Sofia → Istanbul → Bucharest → Basel (cost 3).
+   - Set costs to ensure 4 equal-cost paths through Basel. Adjusted costs on Sofia's outgoing links to Basel.
+
+3. **Basel to 100.0.1.0/24 (Kiev)**:
+   - Paths: Basel → Frankfurt → Warsaw → Kiev (cost 3) and Basel → Strasbourg → Frankfurt → Warsaw (cost 3).
+   - Set cost to 1000 on the bypass path to enforce the waypoint through Kiev.
+
+4. **Bucharest to 100.0.1.0/24 (London)**:
+   - Paths: Bucharest → Istanbul → London (cost 2) and Bucharest → Kiev → London (cost 3).
+   - Set cost to 1000 on the bypass path to enforce the waypoint through London.
+
+5. **Rotterdam to 100.0.9.0/24 (Amsterdam)**:
+   - Paths: Rotterdam → Amsterdam (cost 1) and Rotterdam → Brussels → Amsterdam (cost 2).
+   - Set cost to 1000 on the bypass path to enforce the waypoint through Amsterdam.
+
+Limitations (if any):
+None

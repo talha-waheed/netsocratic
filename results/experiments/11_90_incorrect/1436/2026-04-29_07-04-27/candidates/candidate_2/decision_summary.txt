@@ -1,0 +1,24 @@
+Routers modified: Frankfurt, Paris, Kiev, Bratislava
+
+Reasoning:
+1. **Reachability**: 
+   - Paris must reach 100.0.1.0/24 via Kiev. 
+   - London must reach 100.0.4.0/24 via Basel.
+
+2. **Waypointing**:
+   - For traffic from Paris to 100.0.1.0/24, the mandatory waypoint is Kiev. 
+   - Configured cost 1000 on all bypass paths from Paris to Kiev to enforce this.
+
+3. **Load Balancing**:
+   - For traffic from Paris to 100.0.1.0/24, we need 2 equal-cost paths.
+   - Costs are adjusted accordingly to ensure that two distinct paths exist through Kiev and those that do not go via Kiev are blocked.
+   - Adjusted costs on Frankfurt's paths ensure that traffic can flow via both Bratislava and Frankfurt as alternate paths to balance.
+   - Only paths that meet the cost criteria of being equal and passing through the required waypoint are maintained.
+
+4. **Cost Configuration**:
+   - Frankfurt has paths to both London and Paris with adjusted costs to follow the routing policy.
+   - Specifically, paths through Basel are kept at cost 1, while bypass paths are set to 1000.
+   - Similarly, costs on Kiev and Bratislava are managed to ensure the mandatory waypoint is honored and paths are balanced.
+
+Limitations (if any):
+None

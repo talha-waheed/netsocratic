@@ -1,0 +1,24 @@
+Routers modified: ['kiev', 'rotterdam', 'istanbul', 'london', 'milan']
+
+Reasoning:
+1. For traffic from Kiev to 100.0.9.0/24 (Rotterdam), we need to enforce a mandatory waypoint through Rotterdam.
+   - Set cost from Kiev to all bypass paths (Kiev → Frankfurt) to 1000 to enforce traffic must go through Rotterdam.
+   - Set cost from Kiev to Rotterdam to 1 to allow traffic through.
+
+2. For load balancing from Kiev to 100.0.9.0/24 across exactly 2 paths, we need:
+   - Path 1: Kiev → Warsaw → Frankfurt → Rotterdam (total cost 2).
+   - Path 2: Kiev → Frankfurt → Rotterdam (total cost 2).
+   - All other paths not leading to Rotterdam must remain at a higher cost.
+
+3. For traffic from Istanbul to 100.0.29.0/24 (London), we set the cost from Istanbul to all bypass paths (Istanbul → Sofia) to 1000 and allow traffic to London through a path with cost 1.
+
+4. For load balancing from Istanbul to 100.0.29.0/24 across exactly 3 paths:
+   - Path 1: Istanbul → Bucharest → Frankfurt → London (total cost 3).
+   - Path 2: Istanbul → Sofia → Budapest → Frankfurt → London (total cost 3).
+   - Path 3: Istanbul → Bucharest → Warsaw → Frankfurt → London (total cost 3).
+   - Set costs accordingly on the intermediate routers.
+
+5. For traffic from Milan to 100.0.1.0/24 via Kiev, the cost from Milan to bypass Kiev must be set to 1000 to ensure traffic must go through Kiev.
+
+Limitations (if any):
+None

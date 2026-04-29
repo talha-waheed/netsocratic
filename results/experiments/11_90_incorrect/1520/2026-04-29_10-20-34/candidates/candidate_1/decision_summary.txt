@@ -1,0 +1,9 @@
+Routers modified: Basel, Frankfurt, London
+
+Reasoning:
+1. **Basel to 100.0.1.0/24**: Needs 2 paths. Set costs on Fa1/0 and Fa0/1 to 1, allowing paths through both Strasbourg and Geneva.
+2. **Frankfurt to 100.0.1.0/24**: Needs to connect through Kiev. Set costs on Fa1/0 (to Strasbourg) and Fa3/0 (to Warsaw) to 1, allowing paths through both.
+3. **London to 100.0.4.0/24**: Needs 2 paths. Set costs on Fa1/0 (to Brussels) and Fa1/1 (to Dublin) to 1, allowing paths through both.
+
+Limitations (if any):
+None

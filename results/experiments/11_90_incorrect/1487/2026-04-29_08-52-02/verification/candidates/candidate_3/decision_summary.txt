@@ -1,0 +1,19 @@
+Routers modified: milan, strasbourg, geneva
+
+Reasoning:
+1. For Milan to reach 100.0.1.0/24 via Kiev (mandatory waypoint):
+   - Two paths need to pass through Kiev. 
+   - Changes made: Path from Milan to Kiev has cost 1; paths bypassing Kiev (specifically through Warsaw, Prague) set to a high cost (1000).
+
+2. For Strasbourg to reach 100.0.29.0/24 via London (mandatory waypoint):
+   - Two paths need to be established through London. 
+   - Changes made: Set the cost of links that bypass London (e.g., through Frankfurt or Brussels) to a high cost of 1000, while paths that go through London remain at cost 1.
+
+3. For Geneva to reach 100.0.4.0/24 via Basel (mandatory waypoint):
+   - Three paths need to pass through Basel.
+   - Changes made: Set the cost of links bypassing Basel to a high cost while keeping paths through Basel to cost 1.
+
+The paths that were retained are the ones stating they're going through the required waypoint router, while the bypassed paths have been effectively blocked by setting them to a high cost.
+
+Limitations (if any):
+None

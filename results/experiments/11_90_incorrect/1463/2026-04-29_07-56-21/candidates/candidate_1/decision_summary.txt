@@ -1,0 +1,8 @@
+Routers modified: [Brussels, London]
+
+Reasoning:
+1. **Brussels** needs to connect to subnet 100.0.29.0/24 with 2 equal-cost paths. The existing paths through London and Rotterdam are both set to cost 1, allowing for load balancing. The path to London remains at cost 1, while the bypass path to Frankfurt is set to cost 1000 to ensure traffic prefers the route through London.
+2. **London** connects to subnet 100.0.9.0/24. The existing paths through Brussels and Amsterdam are kept at cost 1, ensuring redundancy. No changes are needed for other paths as they do not affect the required connectivity.
+
+Limitations (if any):
+None

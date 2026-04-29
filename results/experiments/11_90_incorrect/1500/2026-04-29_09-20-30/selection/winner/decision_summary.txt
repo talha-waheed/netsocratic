@@ -1,0 +1,29 @@
+Routers modified: Amsterdam, Budapest, Sofia
+
+Reasoning:
+1. **Reachability**:
+   - Budapest must reach 100.0.9.0/24 (Rotterdam) via 2 equal-cost paths.
+   - Amsterdam must reach 100.0.29.0/24 (London) via London.
+   - Sofia must reach 100.0.1.0/24 (Kiev) via Kiev.
+
+2. **Waypointing**:
+   - For Amsterdam to 100.0.29.0/24, all paths bypassing London must be blocked (set to cost 1000).
+   - For Sofia to 100.0.1.0/24, all paths bypassing Kiev must be blocked (set to cost 1000).
+
+3. **Load Balancing**:
+   - For Budapest to 100.0.9.0/24, two paths must be equal-cost. The paths are:
+     - Path 1: Budapest → Bratislava → Frankfurt → Rotterdam
+     - Path 2: Budapest → Sofia → Bucharest → Frankfurt → Rotterdam
+   - Set costs on Budapest's outgoing links to ensure both paths have the same total cost of 2.
+   - For Sofia to 100.0.1.0/24, two paths must be equal-cost. The paths are:
+     - Path 1: Sofia → Budapest → Bucharest → Kiev
+     - Path 2: Sofia → Athens → Istanbul → Bucharest → Kiev
+   - Set costs on Sofia's outgoing links to ensure both paths have the same total cost of 2.
+
+4. **Final Configuration**:
+   - Amsterdam's outgoing links to London, Brussels, Rotterdam, and Frankfurt are set to 1000 to enforce the waypoint.
+   - Budapest's outgoing links to Rotterdam are set to 1 to allow the two equal-cost paths.
+   - Sofia's outgoing link to Bucharest is set to 1 to allow the path through Kiev.
+
+Limitations (if any):
+None

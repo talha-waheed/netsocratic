@@ -1,0 +1,11 @@
+Routers modified: Amsterdam, Athens, Basel, Kiev
+
+Reasoning:
+1. For Athens to reach 100.0.1.0/24 via Kiev, all paths bypassing Kiev must be set to a high cost (1000). 
+   - Modified costs on Amsterdam's links to ensure paths through Kiev are favored.
+2. For Athens to reach 100.0.4.0/24 via Basel, set Basel's links towards the destination to a low cost (1) and others to a higher cost (1000).
+3. For Roma to reach 100.0.9.0/24 via Basel, similar adjustments were made to ensure traffic flows through Basel.
+4. All links not following the specified waypoints were set to a high cost to enforce the waypointing.
+
+Limitations (if any):
+None

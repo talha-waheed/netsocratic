@@ -1,0 +1,15 @@
+Routers modified: Amsterdam, Milan, Rotterdam, Sofia, Vienna
+
+Reasoning:
+1. **Amsterdam to 100.0.9.0/24 (Rotterdam)**: Traffic must go through Rotterdam. Set all non-Rotterdam paths (to London, Brussels, and Frankfurt) to a high cost (1000). Kept the cost to Rotterdam at 1 to allow access.
+  
+2. **Milan to 100.0.9.0/24**: Required to load-balance across 2 equal-cost paths to Rotterdam while needing to pass through it. Set paths through Rotterdam to cost 1 and ensured other paths exceed this cost.
+
+3. **Sofia to 100.0.4.0/24 (Basel)**: Traffic must go through Basel. Set paths bypassing Basel to a high cost (1000). Kept paths through Basel at cost 1 to allow access. 
+
+4. **Vienna to 100.0.4.0/24 (Basel)**: Similar to Sofia, required to pass through Basel and load-balance. Set non-Basel paths to 1000 and kept the path through Basel at cost 1.
+
+5. **Rotterdam**: Needs to ensure load balancing to 100.0.9.0/24 while passing through. Adjusted costs on interfaces to achieve equal-cost paths through required routers.
+
+Limitations (if any):
+None

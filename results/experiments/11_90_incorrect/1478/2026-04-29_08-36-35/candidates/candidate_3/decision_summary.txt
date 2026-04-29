@@ -1,0 +1,10 @@
+Routers modified: frankfurt, brussels
+
+Reasoning:
+1. The reachability from brussels, marseille, and warsaw to 100.0.1.0/24 (kiev) must be enforced.
+2. Mandatory waypointing indicates that all paths bypassing kiev must be set to a high cost (1000).
+3. Cost adjustments to Frankfurt enforce that all paths bypassing Kiev have a total cost of 1000 while paths going through kiev maintain a low cost (1).
+4. Both routers, Frankfurt and Brussels, must have their configurations adjusted so that they only utilize the valid waypointing path.
+
+Limitations (if any):
+None

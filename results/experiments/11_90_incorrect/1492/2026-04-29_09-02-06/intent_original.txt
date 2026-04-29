@@ -1,0 +1,7 @@
+london and 100.0.1.0/24 should be connected.
+Use kiev as intermediate hop if available.
+Ensure connectivity between madrid and our servers.
+The path between madrid and 100.0.9.0/24 involves rotterdam.
+brussels should connect to 100.0.29.0/24, and similar routing should be used for related traffic.
+Route through london if possible.
+Traffic from brussels to 100.0.29.0/24 should be load-balanced across 2 paths.

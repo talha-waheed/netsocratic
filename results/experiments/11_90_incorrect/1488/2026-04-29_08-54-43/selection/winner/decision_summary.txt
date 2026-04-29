@@ -1,0 +1,10 @@
+Routers modified: Brussels, Rotterdam
+
+Reasoning:
+1. **Reachability**: Brussels must reach 100.0.9.0/24 (Rotterdam's stub). This is satisfied by the base OSPF configuration.
+2. **Waypoint**: Traffic from Brussels to 100.0.9.0/24 must pass through Rotterdam. To enforce this, the costs of all paths bypassing Rotterdam must be set to a high value (1000). Thus, costs on Fa0/1 and Fa1/0 on Brussels are set to 1000.
+3. **Load Balancing**: Brussels must load-balance traffic to 100.0.9.0/24 across 3 equal-cost paths. The paths through Rotterdam must be adjusted to ensure they have the same total cost. The costs on the interfaces leading to Rotterdam are set to 1, allowing for 3 equal-cost paths through Rotterdam.
+4. **Warsaw**: Traffic from Warsaw to 100.0.9.0/24 must be load-balanced across 2 equal-cost paths. The existing paths from Warsaw to Brussels and then to Rotterdam can be adjusted to ensure they are equal-cost. However, since no changes are made to Warsaw, it remains at its base configuration.
+
+Limitations (if any):
+None

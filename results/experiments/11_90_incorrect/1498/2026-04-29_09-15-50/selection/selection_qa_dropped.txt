@@ -1,0 +1,2 @@
+Q: Did your original intent require traffic from frankfurt to 100.0.29.0/24 to pass through rotterdam, was no waypoint required, or was a different waypoint required?
+A: My original intent did not require traffic from Frankfurt to 100.0.29.0/24 to pass through Rotterdam. The required waypoint for this traffic is London.

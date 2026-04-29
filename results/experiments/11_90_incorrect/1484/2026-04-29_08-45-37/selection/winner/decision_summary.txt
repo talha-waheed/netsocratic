@@ -1,0 +1,21 @@
+Routers modified: Amsterdam, Sofia, Istanbul
+
+Reasoning:
+1. **Reachability**: 
+   - Amsterdam must reach 100.0.9.0/24 (Rotterdam's subnet) which is satisfied by the base OSPF configuration.
+   - Sofia must reach 100.0.9.0/24 (Rotterdam's subnet) and must pass through Rotterdam. To enforce this, the cost to bypass Rotterdam from Sofia is set to 1000.
+   - Istanbul must load-balance traffic to 100.0.29.0/24 (London's subnet) across 3 paths.
+
+2. **Waypointing**:
+   - For Sofia to reach 100.0.9.0/24 via Rotterdam, the cost to all other paths from Sofia to 100.0.9.0/24 must be set to 1000, effectively blocking them.
+
+3. **Load Balancing**:
+   - Istanbul has multiple paths to London (100.0.29.0/24). The paths through Sofia and Bucharest are kept at cost 1 to allow for 3 equal-cost paths. The costs on the other paths are adjusted to ensure they are higher than the paths through Sofia and Bucharest.
+
+4. **Final Configuration**:
+   - Amsterdam's costs to bypass Rotterdam are set to 1000.
+   - Sofia's cost to bypass Rotterdam is set to 1000.
+   - Istanbul's paths are configured to allow for 3 equal-cost paths to London.
+
+Limitations (if any):
+None

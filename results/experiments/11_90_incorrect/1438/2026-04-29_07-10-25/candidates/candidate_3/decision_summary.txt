@@ -1,0 +1,16 @@
+Routers modified: lyon, luxembourg, zurich
+
+Reasoning:
+1. For Lyon to reach 100.0.4.0/24 via Basel (mandatory waypoint):
+   - Path through Basel will have a total cost of `1` (Lyon to Basel).
+   - We set the cost of paths bypassing Basel to `1000`, blocking access to that subnet.
+
+2. For Luxembourg to reach 100.0.29.0/24 via London (mandatory waypoint):
+   - Cost to London is set to `1`, while any bypassing paths are set to `1000` to enforce the waypoint.
+
+3. Zurich reaching 100.0.1.0/24 via Kiev demands 3 equal-cost paths:
+   - Set the costs to 1 for potential paths that go through Kiev.
+   - Other potential bypassing paths (with alternative routes) are set higher (`1000`).
+  
+Limitations (if any):
+None.

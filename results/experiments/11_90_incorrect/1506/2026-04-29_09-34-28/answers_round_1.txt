@@ -1,0 +1,16 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from vienna should reach when you mention 'the main subnet'? (Why: impacts reachability)
+A: The exact destination subnet that traffic from Vienna should reach when mentioning 'the main subnet' is 100.0.4.0/24.
+
+Q: What is the exact router hostname you are referring to when you mention 'the remote network'? (Why: impacts reachability)
+A: The specification does not provide a specific hostname for 'the remote network.' It only outlines the reachability for various locations and their associated networks.
+
+Q: What is the exact router hostname you are referring to when you mention 'the main subnet'? (Why: impacts reachability)
+A: I do not have a specific hostname for 'the main subnet' as it is not defined in the routing requirements provided.
+
+Q: What is the exact router hostname you are referring to when you mention 'the remote network' in relation to paris? (Why: impacts reachability)
+A: The remote network in relation to Paris refers to the network 100.0.9.0/24.
+
+Q: What is the exact integer path count for load balancing when you mention 'multiple routes' for the connection between sofia and the remote network? (Why: impacts load balancing)
+A: The exact integer path count for load balancing between Sofia and the remote network is 5.

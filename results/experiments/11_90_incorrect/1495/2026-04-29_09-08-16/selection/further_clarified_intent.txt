@@ -1,0 +1,1 @@
+Traffic from Bucharest to 100.0.29.0/24 must pass through the router that handles traffic to London. The subnet 100.0.9.0/24 is reachable from Luxembourg. Traffic from Luxembourg to 100.0.9.0/24 must pass through the router that handles traffic to Rotterdam. Ensure Strasbourg can access the network 100.0.1.0/24. Apply the same policy to other relevant connections.

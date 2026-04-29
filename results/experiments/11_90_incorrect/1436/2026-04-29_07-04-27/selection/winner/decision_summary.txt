@@ -1,0 +1,22 @@
+Routers modified: ['kiev', 'paris', 'sofia', 'london']
+
+Reasoning:
+1. **Reachability**: 
+   - Sofia must reach 100.0.1.0/24 (Kiev's subnet) and Paris must also reach it. This is satisfied by the base OSPF configuration.
+   - London must reach 100.0.4.0/24 (Basel's subnet), which is also satisfied by the base OSPF configuration.
+
+2. **Waypointing**:
+   - For traffic from Paris to 100.0.1.0/24, it must pass through Kiev. To enforce this, the cost of the link from Paris to any bypassing routes (e.g., through Frankfurt) is set to 1000.
+   - For traffic from London to 100.0.4.0/24, it must pass through Basel. The cost of the link from London to any bypassing routes (e.g., through Frankfurt) is set to 1000.
+
+3. **Load Balancing**:
+   - For traffic from Paris to 100.0.1.0/24, we need to create 2 equal-cost paths. The paths are:
+     - Path 1: Paris → Frankfurt → Kiev
+     - Path 2: Paris → Strasbourg → Kiev
+   - The costs on the relevant interfaces are adjusted to ensure both paths have the same total cost.
+
+4. **Final Configuration**:
+   - The costs on the relevant interfaces are modified to enforce waypointing and load balancing while keeping all other configurations identical to the base.
+
+Limitations (if any):
+None

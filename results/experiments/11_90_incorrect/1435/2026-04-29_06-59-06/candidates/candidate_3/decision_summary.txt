@@ -1,0 +1,9 @@
+Routers modified: Amsterdam, Sofia, Strasbourg, Bratislava
+
+Reasoning:
+1. For traffic from Sofia to 100.0.9.0/24 (Rotterdam), we need 4 equal-cost paths. Thus, we set the costs on bypass routes from Sofia's other interfaces to 1000 whereas we kept paths crossing through Rotterdam at cost 1.
+2. For Strasbourg to reach 100.0.29.0/24 (London), we have a mandatory waypoint of London, hence paths bypassing London are set to 1000. All routes that go to London will have added costs up to 1.
+3. For Bratislava's traffic to 100.0.4.0/24 (Basel), we need 4 equal-cost paths as well. So we set costs favoring going through Basel at cost 1 while others are set to 1000 (bypass paths).
+
+Limitations (if any):
+- None; all routes have been successfully configured as per provided policies and constraints.

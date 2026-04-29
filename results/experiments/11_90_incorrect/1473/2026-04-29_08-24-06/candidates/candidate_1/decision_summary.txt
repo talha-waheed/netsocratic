@@ -1,0 +1,28 @@
+Routers modified: Basel, Frankfurt, Kiev, Geneva
+
+Reasoning:
+1. **Reachability from Vienna to 100.0.4.0/24**: 
+   - The path from Vienna to Basel (cost 1) and then Basel to Frankfurt (cost 1) allows reachability to 100.0.4.0/24.
+   - No changes needed for this path as it already meets the requirement.
+
+2. **Waypointing for Vienna**: 
+   - Basel is preferred for traffic from Vienna to 100.0.4.0/24. 
+   - Set costs to 1 on the paths through Basel (already satisfied) and left other paths unchanged.
+
+3. **Reachability from Frankfurt to 100.0.1.0/24**: 
+   - The path from Frankfurt to Kiev (cost 1) and then Kiev to 100.0.1.0/24 allows reachability.
+   - No changes needed for this path as it already meets the requirement.
+
+4. **Waypointing for Frankfurt**: 
+   - Traffic from Frankfurt to 100.0.1.0/24 should prefer to go through Kiev. 
+   - Set cost to 1000 on the bypass paths to enforce this preference.
+
+5. **Reachability from Geneva to 100.0.29.0/24**: 
+   - The path from Geneva to London (cost 1) allows reachability to 100.0.29.0/24.
+   - Set cost to 1 on the path through Geneva to ensure it is preferred.
+
+6. **Load balancing**: 
+   - No explicit load balancing was required in the rules, but the existing paths through Basel and Kiev provide redundancy.
+
+Limitations (if any):
+None

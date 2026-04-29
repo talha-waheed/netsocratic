@@ -1,0 +1,19 @@
+Routers modified: milan, geneva, strasbourg
+
+Reasoning:
+1. For Milan to reach 100.0.1.0/24, traffic must pass through Kiev (mandatory waypoint).
+   - Paths: Milan → Kiev → ... have cost 2 (1+1).
+   - All other possible paths that bypass Kiev must be set to cost 1000 to enforce the waypoint.
+   - Result: Set Milan's non-Kiev links to cost 1000, while the one through Kiev remains at cost 1. Two paths are available through Kiev.
+   
+2. For Geneva to reach 100.0.4.0/24 through Basel (mandatory waypoint):
+   - Paths: Geneva can go through Basel with cost 2 (1+1) or via other paths with cost 1000.
+   - Set Geneva's non-Basel links to cost 1000 and the link through Basel to cost 1.
+   - Since the load balancing indicates 3 paths to use heavily, ensuring each path via Basel and among those 3 total cost needs to remain the same.
+
+3. Strasbourg to reach 100.0.29.0/24 must go through London (mandatory waypoint):
+   - Paths available are Strasbourg → London → ... which costs 2 and will use that path.
+   - Set costs for links bypassing London to 1000, while the direct link to London retains cost 1, ensuring 2 equal costs.
+
+Limitations (if any):
+None

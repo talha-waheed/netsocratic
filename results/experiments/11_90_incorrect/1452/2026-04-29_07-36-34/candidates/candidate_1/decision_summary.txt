@@ -1,0 +1,21 @@
+Routers modified: Rotterdam, Strasbourg, Vienna
+
+Reasoning:
+1. **Reachability**: 
+   - From Praha to 100.0.9.0/24 (Rotterdam) is established via the existing OSPF configuration.
+   - From Strasbourg to 100.0.4.0/24 is also established.
+   - From Vienna to 100.0.29.0/24 (London) is reachable through existing paths.
+
+2. **Waypointing**: 
+   - Traffic from Praha to 100.0.9.0/24 must pass through Rotterdam. 
+   - Set costs on Rotterdam's interfaces to 1 to ensure it is preferred, while not blocking other paths.
+
+3. **Load Balancing**: 
+   - The paths from Praha to Rotterdam and from Strasbourg to 100.0.4.0/24 are set to cost 1 to allow for load balancing.
+   - The same applies to Vienna, ensuring that it can access London via multiple paths.
+
+4. **Cost Adjustments**: 
+   - Only the necessary routers (Rotterdam, Strasbourg, and Vienna) had their OSPF costs modified to achieve the desired routing policy.
+
+Limitations (if any):
+None

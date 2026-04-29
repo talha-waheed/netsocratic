@@ -1,0 +1,10 @@
+Routers modified: Luxembourg, Rotterdam, Strasbourg, Vienna
+
+Reasoning:
+1. Luxembourg needs to reach 100.0.9.0/24, 100.0.1.0/24, and 100.0.29.0/24. To ensure redundancy and load balancing, costs on Fa0/1 and Fa1/0 are set to 1.
+2. Rotterdam is a mandatory waypoint for Luxembourg to reach 100.0.9.0/24. Therefore, its costs on Fa0/1 and Fa1/0 are also set to 1 to facilitate this.
+3. Strasbourg must connect to 100.0.1.0/24, which involves Kiev. Setting Fa1/0 to cost 1 allows this path to be preferred while maintaining redundancy.
+4. Vienna needs to connect to 100.0.29.0/24 via London. Setting Fa1/0 to cost 1 ensures this path is preferred and allows for redundancy.
+
+Limitations (if any):
+None

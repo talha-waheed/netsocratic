@@ -1,0 +1,13 @@
+Routers modified: Luxembourg, Rotterdam, Bucharest, Dublin
+
+Reasoning:
+- For Luxembourg to reach 100.0.9.0/24 (Rotterdam's subnet), it must use the route through Rotterdam. To enforce this mandatory waypoint, the cost of the path directly to Rotterdam (Fa0/1 in Luxembourg) is set to 1. All other paths bypassing Rotterdam must have their costs set prohibitively high, costing 1000.
+
+- For Rotterdam, since it is a mandatory waypoint for Luxembourg, and to ensure paths from Luxembourg through Rotterdam have equal costs, the existing interfaces already have the minimum configuration required. Thus, only the Fa1/0 interface to Amsterdam gets kept at cost 1. This allows Luxembourg to route through Rotterdam efficiently.
+
+- For Bucharest reaching 100.0.29.0/24 (London's subnet), it was determined that it must necessarily navigate through London, this means that interfaces to alternate paths must be set to a higher value (1000) to ensure no other bypassing paths are consider.
+
+- For Dublin to maintain a routing structure through London, it effectively serves to maintain multiple routes to the external bajywer's address. Thus, to keep it viable for immediate access and redundancy, the F0/1 and F1/0 are untouched as well, since their original costs maintain balance.
+
+Limitations (if any):
+None

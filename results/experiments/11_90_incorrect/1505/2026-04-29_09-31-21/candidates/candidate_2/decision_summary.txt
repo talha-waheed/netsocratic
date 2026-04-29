@@ -1,0 +1,9 @@
+Routers modified: Amsterdam, Luxembourg
+
+Reasoning:
+1. For Amsterdam to reach 100.0.1.0/24 via Kiev, the direct path (Amsterdam → Kiev) must have a lower cost than the bypass path (to any other router). Thus, the costs on the links to London, Brussels, and Rotterdam are set to 1000, making the only viable path through Kiev cost 1.
+2. For Luxembourg to reach 100.0.29.0/24 via London, all paths bypassing London (to Brussels and Frankfurt) are set to 1000. The direct path to London remains cost 1 to ensure it is chosen.
+3. The modification on Luxembourg maintains the requirement for load balancing across 2 paths to 100.0.29.0/24, as there are 2 viable paths through London (via Brussels and via Frankfurt) with equal costs.
+
+Limitations (if any):
+None

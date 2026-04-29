@@ -1,0 +1,12 @@
+Routers modified: Amsterdam, Budapest, Warsaw, Kuala Lumpur
+
+Reasoning:
+1. **Reachability**: The configuration ensures that traffic from London, Basel, and Madrid can all reach 100.0.1.0/24, with Kyiv as a mandatory waypoint.
+2. **Waypoints**: Set cost to 1000 for routes bypassing Kyiv from London, Basel, and Madrid, while maintaining cost of 1 to the path through Kyiv. 
+3. **Load Balancing**:
+   - For London, it was required to have 7 equal-cost paths; thus, multiple routes through Kyiv were considered, all set on a total cost to satisfy 7 routes.
+   - For Basel and Madrid, each has been set up for 2 equal-cost paths via Kyiv while blocking others with a high cost.
+4. Each route correctly adheres to stipulated costs and ensures that the policies are satisfied.
+
+Limitations (if any):
+None

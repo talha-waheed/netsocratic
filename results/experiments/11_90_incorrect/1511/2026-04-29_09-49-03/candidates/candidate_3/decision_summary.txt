@@ -1,0 +1,11 @@
+Routers modified: ['Rotterdam', 'Brussels', 'Amsterdam', 'Geneva', 'Budapest', 'Strasbourg']
+
+Reasoning:
+1. For Brussels to reach 100.0.9.0/24 (Rotterdam), I set the cost of the link from Brussels to Rotterdam at 1. This path must be preferred, so all other paths must be set to 1000. Hence, the route from Brussels to 100.0.9.0 via Amsterdam or another bypass must be blocked with a cost of 1000.
+2. For Amsterdam's reachability to 100.0.4.0/24 (Basel), connections through Rotterdam and Brussels need to have competitive costs. Setting costs to 1 ensures a pathway through Rotterdam, while others may be effectively considered non-preferred.
+3. Geneva must route to 100.0.1.0/24 (Kiev) through the mandatory waypoint, blocking any bypass paths. The cost via Basel (1) must be low, while others (presuming Geneva could reach it otherwise) must be high, so I set the cost to 1000.
+4. Budapest similarly must route to 100.0.4.0/24 (Basel) through it. Its alternative routes must also be capped at 1000 to maintain direction and effectively enforce the waypointing routing policy.
+5. In Strasbourg, the pathway must respect the same routing policies; hence links to Basel and any routes bypassing that with a cost must be filled out at 1000.
+
+Limitations (if any):
+Some connections may have ambiguity in cost structure; due to OSPF distance metrics, assuming the routing may allow multiple ways in, careful adjustments must be in place to truly limit bypass routes beyond the preferred. The configuration is set with necessary adjustments while maintaing connectivity intended through hierarchy levels in the routing protocols, adjusted only on `ip ospf cost` values.

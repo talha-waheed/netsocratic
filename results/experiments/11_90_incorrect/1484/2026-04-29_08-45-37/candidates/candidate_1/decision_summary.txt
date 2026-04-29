@@ -1,0 +1,21 @@
+Routers modified: Amsterdam, Sofia, Istanbul, Rotterdam
+
+Reasoning:
+1. **Reachability**: 
+   - Amsterdam needs to reach 100.0.9.0/24 (Rotterdam's subnet).
+   - Sofia also needs to reach 100.0.9.0/24 (Rotterdam's subnet).
+   - Istanbul needs to reach 100.0.29.0/24 (London's subnet).
+
+2. **Waypointing**: 
+   - No mandatory waypointing is specified in the rules, so we do not need to block any paths. 
+   - All routers maintain a cost of 1 to their directly connected neighbors.
+
+3. **Load Balancing**: 
+   - Istanbul requires 9 equal-cost paths to 100.0.29.0/24. 
+   - We ensure that all paths from Istanbul to London (via various routers) have a cost of 1, allowing for multiple equal-cost paths.
+
+4. **Cost Adjustments**: 
+   - All modified routers maintain a cost of 1 on their interfaces to ensure connectivity and load balancing.
+
+Limitations (if any):
+None

@@ -1,0 +1,15 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Istanbul, Kiev, Marseille, Bratislava, Budapest, Athens
+
+Reasoning:
+1. **Amsterdam**: Needs to route traffic to 100.0.9.0/24 (Rotterdam) through Rotterdam. Set costs to 1000 on all bypass paths to Rotterdam.
+2. **Brussels**: Similar to Amsterdam, needs to route traffic to 100.0.9.0/24 (London) through London. Set costs to 1000 on all bypass paths to London.
+3. **Frankfurt**: Traffic to 100.0.9.0/24 (London) must go through London. Set costs to 1000 on all bypass paths to London.
+4. **Istanbul**: Traffic to 100.0.9.0/24 (Rotterdam) must go through Rotterdam. Set costs to 1000 on all bypass paths to Rotterdam.
+5. **Kiev**: Traffic to 100.0.29.0/24 (London) must go through London. Set costs to 1000 on all bypass paths to London.
+6. **Marseille**: Traffic to 100.0.9.0/24 (Rotterdam) must go through Rotterdam. Set costs to 1000 on all bypass paths to Rotterdam.
+7. **Bratislava**: Needs to load balance traffic to 100.0.4.0/24 (Basel) across 4 paths. Set costs to 1000 on all bypass paths to Basel.
+8. **Budapest**: Needs to load balance traffic to 100.0.1.0/24 (Kiev) across 2 paths. Set costs to 1000 on all bypass paths to Kiev.
+9. **Athens**: Needs to load balance traffic to 100.0.9.0/24 (Rotterdam) across 2 paths. Set costs to 1 on paths through Rotterdam.
+
+Limitations (if any):
+None

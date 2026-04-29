@@ -1,0 +1,13 @@
+Routers modified: Basel, Brussels, Lyon, Rotterdam
+
+Reasoning:
+1. **Reachability**: All required prefixes are reachable due to OSPF's redistribution of connected subnets.
+2. **Waypointing**:
+   - For traffic from Lyon to 100.0.4.0/24 and London to 100.0.4.0/24, both must pass through Basel. Thus, all paths bypassing Basel are set to a high cost (1000) on Brussels and Lyon.
+   - For traffic from London to 100.0.9.0/24 and Lyon to 100.0.9.0/24, both must pass through Rotterdam. Therefore, all paths bypassing Rotterdam are set to a high cost (1000) on Brussels and Lyon.
+3. **Load Balancing**:
+   - For Lyon to 100.0.9.0/24, we need 7 equal-cost paths. The paths through Basel are kept at cost 1, while paths bypassing it are set to 1000.
+   - For London to 100.0.9.0/24, we also need 7 equal-cost paths. The paths through Rotterdam are kept at cost 1, while paths bypassing it are set to 1000.
+
+Limitations (if any):
+None

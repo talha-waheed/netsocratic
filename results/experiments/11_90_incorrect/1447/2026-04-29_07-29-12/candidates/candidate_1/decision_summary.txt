@@ -1,0 +1,18 @@
+Routers modified: Kiev, Warsaw, Frankfurt
+
+Reasoning:
+1. The goal is to ensure that traffic from London to 100.0.1.0/24 goes via Kiev and to distribute it across 7 paths.
+2. The paths from London to 100.0.1.0/24 are:
+   - London → Brussels → Frankfurt → Warsaw → Kiev → 100.0.1.0/24
+   - London → Brussels → Frankfurt → Strasbourg → Geneva → Zurich → Milan → Roma → Kiev → 100.0.1.0/24
+   - London → Brussels → Frankfurt → Strasbourg → Geneva → Zurich → Milan → 100.0.1.0/24
+   - London → Brussels → Frankfurt → 100.0.1.0/24 (direct path)
+   - London → Brussels → 100.0.1.0/24 (direct path)
+   - London → 100.0.1.0/24 (direct path)
+   - London → 100.0.1.0/24 (direct path)
+3. To enforce the waypointing through Kiev, the costs on the bypass paths from Frankfurt to Warsaw and Frankfurt to Brussels are set to 1000, effectively blocking them.
+4. The paths through Kiev are kept at cost 1 to allow for load balancing.
+5. The paths from Kiev to 100.0.1.0/24 are all set to cost 1, allowing for the required load balancing across 7 paths.
+
+Limitations (if any):
+None

@@ -1,0 +1,12 @@
+Routers modified: Amsterdam, Barcelona, Bratislava, Frankfurt, Paris, Strasbourg
+
+Reasoning:
+1. **Amsterdam**: Traffic to 100.0.29.0/24 (London) must pass through London. Set costs to 1000 on all bypass paths to London.
+2. **Barcelona**: Traffic to 100.0.29.0/24 must pass through London and be load-balanced across 2 paths. Set costs to 1000 on bypass paths and ensure two paths to London have equal cost.
+3. **Bratislava**: Traffic to 100.0.4.0/24 must pass through Basel and be load-balanced across 4 paths. Set costs to 1000 on bypass paths and adjust costs to ensure 4 equal paths through Basel.
+4. **Frankfurt**: Traffic to 100.0.29.0/24 must pass through London. Set costs to 1000 on all bypass paths to London.
+5. **Paris**: Traffic to 100.0.9.0/24 must pass through Kiev and be load-balanced across 2 paths. Set costs to 1000 on bypass paths and ensure two paths to Kiev have equal cost.
+6. **Strasbourg**: Traffic to 100.0.29.0/24 must pass through London and be load-balanced across 2 paths. Set costs to 1000 on bypass paths and ensure two paths to London have equal cost.
+
+Limitations (if any):
+None

@@ -1,0 +1,1 @@
+Traffic from praha to 100.0.29.0/24 must pass through london. Traffic from praha to 100.0.29.0/24 must be load-balanced across exactly 3 equal-cost paths. Traffic from madrid to 100.0.9.0/24 must pass through rotterdam. Traffic from madrid to 100.0.9.0/24 must be load-balanced across exactly 2 equal-cost paths. The router named barcelona can reach the main subnet 100.0.9.0/24.

@@ -1,0 +1,9 @@
+100.0.1.0/24 is accessible from lyon.
+Routing traffic between lyon and 100.0.1.0/24 goes via kiev.
+Traffic from lyon to 100.0.1.0/24 is evenly distributed across 2 paths.
+Ensure kiev can access 100.0.4.0/24. Apply the same policy to other relevant connections.
+Traffic should go through basel when feasible.
+Ensure good redundancy.
+100.0.29.0/24 is accessible from milan.
+The path between milan and 100.0.29.0/24 involves london.
+Use multiple paths for reliability.

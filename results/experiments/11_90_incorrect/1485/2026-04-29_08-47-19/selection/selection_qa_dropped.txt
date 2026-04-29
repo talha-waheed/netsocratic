@@ -1,0 +1,8 @@
+Q: Did your original intent require traffic from luxembourg to 100.0.9.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+A: My original intent did not require traffic from Luxembourg to 100.0.9.0/24 to pass through Basel. No waypoint was required for that traffic.
+
+Q: Did your original intent require traffic from luxembourg to 100.0.9.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent did not require an exact path count for traffic from Luxembourg to 100.0.9.0/24. The requirement was specifically for load balancing to occur for the prefixes associated with Geneva, Luxembourg, and Frankfurt, but no specific path count was mandated for traffic from Luxembourg to 100.0.9.0/24.
+
+Q: Did your original intent require traffic from frankfurt to 100.0.9.0/24 to be reachable, or should that reachability not be required?
+A: Yes, my original intent required traffic from Frankfurt to 100.0.9.0/24 to be reachable.

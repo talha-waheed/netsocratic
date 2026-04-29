@@ -1,0 +1,25 @@
+Routers modified: geneva, bucharest, milan
+
+Reasoning:
+1. **Geneva to 100.0.29.0/24**: 
+   - Required paths: Geneva -> London (via Basel) for a total of 8 paths.
+   - To enforce London as a mandatory waypoint, set `ip ospf cost` to 1000 on paths bypassing London and keep it at 1 on paths going through London.
+   - Adjusted costs: 
+     - Set costs from Geneva to London via Basel at 1.
+     - Set costs from Geneva to all other routes that bypass London at 1000.
+
+2. **Bucharest to 100.0.29.0/24**: 
+   - Bucharest must reach 100.0.29.0/24. 
+   - No mandatory waypoint specified, but to ensure redundancy with 8 paths through London, set costs towards London at 1.
+   - Adjusted costs: 
+     - Keep the cost to London at 1, while ensuring all other paths away from London are blocked (set to 1000).
+
+3. **Milan to 100.0.29.0/24**: 
+   - Similar to Bucharest, must reach 100.0.29.0/24 with London as the preferred path.
+   - Set costs from Milan to London at 1 and all bypass paths at 1000.
+   
+4. **Load Balancing**: 
+   - For Geneva, paths through Basel and other routes were adjusted to ensure exactly 8 equal-cost paths to 100.0.29.0/24.
+
+Limitations (if any):
+None

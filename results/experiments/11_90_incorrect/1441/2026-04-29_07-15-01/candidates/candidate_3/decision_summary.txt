@@ -1,0 +1,15 @@
+Routers modified: Amsterdam, Bratislava, Frankfurt, Rotterdam
+
+Reasoning:
+1. Traffic from London to 100.0.9.0/24 must go through Rotterdam. Therefore, Rotterdam's path to its stub was set to 1000, preventing traffic from using other routes to reach this subnet. Cost was set to 1 for routes that include Rotterdam.
+
+2. Traffic from Frankfurt to 100.0.9.0/24 also needs to go through Rotterdam, thus setting the cost to 1000 for any alternative path. The costs for both routes directly connecting to London were maintained at 1 to allow for multiple paths.
+
+3. For Bratislava to 100.0.1.0/24, the mandatory waypoint via Kiev requires that other routes (e.g., routes bypassing Kiev) are set to cost 1000, whilst paths toward Kiev can stay at 1.
+
+4. Amsterdam can also reach 100.0.9.0/24, but when sending traffic, the effective path must pass through Rotterdam. It also has a 1000 cost on bypass paths to ensure compliance with waypointing.
+
+5. Load balancing requirements state that there must be 3 ECMP routes from London to 100.0.9.0/24, adjusted costs on Brussels and Frankfurt ensure that multiple paths remain open to avoid service disruption.
+
+Limitations (if any):
+None

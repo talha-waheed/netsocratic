@@ -1,0 +1,21 @@
+Routers modified: ['Bratislava', 'Kiev', 'Milan', 'Basel']
+
+Reasoning:
+1. For traffic from Bratislava to 100.0.1.0/24, it must pass through Kiev. Therefore, the cost from Bratislava to Kiev must be low (1), while all other paths must be high (1000). This ensures that traffic from Bratislava to 100.0.1.0/24 only goes through Kiev.
+2. For load balancing from Bratislava to 100.0.1.0/24, we need 2 equal-cost paths. The paths are:
+   - Path 1: Bratislava → Kiev → ... → 100.0.1.0/24
+   - Path 2: Bratislava → ... → other routes (which are blocked by high cost).
+   Thus, the cost to Kiev is set to 1, and other paths are set to 1000.
+3. For traffic from Milan to 100.0.4.0/24, it must pass through Basel. Therefore, the cost from Milan to Basel must be low (1), while all other paths must be high (1000).
+4. For load balancing from Milan to 100.0.4.0/24, we need 2 equal-cost paths. The paths are:
+   - Path 1: Milan → Basel → ... → 100.0.4.0/24
+   - Path 2: Milan → ... → other routes (which are blocked by high cost).
+   Thus, the cost to Basel is set to 1, and other paths are set to 1000.
+5. For traffic from Istanbul to 100.0.4.0/24, it must also pass through Basel. The same logic applies as above, ensuring that the cost to Basel is low (1) and other paths are high (1000).
+6. For load balancing from Istanbul to 100.0.4.0/24, we need 2 equal-cost paths. The paths are:
+   - Path 1: Istanbul → Basel → ... → 100.0.4.0/24
+   - Path 2: Istanbul → ... → other routes (which are blocked by high cost).
+   Thus, the cost to Basel is set to 1, and other paths are set to 1000.
+
+Limitations (if any):
+None

@@ -1,0 +1,29 @@
+Routers modified: Rotterdam, Roma, Brussels, Athens
+
+Reasoning:
+1. **Rotterdam to 100.0.9.0/24 (via Rotterdam)**: 
+   - Paths: Rotterdam → Amsterdam → Brussels → Paris → 100.0.9.0/24 (cost 4)
+   - Paths: Rotterdam → Frankfurt → 100.0.9.0/24 (cost 3)
+   - To enforce the waypoint through Rotterdam, set the cost of the bypass path (to Amsterdam) to 1000.
+   - Set the cost of the direct path to 1, allowing for 2 equal-cost paths.
+
+2. **Roma to 100.0.9.0/24 (via Rotterdam)**:
+   - Paths: Roma → Milan → Zurich → Frankfurt → 100.0.9.0/24 (cost 4)
+   - Paths: Roma → Milan → Marseille → Lyon → Paris → 100.0.9.0/24 (cost 5)
+   - To enforce the waypoint through Rotterdam, set the cost of the bypass path to 1000.
+   - Set the cost of the path through Rotterdam to 1, allowing for 2 equal-cost paths.
+
+3. **Brussels to 100.0.1.0/24 (via Kiev)**:
+   - Paths: Brussels → Frankfurt → Warsaw → Kiev → 100.0.1.0/24 (cost 4)
+   - Paths: Brussels → Amsterdam → Frankfurt → Warsaw → Kiev → 100.0.1.0/24 (cost 5)
+   - To enforce the waypoint through Kiev, set the cost of the bypass path to 1000.
+   - Set the cost of the path through Kiev to 1, allowing for 4 equal-cost paths.
+
+4. **Athens to 100.0.1.0/24 (via Kiev)**:
+   - Paths: Athens → Istanbul → Bucharest → Kiev → 100.0.1.0/24 (cost 3)
+   - Paths: Athens → Sofia → Budapest → Kiev → 100.0.1.0/24 (cost 4)
+   - To enforce the waypoint through Kiev, set the cost of the bypass path to 1000.
+   - Set the cost of the path through Kiev to 1, allowing for 2 equal-cost paths.
+
+Limitations (if any):
+None

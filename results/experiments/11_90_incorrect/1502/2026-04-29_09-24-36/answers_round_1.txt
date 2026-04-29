@@ -1,0 +1,11 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that the main subnet is referring to? (Why: impacts reachability)
+A: The main subnet is referring to the following destination subnets in CIDR notation: 
+
+- Bratislava: 100.0.9.0/24
+- Luxembourg: 100.0.1.0/24
+- Strasbourg: 100.0.4.0/24
+
+Q: What is the exact router hostname for the waypoint referred to as "rotterdam"? (Why: impacts waypointing)
+A: I cannot provide the exact router hostname for the waypoint "rotterdam."

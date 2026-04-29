@@ -1,0 +1,8 @@
+brussels and our servers should be connected.
+Traffic should go through rotterdam when feasible.
+Distribute traffic across available paths.
+The subnet our servers is reachable from amsterdam.
+Preferably route via basel.
+Use multiple paths for reliability.
+warsaw should connect to our servers, and similar routing should be used for related traffic.
+To reach 100.0.9.0/24 from warsaw, traffic is balanced on 2 paths.

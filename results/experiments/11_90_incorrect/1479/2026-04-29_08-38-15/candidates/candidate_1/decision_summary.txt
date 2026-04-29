@@ -1,0 +1,10 @@
+Routers modified: ['Kiev', 'Frankfurt', 'Rotterdam', 'Praha']
+
+Reasoning:
+1. The routing rules require that traffic from `rotterdam` to `100.0.1.0/24` must pass through `kiev`. Therefore, all paths bypassing `kiev` must be set to a high cost (1000) to enforce this waypoint.
+2. `praha` must reach `100.0.29.0/24` (London's subnet) via `london`. To achieve this, we set the cost of the link from `frankfurt` to `london` to 1000, ensuring that traffic must go through `london`.
+3. The load balancing requirement for `praha` to `100.0.29.0/24` specifies 3 equal-cost paths. The paths through `frankfurt` and `london` are maintained at cost 1, while other potential bypass paths are set to a higher cost (1000) to ensure that they are not selected.
+4. For `rotterdam`, the path to `100.0.1.0/24` must also go through `kiev`, so the cost of the link from `rotterdam` to `kiev` is set to 1, while bypass paths are set to 1000.
+
+Limitations (if any):
+None

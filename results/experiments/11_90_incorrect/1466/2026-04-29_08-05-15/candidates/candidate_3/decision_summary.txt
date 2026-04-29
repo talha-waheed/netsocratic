@@ -1,0 +1,10 @@
+Routers modified: Amsterdam, Budapest, Strasbourg
+
+Reasoning:
+1. **Amsterdam to 100.1.0.0/24**: Needs 2 paths through Kiev; set costs to enforce path through Kiev (Fa1/1 and Fa0/1 get blocked).
+2. **Budapest to 100.9.0.0/24**: Needs 2 paths through Rotterdam; set costs to enforce path through Rotterdam (Fa1/0 gets high cost).
+3. **Strasbourg to 100.9.0.0/24**: Needs 2 paths through Rotterdam; set costs accordingly (Fa0/1 blocks the bypass).
+4. Ensured that all waypoint requirements are satisfied by adjusting costs on bypass routes to effectively block them.
+
+Limitations (if any):
+None

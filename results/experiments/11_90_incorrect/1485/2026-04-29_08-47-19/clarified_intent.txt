@@ -1,0 +1,1 @@
+Traffic from Geneva should reach the subnet 100.0.1.0/24. Distribute traffic across 11 available paths. Connectivity from Luxembourg to the subnet 100.0.9.0/24 is established. Traffic from Luxembourg to the subnet 100.0.9.0/24 passes through Basel. The subnet 100.0.9.0/24 is reachable from Frankfurt. Route through Rotterdam if possible. Ensure good redundancy.

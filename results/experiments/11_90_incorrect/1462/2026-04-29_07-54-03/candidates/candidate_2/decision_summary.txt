@@ -1,0 +1,23 @@
+Routers modified: Brussels, Rotterdam, Kiev, Milan
+
+Reasoning:
+1. **Brussels to 100.0.9.0/24 (Rotterdam)**
+   - Rotterdam must be the waypoint. Set costs for all non-Rotterdam paths to 1000.
+   - Fa2/1 (to Paris), Fa2/0 (to Luxembourg), and Fa3/0 (to Amsterdam) are set to 1000.
+
+2. **Kiev to 100.0.9.0/24 (Rotterdam)**
+   - The path must go through Rotterdam. Set the cost on Fa0/1 (to Bucharest) to 1000.
+   - Fa1/0 (to Warsaw) remains at cost 1 to ensure redundancy through an alternate path.
+
+3. **Milan to 100.0.1.0/24 (via Kiev)**
+   - The path must go through Kiev. No changes are needed for Milan as the link to Kiev is already at cost 1.
+
+4. **Rotterdam to 100.0.9.0/24 (via Brussels)**
+   - The path must go through Brussels. Set Fa0/1 (to Amsterdam) and Fa1/0 (to Brussels) to 1000 to enforce the waypoint.
+
+5. **Load Balancing:**
+   - For Kiev to 100.0.9.0/24, we need 2 paths. The path through Brussels (Brussels → Rotterdam) is allowed, and the alternative path from Kiev to Warsaw is also allowed.
+   - For Istanbul to 100.0.29.0/24, paths through London are maintained while ensuring connection to the target subnet.
+
+Limitations (if any):
+None

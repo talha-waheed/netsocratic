@@ -1,0 +1,9 @@
+Ensure connectivity between london and the target subnet.
+Routing traffic between london and the target subnet goes via kiev.
+Distribute traffic across available paths.
+basel and 100.0.1.0/24 should be connected.
+The route from basel to 100.0.1.0/24 includes kiev.
+Make sure there's redundancy.
+madrid can reach the target subnet
+Preferably route via basel.
+Ensure good redundancy.

@@ -1,0 +1,22 @@
+Routers modified: ['Geneva', 'Luxembourg', 'Frankfurt', 'Basel', 'Rotterdam']
+
+Reasoning:
+1. Geneva must reach subnet 100.0.1.0/24 and distribute traffic across 11 paths.
+   - Initial paths identified: Geneva → Rotterdam → ... (to 100.0.1.0/24)
+   - To enforce waypointing through Rotterdam, set costs of bypass paths (e.g., Geneva → Lyon) to 1000.
+   - Set costs for paths via Rotterdam to 1.
+
+2. Luxembourg must reach subnet 100.0.9.0/24 via Basel.
+   - Set cost of the link to Basel as 1 to ensure traffic passes through Basel.
+   - All other paths to 100.0.9.0/24 that bypass Basel are set to a high cost of 1000.
+
+3. Frankfurt also has to reach 100.0.9.0/24. Set the cost of paths bypassing Basel to 1000 to enforce the waypoint.
+
+4. Basel needs to facilitate the path from Luxembourg to 100.0.9.0/24, which requires adjusting the cost on its outgoing interface to Luxembourg.
+
+5. Rotterdam must maintain a lower cost path to maintain its role as a waypoint for Geneva.
+
+6. The overall adjustments ensure that the required paths and waypointing are satisfied while maintaining the ECMP paths as required.
+
+Limitations (if any):
+None

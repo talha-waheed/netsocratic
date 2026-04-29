@@ -1,0 +1,14 @@
+{
+  "reachability": {
+    "london": ["100.0.1.0/24"],
+    "basel": ["100.0.1.0/24"],
+    "madrid": ["100.0.1.0/24"]
+  },
+  "waypoint": {
+    "(london,100.0.1.0/24)": ["kiev"],
+    "(basel,100.0.1.0/24)": ["kiev"]
+  },
+  "loadbalancing": {
+    "(london,100.0.1.0/24)": 7
+  }
+}

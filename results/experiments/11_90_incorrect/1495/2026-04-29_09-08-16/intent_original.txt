@@ -1,0 +1,7 @@
+bucharest can reach 100.0.29.0/24.
+Preferably route via london.
+The subnet 100.0.9.0/24 is reachable from luxembourg.
+Preferably route via rotterdam.
+Ensure strasbourg can access that network. Apply the same policy to other relevant connections.
+Consider routing through kiev.
+Ensure good redundancy.

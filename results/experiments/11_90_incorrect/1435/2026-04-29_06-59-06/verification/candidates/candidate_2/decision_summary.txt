@@ -1,0 +1,42 @@
+Routers modified: [Rotterdam, Sofia, Strasbourg, Basel]
+
+Reasoning:
+1. **Reachability** - Each specified source router must reach its respective destination prefix. This is automatically provided as all routers redistribute connected subnets.
+   
+2. **Waypoints** - 
+   - Traffic from `sofia` to `100.0.9.0/24` must pass through `rotterdam`. To enforce this, we set the cost of paths bypassing `rotterdam` to 1000:
+     - `sofia` → `budapest` → `bratislava` → `frankfurt` → `brussels` → `amsterdam` → `rotterdam` (valid)
+     - `sofia` → `athens` → `bucharest` → `kiev` → `warsaw` → `frankfurt` → `brussels` → `amsterdam` → `rotterdam` (valid)
+     - All other paths must be blocked (set to cost 1000).
+   
+   - Traffic from `strasbourg` to `100.0.29.0/24` must pass through `london`. Similar steps are applied:
+     - `strasbourg` → `geneva` → `paris` → `london` (valid)
+     - All other paths must be blocked.
+
+   - Traffic from `bratislava` to `100.0.4.0/24` must pass through `basel`:
+     - `bratislava` → `budapest` → `frankfurt` → `brussels` → `basel` (valid)
+     - All other paths must be blocked.
+
+3. **Load Balancing** -
+   - For `sofia` to `100.0.9.0/24`, we need exactly 4 paths:
+     - 1. `sofia` → `athens` → `bucharest` → `kiev` → `frankfurt` → `brussels` → `amsterdam` → `rotterdam` 
+     - 2. `sofia` → `budapest` → `bratislava` → `frankfurt` → `brussels` → `amsterdam` → `rotterdam` 
+     - 3. `sofia` → `athens` → `bucharest` → `budapest` → `strasbourg` → `frankfurt` → `brussels` → `amsterdam` → `rotterdam`
+     - 4. `sofia` → `athens` → `bucharest` → `kiev` → `warsaw` → `frankfurt` → `brussels` → `amsterdam` → `rotterdam`
+     - All routes must have the same cost to ensure load balancing.
+   
+   - For `strasbourg` to `100.0.29.0/24`, we need exactly 2 paths:
+     - 1. `strasbourg` → `geneva` → `paris` → `london`
+     - 2. `strasbourg` → `frankfurt` → `brussels` → `london`
+   
+   - For `bratislava` to `100.0.4.0/24`, we need exactly 4 paths:
+     - 1. `bratislava` → `budapest` → `frankfurt` → `basel` 
+     - 2. `bratislava` → `prague` → `frankfurt` → `basel` 
+     - 3. `bratislava` → `budapest` → `strasbourg` → `frankfurt` → `basel` 
+     - 4. `bratislava` → `vienna` → `frankfurt` → `basel`
+     - All routes must have the same cost.
+     
+4. Costs on links bypassing the mandated waypoints have been adjusted to 1000 to enforce compliance with waypointing rules. Other costs have been set to ensure load balancing across the required number of paths.
+
+Limitations (if any):
+- None

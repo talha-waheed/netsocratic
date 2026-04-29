@@ -1,0 +1,29 @@
+Routers modified: Amsterdam, Sofia, Brussels, Bratislava, Rotterdam, Roma
+
+Reasoning:
+1. **Sofia to London (100.0.29.0/24)**: 
+   - Must pass through London (waypoint).
+   - Set costs on all paths bypassing London to 1000.
+   - Enable 5 equal-cost paths through Sofia → Bucharest → London and other combinations.
+
+2. **Bratislava to Rotterdam (100.0.9.0/24)**: 
+   - Must pass through Rotterdam (waypoint).
+   - Set costs on all paths bypassing Rotterdam to 1000.
+   - Enable 7 equal-cost paths through Bratislava → Budapest → Rotterdam and other combinations.
+
+3. **Roma to Kiev (100.0.1.0/24)**: 
+   - Must pass through Kiev (waypoint).
+   - Set costs on all paths bypassing Kiev to 1000.
+   - Enable 2 equal-cost paths through Roma → Milan → Kiev and other combinations.
+
+4. **Amsterdam**: 
+   - Set costs on all paths bypassing London to 1000 to enforce the waypoint.
+
+5. **Brussels**: 
+   - Set costs on all paths bypassing Rotterdam to 1000 to enforce the waypoint.
+
+6. **Rotterdam**: 
+   - Set costs on all paths bypassing Rotterdam to 1000 to enforce the waypoint.
+
+Limitations (if any):
+None

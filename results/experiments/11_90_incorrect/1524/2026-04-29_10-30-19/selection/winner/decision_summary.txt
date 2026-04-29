@@ -1,0 +1,20 @@
+Routers modified: Rotterdam, Frankfurt, Basel
+
+Reasoning:
+1. **Reachability**: 
+   - Istanbul must reach 100.0.1.0/24 and London must reach 100.0.9.0/24. Both are satisfied by the base OSPF configuration.
+   
+2. **Waypointing**:
+   - For traffic from London to 100.0.9.0/24, it must pass through Rotterdam. Therefore, all paths bypassing Rotterdam must be set to a high cost (1000).
+   - For traffic from Frankfurt to 100.0.4.0/24, it must pass through Basel. Thus, paths bypassing Basel must also be set to a high cost (1000).
+
+3. **Load Balancing**:
+   - Frankfurt to 100.0.4.0/24 must be load-balanced across exactly 2 equal-cost paths. The costs on the interfaces leading to Basel are set to 1, allowing for two paths through Basel to have the same total cost.
+
+4. **Cost Adjustments**:
+   - Rotterdam's interfaces to Amsterdam and Brussels are set to 1000 to enforce the waypoint.
+   - Frankfurt's interfaces to Basel are set to 1 to allow for load balancing through Basel.
+   - Basel's interface to Frankfurt is set to 1 to ensure it is part of the load-balanced paths.
+
+Limitations (if any):
+None

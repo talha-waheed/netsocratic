@@ -1,0 +1,8 @@
+milan and the remote network should be connected.
+Load balance the traffic appropriately.
+100.0.9.0/24 is accessible from strasbourg.
+Consider routing through rotterdam.
+Traffic from strasbourg to 100.0.9.0/24 should be load-balanced across 2 paths.
+The subnet that network is reachable from madrid.
+The route from madrid to that network includes kiev.
+To reach that network from madrid, traffic should be split across 3 paths.

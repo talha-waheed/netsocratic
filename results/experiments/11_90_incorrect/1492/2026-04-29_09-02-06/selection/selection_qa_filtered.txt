@@ -1,0 +1,8 @@
+Q: Did your original intent require traffic from brussels to 100.0.29.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from Brussels to 100.0.29.0/24 to pass through London, as specified in the waypoint requirement for that prefix.
+
+Q: Did your original intent require that all traffic from Brussels to the subnet 100.0.29.0/24 must be load-balanced across two paths, or is it acceptable for some traffic to take a single path?
+A: My original intent required that all traffic from Brussels to the subnet 100.0.29.0/24 must be load-balanced across two paths. Therefore, it is not acceptable for some traffic to take a single path; it should be evenly distributed across the two specified paths.
+
+Q: Did your original intent require traffic from Brussels to the subnet 100.0.29.0/24 to be load-balanced across 2 equal-cost paths, or was a single path acceptable?
+A: My original intent required traffic from Brussels to the subnet 100.0.29.0/24 to be load-balanced across 2 equal-cost paths.

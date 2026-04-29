@@ -1,0 +1,27 @@
+Routers modified: Bratislava, Frankfurt
+
+Reasoning:
+1. **Reachability**: 
+   - Athens needs to reach 100.0.9.0/24 (Rotterdam), which is reachable through Bratislava.
+   - Bratislava must reach 100.0.4.0/24 (Basel), which is already reachable.
+   - Roma must reach 100.0.29.0/24 (London), which is reachable through Frankfurt.
+
+2. **Waypointing**: 
+   - No mandatory waypoints specified, so we do not need to block any paths.
+
+3. **Load Balancing**:
+   - For Bratislava to 100.0.4.0/24, we need 4 equal-cost paths. 
+     - Paths can be: 
+       - Bratislava → Budapest → Frankfurt → Basel
+       - Bratislava → Praha → Frankfurt → Basel
+       - Bratislava → Vienna → Frankfurt → Basel
+       - Bratislava → Vienna → Strasbourg → Basel
+     - Set costs on all relevant interfaces to 1 to ensure all paths are equal.
+   - For Roma to 100.0.29.0/24, we need 2 equal-cost paths.
+     - Paths can be:
+       - Roma → Milan → Zurich → Frankfurt → London
+       - Roma → Milan → Geneva → Frankfurt → London
+     - Set costs on all relevant interfaces to 1 to ensure both paths are equal.
+
+Limitations (if any):
+None

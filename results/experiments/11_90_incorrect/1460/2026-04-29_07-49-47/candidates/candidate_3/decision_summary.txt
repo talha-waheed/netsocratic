@@ -1,0 +1,29 @@
+Routers modified: Geneva, Rotterdam, Barcelona, Kiev, Vienna, Praha
+
+Reasoning:
+1. **Geneva to 100.0.4.0/24:**
+   - Paths: Geneva → Basel → Frankfurt or Geneva → Basel → Strasbourg
+   - To enforce the waypoint (Basel), set costs to 1000 on bypass paths and 1 on Basel paths.
+
+2. **Rotterdam to 100.0.4.0/24:**
+   - Must pass through Basel. 
+   - Paths: Rotterdam → Amsterdam → Frankfurt (cost 2), or Rotterdam → Brussels → Frankfurt (cost 2).
+   - Set bypass path costs to 1000 and Basel path cost to 1; needs 3 equal-cost paths.
+
+3. **Barcelona to 100.0.1.0/24:**
+   - Path: Barcelona → Madrid → Frankfurt.
+   - Must prefer Kyiv; set cost of bypass path to 1000.
+
+4. **Kiev to 100.0.4.0/24:**
+   - Needs an enforced waypoint of Basel.
+   - Set the bypass path cost to 1000.
+
+5. **Vienna to 100.0.9.0/24:**
+   - Must prefer passing through Rotterdam.
+   - Set bypass path cost to 1000.
+
+6. **Praha to 100.0.4.0/24:**
+   - Must pass through Basel, so set bypass path costs to 1000 and Basel path cost to 1.
+
+Limitations (if any):
+None

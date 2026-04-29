@@ -1,0 +1,10 @@
+Routers modified: Basel, Frankfurt, Marseille, Vienna
+
+Reasoning:
+1. **Basel** needs to provide 2 equal-cost paths to 100.0.4.0/24 (from Vienna). Set costs on Fa1/0 and Fa0/1 to 1 to facilitate this.
+2. **Frankfurt** must also connect to 100.0.1.0/24 (Kiev) and provide paths to 100.0.4.0/24. Set costs on Fa1/0 and Fa0/1 to 1 to ensure connectivity and redundancy.
+3. **Marseille** needs to reach 100.0.4.0/24 through Basel and provide 3 paths. Set costs on Fa1/0 and Fa0/1 to 1 to allow for load balancing.
+4. **Vienna** must reach 100.0.4.0/24 through Basel and provide 2 paths. Set costs on Fa1/0 and Fa1/1 to 1 to meet this requirement.
+
+Limitations (if any):
+None

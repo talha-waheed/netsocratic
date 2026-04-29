@@ -1,0 +1,12 @@
+Routers modified: Vienna, Basel, Marseille, Geneva, Paris, Praha
+
+Reasoning:
+1. Reachability requirements from Vienna to 100.0.4.0/24 and from Basel to 100.0.4.0/24 require traffic through Basel → set cost of bypass paths high (1000) to enforce waypointing.
+2. Similarly, Marseille to 100.0.4.0/24 also mandates the use of Basel; hence cost adjustments are necessary.
+3. Geneva's reachability to 100.0.29.0/24 must split over 4 paths, resulting in the configuration of costs allowing multiple paths toward this endpoint.
+4. Paris has to reach 100.0.9.0/24 through Rotterdam, leading to the cost setting adjustments on bypass paths.
+5. Praha's traffic to 100.0.1.0/24 must pass through Kiev, hence a high cost is placed on bypassing that route.
+6. Load balancing requirements are created: specifically for Marseille needing 3 paths, hence adaptations of costs established to ensure the distribution.
+
+Limitations (if any):
+None - All routing rules were successfully applied within topology constraints.

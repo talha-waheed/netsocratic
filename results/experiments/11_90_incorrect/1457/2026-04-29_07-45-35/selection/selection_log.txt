@@ -1,0 +1,13 @@
+candidate_1 vs candidate_2: reach_diff=True, waypoint_diff=True, lb_diff=True
+candidate_1 vs candidate_3: reach_diff=False, waypoint_diff=False, lb_diff=False
+candidate_2 vs candidate_3: reach_diff=True, waypoint_diff=True, lb_diff=True
+candidate_1 and candidate_3 are EC-equivalent → merged
+EC pruning: 3 candidates → 2 survivors: ['candidate_1', 'candidate_2']
+Round 1  Q: Did your original intent require traffic from rotterdam to 100.0.1.0/24 to pass through rotterdam, was no waypoint required, or was a different waypoint required?
+Round 1  A: My original intent required traffic from Rotterdam to 100.0.1.0/24 to pass through Kiev as the waypoint. Therefore, a different waypoint was required, specifically Kiev, not Rotterdam.
+Round 2  Q: Did your original intent require traffic from rotterdam to 100.0.1.0/24 to be load-balanced across exactly 4 paths, was no exact path count required, or was a different exact path count required?
+Round 2  A: My original intent required traffic from rotterdam to 100.0.1.0/24 to be load-balanced across exactly 4 paths.
+Round 3  Q: Did your original intent require traffic from amsterdam to 100.0.9.0/24 to be reachable, or should that reachability not be required?
+Round 3  A: Yes, my original intent required traffic from Amsterdam to 100.0.9.0/24 to be reachable. This is specified in the reachability requirement for Amsterdam, which includes the prefix 100.0.9.0/24.
+Remaining candidates are behaviourally indistinguishable or all distinguishable pairs already asked.
+Synthesized corrected candidate from further clarified intent.

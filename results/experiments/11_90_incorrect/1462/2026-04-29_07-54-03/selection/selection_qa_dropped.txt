@@ -1,0 +1,17 @@
+Q: Did your original intent require traffic from barcelona to 100.0.29.0/24 to pass through rotterdam, was no waypoint required, or was a different waypoint required?
+A: My original intent did not require traffic from Barcelona to 100.0.29.0/24 to pass through Rotterdam. There was no waypoint specified for that traffic. The requirement for Barcelona is only for the prefix 100.0.9.0/24, which has a waypoint of Rotterdam.
+
+Q: Did your original intent require traffic from barcelona to 100.0.9.0/24 to pass through rotterdam, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from Barcelona to 100.0.9.0/24 to pass through Rotterdam, as specified in the waypoint requirement for Barcelona.
+
+Q: Did your original intent require traffic from praha to 100.0.29.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+A: Yes, my original intent required traffic from praha to 100.0.29.0/24 to pass through london as the specified waypoint.
+
+Q: Did your original intent require traffic from barcelona to 100.0.9.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent required traffic from Barcelona to 100.0.9.0/24 to be load-balanced across exactly 2 paths.
+
+Q: Did your original intent require traffic from london to 100.0.29.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent required traffic from London to 100.0.29.0/24 to be load-balanced across exactly 3 paths.
+
+Q: Did your original intent require traffic from lyon to 100.0.4.0/24 to be load-balanced across exactly 3 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent did not require an exact path count for traffic from lyon to 100.0.4.0/24. The requirement was for load balancing, but no specific number of paths was specified.

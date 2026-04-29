@@ -1,0 +1,13 @@
+Round 1 — Q&A
+
+Q: What is the exact router hostname you are referring to when you mention "kiev"? (Why: impact on waypointing)
+A: I do not have a specific router hostname for "kiev." The routing intent is based on the reachability and waypointing specified, but no hostname is provided.
+
+Q: What is the exact router hostname you are referring to when you mention "basel"? (Why: impact on waypointing)
+A: I do not have the exact router hostname for "basel." My routing requirements specify it as a waypoint for traffic from Kiev, but do not provide a hostname.
+
+Q: What is the exact integer path count for the load balancing between lyon and 100.0.1.0/24? (Why: impact on load-balancing)
+A: The exact integer path count for load balancing between Lyon and 100.0.1.0/24 is 2.
+
+Q: What is the exact integer path count for the load balancing between milan and 100.0.29.0/24? (Why: impact on load-balancing)
+A: The exact integer path count for load balancing between Milan and 100.0.29.0/24 is 2.

@@ -1,0 +1,7 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from london should reach when you mention "our servers"? (Why: impact on reachability)
+A: The exact destination subnet that traffic from London should reach when mentioning "our servers" is 100.0.4.0/24.
+
+Q: What is the exact router hostname you are referring to when you say "route through kiev if possible"? (Why: impact on waypointing)
+A: The exact router hostname is not specified in the requirements. The routing intent is to route through Kiev for traffic from Paris and Sofia to the 100.0.1.0/24 network, and from London to the 100.0.4.0/24 network.

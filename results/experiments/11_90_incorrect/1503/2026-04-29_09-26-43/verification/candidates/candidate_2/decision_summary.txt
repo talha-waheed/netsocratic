@@ -1,0 +1,22 @@
+Routers modified: Bratislava, Kiev, Milan, Basel, Istanbul
+
+Reasoning:
+1. **Bratislava to 100.0.1.0/24**:
+   - Must go through Kiev.
+   - Set cost to 1000 on all paths bypassing Kiev.
+   - Cost to Kiev is set to 1, allowing for 2 paths (Bratislava → Kiev → ...).
+
+2. **Milan to 100.0.4.0/24**:
+   - Must go through Basel.
+   - Set cost to 1000 on all paths bypassing Basel.
+   - Cost to Basel is set to 1, allowing for 2 paths (Milan → Basel → ...).
+
+3. **Istanbul to 100.0.4.0/24**:
+   - Must go through Basel.
+   - Set cost to 1000 on all paths bypassing Basel.
+   - Cost to Basel is set to 1, allowing for 2 paths (Istanbul → Basel → ...).
+
+4. For all modified routers, the relevant paths have been configured to satisfy the waypoint requirements and load-balancing constraints.
+
+Limitations (if any):
+None

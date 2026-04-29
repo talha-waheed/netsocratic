@@ -1,0 +1,12 @@
+Routers modified: Amsterdam, Athens, Brussels, Dublin, Frankfurt, Luxembourg, Madrid, Paris, Rotterdam
+
+Reasoning:
+1. **Reachability**: All routers are configured to ensure reachability to the required subnets as per the base OSPF configuration.
+2. **Waypointing**: No mandatory waypointing is specified in the rules, hence no costs were set to 1000 to block paths. All paths remain open.
+3. **Load Balancing**: The load balancing requirement from Athens to 100.0.9.0/24 (Rotterdam) is satisfied by ensuring that two paths exist with equal cost (1) through the routers. The paths are:
+   - Athens → Istanbul → Bucharest → Frankfurt → Brussels → Rotterdam
+   - Athens → Sofia → Budapest → Frankfurt → Brussels → Rotterdam
+   Both paths have a total cost of 5, allowing for load balancing.
+
+Limitations (if any):
+None

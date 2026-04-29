@@ -1,0 +1,13 @@
+Routers modified: Amsterdam, Budapest, Kiev, London
+
+Reasoning:
+1. Amsterdam must route to London (100.0.29.0/24). Since the path through London must be preferred, all bypass paths (to Frankfurt, Rotterdam, Brussels) are set to cost 1000, making them unattractive for OSPF routing. The only valid path now is to London.
+   
+2. Budapest routes to 100.0.1.0/24 (Kiev needed) and 100.0.9.0/24 (preferably through Budapest). Keeping paths towards its own stub subnet at cost 1 allows it to fulfill the waypoint requirement through Kiev for paths to 100.0.1.0 while ensuring good paths for 100.0.9.0.
+
+3. Kiev is used as a waypoint for Budapest and Sofia, which mandates blocking other paths to 100.0.1.0/24 and maintaining costs towards only reachable subnets via this waypoint. Both Fa0/1 and Fa1/0 are set to cost 1000 to enforce this.
+
+4. London must also serve as a waypoint when reaching Amsterdam's destination 100.0.29.0. Since Budapest also needs two paths to the same destination going through London, London is set to cost 1 on the paths leading to it, and others for further preference are set higher to enforce the required load balancing.
+
+Limitations (if any):
+None

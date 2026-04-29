@@ -1,0 +1,13 @@
+Routers modified: [Bucharest, Luxembourg, Strasbourg]
+
+Reasoning:
+1. Bucharest must reach 100.0.29.0/24 via London (mandatory waypoint). Set cost 1000 on the path that bypasses London and cost 1 on the path that includes London, allowing Bucharest to access London at a cost of 1, while other routes are blocked due to high cost.
+   
+2. Luxembourg must reach 100.0.9.0/24 via Rotterdam (mandatory waypoint) similarly. Cost has been set to 1000 on the bypass paths to Rotterdam while maintaining cost 1 on the path that includes Rotterdam.
+   
+3. Strasbourg must reach 100.0.1.0/24 via Kiev as a mandatory waypoint. Again, the strategy is consistent with the first two routers: high costs on bypass paths and cost 1 on the desired path to Kiev.
+
+4. All modified routers maintain the required metrics for load balancing of 2 equal-cost paths for their respective metrics. The cost settings ensure compliance with both waypointing and load balancing rules.
+
+Limitations (if any):
+None

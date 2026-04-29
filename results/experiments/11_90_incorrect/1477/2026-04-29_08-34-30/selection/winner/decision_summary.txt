@@ -1,0 +1,19 @@
+Routers modified: Athens, Kiev, Bratislava, Vienna
+
+Reasoning:
+1. **Athens to 100.0.1.0/24 (Kiev)**: 
+   - Paths: Athens → Istanbul → Bucharest → Kiev (cost 3), Athens → Sofia → Bucharest → Kiev (cost 3).
+   - Set costs to ensure both paths have equal cost (1+1+1=3).
+   
+2. **Bratislava to 100.0.29.0/24 (London)**: 
+   - Paths: Bratislava → Vienna → Frankfurt → London (cost 3), Bratislava → Budapest → Frankfurt → London (cost 3).
+   - Set cost to 1000 on paths bypassing London to enforce mandatory waypointing.
+
+3. **Vienna to 100.0.9.0/24 (Rotterdam)**: 
+   - Paths: Vienna → Milan → Frankfurt → Rotterdam (cost 3), Vienna → Frankfurt → Brussels → Rotterdam (cost 3).
+   - Set costs to ensure both paths have equal cost (1+1+1=3).
+
+4. **Kiev**: No changes needed as it is already on the path to 100.0.1.0/24.
+
+Limitations (if any):
+None

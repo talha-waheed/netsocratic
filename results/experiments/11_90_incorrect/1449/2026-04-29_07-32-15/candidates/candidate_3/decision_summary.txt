@@ -1,0 +1,17 @@
+Routers modified: Amsterdam, Warsaw, Budapest
+
+Reasoning:
+1. Amsterdam needs to reach 100.0.1.0/24 via Kiev. The direct path (Amsterdam -> Kiev) should have low cost, while any bypass path to Kiev needs a high cost (set to 1000).
+   - Cost from Amsterdam to Kiev: 1 (to Kiev)
+   - Therefore, all interfaces for Amsterdam maintain cost 1 toward routes going through Kiev.
+   - Additional costs for any bypass need to be set to 1000 to enforce the waypoint rule.
+
+2. Warsaw also needs to reach 100.0.1.0/24 via Kiev with a similar requirement. However, there are no specific routes through which to enforce a unique path.
+   - Segregate costs for bypass routes from Warsaw to Kiev and maintain the cost to Kiev as low as feasible (1).
+   - All bypass routes to Kiev must have costs of 1000.
+
+3. Budapest needs traffic routed to the 100.0.9.0/24 subnet (Rotterdam) to travel through Rotterdam as a waypoint. Since it's specified as a mandatory waypoint, costs to bypass must be set high while maintaining lower costs through Rotterdam.
+   - The only direct route through Budapest is to reach Rotterdam, therefore, the route to Rotterdam retains a cost of 1, while bypass routes keep a cost of 1000.
+
+Limitations (if any):
+None; the necessary policies were successfully implemented according to the routing rules specified without unresolvable conflicts.

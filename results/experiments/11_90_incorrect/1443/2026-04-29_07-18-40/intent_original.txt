@@ -1,0 +1,8 @@
+Traffic originating from athens can reach the subnet the remote network
+Routing traffic between athens and 100.0.1.0/24 goes via kiev.
+Load balance the traffic appropriately.
+Ensure paris can access 100.0.4.0/24.. Apply the same policy to other relevant connections.
+Use basel as intermediate hop if available.
+Use multiple paths for reliability.
+Connectivity from roma to the main subnet is established.
+Distribute traffic across available paths.

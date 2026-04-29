@@ -1,0 +1,24 @@
+Routers modified: [Brussels, Frankfurt]
+
+Reasoning:
+1. **Brussels to 100.0.4.0/24**: 
+   - Paths: 
+     - Brussels → Frankfurt → Basel (total cost = 1 + 1 = 2)
+     - Brussels → Amsterdam → Basel (total cost = 1 + 1 = 2)
+   - Both paths have the same cost of 2, satisfying the load balancing requirement of 2 paths.
+   - No paths are blocked, allowing for flexibility in routing.
+
+2. **Frankfurt to 100.0.4.0/24**: 
+   - Paths:
+     - Frankfurt → Strasbourg → Basel (total cost = 1 + 1 = 2)
+     - Frankfurt → Brussels → Basel (total cost = 1 + 1 = 2)
+   - Both paths have the same cost of 2, satisfying the load balancing requirement of 2 paths.
+   - No paths are blocked, allowing for flexibility in routing.
+
+3. **Warsaw to 100.0.1.0/24**: 
+   - Paths:
+     - Warsaw → Kiev → Bucharest (total cost = 1 + 1 = 2)
+   - Only one path exists, but it meets the requirement for reachability.
+
+Limitations (if any):
+None

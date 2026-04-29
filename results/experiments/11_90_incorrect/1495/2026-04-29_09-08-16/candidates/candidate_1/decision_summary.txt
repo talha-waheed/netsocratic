@@ -1,0 +1,16 @@
+Routers modified: Bucharest, Luxembourg, Strasbourg
+
+Reasoning:
+1. Bucharest needs to reach 100.0.29.0/24 (London). The preferred path is through London, which is the router that handles traffic to London. 
+   - Set the cost to 1 on the path through London (Fa1/0) and 1000 on the bypass path (Fa0/1).
+   
+2. Luxembourg needs to reach 100.0.9.0/24 (Rotterdam). The preferred path is through Rotterdam.
+   - Set the cost to 1 on the path through Rotterdam and 1000 on the bypass path (Fa0/1).
+
+3. Strasbourg needs to reach 100.0.1.0/24 (Kiev). The preferred path is through Kiev.
+   - Set the cost to 1 on the path through Kiev and 1000 on the bypass path (Fa0/1).
+
+4. All modifications ensure that the preferred paths are favored while allowing for alternative routes, thus maintaining redundancy.
+
+Limitations (if any):
+None

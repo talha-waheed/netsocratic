@@ -1,0 +1,10 @@
+Routers modified: rotterdam, praha, kiev
+
+Reasoning:
+1. The reachability from rotterdam to 100.0.1.0/24 must pass through kiev. Therefore, I set the `ip ospf cost` on the links from rotterdam to any destination that does not include kiev to 1000, effectively blocking those paths.
+2. For praha's reachability to 100.0.29.0/24, I need to ensure traffic goes through london. I set the `ip ospf cost` on the link to london to 1 and all bypass paths to 1000.
+3. The load balancing requirement from praha to 100.0.29.0/24 specifies 3 equal-cost paths. To achieve this, I kept the cost to london at 1, and adjusted costs accordingly on the links from praha to ensure they can utilize the path through london effectively.
+4. The cost for kiev's outgoing link to praha is kept at 1 to maintain a valid path through kiev.
+
+Limitations (if any):
+None

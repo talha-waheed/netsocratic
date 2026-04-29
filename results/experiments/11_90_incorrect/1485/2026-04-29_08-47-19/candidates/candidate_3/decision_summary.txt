@@ -1,0 +1,12 @@
+Routers modified: Geneva, Luxembourg
+
+Reasoning:
+1. Geneva needs to reach 100.0.1.0/24 with 11 load-balanced paths.
+2. The routes from Geneva include paths through Rotterdam. By ensuring the route through Rotterdam has a low cost and other routes have a high cost, multiple routes through Rotterdam can remain equal-cost.
+3. Set the cost to 1000 on paths bypassing Rotterdam (Fa0/1).
+4. Ensure pathway through Rotterdam (Fa2/0) maintains cost of 1 to allow load balancing.
+5. Luxembourg routes to 100.0.9.0/24 must transit Basel (mandatory). Set costs appropriately.
+6. All other Luxembourg to 100.0.9.0/24 routes through Frankfurt or other paths have been set to prohibitively high costs to enforce the waypointing.
+
+Limitations (if any):
+The topology may not provide enough distinct paths to achieve exactly 11 load-balanced routes from Geneva. However, it ensures all paths transiting through Rotterdam are maintained under the cost thresholds.

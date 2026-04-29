@@ -1,0 +1,23 @@
+Routers modified: London, Brussels, Rotterdam
+
+Reasoning:
+1. **Reachability Requirements**:
+   - London must reach 100.0.1.0/24.
+   - Madrid must reach 100.0.9.0/24.
+   - Brussels must reach 100.0.29.0/24.
+
+2. **Waypointing**:
+   - No mandatory waypoints specified in the rules.
+
+3. **Load Balancing**:
+   - Traffic from Brussels to 100.0.29.0/24 must be load-balanced across 2 paths.
+   - The paths from Brussels to 100.0.29.0/24 can go through London or directly to the subnet.
+   - Set costs on the paths through London to 1 to allow load balancing.
+
+4. **Cost Adjustments**:
+   - In London, all interfaces remain at cost 1 since they are part of the preferred path.
+   - In Brussels, the path directly to 100.0.29.0/24 is set to cost 1000 to ensure traffic prefers the path through London.
+   - In Rotterdam, the path to Brussels is set to cost 1000 to ensure traffic prefers the path through London.
+
+Limitations (if any):
+None

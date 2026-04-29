@@ -1,0 +1,26 @@
+{
+  "reachability": {
+    "madrid": ["100.0.29.0/24"],
+    "barcelona": ["100.0.29.0/24", "100.0.4.0/24"],
+    "bratislava": ["100.0.4.0/24"],
+    "sofia": ["100.0.9.0/24", "100.0.1.0/24"],
+    "paris": ["100.0.9.0/24"],
+    "strasbourg": ["100.0.29.0/24"],
+    "warsaw": ["100.0.0.0/0"]
+  },
+  "waypoint": {
+    "(madrid,100.0.29.0/24)": ["london"],
+    "(barcelona,100.0.29.0/24)": ["london"],
+    "(bratislava,100.0.4.0/24)": ["basel"],
+    "(sofia,100.0.9.0/24)": ["rotterdam"],
+    "(paris,100.0.9.0/24)": ["kiev"],
+    "(strasbourg,100.0.29.0/24)": ["london"]
+  },
+  "loadbalancing": {
+    "(barcelona,100.0.29.0/24)": 2,
+    "(barcelona,100.0.4.0/24)": 2,
+    "(bratislava,100.0.4.0/24)": 4,
+    "(paris,100.0.9.0/24)": 2,
+    "(strasbourg,100.0.29.0/24)": 2
+  }
+}

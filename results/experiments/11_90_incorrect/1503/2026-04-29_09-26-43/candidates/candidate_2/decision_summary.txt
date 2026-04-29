@@ -1,0 +1,11 @@
+Routers modified: Basel, Frankfurt, Istanbul
+
+Reasoning:
+1. **Reachability from Bratislava to 100.0.1.0/24**: No changes required as the base OSPF configuration allows reachability.
+2. **Reachability from Milan to 100.0.4.0/24**: Ensure Milan (via Basel) can reach 100.0.4.0/24. The cost on the path Milan → Basel → Frankfurt should be lower than any bypass paths.
+3. **Waypoint from Milan to 100.0.4.0/24**: Set cost of bypass paths (Frankfurt to Milan) to 1000 to force traffic through Basel.
+4. **Reachability from Istanbul to 100.0.4.0/24**: Traffic from Istanbul must also traverse Basel. Thus, the cost from Istanbul to Basel should be low (1), while the cost of any bypass paths set to 1000.
+5. **Load balancing from Istanbul to 100.0.4.0/24**: Ensure 2 paths from Istanbul to 100.0.4.0/24 through Basel, keeping the costs equal on both paths leading to Basel.
+
+Limitations (if any):
+None

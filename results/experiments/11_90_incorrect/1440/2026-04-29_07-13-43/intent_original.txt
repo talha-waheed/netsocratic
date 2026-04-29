@@ -1,0 +1,9 @@
+The subnet the target subnet is reachable from lyon.
+Use london as intermediate hop if available.
+Traffic from lyon to the target subnet is evenly distributed across 2 paths.
+warsaw can reach the target subnet
+Routing traffic between warsaw and 100.0.29.0/24 goes via london.
+Make sure there's redundancy.
+brussels and the main subnet should be connected.
+Route through london if possible.
+The number of paths between brussels and 100.0.29.0/24 should be 2.

@@ -1,0 +1,22 @@
+{
+  "reachability": {
+    "roma": ["100.0.9.0/24"],
+    "zurich": ["100.0.9.0/24"],
+    "basel": ["100.0.29.0/24"],
+    "athens": ["100.0.1.0/24"],
+    "vienna": ["100.0.9.0/24"],
+    "bratislava": ["100.0.29.0/24"],
+    "brussels": ["100.0.1.0/24"],
+    "warsaw": ["100.0.29.0/24"],
+    "marseille": ["100.0.1.0/24"]
+  },
+  "waypoint": {
+    "(roma,100.0.9.0/24)": ["rotterdam"],
+    "(vienna,100.0.9.0/24)": ["rotterdam"],
+    "(bratislava,100.0.29.0/24)": ["london"],
+    "(brussels,100.0.1.0/24)": ["kiev"]
+  },
+  "loadbalancing": {
+    "(brussels,100.0.1.0/24)": 4
+  }
+}

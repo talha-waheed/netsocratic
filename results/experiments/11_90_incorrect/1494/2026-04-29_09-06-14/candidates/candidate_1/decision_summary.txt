@@ -1,0 +1,26 @@
+Routers modified: Basel, Budapest, Rotterdam
+
+Reasoning:
+1. **Reachability**: 
+   - Barcelona must reach 100.0.9.0/24 via Basel. 
+   - Budapest must reach 100.0.29.0/24. 
+
+2. **Waypointing**: 
+   - Traffic from Barcelona to 100.0.9.0/24 must pass through Basel. 
+   - Traffic from Budapest to 100.0.29.0/24 must pass through the paths that include Basel and Rotterdam.
+
+3. **Load Balancing**: 
+   - For Budapest to 100.0.29.0/24, we need 3 equal-cost paths. 
+   - The paths are:
+     - Budapest → Sofia → Bucharest → Frankfurt → London
+     - Budapest → Bratislava → Frankfurt → London
+     - Budapest → Sofia → Istanbul → London
+   - Set costs on the relevant interfaces to ensure these paths have equal total costs of 3 (1+1+1).
+
+4. **Cost Adjustments**:
+   - For Basel, the costs to its neighbors remain at 1 to allow for the preferred path through Basel.
+   - For Budapest, costs to Sofia and Bratislava are set to 1 to allow for multiple paths to London.
+   - For Rotterdam, costs to Amsterdam and Brussels are set to 1 to allow for the preferred path through Rotterdam.
+
+Limitations (if any):
+None

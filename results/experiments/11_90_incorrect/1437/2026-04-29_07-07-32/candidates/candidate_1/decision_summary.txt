@@ -1,0 +1,24 @@
+Routers modified: ['Kiev', 'Istanbul', 'Milan']
+
+Reasoning:
+1. **Kiev to 100.0.9.0/24**: 
+   - Paths: 
+     - Kiev → Frankfurt → Rotterdam (total cost = 2)
+     - Kiev → Bucharest → Frankfurt → Rotterdam (total cost = 3)
+   - Need 2 equal-cost paths. Set costs on both paths to ensure they are equal.
+   
+2. **Istanbul to 100.0.29.0/24**: 
+   - Paths:
+     - Istanbul → Bucharest → Frankfurt → London (total cost = 3)
+     - Istanbul → Athens → Frankfurt → London (total cost = 3)
+     - Istanbul → Bucharest → Kiev → Frankfurt → London (total cost = 4)
+   - Need 3 equal-cost paths. Set costs on paths through Bucharest and Athens to ensure they are equal.
+
+3. **Milan to 100.0.1.0/24**: 
+   - Paths:
+     - Milan → Zurich → Frankfurt → Kiev (total cost = 3)
+     - Milan → Zurich → Frankfurt → Rotterdam (total cost = 3)
+   - Need 2 equal-cost paths. Set costs on both paths to ensure they are equal.
+
+Limitations (if any):
+None

@@ -1,0 +1,10 @@
+Routers modified: Amsterdam, Basel, Brussels, Vatican
+
+Reasoning:
+1. Amsterdam needs to reach 100.0.1.0/24 (Kiev) through the mandatory waypoint (Kiev); thus interfaces bypassing Kiev were set to cost 1000 while the path through it remains at cost 1.
+2. Basel must also reach 100.0.29.0/24 (London) via the waypoint of London, adjusting costs accordingly.
+3. Brussels to 100.0.1.0/24 (Kiev) must consider the required four paths split amongst neighbors while adjusting paths to optimize for specific waypoints.
+4. For Vatican, paths to 100.0.9.0/24 must include Rotterdam as the waypoint with cost adjustments.
+
+Limitations (if any):
+Paths required by waypoints limited the number of equal-cost paths due to existing topology constraints.

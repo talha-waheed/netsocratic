@@ -1,0 +1,7 @@
+bucharest and 100.0.9.0/24. should be connected.
+Use rotterdam as intermediate hop if available.
+To reach 100.0.9.0/24 from bucharest, traffic is balanced on 2 paths.
+Ensure connectivity between paris and 100.0.1.0/24..
+Use multiple paths for reliability.
+barcelona needs to reach 100.0.29.0/24. The same connectivity requirements apply to the other subnets as well.
+The route from barcelona to 100.0.29.0/24 includes london.

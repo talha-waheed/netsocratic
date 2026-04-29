@@ -1,0 +1,24 @@
+Connect barcelona to 100.0.4.0/24.
+Use basel as intermediate hop if available.
+Ensure fault tolerance with multiple routes.
+Connectivity from barcelona to 100.0.9.0/24 is established.
+Traffic should go through rotterdam when feasible.
+Connectivity from budapest to 100.0.29.0/24 is established.
+The path between budapest and 100.0.29.0/24 involves london.
+Ensure fault tolerance with multiple routes.
+Ensure connectivity between bucharest and that network.
+Use london as intermediate hop if available.
+Traffic from bucharest to that network is evenly distributed across 3 paths.
+luxembourg needs to reach that network. The same connectivity requirements apply to the other subnets as well.
+Apply similar rules to this flow.
+Connectivity from strasbourg to 100.0.1.0/24 is established.
+Traffic from strasbourg to 100.0.1.0/24 passes through kiev.
+Load balance the traffic appropriately.
+Connectivity from vienna to that network is established.
+Use london as intermediate hop if available.
+Use multiple paths for reliability.
+istanbul needs to reach the main subnet. The same connectivity requirements apply to the other subnets as well.
+Traffic from istanbul to 100.0.1.0/24 is evenly distributed across 4 paths.
+geneva and 100.0.9.0/24 should be connected.
+Traffic should go through rotterdam when feasible.
+Make sure there's redundancy.

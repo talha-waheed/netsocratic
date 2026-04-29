@@ -1,0 +1,7 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from kiev should reach? (Why: impacts reachability)
+A: The exact destination subnet that traffic from Kiev should reach is 100.0.9.0/24.
+
+Q: What is the exact integer path count for load balancing the traffic? (Why: impacts load balancing)
+A: The exact integer path count for load balancing the traffic is 2 for Kiev, 3 for Istanbul, and 2 for Milan.

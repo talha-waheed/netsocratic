@@ -1,0 +1,6 @@
+Connect amsterdam to the main subnet.
+Connect sofia to that network.
+Routing traffic between sofia and that network goes via rotterdam.
+Apply similar rules to this flow.
+Traffic originating from istanbul can reach the subnet 100.0.29.0/24.
+Ensure good redundancy.

@@ -1,0 +1,23 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Strasbourg
+
+Reasoning:
+1. **Reachability** requirements:
+   - London must be reachable from Amsterdam.
+   - Istanbul must be reachable via Kiev from Frankfurt.
+   - 100.0.4.0/24 must be reachable from Frankfurt (with a mandatory waypoint at Basel).
+
+2. **Waypoint Analysis**:
+   - To enforce the waypoint from London to 100.0.9.0/24 via Rotterdam, the costs from Amsterdam to Rotterdam, London, Brussels, and Frankfurt must be set to 1000 to block direct paths.
+   - The route from Istanbul to 100.0.1.0/24 via Kiev is maintained with low costs to enable reachability.
+   - From Frankfurt to its required destination of 100.0.4.0/24 via Basel necessitates a cost of 1 for the path through Basel, while blocking others with costs of 1000.
+
+3. **Load Balancing Requirement**:
+   - Two equal-cost paths from Frankfurt to 100.0.4.0/24 are created by setting the costs appropriately.
+   - Adjustments made to Brussels and Amsterdam ensure paths conform with specified waypoints and load balancing measures.
+
+4. Costs adjusted as follows to satisfy constraints:
+   - Amsterdam and Brussels interfaces towards bypassed routes set to 1000.
+   - Frankfurt to Basel and Strasbourg routes adjusted to ensure balancing across 2 equal-cost paths.
+
+Limitations (if any):
+None. All requirements satisfied with topological adjustments as needed.

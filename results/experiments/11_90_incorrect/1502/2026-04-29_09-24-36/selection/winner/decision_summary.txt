@@ -1,0 +1,20 @@
+Routers modified: Brussels, Rotterdam, Luxembourg, Strasbourg
+
+Reasoning:
+1. **Brussels to 100.0.9.0/24 (Rotterdam)**: 
+   - Paths: Brussels → Rotterdam (cost 1) and others (cost 1000).
+   - Set costs on all non-Rotterdam paths to 1000 to enforce mandatory waypointing.
+   - For load balancing across 7 paths, ensure 7 paths from Brussels to Rotterdam have the same cost (1).
+
+2. **Luxembourg to 100.0.1.0/24 (Kiev)**:
+   - Paths: Luxembourg → Kiev (cost 1) and others (cost 1000).
+   - Set costs on all non-Kiev paths to 1000 to enforce mandatory waypointing.
+   - For load balancing across 4 paths, ensure 4 paths from Luxembourg to Kiev have the same cost (1).
+
+3. **Strasbourg to 100.0.4.0/24 (Basel)**:
+   - Paths: Strasbourg → Basel (cost 1) and others (cost 1000).
+   - Set costs on all non-Basel paths to 1000 to enforce mandatory waypointing.
+   - For load balancing across 3 paths, ensure 3 paths from Strasbourg to Basel have the same cost (1).
+
+Limitations (if any):
+None

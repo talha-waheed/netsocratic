@@ -1,0 +1,24 @@
+Routers modified: [Bratislava, Luxembourg, Strasbourg]
+
+Reasoning:
+1. **Reachability**: 
+   - Bratislava must reach 100.0.9.0/24 (Rotterdam's subnet).
+   - Luxembourg must reach 100.0.1.0/24 (Kiev's subnet).
+   - Strasbourg must ensure connectivity to 100.0.4.0/24 (Basel's subnet).
+
+2. **Waypointing**: 
+   - No mandatory waypointing is specified in the rules, so no costs were set to 1000 to block paths.
+
+3. **Load Balancing**: 
+   - For the path from Strasbourg to 100.0.4.0/24, we need 3 equal-cost paths.
+   - The paths are:
+     - Strasbourg → Frankfurt → Basel
+     - Strasbourg → Luxembourg → Basel
+     - Strasbourg → Frankfurt → Geneva → Basel
+   - Set the cost on the relevant interfaces in Strasbourg to 1 to ensure these paths are equal-cost.
+
+4. **Cost Adjustments**: 
+   - In Bratislava and Luxembourg, costs were set to 1000 on paths that do not lead to the required destinations, ensuring that traffic prefers the paths through Strasbourg.
+
+Limitations (if any):
+None

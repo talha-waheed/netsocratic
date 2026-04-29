@@ -1,0 +1,12 @@
+Routers modified: Amsterdam, Athens, Brussels, Bucharest, Milan, Rotterdam
+
+Reasoning:
+1. **Amsterdam to 100.0.1.0/24**: Needs 2 equal-cost paths. Set costs on Fa0/1 to 1000 to enforce paths through Rotterdam.
+2. **Athens to 100.0.4.0/24**: Needs to go through Basel. Set Fa0/1 to 1000 to enforce this waypoint.
+3. **Brussels to 100.0.9.0/24**: Needs to go through Rotterdam. Set Fa1/0 to 1000 to enforce this waypoint and ensure 3 equal-cost paths.
+4. **Bucharest to 100.0.4.0/24**: Needs to go through Basel. Set Fa0/1 to 1000 to enforce this waypoint.
+5. **Milan to 100.0.29.0/24**: Needs to go through London. Set Fa1/0 and Fa0/1 to 1000 to enforce this waypoint.
+6. **Rotterdam to 100.0.1.0/24**: Needs 4 equal-cost paths. Set Fa0/1 to 1000 to enforce paths through Kiev.
+
+Limitations (if any):
+None

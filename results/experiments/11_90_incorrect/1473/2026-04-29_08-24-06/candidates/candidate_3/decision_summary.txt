@@ -1,0 +1,22 @@
+Routers modified: Geneva, Frankfurt, Vienna
+
+Reasoning:
+1. **Geneva to 100.0.29.0/24 (London)**:
+   - Must go through London. Cost for London must be lower than bypass paths.
+   - Set cost 1000 on paths to bypass London from Geneva. 
+   - Set cost 1 on the route to London.
+
+2. **Frankfurt to 100.0.1.0/24 (Kiev)**:
+   - Must go through Kiev. Cost for route through Kiev must be lower.
+   - Set cost 1000 on paths that bypass Kiev.
+   - Set cost 1 on route through Kiev.
+
+3. **Vienna to 100.0.8.0/24 (Subnets)**:
+   - Must go through Basel. Cost for Basel must be lower.
+   - Set cost 1000 on bypass paths, cost 1 through Basel.
+
+4. **Load balancing requirements**:
+   - For each router needing redundancy for the specified connections (2 ECMP paths) through required waypoints, ensured that the paths were set to cost 1 while bypass paths had cost set to 1000 or higher.
+
+Limitations (if any):
+None.

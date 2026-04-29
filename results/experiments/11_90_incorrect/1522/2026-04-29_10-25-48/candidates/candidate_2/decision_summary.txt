@@ -1,0 +1,11 @@
+Routers modified: frankfurt, sofia, vienna
+
+Reasoning:
+1. Reachability for "sofia" to "100.0.29.0/24" requires load balancing with 11 paths. 
+2. "Vienna" must reach "100.0.29.0/24" via "London" (a mandatory waypoint).
+3. All bypass paths from "frankfurt" and "vienna" to "100.0.29.0/24" must be set to a cost of 1000 to enforce the waypointing requirement.
+4. Cost adjustments ensure that only paths through "London" are viable for "Vienna", while "Sofia" can still reach "London" with multiple paths.
+5. ECMP requirements dictate that the paths through "Sofia" must be adjusted to allow for 11 equal-cost paths, necessitating a high cost on all paths that do not go through "London".
+
+Limitations (if any):
+None

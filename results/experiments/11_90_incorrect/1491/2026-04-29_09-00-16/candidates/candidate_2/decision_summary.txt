@@ -1,0 +1,15 @@
+Routers modified: Basel, Brussels, London, Rotterdam
+
+Reasoning:
+1. **Reachability**: Both Lyon and London need to reach 100.0.4.0/24. The path from Lyon to 100.0.4.0/24 must go through Basel, so we set the cost of paths not going through Basel to 1000. London also needs to reach 100.0.4.0/24 via Basel, so similar adjustments are applied.
+  
+2. **Waypointing**:
+   - For Lyon to 100.0.4.0/24: Set costs on bypass paths (Lyon → Frankfurt for example) to 1000, keeping the Basel path at 1.
+   - For London to 100.0.4.0/24: Similarly, paths not going through Basel (London → Amsterdam) are set to 1000.
+   - For London to 100.0.9.0/24: Paths that do not go through both Basel and Rotterdam need to be set to 1000. Therefore, paths from London to Brussels and Frankfurt are set to 1000.
+
+3. **Load Balancing**: 
+   - For London to 100.0.9.0/24, we need 7 equal-cost paths. The costs for the paths through both Basel and Rotterdam are set to 1, while any other bypass routes are set to 1000.
+
+Limitations (if any):
+None

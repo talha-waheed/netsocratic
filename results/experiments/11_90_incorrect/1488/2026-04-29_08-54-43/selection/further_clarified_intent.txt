@@ -1,0 +1,1 @@
+Traffic from Brussels to 100.0.9.0/24 must pass through Rotterdam. Traffic from Brussels to 100.0.9.0/24 must be load-balanced across exactly 3 equal-cost paths. Traffic from Warsaw to 100.0.9.0/24 must be load-balanced across exactly 2 equal-cost paths.

@@ -1,0 +1,24 @@
+Connectivity from kiev to the main subnet is established.
+Consider routing through rotterdam.
+Traffic from kiev to the main subnet should be load-balanced across 2 paths.
+istanbul and our servers need connectivity.
+That traffic should be load balanced.
+milan needs to reach 100.0.1.0/24. The same connectivity requirements apply to the other subnets as well.
+To reach 100.0.1.0/24 from milan, traffic is directed through kiev.
+Load balance the traffic appropriately.
+Connectivity from lyon to 100.0.4.0/24 is established.
+To reach 100.0.4.0/24 from lyon, traffic is directed through basel.
+Connect zurich to our servers.
+Ensure fault tolerance with multiple routes.
+luxembourg and 100.0.29.0/24 need connectivity.
+Preferably route via london.
+Load balance the traffic appropriately.
+Ensure connectivity between praha and the target subnet.
+Consider routing through london.
+Ensure good redundancy.
+Ensure madrid can access the main subnet. Apply the same policy to other relevant connections.
+Traffic from madrid to the main subnet passes through rotterdam.
+Use multiple paths for reliability.
+barcelona needs to reach the target subnet. The same connectivity requirements apply to the other subnets as well.
+Routing traffic between barcelona and the target subnet goes via rotterdam.
+Ensure good redundancy.

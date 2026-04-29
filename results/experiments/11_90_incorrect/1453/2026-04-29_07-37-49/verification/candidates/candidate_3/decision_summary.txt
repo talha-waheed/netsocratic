@@ -1,0 +1,23 @@
+Routers modified: Amsterdam, Sofia, Bratislava, Rotterdam, Roma
+
+Reasoning:
+1. For traffic from Sofia to 100.0.29.0/24 (via London), we need to establish 5 equal-cost paths:
+   - Paths through:
+     - Sofia → Athens → Istanbul → Bucharest → London
+     - Sofia → Budapest → Frankfurt → London
+     - Sofia → Bratislava → Frankfurt → London
+     - Sofia → Budapest → Prague → Frankfurt → London
+     - Sofia → Athens → Bucharest → Frankfurt → London
+   - Adjust costs appropriately to block certain non-London paths, thus configuring all bypass routes with higher costs (1000), while maintaining paths to London under cost 1.
+
+2. For Bratislava to reach 100.0.9.0/24 (via Rotterdam), we need 7 equal-cost paths:
+   - Similar path evaluation gives multiple paths:
+     - Bratislava → Budapest → Frankfurt → Rotterdam
+     - Bratislava → Prague → Frankfurt → Rotterdam
+     - Others need similarly enforcements, resulting in adjusting costs to ensure only the defined paths are of cost 1 and those that do not achieve this route are placed at 1000.
+     
+3. For Roma to reach 100.0.1.0/24 (via Kiev):
+   - Use costs on paths that move through Kiev and set others accordingly to ensure all available paths are utilized hence providing the 2 required equal-cost routes.
+
+Limitations (if any):
+- The number of paths for load balancing is limited by the topology, specifically needing to accommodate routes through particular nodes (London, Rotterdam, Kiev).

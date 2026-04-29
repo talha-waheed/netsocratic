@@ -1,0 +1,24 @@
+{
+  "reachability": {
+    "barcelona": ["100.0.4.0/24", "100.0.9.0/24"],
+    "budapest": ["100.0.29.0/24"],
+    "bucharest": ["100.0.29.0/24"],
+    "luxembourg": ["100.0.9.0/24"],
+    "strasbourg": ["100.0.1.0/24"],
+    "istanbul": ["100.0.1.0/24"]
+  },
+  "waypoint": {
+    "(barcelona,100.0.4.0/24)": ["basel"],
+    "(barcelona,100.0.9.0/24)": ["rotterdam"],
+    "(budapest,100.0.29.0/24)": ["london"],
+    "(bucharest,100.0.29.0/24)": ["london"],
+    "(luxembourg,100.0.9.0/24)": ["rotterdam"],
+    "(strasbourg,100.0.1.0/24)": ["kiev"],
+    "(istanbul,100.0.1.0/24)": ["kiev"]
+  },
+  "loadbalancing": {
+    "(barcelona,100.0.4.0/24)": 3,
+    "(bucharest,100.0.29.0/24)": 3,
+    "(istanbul,100.0.1.0/24)": 4
+  }
+}

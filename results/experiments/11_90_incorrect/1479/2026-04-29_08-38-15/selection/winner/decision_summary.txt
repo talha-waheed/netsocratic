@@ -1,0 +1,12 @@
+Routers modified: ['kiev', 'rotterdam', 'praha', 'basel']
+
+Reasoning:
+1. **Kiev to 100.0.1.0/24 (Rotterdam)**: Traffic must pass through Kiev. Set costs on bypass paths (Kiev to Frankfurt and Kiev to Bucharest) to 1000 to enforce this waypoint.
+2. **Rotterdam to 100.0.1.0/24**: Traffic must pass through Kiev. Set costs on bypass paths to 1000 to enforce this waypoint.
+3. **Praha to 100.0.29.0/24 (London)**: Traffic must pass through London. Set costs on bypass paths (Praha to Frankfurt) to 1000 to enforce this waypoint. 
+   - To achieve 3 equal-cost paths to London, set costs on the paths through Frankfurt and the paths through Bratislava to 1.
+4. **Basel to 100.0.1.0/24 (Rotterdam)**: Traffic must pass through Rotterdam. Set costs on bypass paths (Basel to Strasbourg) to 1000 to enforce this waypoint.
+   - To achieve 2 equal-cost paths to Rotterdam, set costs on the paths through Strasbourg to 1.
+
+Limitations (if any):
+None

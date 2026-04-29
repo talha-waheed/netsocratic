@@ -1,0 +1,17 @@
+Traffic from Madrid to 100.0.29.0/24 must pass through London.  
+Traffic from Barcelona to 100.0.29.0/24 must pass through London.  
+Traffic from Barcelona to 100.0.29.0/24 must be load-balanced across exactly 2 equal-cost paths.  
+Traffic from Barcelona to 100.0.4.0/24 must be load-balanced across exactly 2 equal-cost paths.  
+Traffic from Bratislava to 100.0.4.0/24 must pass through Basel.  
+Traffic from Bratislava to 100.0.4.0/24 must be load-balanced across exactly 4 equal-cost paths.  
+Traffic from Sofia to 100.0.9.0/24 must pass through Rotterdam.  
+Traffic from Paris to 100.0.9.0/24 must pass through Kiev.  
+Traffic from Paris to 100.0.9.0/24 must be load-balanced across exactly 2 equal-cost paths.  
+Traffic from Strasbourg to 100.0.29.0/24 must pass through London.  
+Traffic from Strasbourg to 100.0.29.0/24 must be load-balanced across exactly 2 equal-cost paths.  
+Traffic from Warsaw to the main subnet must preferably route via Basel.  
+Traffic from Sofia to 100.0.1.0/24 must have the same connectivity requirements as other subnets.  
+Traffic from Sofia to 100.0.9.0/24 must have the same connectivity requirements as other subnets.  
+Traffic from London to 100.0.4.0/24 must have the same connectivity requirements as other subnets.  
+Traffic from Sofia to 100.0.9.0/24 must have the same connectivity requirements as other subnets.  
+Traffic from Sofia to 100.0.9.0/24 must have the same connectivity requirements as other subnets.

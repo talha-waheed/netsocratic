@@ -1,0 +1,7 @@
+Round 1 — Q&A
+
+Q: What is the exact router hostname you are referring to when you mention "the main subnet"? (Why: impacts reachability)
+A: I am referring to the subnet "100.0.1.0/24" as the main subnet, which is associated with both Brussels and Marseille.
+
+Q: What is the exact router hostname for the intermediate hop you are referring to when you mention "kiev"? (Why: impacts waypointing)
+A: I do not have the exact router hostname for the intermediate hop "kiev."

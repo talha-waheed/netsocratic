@@ -1,0 +1,29 @@
+Routers modified: Amsterdam, Brussels, Geneva, Kiev, Lyon, Rotterdam
+
+Reasoning:
+1. **Budapest to 100.0.29.0/24 (London)**: 
+   - Must pass through London. Set costs on all non-London paths from Budapest to 100.0.29.0/24 to 1000.
+   
+2. **Rotterdam to 100.0.29.0/24 (London)**: 
+   - Must pass through London. Set costs on all non-London paths from Rotterdam to 100.0.29.0/24 to 1000. Only one path is allowed (load balancing = 1).
+
+3. **Geneva to 100.0.1.0/24 (Kiev)**: 
+   - Must pass through Kiev. Set costs on all non-Kiev paths from Geneva to 100.0.1.0/24 to 1000. Five equal-cost paths must be available, so costs on paths through Kiev are set to 1.
+
+4. **Lyon to 100.0.9.0/24 (Rotterdam)**: 
+   - Must pass through Rotterdam. Set costs on all non-Rotterdam paths from Lyon to 100.0.9.0/24 to 1000. Six equal-cost paths must be available, so costs on paths through Rotterdam are set to 1.
+
+5. **Brussels to 100.0.1.0/24 (Kiev)**: 
+   - Must pass through Kiev. Set costs on all non-Kiev paths from Brussels to 100.0.1.0/24 to 1000.
+
+6. **Bucharest to 100.0.1.0/24 (Kiev)**: 
+   - Must pass through Kiev. Set costs on all non-Kiev paths from Bucharest to 100.0.1.0/24 to 1000.
+
+7. **Frankfurt to 100.0.9.0/24**: 
+   - Load balancing = 1, so set costs on all non-Frankfurt paths to 1000.
+
+8. **Marseille to 100.0.9.0/24**: 
+   - Load balancing = 1, so set costs on all non-Marseille paths to 1000.
+
+Limitations (if any):
+None

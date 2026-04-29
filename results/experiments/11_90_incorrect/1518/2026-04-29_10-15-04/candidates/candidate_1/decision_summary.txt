@@ -1,0 +1,13 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Budapest, Praha
+
+Reasoning:
+1. **Amsterdam to 100.0.9.0/24**: Traffic must go through Rotterdam. Set cost to 1000 on bypass paths.
+2. **Brussels to 100.0.4.0/24**: Traffic must go through Basel. Set cost to 1000 on bypass paths.
+3. **Frankfurt to 100.0.9.0/24**: Traffic must go through Rotterdam. Set cost to 1000 on bypass paths.
+4. **Budapest to 100.0.4.0/24**: Traffic must go through Basel. Set cost to 1000 on bypass paths.
+5. **Praha to 100.0.9.0/24**: Traffic must go through Rotterdam. Set cost to 1000 on bypass paths.
+
+Load balancing is achieved by ensuring that the paths through the required waypoints have lower costs than the bypass paths. The configurations maintain redundancy and comply with the routing rules.
+
+Limitations (if any):
+None

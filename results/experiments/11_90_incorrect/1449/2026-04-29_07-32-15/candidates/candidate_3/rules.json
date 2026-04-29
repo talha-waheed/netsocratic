@@ -1,0 +1,17 @@
+{
+  "reachability": {
+    "amsterdam": ["100.0.1.0/24"],
+    "warsaw": ["100.0.1.0/24"],
+    "budapest": ["100.0.9.0/24"]
+  },
+  "waypoint": {
+    "(amsterdam,100.0.1.0/24)": ["kiev"],
+    "(warsaw,100.0.1.0/24)": ["kiev"],
+    "(budapest,100.0.9.0/24)": ["rotterdam"]
+  },
+  "loadbalancing": {
+    "(amsterdam,100.0.1.0/24)": 2,
+    "(warsaw,100.0.1.0/24)": 2,
+    "(budapest,100.0.9.0/24)": 2
+  }
+}

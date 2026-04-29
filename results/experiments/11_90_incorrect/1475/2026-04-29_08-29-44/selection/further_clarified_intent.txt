@@ -1,0 +1,5 @@
+Traffic from praha to 100.0.1.0/24 must pass through kiev.  
+Traffic from kiev to 100.0.9.0/24 must pass through rotterdam.  
+Traffic from paris to 100.0.9.0/24 must pass through rotterdam.  
+Traffic from paris to 100.0.9.0/24 must be load-balanced across exactly 2 equal-cost paths.  
+Traffic from kiev to 100.0.9.0/24 must be reachable.

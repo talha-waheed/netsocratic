@@ -1,0 +1,2 @@
+Q: Did your original intent require traffic from amsterdam to 100.0.1.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+A: My original intent did not require traffic from Amsterdam to 100.0.1.0/24 to pass through Kiev. There was no waypoint required for this traffic.

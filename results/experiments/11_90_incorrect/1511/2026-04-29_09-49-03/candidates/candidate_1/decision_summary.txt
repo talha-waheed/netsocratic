@@ -1,0 +1,11 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Milan, Warsaw
+
+Reasoning:
+1. **Amsterdam** needs to connect to 100.0.4.0/24 (Frankfurt) and should prefer paths through Rotterdam. All paths through Rotterdam are kept at cost 1 to allow for redundancy.
+2. **Brussels** connects to 100.0.9.0/24 (Rotterdam) and should prefer paths through Rotterdam. All paths through Rotterdam are kept at cost 1 to allow for redundancy.
+3. **Frankfurt** connects to 100.0.9.0/24 (Rotterdam) and should prefer paths through Rotterdam. All paths through Rotterdam are kept at cost 1 to allow for redundancy.
+4. **Milan** connects to 100.0.29.0/24 (London) and requires 2 equal-cost paths. The paths through London are kept at cost 1 to allow for redundancy.
+5. **Warsaw** connects to 100.0.9.0/24 (Rotterdam) and should prefer paths through Rotterdam. All paths through Rotterdam are kept at cost 1 to allow for redundancy.
+
+Limitations (if any):
+None

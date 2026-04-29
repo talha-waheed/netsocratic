@@ -1,0 +1,22 @@
+Routers modified: Praha, Vienna
+
+Reasoning:
+1. **Reachability**: 
+   - Praha must reach 100.0.9.0/24 (Rotterdam) and 100.0.4.0/24 (Strasbourg).
+   - Vienna must reach 100.0.29.0/24 (London).
+   
+2. **Waypointing**:
+   - For traffic from Praha to 100.0.9.0/24, it must pass through Rotterdam. 
+     - Set the cost of the link from Praha to Rotterdam to 1 and all other bypass paths to 1000.
+   - For traffic from Praha to 100.0.4.0/24, it must pass through Strasbourg.
+     - Set the cost of the link from Praha to Strasbourg to 1 and all other bypass paths to 1000.
+
+3. **Cost Adjustments**:
+   - In Praha, the cost to Rotterdam is set to 1, while all other paths to 100.0.9.0/24 are set to 1000.
+   - In Vienna, the cost to London is set to 1, while all other paths to 100.0.29.0/24 are set to 1000.
+
+4. **Verification**:
+   - All constraints for reachability and waypointing are satisfied with the modified costs.
+
+Limitations (if any):
+None

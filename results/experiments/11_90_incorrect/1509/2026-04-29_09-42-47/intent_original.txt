@@ -1,0 +1,24 @@
+100.0.4.0/24 is accessible from sofia.
+Traffic should go through basel when feasible.
+Make sure there's redundancy.
+rotterdam should connect to 100.0.4.0/24, and similar routing should be used for related traffic.
+Traffic should go through basel when feasible.
+Distribute traffic across available paths.
+barcelona and 100.0.1.0/24. need connectivity.
+Preferably route via kiev.
+Distribute traffic across available paths.
+rotterdam needs to reach 100.0.29.0/24.. The same connectivity requirements apply to the other subnets as well.
+Traffic should go through london when feasible.
+Apply similar rules to this flow.
+Ensure bucharest can access 100.0.4.0/24. Apply the same policy to other relevant connections.
+The route from bucharest to 100.0.4.0/24 includes basel.
+Load balance the traffic appropriately.
+100.0.29.0/24 is accessible from marseille.
+To reach 100.0.29.0/24 from marseille, traffic is directed through london.
+amsterdam can reach 100.0.9.0/24.
+The route from amsterdam to 100.0.9.0/24 includes rotterdam.
+sofia and 100.0.9.0/24 should be connected.
+Consider routing through rotterdam.
+istanbul should connect to our servers, and similar routing should be used for related traffic.
+The route from istanbul to our servers includes london.
+Load balance the traffic appropriately.

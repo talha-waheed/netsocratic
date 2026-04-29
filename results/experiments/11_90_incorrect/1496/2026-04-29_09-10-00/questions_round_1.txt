@@ -1,0 +1,5 @@
+Round 1 — Clarification Questions
+
+1. What is the exact integer path count for the redundancy requirement for traffic from vienna to 100.0.29.0/24? (Why: impacts load balancing)
+2. What is the exact integer path count for the multiple paths requirement for traffic from istanbul to 100.0.1.0/24? (Why: impacts load balancing)
+3. What is the exact integer path count for distributing traffic across available paths for the connection from geneva to 100.0.9.0/24? (Why: impacts load balancing)

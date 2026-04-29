@@ -1,0 +1,10 @@
+Routers modified: Barcelona, Brussels, Budapest, Frankfurt
+
+Reasoning:
+1. Barcelona must reach 100.0.9.0/24 (Rotterdam) via Basel. Therefore, I set the cost from Barcelona to Rotterdam to 1000 to enforce the waypoint through Basel.
+2. Brussels connects to both Barcelona and Budapest. To ensure that traffic to 100.0.9.0/24 (from Barcelona) passes through Basel, I set the cost to the link towards Rotterdam to 1000.
+3. For Budapest to reach 100.0.29.0/24 (London), I need 3 equal-cost paths. I can utilize the paths through Frankfurt, Bratislava, and Zagreb. I maintained costs of 1 where necessary to allow for 3 paths.
+4. Frankfurt is a crucial connection for Budapest's traffic to London. I set the cost of bypassing Frankfurt to 1000 to ensure the traffic goes through the intended waypoint.
+
+Limitations (if any):
+The topology allowed for three paths from Budapest to London; however, due to the high cost constraints, the paths had to be carefully selected to ensure they all shared the same total metric while satisfying waypoint requirements for other traffic.

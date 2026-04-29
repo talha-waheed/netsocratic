@@ -1,0 +1,13 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from vienna should reach? (Why: impact on reachability)
+A: Traffic from Vienna should reach the subnet 100.0.4.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from frankfurt should reach? (Why: impact on reachability)
+A: Traffic from Frankfurt should reach the subnet 100.0.1.0/24.
+
+Q: When you wrote 'route via basel', what is the exact router hostname you are referring to? (Why: impact on waypointing)
+A: The exact router hostname is not specified in the requirements. The waypoint is simply indicated as "basel" for traffic heading to the 100.0.4.0/24 network in Vienna.
+
+Q: When you wrote 'consider routing through kiev', what is the exact router hostname you are referring to? (Why: impact on waypointing)
+A: I am referring to the router that handles traffic for the waypoint to Kiev when routing to Frankfurt.

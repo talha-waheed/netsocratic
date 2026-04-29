@@ -1,0 +1,9 @@
+paris and 100.0.4.0/24 should be connected.
+The route from paris to 100.0.4.0/24 includes basel.
+Ensure fault tolerance with multiple routes.
+zurich should connect to 100.0.29.0/24, and similar routing should be used for related traffic.
+Traffic should go through london when feasible.
+Traffic from zurich to 100.0.29.0/24 is evenly distributed across 5 paths.
+madrid can reach 100.0.29.0/24.
+Routing traffic between madrid and 100.0.29.0/24 goes via london.
+Ensure fault tolerance with multiple routes.

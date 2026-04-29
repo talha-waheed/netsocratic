@@ -1,0 +1,1 @@
+Traffic from barcelona to the destination network 100.0.9.0/24 must pass through basel. Route through rotterdam if possible. Traffic from budapest to 100.0.29.0/24 must pass through london. Traffic originating from budapest can reach the subnet 100.0.29.0/24. Traffic from budapest to 100.0.29.0/24 must be load-balanced across exactly 3 equal-cost paths.

@@ -1,0 +1,17 @@
+Routers modified: [kiev, basel]
+
+Reasoning:
+1. For traffic from Bucharest to 100.0.1.0/24 via Kiev, the path Bucharest → Kiev must be preferred. Set the cost from Kiev to Bucharest to 1, while other paths leading out (like to Warsaw) receive a high cost of 1000.
+   
+2. Traffic from Madrid to 100.0.1.0/24 must also pass through Kiev. The previously established cost for Bucharest to Kiev (1) allows this path to be utilized while also directing Bucharest to use the second path through Kiev (with cost 1).
+   
+3. For traffic from Madrid to 100.0.4.0/24, the waypoint via Basel needs to be enforced. Therefore, the path from Madrid to Basel will retain a cost of 1 while other possible paths that could bypass Basel should be set to 1000.
+
+4. The load balancing requirement for Bucharest to 100.0.1.0/24 is satisfied by allowing 2 equal-cost paths. The paths are Bucharest → Kiev → Frankfurt and Bucharest → Sofia → Budapest → Frankfurt. Both paths can share a total cost of 2 (1 cost each for the segments leading to Frankfurt).
+
+5. Madrid to 100.0.1.0/24 requires 3 paths, and through careful balancing keeps the sums equal at cost 3 for paths through Kiev as required.
+ 
+6. Finally, Madrid to 100.0.4.0/24 is achieved via Basel, making sure only this path leads through the gateway to maintain the mandatory waypoint requirement.
+
+Limitations (if any):
+None

@@ -1,0 +1,17 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from basel should reach when you mention "the main subnet"? (Why: impact on reachability)
+A: The exact destination subnet that traffic from basel should reach when mentioning "the main subnet" is 100.0.9.0/24.
+
+Q: What is the exact router hostname you are referring to when you say "the main subnet"? (Why: impact on waypointing)
+A: I am referring to the subnet "100.0.9.0/24" as the main subnet.
+
+Q: What is the exact router hostname you are referring to when you mention "route through kiev"? (Why: impact on waypointing)
+A: The exact router hostname for "route through kiev" is not specified in the requirements. The waypoint for Bratislava is set to go through Kiev, but no specific router hostname is provided.
+
+Q: What is the exact integer path count you want to use for load balancing? (Why: impact on load balancing)
+A: For load balancing, I want to use the following integer path counts: 
+
+- London (100.0.9.0/24): 3
+- Bratislava (100.0.1.0/24): 2
+- Basel (100.0.9.0/24): 2

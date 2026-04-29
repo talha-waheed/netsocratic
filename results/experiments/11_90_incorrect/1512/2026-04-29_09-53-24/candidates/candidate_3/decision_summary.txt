@@ -1,0 +1,12 @@
+Routers modified: Frankfurt, Rotterdam, Basel
+
+Reasoning:
+1. Starting with Frankfurt needing to reach subnet 100.0.1.0/24 from London with 6 equal-cost paths.
+2. Multiple paths are required to ensure load balancing. Given that Frankfurt to London must go via Rotterdam as a waypoint (costs need to be adjusted).
+3. Set costs on all bypassing paths from Frankfurt to Rotterdam to be prohibitively high (1000).
+4. For the Rotterdam router, paths and costs were adjusted such that it permits a high cost on bypass paths, allowing the path through Frankfurt to remain effective.
+5. Basel was also invoked as a waypoint necessity for Lyon to reach 100.0.4.0/24; hence costs were similarly adjusted.
+6. Configurations on these routers ensure compliance with waypointing, reachability, and load balancing throughout the adjusted routing paths.
+
+Limitations (if any):
+None

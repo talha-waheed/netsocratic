@@ -1,0 +1,13 @@
+Routers modified: ['Rotterdam']
+
+Reasoning:
+1. Brussels needs to reach 100.0.9.0/24 (Rotterdam) and all paths reaching this should go through Rotterdam as a mandatory waypoint.
+2. The candidates for reaching 100.0.9.0/24 from Brussels are:
+   - Brussels → Rotterdam (cost 1)
+   - Brussels → Amsterdam → Rotterdam (cost 1 + 1 = 2)
+3. Since Amsterdam is in the path to 100.0.9.0/24, we need to adjust the cost for the alternative route via Amsterdam to exceed the required metric for the mandatory waypoint through Rotterdam.
+4. The cost from Brussels to those bypass paths must be raised. To enforce that the traffic goes through Rotterdam and ensure that the traffic can be balanced across 2 equal-cost paths, the cost from Brussels to Rotterdam is kept at 1 while the alternate route is set to 1000.
+5. Noted that exactly 2 equal-cost paths are kept since other paths to 100.0.9.0/24 from Warsaw and Brussels must also go through Rotterdam.
+
+Limitations (if any):
+None

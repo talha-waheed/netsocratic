@@ -1,0 +1,26 @@
+candidate_1 vs candidate_2: reach_diff=True, waypoint_diff=False, lb_diff=False
+candidate_1 vs candidate_3: reach_diff=True, waypoint_diff=True, lb_diff=True
+candidate_2 vs candidate_3: reach_diff=True, waypoint_diff=False, lb_diff=False
+EC pruning: 3 candidates → 3 survivors: ['candidate_1', 'candidate_2', 'candidate_3']
+Round 1  Q: Did your original intent require traffic from istanbul to our servers to pass through london, was no waypoint required, or was a different waypoint required?
+Round 1  A: Yes, my original intent required traffic from Istanbul to the 100.0.29.0/24 prefix to pass through London as the waypoint.
+Round 2  Q: Did your original intent require traffic from rotterdam to 100.0.29.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+Round 2  A: Yes, my original intent required traffic from Rotterdam to 100.0.29.0/24 to pass through London as the waypoint.
+Round 3  Q: Did your original intent require traffic from sofia to 100.0.9.0/24 to pass through rotterdam, was no waypoint required, or was a different waypoint required?
+Round 3  A: My original intent required traffic from sofia to 100.0.9.0/24 to pass through rotterdam as the waypoint.
+Round 4  Q: Did your original intent require traffic from istanbul to 100.0.2.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+Round 4  A: My original intent did not require traffic from Istanbul to 100.0.2.0/24 to pass through London, nor was a waypoint required for that prefix. The requirements only specify a waypoint for traffic to 100.0.29.0/24 from Istanbul, which is London.
+Round 5  Q: Did your original intent require traffic from rotterdam to 100.0.4.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+Round 5  A: My original intent required traffic from Rotterdam to 100.0.4.0/24 to pass through Basel.
+Round 6  Q: Did your original intent require traffic from sofia to 100.0.4.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+Round 6  A: Yes, my original intent required traffic from Sofia to 100.0.4.0/24 to pass through Basel.
+Round 7  Q: Did your original intent require traffic from amsterdam to 100.0.9.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+Round 7  A: My original intent required traffic from Amsterdam to 100.0.9.0/24 to be load-balanced across exactly 2 paths.
+Round 8  Q: Did your original intent require traffic from bucharest to 100.0.4.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+Round 8  A: My original intent required traffic from bucharest to 100.0.4.0/24 to be load-balanced across exactly 2 paths.
+Round 9  Q: Did your original intent require traffic from istanbul to 100.0.2.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+Round 9  A: My original intent did not specify an exact path count for traffic from Istanbul to 100.0.2.0/24. Therefore, no exact path count was required.
+Round 10  Q: Did your original intent require traffic from istanbul to 100.0.29.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+Round 10  A: My original intent required traffic from Istanbul to 100.0.29.0/24 to be load-balanced across exactly 3 paths.
+Reached max 10 follow-up rounds.
+Synthesized corrected candidate from further clarified intent.

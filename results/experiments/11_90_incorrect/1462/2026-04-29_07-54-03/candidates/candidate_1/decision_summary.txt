@@ -1,0 +1,13 @@
+Routers modified: ['kiev', 'istanbul', 'milan', 'lyon', 'rotterdam', 'madrid', 'barcelona']
+
+Reasoning:
+1. **Kiev to 100.0.9.0/24**: Two paths are needed. Set costs on the paths through Rotterdam to 1 and others to 1000 to ensure two equal-cost paths.
+2. **Istanbul to 100.0.29.0/24**: Three paths are needed. Set costs on the paths through London to 1 and others to 1000 to ensure three equal-cost paths.
+3. **Milan to 100.0.1.0/24**: Traffic must go through Kiev. Set the cost to 1 on the path through Kiev and 1000 on others.
+4. **Lyon to 100.0.4.0/24**: Traffic must go through Basel. Set the cost to 1 on the path through Basel and 1000 on others.
+5. **Madrid to 100.0.9.0/24**: Traffic must go through Rotterdam. Set the cost to 1 on the path through Rotterdam and 1000 on others.
+6. **Barcelona to 100.0.9.0/24**: Traffic must go through Rotterdam. Set the cost to 1 on the path through Rotterdam and 1000 on others.
+7. **Rotterdam**: Remains unchanged as it is the waypoint for both Madrid and Barcelona.
+
+Limitations (if any):
+None

@@ -1,0 +1,10 @@
+--- Analyzing results/experiments/2026-04-29_06-59-06/1485/2026-04-29_08-47-19/candidates: candidate_1 vs candidate_3 ---
+
+[DIFFERENCE DETECTED]
+Counter-example Packet (Packet P): start=amsterdam [10.0.0.33->100.0.4.0 ICMP (type=8, code=0)]
+
+Trace in Candidate 1 (Permitted):
+[((ORIGINATED(default), NO_ROUTE(Discarded)))]
+
+Trace in Candidate 2 (Denied/Different):
+[((ORIGINATED(default), FORWARDED(Forwarded out interface: FastEthernet1/0 with resolved next-hop IP: 10.0.0.84, Routes: [ospfE2 (Network: 100.0.4.0/24, Next Hop: interface FastEthernet1/0 ip 10.0.0.84)]), TRANSMITTED(FastEthernet1/0)), (RECEIVED(FastEthernet0/1), FORWARDED(Forwarded out interface: FastEthernet2/1 with resolved next-hop IP: 10.0.0.46, Routes: [ospfE2 (Network: 100.0.4.0/24, Next Hop: interface FastEthernet2/1 ip 10.0.0.46)]), TRANSMITTED(FastEthernet2/1)), (RECEIVED(FastEthernet1/0), FORWARDED(Forwarded out interface: FastEthernet0/1 with resolved next-hop IP: 10.0.0.22, Routes: [ospfE2 (Network: 100.0.4.0/24, Next Hop: interface FastEthernet0/1 ip 10.0.0.22)]), TRANSMITTED(FastEthernet0/1)), (RECEIVED(FastEthernet1/0), FORWARDED(Forwarded out interface: FastEthernet0/0, Routes: [connected (Network: 100.0.4.0/24, Next Hop: interface FastEthernet0/0)]), TRANSMITTED(FastEthernet0/0), EXITS_NETWORK(Output Interface: FastEthernet0/0, Resolved Next Hop IP: 100.0.4.0)))]

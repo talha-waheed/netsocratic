@@ -1,0 +1,8 @@
+Q: Did your original intent require traffic from Bucharest to 100.0.9.0/24 to always pass through Rotterdam, or was it acceptable for traffic to take alternative paths through Kiev, Warsaw, and Istanbul?
+A: My original intent required traffic from Bucharest to 100.0.9.0/24 to always pass through Rotterdam. Alternative paths through Kiev, Warsaw, and Istanbul are not acceptable for this traffic.
+
+Q: Did your original intent require traffic from barcelona to 100.0.29.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent required traffic from Barcelona to 100.0.29.0/24 to be load-balanced across exactly 2 paths.
+
+Q: Did your original intent require that all traffic from Bucharest to 100.0.9.0/24 must pass through Rotterdam, or was it acceptable for some traffic to take alternative routes?
+A: My original intent required that all traffic from Bucharest to 100.0.9.0/24 must pass through Rotterdam. This is specified as a waypoint in the requirements.

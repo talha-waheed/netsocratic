@@ -1,0 +1,8 @@
+Traffic from router lyon to subnet 100.0.29.0/24 must be load-balanced across exactly 2 equal-cost paths.  
+Traffic from router warsaw to subnet 100.0.29.0/24 must pass through router london.  
+Traffic from router warsaw to subnet 100.0.29.0/24 must be load-balanced across exactly 2 equal-cost paths.  
+Traffic from router brussels to subnet 100.0.29.0/24 must be load-balanced across exactly 2 equal-cost paths.  
+Traffic from router london to subnet 100.0.9.0/24 must pass through router rotterdam.  
+Traffic from router basel to subnet 100.0.29.0/24 must pass through router london.  
+Traffic from router basel to subnet 100.0.29.0/24 must be load-balanced across exactly 2 equal-cost paths.  
+Traffic from router athens to subnet 100.0.9.0/24 must pass through router rotterdam.

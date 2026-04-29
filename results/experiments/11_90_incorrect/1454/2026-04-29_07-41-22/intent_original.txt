@@ -1,0 +1,7 @@
+Connectivity from barcelona to 100.0.4.0/24 is established.
+The route from barcelona to 100.0.4.0/24 includes basel.
+The number of paths between barcelona and 100.0.4.0/24 should be 3.
+Ensure connectivity between istanbul and 100.0.1.0/24..
+Use multiple paths for reliability.
+Traffic originating from amsterdam can reach the subnet 100.0.29.0/24.
+Consider routing through london.

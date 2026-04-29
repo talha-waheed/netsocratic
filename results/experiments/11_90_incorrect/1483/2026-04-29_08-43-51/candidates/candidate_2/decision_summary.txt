@@ -1,0 +1,20 @@
+Routers modified: Rotterdam, London
+
+Reasoning:
+1. **Reachability Requirement**: Both Rotterdam and Marseille need to reach 100.0.29.0/24 (London).
+2. **Waypoint Requirement**: For both Rotterdam and Marseille, traffic to 100.0.29.0/24 must traverse London.
+3. **Load Balancing Requirement**: Rotterdam must have 2 equal-cost paths to 100.0.29.0/24.
+4. **Path Enumeration**:
+   - From Rotterdam, paths to London:
+     - Path 1: Rotterdam → Amsterdam → London
+     - Path 2: Rotterdam → Brussels → London
+   - Both paths need to be equal cost for load balancing.
+5. **Cost Adjustments**:
+   - Set the cost from Rotterdam to London via both Amsterdam and Brussels to 1.
+   - Set costs to bypass London (via Basel) to 1000 to enforce the waypoint requirement.
+   - The costs to London from Rotterdam need to be equal (both set to 1).
+6. **Marseille**: 
+   - A similar approach is taken where the cost to London must be 1, and bypass paths are set to 1000.
+
+Limitations (if any):
+None.

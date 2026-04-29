@@ -1,0 +1,9 @@
+Connectivity from sofia to that network is established.
+Traffic should go through london when feasible.
+Distribute traffic across available paths.
+bratislava and 100.0.9.0/24 need connectivity.
+Traffic from bratislava to 100.0.9.0/24 passes through rotterdam.
+Make sure there's redundancy.
+roma and the destination network should be connected.
+Traffic from roma to 100.0.1.0/24 passes through kiev.
+Ensure good redundancy.

@@ -1,0 +1,24 @@
+Routers modified: Amsterdam, Luxembourg, Athens
+
+Reasoning:
+1. **Amsterdam to 100.0.1.0/24** (must go through Kiev, load-balance 2 paths):
+   - Paths:
+     - Amsterdam → Brussels → Frankfurt → Prague → Warsaw → Kiev (Total Cost = 5)
+     - Amsterdam → Brussels → Frankfurt → Prague → Bukarest → Kiev (Total Cost = 6)
+   - Set costs accordingly to ensure equal costs for both paths:
+     - Set links bypassing Kiev to cost 1000 to enforce mandatory waypoint.
+     
+2. **Luxembourg to 100.0.29.0/24** (must go through London, load-balance 2 paths):
+   - Paths:
+     - Luxembourg → Brussels → Frankfurt → Vienna → London (Total Cost = 4)
+     - Luxembourg → Brussels → Amsterdam → London (Total Cost = 3)
+   - Adjust paths to limit to only 2 equal-cost routes that go through London, set all other to high cost (1000).
+
+3. **Athens to 100.0.4.0/24** (must go through Basel, load-balance 2 paths):
+   - Paths:
+     - Athens → Bucharest → Frankfurt → Basel (Total Cost = 3)
+     - Athens → Sofia → Budapest → Frankfurt → Basel (Total Cost = 4)
+   - Set costs to prioritize paths going through Basel and set non-Basel paths to a high cost (1000).
+
+Limitations (if any):
+- The topology constraints limited how many paths could be created with equal cost based on the required waypoints; therefore, only 2 equal-cost paths were achievable for each specified condition.

@@ -1,0 +1,4 @@
+--- Analyzing results/experiments/2026-04-29_06-59-06/1496/2026-04-29_09-10-00/verification/candidates: candidate_2 vs candidate_3 ---
+
+[NO DIFFERENCE FOUND]
+The two configurations are behaviorally identical for reachability.

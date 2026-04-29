@@ -1,0 +1,10 @@
+Routers modified: Luxembourg, Rotterdam, Bucharest
+
+Reasoning:
+1. Luxembourg needs to reach 100.0.9.0/24 (Rotterdam's subnet). The path from Luxembourg to Rotterdam must be set to a lower cost to ensure connectivity. Therefore, the costs on Luxembourg's interfaces to Rotterdam are set to 1.
+2. Rotterdam must also have its costs adjusted to ensure it can effectively route to Luxembourg and maintain connectivity to 100.0.9.0/24.
+3. Bucharest needs to connect to 100.0.29.0/24 (London's subnet). The path from Bucharest to London must be set to a lower cost to ensure it can reach London effectively. Thus, the costs on Bucharest's interfaces to London are set to 1.
+4. All routers not mentioned remain at their base configuration, ensuring minimal changes while satisfying the reachability requirements.
+
+Limitations (if any):
+None

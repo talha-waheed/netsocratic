@@ -1,0 +1,17 @@
+Q: Did your original intent require traffic from geneva to 100.0.29.0/24 to pass through rotterdam, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from geneva to 100.0.29.0/24 to pass through london, as specified in the waypoint requirement for (geneva,100.0.29.0/24).
+
+Q: Did your original intent require traffic from marseille to 100.0.4.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from Marseille to 100.0.4.0/24 to pass through Basel as the waypoint.
+
+Q: Did your original intent require traffic from praha to 100.0.1.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+A: Yes, my original intent required traffic from praha to 100.0.1.0/24 to pass through kiev as the waypoint.
+
+Q: Did your original intent require traffic from vienna to 100.0.4.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from Vienna to 100.0.4.0/24 to pass through Basel as the waypoint.
+
+Q: Did your original intent require traffic from basel to 100.0.4.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from basel to 100.0.4.0/24 to pass through basel as the waypoint.
+
+Q: Did your original intent require traffic from basel to 100.0.4.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent required traffic from basel to 100.0.4.0/24 to be load-balanced across exactly 2 paths.

@@ -1,0 +1,21 @@
+Routers modified: frankfurt, rotterdam
+
+Reasoning:
+1. **Reachability**: 
+   - London needs to reach 100.0.9.0/24, which is satisfied through Rotterdam.
+   - Istanbul needs to reach 100.0.1.0/24, which is satisfied through Kiev.
+   - Frankfurt needs to reach 100.0.4.0/24, which is satisfied through Basel.
+
+2. **Waypointing**: 
+   - No mandatory waypoints are specified in the rules, so no costs are set to 1000 to block paths. Instead, all paths remain open but prefer the routes through the specified routers.
+
+3. **Load Balancing**: 
+   - For Frankfurt to 100.0.4.0/24, we need 2 equal-cost paths. The paths through Basel and the alternative paths through other routers must be adjusted to ensure they share the same total cost.
+   - Set costs on the paths through Frankfurt to ensure two paths can be used with equal cost.
+
+4. **Cost Adjustments**:
+   - In Frankfurt, the costs to Basel are set to 1, while bypass paths are set to 1000 to ensure that the preferred path is through Basel.
+   - In Rotterdam, the cost to Amsterdam is set to 1, while the bypass path to Brussels is set to 1000 to ensure that the preferred path is through Rotterdam.
+
+Limitations (if any):
+None

@@ -1,0 +1,17 @@
+Routers modified: [Vienna, Istanbul, Geneva]
+
+Reasoning:
+1. **Vienna to 100.0.29.0/24 (London)** must go through London. Non-London paths must have a high cost (set to 1000).
+   - Paths: Vienna → Frankfurt → London, Vienna → Strasbourg → London (at cost 1), making these 2 paths.
+   - To meet the load balancing constraint (2 paths), costs on Frankfurt and Strasbourg to London are adjusted to 1, while all other bypass paths (to avoid blocking London) are set to 1000.
+
+2. **Istanbul to 100.0.1.0/24 (Kiev)** must go through Kiev. All paths not including Kiev must be blocked.
+   - Paths must be: Istanbul → Bucharest → Kiev and Istanbul → Sofia → Bucharest → Kiev (total cost 4, direct paths through Bucharest, Sofia).
+   - Any direct bypass routes (not touching Kiev) are set to 1000 to enforce the waypoint. The viable paths are set with the desired total equal cost of 4.
+  
+3. **Geneva to 100.0.9.0/24 (Rotterdam)** must go through Rotterdam, and there must be 3 equal-cost paths:
+   - Paths: Geneva → Frankfurt → Amsterdam → Rotterdam, Geneva → Basel → Strasbourg → Rotterdam, and Geneva → Lyon → Marseille → Barcelona → Rotterdam (total cost of 3 paths).
+   - Any non-Rotterdam path must have a cost of 1000; thus, we adjust Rotterdam links as needed while leaving their costs for desired traffic flows.
+
+Limitations (if any):
+None

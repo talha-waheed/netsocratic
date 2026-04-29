@@ -1,0 +1,10 @@
+Routers modified: Basel, Brussels, Sofia
+
+Reasoning:
+1. **Basel** needs to be a mandatory waypoint for traffic from Sofia to 100.0.4.0/24. Thus, costs on links bypassing Basel must be set to 1000 to enforce this requirement. The costs to Basel are kept at 1.
+2. **Brussels** routes to 100.0.4.0/24 should prefer Basel, leading to cost adjustments on the links bypassing Basel (set to 1000), while the link to Basel is set to 1 for proper routing.
+3. **Sofia** must reach 100.0.4.0/24 via Basel, requiring the other path costs to be set to 1000, ensuring traffic must traverse Basel. The direct path to Basel remains at 1.
+4. The load-balancing requirement from Sofia to 100.0.4.0/24 is set to 4 paths. The adjustments maintain the necessary equal-cost paths while adhering to waypointing rules.
+
+Limitations (if any):
+None

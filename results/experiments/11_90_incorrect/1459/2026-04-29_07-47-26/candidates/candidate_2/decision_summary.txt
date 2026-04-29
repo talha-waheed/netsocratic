@@ -1,0 +1,15 @@
+Routers modified: Amsterdam, Brussels, Geneva, Lyon, Warsaw
+
+Reasoning:
+1. **Amsterdam** must route traffic to 100.0.29.0/24 via London. All paths bypassing London were set to cost 1000. Thus, all outgoing interface costs were set to 1000.
+   
+2. **Brussels** also routes to 100.0.1.0/24 via Kiev. Similar to Amsterdam, all paths bypassing Kiev are set to cost 1000, hence all outgoing interfaces are set to 1000.
+
+3. **Geneva** must reach 100.0.1.0/24 with a load balancing requirement of 5 paths through Kiev. Thus, all bypassing paths are set to cost 1000, leading to adjustments on outgoing interfaces.
+
+4. **Lyon** routes to 100.0.9.0/24 via Rotterdam, enforcing the same cost constraints with all bypass paths set to 1000 to ensure traffic prefers the path through Rotterdam.
+
+5. **Warsaw** must reach 100.0.1.0/24 via Kiev. As with other routers, all bypass paths were set to 1000, leading to modification of outgoing interface costs.
+
+Limitations (if any):
+None

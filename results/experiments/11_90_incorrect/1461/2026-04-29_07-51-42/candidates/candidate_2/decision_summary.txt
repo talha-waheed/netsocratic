@@ -1,0 +1,11 @@
+Routers modified: Amsterdam, Frankfurt, Strasbourg, Bratislava
+
+Reasoning:
+1. Reachability for Madrid to 100.0.29.0/24 requires the route to go through London. Thus, Amsterdam and Frankfurt must have costs set high on paths that bypass London and lower for those going through London.
+2. For Strasbourg to reach 100.0.29.0/24, it must go through London as well, so its cost to other routes needs to be set high.
+3. Bratislava must route through Basel to reach 100.0.4.0/24, therefore, all bypass paths to Basel are set high.
+4. For load balancing, I ensured that Strasbourg has two paths to 100.0.29.0/24 by adjusting costs accordingly.
+5. The cost adjustments ensure compliance with waypointing and load balancing requirements.
+
+Limitations (if any):
+None

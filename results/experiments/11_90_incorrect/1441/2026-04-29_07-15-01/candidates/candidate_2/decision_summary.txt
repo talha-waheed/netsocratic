@@ -1,0 +1,28 @@
+Routers modified: Amsterdam, Brussels, Kiev, Rotterdam
+
+Reasoning:
+1. For London (100.0.9.0/24) to be reachable with 3 paths:
+   - The routes must traverse through Kiev (mandatory waypoint).
+   - Existing paths from London to 100.0.9.0/24:
+     - London -> Brussels -> Amsterdam -> Rotterdam (cost = 3)
+     - London -> Frankfurt -> Rotterdam (cost = 3)
+     - London -> Brussels -> Frankfurt (cost = 3)
+   - However, we need to ensure that the traffic routes through Kiev.
+   - Set costs for all paths that do not go through Kiev to 1000.
+   
+2. For Basel to reach 100.0.9.0/24 via Rotterdam:
+   - Existing paths from Basel to 100.0.9.0/24:
+     - Basel -> Strasbourg -> Frankfurt -> London (cost = 3)
+     - Basel -> Strasbourg -> Brussels -> London (cost = 3)
+   - Set costs on the paths that do not go through Rotterdam to 1000 to ensure mandatory waypointing.
+
+3. For Bratislava to reach 100.0.1.0/24:
+   - Existing paths from Bratislava to 100.0.1.0/24:
+     - Bratislava -> Praha -> Kiev (cost = 2)
+     - Bratislava -> Budapest (cost = 1)
+   - Adjust paths through Kiev to ensure traffic is balanced.
+
+4. For all routers modified, we have ensured the costs are set correctly to enforce waypointing and load balancing requirements.
+
+Limitations (if any):
+None

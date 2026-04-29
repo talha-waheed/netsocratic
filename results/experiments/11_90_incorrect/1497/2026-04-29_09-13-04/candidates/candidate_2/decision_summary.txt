@@ -1,0 +1,18 @@
+Routers modified: Marseille, Kiev, Paris
+
+Reasoning:
+1. For Marseille to reach 100.0.9.0/24 via Rotterdam:
+   - Paths: Marseille -> Rotterdam (cost 1) -> 100.0.9.0/24
+   - Other paths (non-Rotterdam) must be set to a high cost (1000) to enforce the waypoint.
+   
+2. For Kiev to reach 100.0.29.0/24 via London:
+   - Paths: Kiev -> London (cost 1) -> 100.0.29.0/24
+   - Set costs on bypass paths (Kiev -> other routers) to 1000.
+   - Load balancing across 3 paths to London requires careful adjustment, ensuring all paths to London have equal costs.
+
+3. For Paris to reach 100.0.29.0/24 via London:
+   - Paths: Paris -> London (cost 1) -> 100.0.29.0/24
+   - Similar to Kiev, bypass paths to London must have costs of 1000.
+
+Limitations (if any):
+The topology and routing constraints do allow for the required waypointing and load balancing as specified in the rules. All necessary paths and costs have been accounted for.

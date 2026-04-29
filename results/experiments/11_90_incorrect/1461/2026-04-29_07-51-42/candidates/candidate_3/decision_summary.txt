@@ -1,0 +1,13 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Paris, Prague, Sofia, Strasbourg
+
+Reasoning:
+1. Madrid and Barcelona need to reach 100.0.29.0/24 (London) through London as a mandatory waypoint. Thus, costs for bypass paths to London from Amsterdam, Brussels, and Frankfurt were set to 1000.
+   
+2. Paris needs to route to 100.0.9.0/24 via Kiev. Its route to Kiev was assigned a cost of 1000 to ensure traversal via this waypoint. The same was applied to Sofia.
+
+3. Stratford needs to reach 100.0.29.0/24 through London, requiring high costs on paths bypassing London.
+
+4. The routing policy inferred that there is a need to load balance traffic equally across paths accessible from the respective routers. Cost modifications have ensured that only low-cost paths utilize the defined mandatory waypoints.
+
+Limitations (if any):
+None

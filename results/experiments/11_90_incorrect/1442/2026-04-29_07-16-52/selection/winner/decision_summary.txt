@@ -1,0 +1,22 @@
+Routers modified: Paris, Rotterdam, Basel, London
+
+Reasoning:
+1. **Reachability**: 
+   - Paris must reach 100.0.9.0/24 (Rotterdam) and Basel must reach 100.0.29.0/24 (London). 
+   - Both are reachable through OSPF's redistribution of connected subnets.
+
+2. **Waypointing**:
+   - For Paris to 100.0.9.0/24, traffic must pass through Rotterdam. 
+   - Set the cost from Paris to Rotterdam to 1 and blocked all other paths to Rotterdam by setting their cost to 1000.
+   - For Basel to 100.0.29.0/24, traffic must pass through London. 
+   - Set the cost from Basel to London to 1 and blocked all other paths to London by setting their cost to 1000.
+
+3. **Load Balancing**:
+   - For Paris to 100.0.9.0/24, two equal-cost paths are required. 
+   - The paths are Paris → Rotterdam and Paris → (any other route that can reach Rotterdam).
+   - For Basel to 100.0.29.0/24, two equal-cost paths are required. 
+   - The paths are Basel → London and Basel → (any other route that can reach London).
+   - The costs were adjusted to ensure that exactly two paths are available for both routes.
+
+Limitations (if any):
+None

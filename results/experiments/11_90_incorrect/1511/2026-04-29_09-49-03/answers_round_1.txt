@@ -1,0 +1,16 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from brussels should reach? (Why: impacts reachability)
+A: Traffic from Brussels should reach the subnet 100.0.9.0/24.
+
+Q: What is the exact router hostname you are referring to when you mention "that network"? (Why: impacts reachability)
+A: I am referring to the specific networks associated with the cities mentioned, such as "100.0.9.0/24" for Brussels, Warsaw, and Praha, or "100.0.4.0/24" for Amsterdam, Budapest, and Kiev. Each network corresponds to a specific city and its routing requirements.
+
+Q: What is the exact router hostname you are referring to when you mention "the destination network"? (Why: impacts reachability)
+A: The destination network refers to the specific IP address ranges associated with each city, such as "100.0.9.0/24" for Brussels, "100.0.4.0/24" for Amsterdam, and so on. Each city has its own designated network.
+
+Q: What is the exact router hostname you are referring to when you mention "the remote network"? (Why: impacts reachability)
+A: The exact router hostname is not specified in the provided requirements. The focus is on the reachability of specific networks rather than a particular router hostname.
+
+Q: What is the exact router hostname you are referring to when you mention "the london hub"? (Why: impacts waypointing)
+A: I do not have a specific hostname for "the london hub" mentioned in the requirements. It is simply referred to as the waypoint for the route to Milan.

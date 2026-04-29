@@ -1,0 +1,6 @@
+Round 1 — Clarification Questions
+
+1. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from vienna should reach? (Why: impact on reachability)
+2. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from frankfurt should reach? (Why: impact on reachability)
+3. When you wrote 'route via basel', what is the exact router hostname you are referring to? (Why: impact on waypointing)
+4. When you wrote 'consider routing through kiev', what is the exact router hostname you are referring to? (Why: impact on waypointing)

@@ -1,0 +1,21 @@
+Routers modified: lyon, luxembourg, zurich
+
+Reasoning:
+1. **Lyon to 100.0.4.0/24 (Basel)**: 
+   - Path 1: Lyon → Basel (cost 1) → 100.0.4.0/24 (total cost 1 + 1 = 2).
+   - Path 2: Lyon → Strasbourg (cost 1) → Frankfurt (cost 1) → Basel (cost 1) → 100.0.4.0/24 (total cost 1 + 1 + 1 = 3).
+   - Set cost to 1 for the path through Basel and 1000 for the bypass path to ensure mandatory waypointing.
+
+2. **Zurich to 100.0.1.0/24 (Kiev)**:
+   - Path 1: Zurich → Geneva (cost 1) → Lyon (cost 1) → Frankfurt (cost 1) → Kiev (cost 1) (total cost 4).
+   - Path 2: Zurich → Geneva (cost 1) → Lyon (cost 1) → Budapest (cost 1) → Kiev (cost 1) (total cost 4).
+   - Path 3: Zurich → Geneva (cost 1) → Lyon (cost 1) → Bucharest (cost 1) → Kiev (cost 1) (total cost 4).
+   - Set costs to ensure 3 equal-cost paths through Geneva.
+
+3. **Luxembourg to 100.0.29.0/24 (London)**:
+   - Path 1: Luxembourg → Brussels (cost 1) → London (cost 1) (total cost 2).
+   - Path 2: Luxembourg → Brussels (cost 1) → Frankfurt (cost 1) → London (cost 1) (total cost 3).
+   - Set cost to 1 for the direct path through Brussels and 1000 for the bypass path to ensure preferred routing through London.
+
+Limitations (if any):
+None

@@ -1,0 +1,16 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Geneva, Istanbul, Kiev, Luxembourg, Milan, Paris, Bratislava
+
+Reasoning:
+1. **Amsterdam** must route traffic to 100.0.29.0/24 via London. Costs to bypass London set to 1000.
+2. **Brussels** must route traffic to 100.0.9.0/24 and 100.0.29.0/24 via Rotterdam and London respectively. Costs to bypass these waypoints set to 1000.
+3. **Frankfurt** must route to 100.0.29.0/24 via London, thus costs to bypass London set to 1000.
+4. **Geneva** traffic to 100.0.4.0/24 must go via Basel, thus costs to bypass set to 1000.
+5. **Istanbul** routing to 100.0.4.0/24 must go via Basel, setting bypass costs to 1000.
+6. **Kiev** must route to 100.0.29.0/24 via London, costs to bypass London set to 1000.
+7. **Luxembourg** must reach multiple destinations including 100.0.9.0/24 through Rotterdam. Bypass costs set to 1000.
+8. **Milan** must route to 100.0.4.0/24 through Basel. Costs to bypass set to 1000.
+9. **Paris** must reach 100.0.1.0/24 via Basel; thus, bypass costs set to 1000.
+10. **Bratislava** must route to 100.0.4.0/24 via Kiev, thus bypass costs set to 1000.
+
+Limitations (if any):
+None

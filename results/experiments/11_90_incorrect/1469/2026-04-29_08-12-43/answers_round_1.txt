@@ -1,0 +1,16 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from athens should connect to? (Why: impacts reachability for athens)
+A: Traffic from Athens should connect to the destination subnet 100.0.29.0/24.
+
+Q: What is the exact router hostname you are referring to when you mention "that network"? (Why: impacts reachability for connectivity between brussels and that network)
+A: I am referring to the network "100.0.1.0/24" when mentioning "that network" in relation to Brussels.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that geneva should connect to? (Why: impacts reachability for geneva)
+A: Geneva should connect to the subnet 100.0.1.0/24 and 100.0.4.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that barcelona should connect to? (Why: impacts reachability for connectivity between barcelona and that network)
+A: Barcelona should connect to the destination subnet 100.0.1.0/24 and 100.0.29.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that budapest should connect to? (Why: impacts reachability for budapest)
+A: Budapest should connect to the destination subnet 100.0.29.0/24.

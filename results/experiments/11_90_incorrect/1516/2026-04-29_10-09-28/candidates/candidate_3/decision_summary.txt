@@ -1,0 +1,10 @@
+Routers modified: Brussels, Strasbourg, Milan, Luxembourg
+
+Reasoning:
+1. For traffic from Brussels to 100.0.1.0/24 (Amsterdam's subnet) to pass through Kiev, we need to block the direct path to Brussels via the other cities (Strasbourg and Frankfurt). Therefore, the cost on the routes bypassing Kiev is set to 1000 (via Strasbourg and Frankfurt).
+2. Similarly, to facilitate traffic from Milan to 100.0.4.0/24 (Basel's subnet), we ensure traffic goes through Basel, setting costs of bypassing paths (via Zurich and Marseille) to 1000.
+3. For Luxembourg connected to 100.0.29.0/24 (London's subnet), traffic must traverse through London, hence the direct path via Brussels is blocked with a cost of 1000.
+4. The modifications reflect mandatory waypointing requirements as specified: no other routers are output as they retained original costs, ensuring that traffic flows through the required paths as dictated by the routing policy.
+
+Limitations (if any):
+All required paths were enforced correctly as per waypoint requirements. No limitation on routing paths was encountered.

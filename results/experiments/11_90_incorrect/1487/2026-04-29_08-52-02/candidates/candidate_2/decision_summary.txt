@@ -1,0 +1,20 @@
+Routers modified: milan, strasbourg, geneva
+
+Reasoning:
+1. Milan needs to reach 100.0.1.0/24 through Kiev. The path can be:
+   - Milan -> Warsaw -> Kiev -> (destination).
+   To enforce this waypoint, set the cost of all bypass paths to 1000. The cost via Kiev remains 1.
+
+2. Strasbourg must reach 100.0.29.0/24 through London. The paths available:
+   - Strasbourg -> Frankfurt -> London (cost 2)
+   - Strasbourg -> Brussels -> London (cost 2)
+   Set the costs of non-London paths to 1000 to enforce the waypoint.
+
+3. Geneva must reach 100.0.4.0/24 through Basel. Possible paths:
+   - Geneva -> Strasbourg -> Basel (cost 2)
+   - Geneva -> Lyon -> Basel (cost 2)
+   Set costs of bypass paths to 1000 and maintain paths through Basel at cost 1. 
+   Adjust costs to create 3 equal paths through Basel.
+
+Limitations (if any):
+The topology allows for the required waypointing and load balancing paths as specified. All constraints were satisfied.

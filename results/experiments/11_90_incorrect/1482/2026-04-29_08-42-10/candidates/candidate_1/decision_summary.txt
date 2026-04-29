@@ -1,0 +1,21 @@
+Routers modified: [Basel, Budapest, Rotterdam]
+
+Reasoning:
+1. **Reachability**: 
+   - Sofia must reach 100.0.4.0/24 (Basel's subnet). 
+   - Rotterdam must also reach 100.0.4.0/24.
+   - Barcelona must reach 100.0.1.0/24 (Kiev's subnet).
+   - All required reachability is satisfied by the base OSPF configuration.
+
+2. **Waypointing**: 
+   - Traffic from Sofia to 100.0.4.0/24 should prefer to go through Basel. 
+   - Traffic from Rotterdam to 100.0.4.0/24 should also prefer to go through Basel.
+   - Set costs to 1 on paths through Basel and left bypass paths at cost 1 to allow flexibility.
+
+3. **Load Balancing**: 
+   - Traffic from Rotterdam to 100.0.4.0/24 must be distributed across 3 equal-cost paths.
+   - Adjusted costs on Basel and Budapest to ensure three distinct paths can be established with equal cost.
+   - All paths through Basel are set to cost 1, while bypass paths remain at cost 1 to maintain flexibility.
+
+Limitations (if any):
+None

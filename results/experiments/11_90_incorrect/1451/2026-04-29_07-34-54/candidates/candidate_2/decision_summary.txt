@@ -1,0 +1,17 @@
+Routers modified: Strasbourg, Madrid
+
+Reasoning:
+1. **Strasbourg to 100.0.9.0/24**: The requirement is to load balance across 2 paths, with Rotterdam as a waypoint.
+   - Potential paths:
+     - Strasbourg → Rotterdam → Amsterdam (cost: 1 + 1 = 2)
+     - Strasbourg → Frankfurt → Amsterdam (cost: 1 + 1 = 2)
+   - Both paths must have the same metric to enable load balancing. Set cost to 1 for paths through Rotterdam and 1000 for bypass paths to enforce the waypoint.
+2. **Madrid to 100.0.4.0/24**: The requirement is to load balance across 3 paths, with Kiev as a mandatory waypoint.
+   - Potential paths:
+     - Madrid → Paris → Frankfurt → Amsterdam (cost: 1 + 1 + 1 = 3)
+     - Madrid → Kiev → Bucharest → Frankfurt → Amsterdam (cost: 1 + 1 + 1 = 3)
+     - Madrid → Kiev → Bucharest → Strasbourg → Amsterdam (cost: 1 + 1 + 1 + 1 = 4) *not valid for load balancing*
+   - The valid paths through Kiev must be equal cost, so set cost to 1 for the valid paths and 1000 for bypass paths to enforce the waypoint.
+
+Limitations (if any):
+None

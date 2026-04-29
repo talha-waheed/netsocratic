@@ -1,0 +1,22 @@
+Routers modified: ['kiev', 'basel']
+
+Reasoning:
+1. **Reachability**: 
+   - London, Basel, and Madrid need to reach 100.0.1.0/24.
+   - All routers can reach the destination due to OSPF's redistribution of connected subnets.
+
+2. **Waypointing**:
+   - Traffic from London, Basel, and Madrid to 100.0.1.0/24 must pass through Kiev.
+   - Set the cost of all links bypassing Kiev (from London and Basel) to 1000 to enforce the waypoint.
+
+3. **Load Balancing**:
+   - Madrid to 100.0.1.0/24 must be load-balanced across 2 equal-cost paths.
+   - Basel to 100.0.1.0/24 must be load-balanced across 7 equal-cost paths.
+   - Adjusted costs on Basel to ensure 7 paths through Kiev are equal-cost.
+
+4. **Cost Calculation**:
+   - For Basel to 100.0.1.0/24, paths through Kiev are set to cost 1, while bypass paths are set to 1000.
+   - For Madrid to 100.0.1.0/24, paths through Basel and Kiev are set to cost 1, ensuring 2 equal-cost paths.
+
+Limitations (if any):
+None

@@ -1,0 +1,17 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Sofia, Vienna
+
+Reasoning:
+1. **Reachability**:
+   - Rotterdam needs to reach `100.0.1.0/24`. The paths must include London as a mandatory waypoint. Thus, all paths bypassing London (i.e., those going to Rotterdam without first going through London) were assigned high costs (1000).
+   - Sofia and Vienna also need to reach `100.0.29.0/24` via London, so similar adjustments were made. 
+
+2. **Waypoint**:
+   - Mandatory waypoint for Rotterdam to `100.0.1.0/24` is London. Cost to bypass London was set to 1000. 
+   - For Sofia and Vienna, costs bypassing London were also adjusted to ensure those paths didn't add lower cost than the required waypoint path through London.
+
+3. **Load Balancing**:
+   - For Sofia to `100.0.29.0/24`, the requirement was to balance across 11 paths. With the high cost on bypassing paths to London, we adjusted costs on Sofia that enable multiple routes to London with equal cost while maintaining the waypoint.
+   - For Rotterdam and Vienna, the requirement was to load balance across 2 paths. Adjustments were made to ensure two routes to London are lower than the other paths, while reflecting the mandatory waypoint requirement.
+
+Limitations (if any):
+None

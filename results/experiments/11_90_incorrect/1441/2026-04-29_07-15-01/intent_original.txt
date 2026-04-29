@@ -1,0 +1,7 @@
+london and 100.0.9.0/24 should be connected.
+Connect bratislava to 100.0.1.0/24..
+Route through kiev if possible.
+Use multiple paths for reliability.
+Connect basel to the main subnet.
+Traffic from basel to the main subnet passes through rotterdam.
+Load balance the traffic appropriately.

@@ -1,0 +1,26 @@
+candidate_1 vs candidate_2: reach_diff=True, waypoint_diff=True, lb_diff=False
+candidate_1 vs candidate_3: reach_diff=True, waypoint_diff=True, lb_diff=True
+candidate_2 vs candidate_3: reach_diff=True, waypoint_diff=False, lb_diff=False
+EC pruning: 3 candidates → 3 survivors: ['candidate_1', 'candidate_2', 'candidate_3']
+Round 1  Q: Did your original intent require traffic from brussels to 100.0.9.0/24 to pass through rotterdam, was no waypoint required, or was a different waypoint required?
+Round 1  A: My original intent required traffic from Brussels to 100.0.9.0/24 to pass through Rotterdam as the waypoint.
+Round 2  Q: Did your original intent require traffic from rotterdam to 100.0.1.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+Round 2  A: My original intent required traffic from Rotterdam to 100.0.1.0/24 to pass through Kiev, as specified in the waypoint requirement for that prefix.
+Round 3  Q: Did your original intent require traffic from zurich to 100.0.4.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+Round 3  A: My original intent required traffic from Zurich to 100.0.4.0/24 to pass through Basel, as specified in the waypoint requirement for (zurich,100.0.4.0/24).
+Round 4  Q: Did your original intent require traffic from amsterdam to 100.0.1.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+Round 4  A: My original intent did not require traffic from Amsterdam to 100.0.1.0/24 to pass through Kiev. There was no waypoint required for this traffic.
+Round 5  Q: Did your original intent require traffic from geneva to 100.0.29.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+Round 5  A: My original intent required traffic from geneva to 100.0.29.0/24 to pass through london as the waypoint.
+Round 6  Q: Did your original intent require traffic from athens to 100.0.4.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+Round 6  A: My original intent required traffic from Athens to 100.0.4.0/24 to be load-balanced across exactly 2 paths.
+Round 7  Q: Did your original intent require traffic from brussels to 100.0.9.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+Round 7  A: My original intent required traffic from Brussels to 100.0.9.0/24 to be load-balanced across exactly 3 paths.
+Round 8  Q: Did your original intent require traffic from bucharest to 100.0.4.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+Round 8  A: My original intent required traffic from Bucharest to 100.0.4.0/24 to be load-balanced across exactly 2 paths.
+Round 9  Q: Did your original intent require traffic from milan to 100.0.29.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+Round 9  A: My original intent required traffic from Milan to 100.0.29.0/24 to be load-balanced across exactly 2 paths.
+Round 10  Q: Did your original intent require traffic from rotterdam to 100.0.1.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+Round 10  A: My original intent required traffic from Rotterdam to 100.0.1.0/24 to be load-balanced across exactly 4 paths.
+Reached max 10 follow-up rounds.
+Synthesized corrected candidate from further clarified intent.

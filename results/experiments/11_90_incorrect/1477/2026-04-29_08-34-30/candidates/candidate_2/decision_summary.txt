@@ -1,0 +1,22 @@
+Routers modified: Amsterdam, Athens, Bratislava, Frankfurt
+
+Reasoning:
+1. **Reachability**: 
+   - From Athens to 100.0.1.0/24 (Kiev) is reachable through the existing topology. We need to ensure that traffic goes through Kiev.
+   - From Bratislava to 100.0.29.0/24 (London) should ideally pass through Rotterdam and London.
+   - From Vienna to 100.0.9.0/24 (Rotterdam) should have 3 equal-cost paths.
+
+2. **Waypointing**: 
+   - For Athens (Kiev to 100.0.1.0/24), we set the cost to 1000 on the non-Kiev path to ensure it goes through Kiev.
+   - For Bratislava (to 100.0.29.0/24), set costs to 1000 on paths bypassing London and Rotterdam.
+
+3. **Load Balancing**:
+   - For Athens to 100.0.1.0/24, we ensure 2 ECMP paths via Kiev. 
+   - For Vienna to 100.0.9.0/24, we ensure 3 ECMP paths through Rotterdam by maintaining 1 cost on the path through Rotterdam while blocking bypass paths.
+
+4. **Cost Adjustments**:
+   - Amsterdam's costs were adjusted to block paths not going through Rotterdam/London. 
+   - Frankfurt's interface costs were raised to 1000 on bypass paths to enforce waypointing for Bratislava to London.
+
+Limitations (if any):
+None

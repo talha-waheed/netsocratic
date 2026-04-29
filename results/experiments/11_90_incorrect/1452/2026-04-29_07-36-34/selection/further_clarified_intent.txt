@@ -1,0 +1,1 @@
+Connectivity from praha to 100.0.9.0/24 is established. Traffic from praha to 100.0.9.0/24 must pass through rotterdam. Traffic from praha to 100.0.4.0/24 must be connected to strasbourg. Ensure vienna can access 100.0.29.0/24. Use london as an intermediate hop if available.

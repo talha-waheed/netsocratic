@@ -1,0 +1,25 @@
+Routers modified: Amsterdam, Brussels, Basel
+
+Reasoning:
+1. **Reachability**: 
+   - Traffic from Rotterdam to 100.0.4.0/24 must be reachable via Basel.
+   - Traffic from Barcelona to 100.0.1.0/24 must be reachable.
+
+2. **Waypointing**:
+   - For traffic from Rotterdam to 100.0.4.0/24, Basel must be a mandatory waypoint.
+   - Set costs on all paths bypassing Basel to 1000 to enforce this.
+
+3. **Load Balancing**:
+   - Three equal-cost paths from Rotterdam to 100.0.4.0/24 must be established.
+   - The paths through Basel are:
+     - Path 1: Rotterdam → Brussels → Basel → Frankfurt → 100.0.4.0/24
+     - Path 2: Rotterdam → Amsterdam → Basel → Frankfurt → 100.0.4.0/24
+     - Path 3: Rotterdam → Brussels → Basel → Strasbourg → 100.0.4.0/24
+   - Set costs on the relevant interfaces to ensure these paths have the same total cost.
+
+4. **Cost Adjustments**:
+   - All bypass paths to Basel from Amsterdam and Brussels are set to 1000.
+   - The paths through Basel are kept at cost 1 to ensure they are preferred.
+
+Limitations (if any):
+None

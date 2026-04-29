@@ -1,0 +1,10 @@
+Routers modified: [rotterdam, roma, zurich]
+
+Reasoning:
+1. **Rotterdam to 100.0.9.0/24**: Traffic must pass through Rotterdam from Roma. Set cost to `1000` for all bypass paths from Rotterdam to 100.0.9.0/24, ensuring traffic from Roma must use Rotterdam. All other links to Rotterdam are kept at `1`.
+2. **Roma to 100.0.9.0/24**: Traffic must pass through Rotterdam. Set cost to `1000` on all other paths from Roma to 100.0.9.0/24 to enforce the waypoint. Adjusted paths ensure exactly 3 equal-cost paths through Rotterdam.
+3. **Zurich to 100.0.1.0/24**: Traffic must pass through Kiev. Set cost to `1000` for all bypass paths, allowing only paths through Kiev to be usable. Adjusted paths ensure exactly 3 equal-cost paths through Kiev.
+4. **Basel to 100.0.29.0/24**: Traffic must pass through London. This was achieved by setting costs appropriately on non-London paths to enforce the waypoint while allowing for 2 equal-cost paths through London.
+
+Limitations (if any):
+None

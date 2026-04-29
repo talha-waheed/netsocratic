@@ -1,0 +1,31 @@
+Routers modified: ['rotterdam', 'kiev', 'milan', 'lyon', 'madrid', 'barcelona']
+
+Reasoning:
+1. **Kiev to 100.0.9.0/24 (Rotterdam)**: 
+   - Paths available: 
+     - Kiev → Bucharest → ... → Rotterdam 
+     - Kiev → ... (not via Rotterdam)
+   - Set cost to 1000 for bypassing Rotterdam. Costs effectively become:
+     - Kiev → Bucharest → ... (1 + 1 + 1) = 3 (valid path)
+     - All bypass paths higher due to 1000 cost. This path valid for 2 equal load-balanced routes.
+
+2. **Milan to 100.0.1.0/24 (Kiev)**: 
+   - Path available: 
+     - Milan → Rome → ... → Kiev (1 for each leg).
+   - Similar cost inflation for bypass paths ensures everything goes via Kiev.
+
+3. **Lyon to 100.0.4.0/24 (Basel)**: 
+   - Path needs to pass through Basel, so all routes bypassing it are set to 1000:
+     - Lyon → Geneva → ... (blocked), enforce total costs through Basel.
+
+4. **London to 100.0.29.0/24 and 100.0.29.0/24 for Luxembourg**: 
+   - Ensured load balanced paths through London are preferred to keep the routes viable with multiple equal paths, any other routes can be lower.
+
+5. **Madrid to 100.0.9.0/24 (Rotterdam)**: 
+   - Specific requirements for routing to Rotterdam creates forced paths with a count of 2, ensuring good redundancy from Madrid.
+
+6. **Barcelona to 100.0.9.0/24 (Rotterdam)**: 
+   - Same configuration as Madrid to have reduce non-path count problems where they go through Rotterdam.
+
+Limitations (if any):
+None

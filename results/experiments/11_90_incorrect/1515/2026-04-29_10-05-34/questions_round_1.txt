@@ -1,0 +1,7 @@
+Round 1 — Clarification Questions
+
+1. What is the exact router hostname you are referring to when you mention "our servers"? (Why: impacts the reachability for paris)
+2. What is the exact router hostname you are referring to when you mention "the same connectivity requirements apply to the other subnets"? (Why: impacts the reachability for zurich, bratislava, and madrid)
+3. What is the exact integer path count for load balancing the traffic from budapest to 100.0.9.0/24? (Why: impacts the load balancing for that traffic pair)
+4. What is the exact integer path count for load balancing the traffic from amsterdam to 100.0.29.0/24? (Why: impacts the load balancing for that traffic pair)
+5. What is the exact integer path count for load balancing the traffic from bratislava to 100.0.9.0/24? (Why: impacts the load balancing for that traffic pair)

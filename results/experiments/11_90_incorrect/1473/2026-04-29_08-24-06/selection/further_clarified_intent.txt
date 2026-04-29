@@ -1,0 +1,1 @@
+Traffic from Vienna to 100.0.4.0/24 must be reachable. Traffic from Vienna to 100.0.4.0/24 must pass through Basel. Traffic from Frankfurt to 100.0.1.0/24 must pass through Kiev. Traffic from Frankfurt to 100.0.1.0/24 must be load-balanced across exactly 2 equal-cost paths. Geneva and 100.0.29.0/24 must be connected.

@@ -1,0 +1,19 @@
+Routers modified: Amsterdam, Athens, Basel, Bratislava, Brussels, Frankfurt, Istanbul, Lyon, Milan, Paris, Praha, Rotterdam, Zagreb
+
+Reasoning:
+1. **Amsterdam**: Must route to multiple destinations (including 100.0.1.0/24) through specific paths. Set costs to 1000 on bypass paths to enforce routing through required waypoints.
+2. **Athens**: Traffic to 100.0.1.0/24 must prefer the path through Kiev. Setting costs to 1000 on bypass paths achieves this.
+3. **Basel**: Required to route to 100.0.1.0/24 through Kiev. All bypass paths set to 1000.
+4. **Bratislava**: Should route through Kiev for 100.0.1.0/24. Set bypass paths to 1000 to ensure traffic follows the desired route.
+5. **Brussels**: Needed to route to 100.0.29.0/24 through Rotterdam. Non-compliant paths cost set to 1000.
+6. **Frankfurt**: Requires traffic to go through Kiev for 100.0.1.0/24. Bypass paths set to 1000.
+7. **Istanbul**: Traffic should go through Basel for 100.0.29.0/24. Bypass paths adjusted to 1000.
+8. **Lyon**: Must route through Kiev. Adjusted costs to ensure compliance.
+9. **Milan**: Traffic must route through Rotterdam when going to 100.0.9.0/24. Bypass paths set to 1000.
+10. **Paris**: Needs to route to 100.0.1.0/24 through Kiev. All other paths adjusted to 1000.
+11. **Praha**: Should route through London to reach 100.0.29.0/24. Bypass paths adjusted to 1000.
+12. **Rotterdam**: Needs to route through Amsterdam. Bypass paths set to 1000.
+13. **Zagreb**: Traffic must route through Budapest. Set costs on bypass paths to 1000.
+
+Limitations (if any):
+None

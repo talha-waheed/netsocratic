@@ -1,0 +1,15 @@
+Routers modified: Luxembourg, Rotterdam, Bucharest
+
+Reasoning:
+1. For Luxembourg to reach 100.0.9.0/24 (Rotterdam's subnet), the traffic must go through Rotterdam, as per the waypoint requirement.
+   - The direct path from Luxembourg to 100.0.9.0/24 via Rotterdam is preferred. Set the cost from Luxembourg to Rotterdam at 1 to allow traversal, and raised costs (1000) on any other paths that do not go through Rotterdam.
+   
+2. For Rotterdam's paths to 100.0.9.0/24, the route to Luxembourg must also be accessible, hence the cost to Luxembourg is set to 1 while other bypass paths are set to 1000.
+
+3. For Bucharest to reach 100.0.29.0/24 (London's subnet), London is a mandatory waypoint.
+   - The paths must traverse through London, so the cost to London is set to 1. Any bypass paths (e.g., via Basel) need to be set to 1000 to enforce the waypoint.
+
+4. The configuration ensures that all reachability and waypoint requirements are met while providing a clear and enforceable routing policy.
+
+Limitations (if any):
+None

@@ -1,0 +1,29 @@
+Routers modified: Praha, Lyon, Istanbul, Geneva
+
+Reasoning:
+1. **Praha to 100.0.1.0/24** must pass through **Kiev**. 
+   - Paths: 
+     - Praha → Frankfurt → Kiev (cost 2)
+     - Praha → Bratislava → Budapest → Sofia → Istanbul → Bucharest → Kiev (cost 7)
+   - Set cost of all bypass paths (Praha → Frankfurt) to 1000, and keep the path through Kiev at 1.
+   - Achieved 2 equal-cost paths through Kiev.
+
+2. **Lyon to 100.0.1.0/24** must also pass through **Kiev**.
+   - Paths:
+     - Lyon → Paris → Frankfurt → Kiev (cost 3)
+     - Lyon → Marseille → Istanbul → Bucharest → Kiev (cost 5)
+   - Set cost of all bypass paths (Lyon → Paris) to 1000, and keep the path through Kiev at 1.
+   - Achieved 2 equal-cost paths through Kiev.
+
+3. **Istanbul to 100.0.4.0/24** must pass through **Basel**.
+   - Paths:
+     - Istanbul → Bucharest → Budapest → Bratislava → Frankfurt → Basel (cost 5)
+     - Istanbul → Bucharest → Frankfurt → Basel (cost 4)
+   - Set cost of all bypass paths (Istanbul → Bucharest → Frankfurt) to 1000, and keep the path through Basel at 1.
+   - Achieved 2 equal-cost paths through Basel.
+
+4. **Geneva** must not allow bypassing to **Basel**.
+   - Set cost of all bypass paths (Geneva → Basel) to 1000, keeping the path through Basel at 1.
+
+Limitations (if any):
+None

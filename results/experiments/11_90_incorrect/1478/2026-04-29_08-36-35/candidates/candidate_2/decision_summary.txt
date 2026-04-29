@@ -1,0 +1,15 @@
+Routers modified: brussels, kiev, marseille
+
+Reasoning:
+1. Brussels must reach 100.0.1.0/24, with Kiev as a mandatory waypoint and 4 equal-cost paths.
+2. Bypass paths from Brussels to 100.0.1.0/24 do not go through Kiev (i.e., to Warsaw) need to be blocked.
+3. Therefore, cost 1000 is set on all bypass paths from Brussels (Fa2/1 to Paris, Fa1/0 to Frankfurt, Fa1/1 to London, Fa3/0 to Rotterdam).
+4. The cost from Brussels to Kiev (via Fa1/1) is set to 1.
+5. For the load balancing requirement, we must ensure 4 ECMP paths from Brussels to 100.0.1.0/24, thus the costs were adjusted to achieve this. Since we can only reach through Kiev, the paths will depend on how we configure the paths from Kiev.
+6. Kiev has direct paths to both Bucharest and Warsaw, both of which can reach 100.0.1.0/24.
+7. The cost to Bucharest (Fa1/0) and Warsaw (Fa0/1) is set to 1, allowing equal cost paths through either direction.
+8. Marseille must also reach 100.0.1.0/24 via Kiev; hence, its costs to bypass Kiev are also set to 1000.
+9. The same cost adjustments are made for Marseille to ensure it can reach Kiev effectively.
+
+Limitations (if any):
+None

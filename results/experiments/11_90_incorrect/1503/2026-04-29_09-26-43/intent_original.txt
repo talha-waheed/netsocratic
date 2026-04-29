@@ -1,0 +1,8 @@
+Ensure connectivity between bratislava and 100.0.1.0/24..
+Distribute traffic across available paths.
+milan and the target subnet should be connected.
+To reach the target subnet from milan, traffic is directed through basel.
+Ensure good redundancy.
+istanbul and the remote network need connectivity.
+To reach the remote network from istanbul, traffic is directed through basel.
+The number of paths between istanbul and the remote network should be 2.

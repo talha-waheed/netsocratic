@@ -1,0 +1,14 @@
+Q: Did your original intent require traffic from geneva to 100.0.29.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+A: Yes, my original intent required traffic from Geneva to 100.0.29.0/24 to pass through London as the specified waypoint.
+
+Q: Did your original intent require traffic from vienna to 100.0.8.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+A: My original intent did not require traffic from Vienna to 100.0.8.0/24 to pass through Basel, nor was a waypoint required for that specific prefix. The waypoint requirement only applies to the specified prefixes: 100.0.4.0/24 (Vienna to Basel), 100.0.1.0/24 (Frankfurt to Kiev), and 100.0.29.0/24 (Geneva to London).
+
+Q: Did your original intent require traffic from geneva to 100.0.29.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent required traffic from geneva to 100.0.29.0/24 to be load-balanced across exactly 4 paths.
+
+Q: Did your original intent require traffic from vienna to 100.0.8.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent did not specify any requirements for traffic from Vienna to 100.0.8.0/24. The load-balancing requirements were specifically for the prefix 100.0.4.0/24 from Vienna, which required load-balancing across exactly 2 paths. Therefore, there was no exact path count required for traffic to 100.0.8.0/24.
+
+Q: Did your original intent require traffic from vienna to 100.0.8.0/24 to be reachable, or should that reachability not be required?
+A: My original intent did not require traffic from Vienna to 100.0.8.0/24 to be reachable. The specified reachability only includes 100.0.4.0/24 for Vienna.

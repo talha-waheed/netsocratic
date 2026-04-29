@@ -1,0 +1,38 @@
+Routers modified: [Frankfurt, Brussels, Basel, Zurich, Warsaw, Amsterdam]
+
+Reasoning:
+1. **Frankfurt to 100.0.9.0/24 (Warsaw)**:
+   - Mandatory waypoint via Rotterdam.
+   - Set cost 1000 on alternative paths to ensure traffic passes through Rotterdam.
+
+2. **Brussels to 100.0.9.0/24 (Warsaw)**:
+   - Mandatory waypoint via Rotterdam.
+   - Set cost 1000 on alternative paths to ensure traffic passes through Rotterdam.
+
+3. **Athens to 100.0.4.0/24 (Basel)**:
+   - Ensured traffic goes through Basel.
+   - Costs adjusted to provide redundancy while passing through Basel.
+
+4. **Zurich to 100.0.4.0/24 (Basel)**:
+   - Ensured traffic goes through Basel.
+   - Costs adjusted to facilitate redundancy while passing through Basel.
+
+5. **Milan to 100.0.29.0/24 (London)**:
+   - Ensured traffic goes through London.
+   - Costs adjusted to show redundancy.
+
+6. **Geneva to 100.0.29.0/24 (London)**:
+   - Ensured traffic can reach the subnet.
+   - Adjusted costs to facilitate load balancing.
+
+7. **Brussels to 100.0.9.0/24 (Warsaw)**:
+   - Ensured traffic can reach the subnet with routing through Rotterdam.
+
+8. **Rotterdam to 100.0.1.0/24 (Kiev)**:
+   - Set costs accordingly to ensure reliable paths.
+
+9. **Amsterdam to 100.0.1.0/24 (Kiev)**:
+   - Ensured 2 active paths as required.
+
+Limitations (if any):
+None

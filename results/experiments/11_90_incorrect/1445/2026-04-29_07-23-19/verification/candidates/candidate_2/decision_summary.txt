@@ -1,0 +1,32 @@
+Routers modified: ['praha', 'lyon', 'istanbul']
+
+Reasoning:
+1. **Praha to 100.0.1.0/24**:
+   - Required waypoint: Kiev
+   - Current paths: 
+     - Praha → Frankfurt → Kiev (cost 2)
+     - Praha → Bratislava → Budapest → Kiev (cost 3)
+   - To ensure traffic goes through Kiev, set all bypass paths to a high cost of 1000.
+   - Cost adjustments made to enforce two equal-cost paths through Kiev:
+     - Fa0/0 cost set to 1000 to block the bypass path.
+
+2. **Lyon to 100.0.1.0/24**:
+   - Required waypoint: Kiev
+   - Current paths: 
+     - Lyon → Paris → Frankfurt → Kiev (cost 3)
+     - Lyon → Marseille → Budapest → Kiev (cost 3)
+   - Again, to ensure traffic goes through Kiev, set the cost of bypass paths to 1000.
+   - Cost adjustments made to enforce two equal-cost paths through Kiev:
+     - Fa0/0 cost set to 1000 to block the bypass path.
+
+3. **Istanbul to 100.0.4.0/24**:
+   - Required waypoint: Basel
+   - Current paths: 
+     - Istanbul → Bucharest → Budapest → Frankfurt → Basel (cost 4)
+     - Istanbul → Athens → Sofia → Budapest → Frankfurt → Basel (cost 5)
+   - To ensure traffic goes through Basel, set the cost of bypass paths to 1000.
+   - Cost adjustments made to enforce two equal-cost paths through Basel:
+     - Fa1/0 cost set to 1000 to block the bypass path.
+
+Limitations (if any):
+None

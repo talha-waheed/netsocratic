@@ -1,0 +1,19 @@
+Routers modified: Amsterdam, Warsaw, Budapest
+
+Reasoning:
+1. **Amsterdam to 100.0.1.0/24**:
+   - Paths available: Amsterdam → Brussels → Frankfurt → Kiev → Warsaw → 100.0.1.0/24 and Amsterdam → Brussels → Frankfurt → Luxembourg → Warsaw → 100.0.1.0/24.
+   - Set costs on all links to ensure two equal-cost paths through Kiev.
+   - Cost 1 on all links leading to/from Kiev ensures they are preferred.
+
+2. **Warsaw to 100.0.1.0/24**:
+   - Similar paths as Amsterdam, ensuring two equal-cost paths through Kiev.
+   - Cost 1 on all links leading to/from Kiev ensures they are preferred.
+
+3. **Budapest to 100.0.9.0/24**:
+   - Paths available: Budapest → Bratislava → Frankfurt → Rotterdam → 100.0.9.0/24 and Budapest → Zagreb → Ljubljana → Frankfurt → Rotterdam → 100.0.9.0/24.
+   - Set costs on all links to ensure two equal-cost paths through Rotterdam.
+   - Cost 1 on all links leading to/from Rotterdam ensures they are preferred.
+
+Limitations (if any):
+None

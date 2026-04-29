@@ -1,0 +1,26 @@
+Routers modified: Basel, Bucharest, Frankfurt, Kiev, Madrid
+
+Reasoning:
+1. **Reachability**: 
+   - Bucharest must reach 100.0.1.0/24 (Kiev's subnet) and Madrid must reach 100.0.4.0/24 (Basel's subnet). This is inherently satisfied by OSPF's redistribution of connected subnets.
+   
+2. **Waypointing**: 
+   - No mandatory waypoints are specified in the rules, so we do not need to block any paths. However, we prefer paths through Basel for Madrid to 100.0.4.0/24 and through Kiev for Bucharest to 100.0.1.0/24.
+   
+3. **Load Balancing**:
+   - For Madrid to 100.0.1.0/24, we need 3 paths. The paths can be:
+     - Madrid → Barcelona → Frankfurt → Bucharest → Kiev
+     - Madrid → Barcelona → Marseille → Milan → Zurich → Frankfurt → Bucharest → Kiev
+     - Madrid → Barcelona → Marseille → Milan → Zurich → Frankfurt → Bucharest → Sofia → Bucharest
+   - For Madrid to 100.0.4.0/24, we need 2 paths:
+     - Madrid → Barcelona → Frankfurt → Basel
+     - Madrid → Barcelona → Marseille → Milan → Zurich → Frankfurt → Basel
+   - For Bucharest to 100.0.1.0/24, we need 2 paths:
+     - Bucharest → Kiev
+     - Bucharest → Istanbul → Athens → Sofia → Budapest → Bratislava → Frankfurt → Basel → Zurich → Milan → Roma → Frankfurt → Kiev
+
+4. **Cost Adjustments**:
+   - Adjusted costs on Basel, Bucharest, Frankfurt, Kiev, and Madrid to ensure the required paths are available and to facilitate load balancing.
+
+Limitations (if any):
+None

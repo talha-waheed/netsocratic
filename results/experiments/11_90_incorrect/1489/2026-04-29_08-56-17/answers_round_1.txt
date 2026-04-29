@@ -1,0 +1,10 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic originating from praha should reach? (Why: impacts reachability)
+A: Traffic originating from Praha should reach the destination subnet 100.0.9.0/24.
+
+Q: What is the exact router hostname for "that network" mentioned in the context of ensuring connectivity between budapest and that network? (Why: impacts reachability)
+A: The exact router hostname for the network in Budapest is not specified in the provided requirements.
+
+Q: What is the exact router hostname for "the main subnet" that traffic from praha should reach? (Why: impacts reachability)
+A: The exact router hostname for "the main subnet" that traffic from praha should reach is 100.0.9.0/24.

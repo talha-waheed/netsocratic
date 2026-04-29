@@ -1,0 +1,30 @@
+Routers modified: [Rotterdam, Sofia, Strasbourg, Bratislava]
+
+Reasoning:
+1. **Sofia to 100.0.9.0/24 (Rotterdam)**:
+   - Paths: Sofia → Budapest → Zagreb → Ljubljana → Rotterdam (cost 4)
+   - Paths: Sofia → Istanbul → Bucharest → Budapest → Zagreb → Ljubljana → Rotterdam (cost 6)
+   - Paths: Sofia → Istanbul → Bucharest → Kiev → Warsaw → Frankfurt → Rotterdam (cost 7)
+   - To achieve 4 equal-cost paths, set costs:
+     - Sofia to Athens (1), Athens to Bucharest (1), Bucharest to Zagreb (1), Zagreb to Ljubljana (1), Ljubljana to Rotterdam (1).
+     - Set costs on bypass paths to Rotterdam to 1000.
+
+2. **Strasbourg to 100.0.29.0/24 (London)**:
+   - Paths: Strasbourg → Frankfurt → Brussels → London (cost 3)
+   - Paths: Strasbourg → Frankfurt → Amsterdam → London (cost 3)
+   - To achieve 2 equal-cost paths, set costs:
+     - Strasbourg to Frankfurt (1), Frankfurt to Brussels (1), Brussels to London (1).
+     - Set costs on bypass paths to London to 1000.
+
+3. **Bratislava to 100.0.4.0/24 (Basel)**:
+   - Paths: Bratislava → Budapest → Zagreb → Ljubljana → Basel (cost 4)
+   - Paths: Bratislava → Vienna → Basel (cost 2)
+   - To achieve 4 equal-cost paths, set costs:
+     - Bratislava to Budapest (1), Budapest to Zagreb (1), Zagreb to Ljubljana (1), Ljubljana to Basel (1).
+     - Set costs on bypass paths to Basel to 1000.
+
+4. **Rotterdam**:
+   - Set costs on all paths bypassing Rotterdam to 1000 to enforce mandatory waypointing.
+
+Limitations (if any):
+None

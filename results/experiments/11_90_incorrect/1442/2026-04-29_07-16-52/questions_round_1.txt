@@ -1,0 +1,5 @@
+Round 1 — Clarification Questions
+
+1. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from athens should reach? (Why: impacts reachability)
+2. What is the exact router hostname you are referring to when you mention "our servers"? (Why: impacts reachability)
+3. How many paths should be used to distribute traffic across available paths? (Why: impacts load balancing)

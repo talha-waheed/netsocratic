@@ -1,0 +1,14 @@
+{
+  "reachability": {
+    "bratislava": ["100.0.1.0/24"],
+    "milan": ["100.0.4.0/24"],
+    "istanbul": ["100.0.4.0/24"]
+  },
+  "waypoint": {
+    "(milan,100.0.4.0/24)": ["basel"],
+    "(istanbul,100.0.4.0/24)": ["basel"]
+  },
+  "loadbalancing": {
+    "(istanbul,100.0.4.0/24)": 2
+  }
+}

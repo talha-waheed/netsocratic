@@ -1,0 +1,20 @@
+Routers modified: Frankfurt, Geneva, Marseille
+
+Reasoning:
+1. **Frankfurt to 100.0.4.0/24**: 
+   - Paths: Frankfurt → Strasbourg → Basel → 100.0.4.0/24 (cost 2)
+   - Frankfurt → Brussels → Amsterdam → 100.0.4.0/24 (cost 3)
+   - Set cost to Basel as 1 to prefer this path, while keeping bypass paths at 1000 to enforce the waypoint.
+
+2. **Geneva to 100.0.9.0/24**: 
+   - Paths: Geneva → Lyon → Paris → Brussels → Rotterdam → 100.0.9.0/24 (cost 5)
+   - Geneva → Basel → Strasbourg → Frankfurt → 100.0.9.0/24 (cost 4)
+   - Set cost to Rotterdam as 1 to prefer this path, while keeping bypass paths at 1000 to enforce the waypoint.
+
+3. **Marseille to 100.0.29.0/24**: 
+   - Paths: Marseille → Lyon → Paris → London → 100.0.29.0/24 (cost 4)
+   - Marseille → Barcelona → Madrid → London → 100.0.29.0/24 (cost 5)
+   - Set cost to London as 1 to prefer this path, while keeping bypass paths at 1000 to enforce the waypoint.
+
+Limitations (if any):
+None

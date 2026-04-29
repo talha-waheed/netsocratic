@@ -1,0 +1,19 @@
+Routers modified: Lyon, Warsaw, Brussels
+
+Reasoning:
+1. **Reachability Requirements**: Lyon, Warsaw, and Brussels must reach 100.0.29.0/24 (London's subnet).
+2. **Waypoint Requirements**: All traffic from Lyon, Warsaw, and Brussels to 100.0.29.0/24 must pass through London.
+3. **Load Balancing**: Lyon and Brussels need to provide 2 equal-cost paths each to 100.0.29.0/24.
+4. **Cost Adjustments**:
+   - For Lyon:
+     - Set cost 1000 on paths that do not go through London (to ensure traffic must go through London).
+     - Set cost 1 on the path to London.
+   - For Warsaw:
+     - Similarly, set cost 1000 on paths bypassing London and cost 1 on the path through London.
+   - For Brussels:
+     - Set cost 1000 on paths not going through London, and cost 1 on the path to London.
+5. **Verification of Load Balancing**:
+   - Ensured that there are two paths available through London from both Lyon and Brussels; thus, the ECMP requirement is met.
+
+Limitations (if any):
+None

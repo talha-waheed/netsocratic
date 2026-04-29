@@ -1,0 +1,13 @@
+Routers modified: Basel, Bucharest, Frankfurt, Istanbul, Rotterdam
+
+Reasoning:
+1. **Basel**: Traffic from Bucharest to 100.0.4.0/24 must pass through Basel. Set cost to 1 for the path from Basel to Frankfurt (the waypoint), and set cost to 1000 for the bypass path to Strasbourg.
+2. **Bucharest**: Traffic from Bucharest to 100.0.4.0/24 must pass through Basel. Set cost to 1 for the path to Basel, and set cost to 1000 for the bypass path to Istanbul.
+3. **Frankfurt**: Traffic from Bucharest to 100.0.4.0/24 must pass through Basel. Set cost to 1000 for the path to Frankfurt to ensure it does not bypass Basel.
+4. **Istanbul**: Traffic from Istanbul to 100.0.29.0/24 must pass through London. Set cost to 1 for the path to London.
+5. **Rotterdam**: Traffic from Amsterdam to 100.0.9.0/24 must pass through Rotterdam. Set cost to 1 for the path to Amsterdam.
+
+All changes ensure that the waypointing requirements are met without blocking alternative paths, while maintaining the base cost of 1 for all other connections.
+
+Limitations (if any):
+None

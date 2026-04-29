@@ -1,0 +1,17 @@
+Routers modified: Amsterdam, Basel, Brussels, Frankfurt, Kiev
+
+Reasoning:
+1. To satisfy the requirement for Brussels to reach 100.0.4.0/24 via Basel:
+   - The direct route from Brussels to Basel is kept at a cost of 1.
+   - The bypass route from Brussels to Frankfurt is set to 1000 to ensure traffic must go through Basel.
+   
+2. The requirement for Frankfurt to reach 100.0.4.0/24 also mandates routing through Basel:
+   - Similar to Brussels, Frankfurt to Basel is kept at cost 1 while the bypass cost (to Brussels) is set to 1000.
+
+3. Kiev is required as a mandatory waypoint for Warsaw to reach 100.0.1.0/24:
+   - The link from Kiev to Warsaw is set to cost 1000 to block bypassing paths.
+  
+4. For load balancing, both Brussels and Frankfurt are required to have exactly 2 equal-cost paths to reach 100.0.4.0/24, thus kept at 1. The bypass paths are set high at 1000.
+
+Limitations (if any):
+- None

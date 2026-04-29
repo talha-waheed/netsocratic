@@ -1,0 +1,8 @@
+Traffic originating from kiev can reach the subnet the destination network
+Load balance the traffic appropriately.
+istanbul can reach 100.0.29.0/24.
+Use london as intermediate hop if available.
+Use multiple paths for reliability.
+Connect milan to 100.0.1.0/24.
+The path between milan and 100.0.1.0/24 involves kiev.
+Ensure fault tolerance with multiple routes.

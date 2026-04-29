@@ -1,0 +1,17 @@
+Routers modified: Brussels, Rotterdam, Kiev
+
+Reasoning:
+1. **Brussels to 100.0.9.0/24**: 
+   - Required 3 equal-cost paths. 
+   - All outgoing links from Brussels to other routers (Amsterdam, Rotterdam, Frankfurt, London) are set to cost 1, allowing for 3 equal-cost paths through different routes.
+   
+2. **Rotterdam to 100.0.1.0/24**: 
+   - Mandatory waypoint through Kiev. 
+   - Set costs to 1000 on all bypass paths (to Frankfurt and Amsterdam) to enforce the waypoint. 
+   - Kept the cost to Kiev at 1, allowing traffic to reach 100.0.1.0/24 through Kiev.
+
+3. **Kiev**: 
+   - No changes needed to reachability or waypointing, but ensured that the costs to other routers remain at 1 to facilitate the required paths.
+
+Limitations (if any):
+- None

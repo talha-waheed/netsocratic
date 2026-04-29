@@ -1,0 +1,35 @@
+Routers modified: Roma, Praha, Budapest
+
+Reasoning:
+1. **Roma to 100.0.1.0/24** must pass through **Kiev**. 
+   - Paths: Roma → Kiev → ... (valid), Roma → ... (invalid).
+   - Set cost of bypassing paths (e.g., Roma → Frankfurt) to 1000 to enforce the waypoint.
+   - Set cost of the path through Kiev to 1.
+
+2. **Roma to 100.0.1.0/24** must be load-balanced across **2** equal-cost paths.
+   - Valid paths: Roma → Kiev → Bucharest → ... and Roma → Kiev → ... (both must have the same total cost).
+   - Adjust costs to ensure both paths have the same total metric.
+
+3. **Praha to 100.0.9.0/24** must pass through **Rotterdam**.
+   - Paths: Praha → Rotterdam → ... (valid), Praha → ... (invalid).
+   - Set cost of bypassing paths (e.g., Praha → Frankfurt) to 1000 to enforce the waypoint.
+   - Set cost of the path through Rotterdam to 1.
+
+4. **Praha to 100.0.9.0/24** must be load-balanced across **2** equal-cost paths.
+   - Valid paths: Praha → Rotterdam → ... and Praha → ... (both must have the same total cost).
+   - Adjust costs to ensure both paths have the same total metric.
+
+5. **Budapest to 100.0.1.0/24** must be reachable.
+   - No changes needed as OSPF handles reachability.
+
+6. **Budapest to 100.0.4.0/24** must pass through **Basel**.
+   - Paths: Budapest → Basel → ... (valid), Budapest → ... (invalid).
+   - Set cost of bypassing paths (e.g., Budapest → Frankfurt) to 1000 to enforce the waypoint.
+   - Set cost of the path through Basel to 1.
+
+7. **Budapest to 100.0.4.0/24** must be load-balanced across **4** equal-cost paths.
+   - Valid paths: Budapest → Basel → ... (4 distinct paths must be found).
+   - Adjust costs to ensure all 4 paths have the same total metric.
+
+Limitations (if any):
+None

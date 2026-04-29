@@ -1,0 +1,32 @@
+Routers modified: [rotterdam, roma, zurich, basel]
+
+Reasoning:
+1. **Reachability**:
+   - Roma must reach 100.0.9.0/24 (Rotterdam's subnet).
+   - Zurich must reach 100.0.1.0/24 (Kiev's subnet).
+   - Basel must reach 100.0.29.0/24 (London's subnet).
+
+2. **Waypointing**:
+   - Traffic from Roma to 100.0.9.0/24 must pass through Rotterdam. 
+     - Set the cost of all bypass paths from Roma to Rotterdam to 1000.
+   - Traffic from Zurich to 100.0.1.0/24 must pass through Kiev.
+     - Set the cost of all bypass paths from Zurich to Kiev to 1000.
+   - Traffic from Basel to 100.0.29.0/24 must pass through London.
+     - Set the cost of all bypass paths from Basel to London to 1000.
+
+3. **Load Balancing**:
+   - Roma to 100.0.9.0/24 must be load-balanced across 3 equal-cost paths.
+     - Set costs on paths through Rotterdam to be equal (1) and all others to be higher (1000).
+   - Zurich to 100.0.1.0/24 must be load-balanced across 3 equal-cost paths.
+     - Set costs on paths through Kiev to be equal (1) and all others to be higher (1000).
+   - Basel to 100.0.29.0/24 must be load-balanced across 2 equal-cost paths.
+     - Set costs on paths through London to be equal (1) and all others to be higher (1000).
+
+4. **Final Cost Assignments**:
+   - For Rotterdam: Costs remain at 1 for paths through Rotterdam.
+   - For Roma: Costs to bypass Rotterdam are set to 1000.
+   - For Zurich: Costs to bypass Kiev are set to 1000.
+   - For Basel: Costs to bypass London are set to 1000.
+
+Limitations (if any):
+None

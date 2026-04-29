@@ -1,0 +1,10 @@
+Round 1 — Q&A
+
+Q: What is the exact integer path count for load balancing the traffic? (Why: impact on load-balancing)
+A: The exact integer path count for load balancing the traffic is as follows:
+
+- For Rotterdam (100.0.1.0/24): 4 paths
+- For Sofia (100.0.29.0/24): 5 paths
+- For Vienna (100.0.29.0/24): 2 paths
+
+This means the total number of paths for load balancing is 4 + 5 + 2 = 11 paths.

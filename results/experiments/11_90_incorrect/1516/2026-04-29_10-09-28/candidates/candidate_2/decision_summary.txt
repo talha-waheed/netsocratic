@@ -1,0 +1,13 @@
+Routers modified: Bratislava, Milan, Istanbul, Bucharest, Luxembourg, Athens
+
+Reasoning:
+1. **Bratislava to 100.0.1.0/24** must go through Kiev. Set cost 1000 on paths bypassing Kiev (Fa0/1 and Fa1/1) and keep the cost to Kiev (Fa1/0) at 1.
+2. **Milan to 100.0.4.0/24** must go through Basel. Set cost 1000 on the path bypassing Basel (Fa0/1) and keep the cost to Basel (Fa1/0) at 1. 
+3. **Istanbul to 100.0.4.0/24** must also go through Basel. Set cost 1000 on the path bypassing Basel (Fa0/1) and keep the cost to Basel (Fa1/0) at 1.
+4. **Bucharest to 100.0.9.0/24** must go through Rotterdam. Set cost 1000 on the path bypassing Rotterdam (Fa1/0) and keep the cost to Rotterdam (Fa0/1) at 1.
+5. **Luxembourg to 100.0.29.0/24** must go through London. Set cost 1000 on the path bypassing London (Fa0/1) and keep the cost to London (Fa1/0) at 1.
+6. **Athens to 100.0.4.0/24** must preferably go through Basel. Set cost 1000 on the path bypassing Basel (Fa0/1) and keep the cost to Basel (Fa1/0) at 1.
+7. For load balancing: Milan, Bucharest, and Athens each require 2 equal-cost paths to their respective subnets, so costs have been adjusted accordingly.
+
+Limitations (if any):
+None

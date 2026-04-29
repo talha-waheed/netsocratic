@@ -1,0 +1,10 @@
+Round 1 — Q&A
+
+Q: When you wrote 'route via london', what is the exact router hostname you are referring to? (Why: impacts waypointing for the route from bucharest)
+A: I am not specifying an exact router hostname; I am indicating that the route from Bucharest should pass through London as a waypoint.
+
+Q: When you wrote 'route via rotterdam', what is the exact router hostname you are referring to? (Why: impacts waypointing for the route from luxembourg)
+A: I am referring to the router that handles traffic to Rotterdam for the route from Luxembourg. However, I do not have the exact hostname of that router.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that strasbourg should access? (Why: impacts reachability for strasbourg's access to the network)
+A: The exact destination subnet that Strasbourg should access is 100.0.1.0/24.

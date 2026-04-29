@@ -1,0 +1,9 @@
+Routers modified: Rotterdam, Roma, Zurich
+
+Reasoning:
+1. For Roma to reach 100.0.9.0/24 via Rotterdam (waypoint), we set the path Roma → ... → Rotterdam to have a cost of 2 and alternative paths with cost 1000, achieving 3 equal-cost paths (Roma → Frankfurt → Brussels → Rotterdam, Roma → Milan → Zurich → Rotterdam, and Roma → Geneva → Frankfurt → Rotterdam).
+2. For Zurich to reach 100.0.1.0/24 via Kiev (waypoint), we change all paths to Kiev with a cost of 1, while any bypass path to Kiev is set to a high cost of 1000, which allows for 3 equal-cost paths.
+3. For Basel to reach 100.0.29.0/24 via London (waypoint), we ensure that only paths leading to London from Basel have a low cost of 1 while all others are set to 1000, and ensure there are 2 equal-cost paths through London.
+
+Limitations (if any):
+All established constraints were satisfied, and desired paths were configured properly with available routing metrics.

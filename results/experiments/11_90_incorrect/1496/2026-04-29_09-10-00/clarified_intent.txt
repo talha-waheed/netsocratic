@@ -1,0 +1,1 @@
+Traffic from vienna to 100.0.29.0/24 needs connectivity and passes through london with 2 paths for redundancy. Traffic originating from istanbul can reach the subnet 100.0.1.0/24, passing through kiev with 4 paths for multiple paths for reliability. Connect geneva to 100.0.9.0/24 with 3 paths to distribute traffic across available paths.

@@ -1,0 +1,9 @@
+Routers modified: rotterdam, sofia, vienna
+
+Reasoning:
+1. For traffic from Rotterdam to 100.0.1.0/24, it must pass through Kiev. Therefore, all paths bypassing Kiev must have a high cost (1000). The paths through Kiev must have a lower cost (1). This results in 4 equal-cost paths through Kiev.
+2. For traffic from Sofia to 100.0.29.0/24, it must pass through London. Thus, all paths bypassing London must have a high cost (1000). The paths through London must have a lower cost (1). This results in 11 equal-cost paths through London.
+3. For traffic from Vienna to 100.0.29.0/24, it must also pass through London. Similar to Sofia, all paths bypassing London must have a high cost (1000), while paths through London must have a lower cost (1). This results in 2 equal-cost paths through London.
+
+Limitations (if any):
+None

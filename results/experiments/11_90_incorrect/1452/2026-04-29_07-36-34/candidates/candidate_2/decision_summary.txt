@@ -1,0 +1,10 @@
+Routers modified: Rotterdam, Strasbourg, Praha, Vienna
+
+Reasoning:
+1. For traffic from Praha to 100.0.9.0/24 (Rotterdam), Rotterdam must be a mandatory waypoint. Hence, the cost from Praha to any other path to 100.0.9.0/24 (e.g., through Vienna) must be set to 1000 to ensure traffic passes through Rotterdam.
+2. For Strasbourg to reach 100.0.4.0/24 (London), the same reasoning applies. The path through London must be favored, leading to a cost of 1 on the link to London, and all bypass paths set to 1000.
+3. The same cost adjustments are made for Vienna to ensure it reaches 100.0.29.0/24 (London) via London, setting the cost to 1 for the link to London and 1000 for any bypass routes.
+4. The adjustments ensure that the waypoint requirements are met and all connections are reachable.
+
+Limitations (if any):
+None

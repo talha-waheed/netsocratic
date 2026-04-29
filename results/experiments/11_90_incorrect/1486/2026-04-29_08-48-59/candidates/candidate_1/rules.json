@@ -1,0 +1,12 @@
+{
+  "reachability": {
+    "bucharest": ["100.0.1.0/24"],
+    "madrid": ["100.0.4.0/24"]
+  },
+  "waypoint": {},
+  "loadbalancing": {
+    "(madrid,100.0.1.0/24)": 3,
+    "(madrid,100.0.4.0/24)": 2,
+    "(bucharest,100.0.1.0/24)": 2
+  }
+}

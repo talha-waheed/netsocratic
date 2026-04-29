@@ -1,0 +1,10 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from strasbourg should reach? (Why: Impact on reachability)
+A: Traffic from Strasbourg should reach the subnet 100.0.29.0/24.
+
+Q: When you wrote 'the route from strasbourg to 100.0.29.0/24 includes london', what is the exact router hostname you are referring to? (Why: Impact on waypointing)
+A: I am referring to the router hostname associated with the waypoint to London for the route from Strasbourg to 100.0.29.0/24. However, the exact hostname is not specified in the routing requirements provided.
+
+Q: How many paths should be used to distribute traffic across available paths? (Why: Impact on load balancing)
+A: Traffic should be distributed across 4 paths for Sofia, 2 paths for Strasbourg, and 4 paths for Bratislava. This distribution is based on the load balancing requirements specified.

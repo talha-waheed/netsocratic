@@ -1,0 +1,13 @@
+Routers modified: Amsterdam, Brussels, Lyon, Frankfurt, Warsaw
+
+Reasoning:
+1. Traffic to subnet 100.0.29.0/24 from Lyon must go through London. 
+   - Set cost to 1000 on bypass paths from Lyon to prevent any routing that does not go through London.
+2. The same waypoint must apply for Warsaw to 100.0.29.0/24, thus their bypass paths must also be set to 1000.
+3. Brussels also needs to ensure all traffic to 100.0.29.0/24 goes through London by imposing high costs on its bypass paths.
+4. In the case of Paris's traffic to 100.0.9.0/24, routing must go through Rotterdam, hence all bypass costs are set similarly.
+5. There are traffic loads requiring ECMP for two paths towards 100.0.29.0/24 from each of Lyon, Warsaw, Brussels, and London. 
+6. All routers not involved in the routes to the defined subnets retain default costs of 1 to maintain existing traffic flows.
+
+Limitations (if any):
+None

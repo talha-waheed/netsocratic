@@ -1,0 +1,25 @@
+The subnet the main subnet is reachable from athens.
+The path between athens and the main subnet involves london.
+Traffic from athens to the main subnet should be load-balanced across 3 paths.
+Ensure connectivity between strasbourg and 100.0.1.0/24..
+Traffic should go through kiev when feasible.
+Make sure there's redundancy.
+The subnet 100.0.4.0/24 is reachable from luxembourg.
+Route through basel if possible.
+Use multiple paths for reliability.
+frankfurt can reach that network
+Consider routing through london.
+Ensure good redundancy.
+Connect zurich to the main subnet.
+To reach the main subnet from zurich, traffic is balanced on 3 paths.
+Traffic originating from luxembourg can reach the subnet 100.0.1.0/24.
+To reach 100.0.1.0/24 from luxembourg, traffic should be split across 4 paths.
+vienna should connect to 100.0.1.0/24., and similar routing should be used for related traffic.
+Routing traffic between vienna and 100.0.1.0/24 goes via kiev.
+Make sure there's redundancy.
+Ensure connectivity between istanbul and the remote network.
+Use rotterdam as intermediate hop if available.
+To reach the remote network from istanbul, traffic is balanced on 2 paths.
+Ensure kiev can access that network. Apply the same policy to other relevant connections.
+The path between kiev and that network involves london.
+That traffic should be load balanced.

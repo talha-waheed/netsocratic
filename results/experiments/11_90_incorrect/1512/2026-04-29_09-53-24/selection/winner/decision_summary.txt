@@ -1,0 +1,12 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Lyon, Madrid, Rotterdam
+
+Reasoning:
+1. **Amsterdam**: Needs to block paths to 100.0.9.0/24 (Rotterdam) to enforce waypointing. Set costs to 1000 on all interfaces leading to bypass paths.
+2. **Brussels**: Must ensure traffic to 100.0.29.0/24 (London) goes through London. Set costs to 1000 on bypass paths.
+3. **Frankfurt**: Needs to block paths to 100.0.1.0/24 (Kiev) to enforce waypointing. Set costs to 1000 on all interfaces leading to bypass paths.
+4. **Lyon**: Must pass through Basel for 100.0.4.0/24 and through Rotterdam for 100.0.9.0/24. Set costs to 1000 on bypass paths.
+5. **Madrid**: Must pass through Rotterdam for 100.0.9.0/24. Set costs to 1000 on bypass paths.
+6. **Rotterdam**: Must block paths to 100.0.9.0/24 (Amsterdam) to enforce waypointing. Set costs to 1000 on all interfaces leading to bypass paths.
+
+Limitations (if any):
+None

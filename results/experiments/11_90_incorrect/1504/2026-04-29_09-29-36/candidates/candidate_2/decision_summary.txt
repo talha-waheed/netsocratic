@@ -1,0 +1,21 @@
+Routers modified: [rotterdam]
+
+Reasoning:
+1. Reachability from Bucharest to 100.0.9.0/24 (Rotterdam):
+   - Paths: 
+     - Bucharest → (10.0.0.11) → Rotterdam → (10.0.0.34) → Brussels → (10.0.0.36) → 100.0.9.0/24
+     - Bucharest → (10.0.0.61) → Frankfurt → (10.0.0.59) → Brussels → (10.0.0.34) → 100.0.9.0/24
+   - Only valid path through Rotterdam, thus must set costs to ensure this waypoint is used.
+
+2. Mandatory Waypointing:
+   - The only paths bypassing Rotterdam go through Frankfurt or Brussels directly.
+   - Set the cost for both interfaces leading to non-Rotterdam paths from Rotterdam to high (1000) to ensure traffic uses the path through Rotterdam.
+   - Set costs on Rotterdam's outbound interfaces to ensure the path through Rotterdam is the only viable option.
+
+3. Load Balancing:
+   - We require 2 equal-cost paths from Bucharest to 100.0.9.0/24.
+   - Adjusting costs on Bucharest and intermediate routers will be managed in Bucharest's configuration, ensuring it can find two equal-cost paths.
+   - The only remaining path option will then be through Rotterdam, satisfying the requirement.
+
+Limitations (if any):
+- None

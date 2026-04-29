@@ -1,0 +1,22 @@
+Routers modified: Basel, Vienna, Sofia, Milan
+
+Reasoning:
+1. **Reachability**: All specified routers need to reach the target subnets:
+   - Milan must reach 100.0.9.0/24.
+   - Sofia and Vienna must reach 100.0.4.0/24.
+  
+2. **Waypointing**: Basel is the mandatory waypoint for all traffic from Milan, Sofia, and Vienna to the respective target subnets. Thus, all paths bypassing Basel must have a high cost set to 1000.
+   - Cost for Milan to 100.0.9.0/24 via Basel: 1.
+   - Cost for Sofia to 100.0.4.0/24 via Basel: 1.
+   - Cost for Vienna to 100.0.4.0/24 via Basel: 1.
+   - All other paths to 100.0.4.0/24 from Sofia and Vienna must be set to 1000 to ensure traffic goes through Basel.
+
+3. **Load Balancing**: Vienna requires 2 equal-cost paths to 100.0.4.0/24. 
+   - Set the cost on Fa1/0 in Vienna to 1000 to block the non-Basel path and allow traffic to go through Basel only.
+
+4. **Cost Adjustments**:
+   - For Basel, both outgoing interfaces toward Frankfurt and Strasbourg are set to cost 1, allowing paths to both target subnets.
+   - For Milan and Sofia, outgoing costs towards Basel are set to 1000 for paths bypassing Basel, ensuring the required waypoint is respected.
+
+Limitations (if any):
+None

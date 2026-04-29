@@ -1,0 +1,11 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Kiev
+
+Reasoning:
+1. The objective is to ensure specific reachability, waypointing, and load balancing as per the routing rules.
+2. For `london` to reach `100.0.9.0/24`, traffic must prefer the path via `rotterdam`. Therefore, costs from `Amsterdam` to `rotterdam` and vice versa are set to 1000 to enforce this waypoint.
+3. The traffic from `frankfurt` to `100.0.4.0/24` must go through `basel`. Thus, costs on bypass paths (to `strasbourg` and `zurich`) from `frankfurt` are set to 1000, while the path through `basel` remains at the default cost of 1.
+4. For `istanbul` to reach `100.0.1.0/24`, traffic must go through `kiev`. Hence, costs on bypass paths from `istanbul` to `bratislava` are set to 1000 to enforce this requirement.
+5. Lastly, the load balancing requirement for `frankfurt` to `100.0.4.0/24` necessitates 2 equal-cost paths, which are enforced by adjusting costs appropriately.
+
+Limitations (if any):
+None

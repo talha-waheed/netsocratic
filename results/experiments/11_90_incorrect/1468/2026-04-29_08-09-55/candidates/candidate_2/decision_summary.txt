@@ -1,0 +1,14 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Milan, Rotterdam, Zurich
+
+Reasoning:
+1. **Amsterdam to 100.0.1.0/24**: Needs 2 equal-cost paths. Set cost 1000 on bypass path (to Rotterdam).
+2. **Brussels to 100.0.9.0/24**: Traffic must go through Rotterdam. Set cost 1000 on direct route to Warsaw.
+3. **Frankfurt to 100.0.4.0/24**: Needs to go through Basel. Set cost 1000 on bypass paths.
+4. **Milan to 100.0.29.0/24**: Needs to go through London. Set cost 1000 on bypass paths.
+5. **Rotterdam to 100.0.1.0/24**: Needs to go through Kiev. Set cost 1000 on bypass paths.
+6. **Zurich to 100.0.4.0/24**: Needs to go through Basel. Set cost 1000 on bypass paths.
+
+All changes ensure compliance with waypointing and load balancing requirements.
+
+Limitations (if any):
+None

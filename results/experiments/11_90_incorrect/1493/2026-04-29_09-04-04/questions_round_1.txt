@@ -1,0 +1,5 @@
+Round 1 — Clarification Questions
+
+1. What is the exact router hostname you are referring to when you mention "basel"? (Why: impact on waypointing)
+2. What is the exact router hostname you are referring to when you mention "rotterdam"? (Why: impact on waypointing)
+3. How many paths should be used for load balancing to ensure redundancy and fault tolerance? (Why: impact on load-balancing)

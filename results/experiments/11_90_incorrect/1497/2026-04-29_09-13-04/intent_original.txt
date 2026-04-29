@@ -1,0 +1,9 @@
+The subnet the destination network is reachable from marseille.
+Use rotterdam as intermediate hop if available.
+Load balance the traffic appropriately.
+The subnet that network is reachable from kiev.
+Routing traffic between kiev and that network goes via london.
+Traffic from kiev to that network is evenly distributed across 3 paths.
+100.0.29.0/24 is accessible from paris.
+The route from paris to 100.0.29.0/24 includes london.
+Distribute traffic across available paths.

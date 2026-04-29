@@ -1,0 +1,18 @@
+Routers modified: Frankfurt, Marseille, Zurich
+
+Reasoning:
+1. For Frankfurt reaching 100.0.1.0/24 with mandatory waypointing via Kiev:
+   - Direct paths to Kiev from Frankfurt. 
+   - Any links that bypass Kiev to 100.0.1.0/24 should be enforced at cost 1000.
+   
+2. For Marseille, same requirement for 100.0.1.0/24 with waypoint via Kiev:
+   - Cost set to 1000 on non-Kiev paths to enforce mandatory routing through Kiev for traffic.
+
+3. Zurich needs load balancing to 100.0.29.0/24 via London:
+   - London needs to be treated as mandatory waypoint; setting cost to 1000 on any non-London paths ensures traffic is routed properly.
+   - Maximum 5 paths to London are required; hence costs restructured for more paths maintaining the higher load balancing requirement.
+
+4. Adjustments ensure all rules clarified are adhered to, with appropriate costs assigned to enforce mandatory waypoints while satisfying load balancing requirements.
+
+Limitations (if any):
+None

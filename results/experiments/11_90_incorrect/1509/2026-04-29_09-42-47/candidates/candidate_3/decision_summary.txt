@@ -1,0 +1,11 @@
+Routers modified: Amsterdam, Athens, Basel, Bucharest, Budapest, Frankfurt, Geneva, Rotterdam, Zagreb
+
+Reasoning:
+1. For the reachability of `100.0.4.0/24` from Sofia, Rotterdam, and Bucharest, the bypass paths must be set to 1000 cost. Therefore, paths are adjusted to ensure they pass through Basel.
+2. For the reachability of `100.0.29.0/24` from Istanbul, Rotterdam, and Marseille, paths bypassing London are set with higher costs to ensure they arrive through London.
+3. Maintaining equal-cost paths involves ensuring that two specific routes for each connection also share that cost.
+4. All relevant routers have been modified to align with new OSPF cost settings.
+5. Cost values on other routers were not modified as they did not require changes per routing rules.
+
+Limitations (if any):
+None

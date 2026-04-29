@@ -1,0 +1,5 @@
+Q: Did your original intent require traffic from athens to 100.0.4.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+A: My original intent did not require traffic from Athens to 100.0.4.0/24 to pass through Basel. There was no waypoint required for this traffic. The waypoint requirement only applies to traffic destined for the specific prefixes listed, which in this case is for traffic from Athens to 100.0.1.0/24.
+
+Q: Did your original intent require traffic from roma to 100.0.9.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+A: My original intent did not require traffic from roma to 100.0.9.0/24 to pass through basel. The required waypoint for this traffic is rotterdam.

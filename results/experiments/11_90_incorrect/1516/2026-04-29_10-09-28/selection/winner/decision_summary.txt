@@ -1,0 +1,15 @@
+Routers modified: Amsterdam, Bratislava, Milan, Istanbul, Athens, Bucharest
+
+Reasoning:
+1. **Amsterdam to 100.0.1.0/24**: Must pass through Kiev. Set costs on bypass paths (to Brussels and Frankfurt) to 1000, keeping the path through Kiev at 1.
+2. **Bratislava to 100.0.1.0/24**: Must pass through Kiev. Set costs on bypass paths (to Budapest and Vienna) to 1000, keeping the path through Kiev at 1.
+3. **Milan to 100.0.4.0/24**: Must pass through Basel. Set costs on bypass paths (to Zurich and Vienna) to 1000, keeping the path through Basel at 1.
+4. **Istanbul to 100.0.4.0/24**: Must pass through Basel. Set costs on bypass paths (to Bucharest) to 1000, keeping the path through Basel at 1.
+5. **Athens to 100.0.4.0/24**: Must pass through Basel. Set costs on bypass paths (to Sofia) to 1000, keeping the path through Basel at 1.
+6. **Bucharest to 100.0.9.0/24**: Must pass through Rotterdam. Set costs on bypass paths (to Budapest) to 1000, keeping the path through Rotterdam at 1.
+
+Load balancing requirements:
+- For Amsterdam, Milan, Athens, and Bucharest, ensure that there are exactly 2 equal-cost paths to their respective destinations by adjusting costs accordingly.
+
+Limitations (if any):
+None

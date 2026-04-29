@@ -1,0 +1,16 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that marseille needs to reach when you mentioned "the remote network"? (Why: This impacts reachability as the destination subnet is vague.)
+A: Marseille needs to reach the following destination subnets: 100.0.4.0/24, 100.0.1.0/24, 100.0.29.0/24, and 100.0.9.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that bratislava should connect to when you mentioned "the destination network"? (Why: This impacts reachability as the destination subnet is vague.)
+A: Bratislava should connect to the destination subnet 100.0.29.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that you are referring to when you mentioned "that network" in relation to marseille? (Why: This impacts reachability as the destination subnet is vague.)
+A: The exact destination subnet in relation to Marseille is 100.0.4.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that you are referring to when you mentioned "the target subnet" in relation to zurich? (Why: This impacts reachability as the destination subnet is vague.)
+A: The target subnet in relation to Zurich is 100.0.1.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that you are referring to when you mentioned "the remote network" in relation to warsaw? (Why: This impacts reachability as the destination subnet is vague.)
+A: The exact destination subnets related to Warsaw are: 100.0.29.0/24, 100.0.1.0/24, 100.0.4.0/24, and 100.0.9.0/24.

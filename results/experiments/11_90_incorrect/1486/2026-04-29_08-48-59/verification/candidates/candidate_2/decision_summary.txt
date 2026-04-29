@@ -1,0 +1,25 @@
+Routers modified: Bucharest, Kiev, Madrid, Basel
+
+Reasoning:
+1. **Bucharest to 100.0.1.0/24**: Must pass through Kiev (waypoint). Set `Fa1/0` (to Istanbul) to 1000 to force the path through Kiev. 
+   - Path options: Bucharest → Kiev → (100.0.1.0/24). 
+   - Cost for path through Kiev: 1 (Fa1/1 to Kiev) + 1 (Fa0/1 to Bucharest) = 2.
+   - Set `Fa0/1` (to Budapest) to 1000 to block the alternative path.
+   - Achieve exactly 2 equal-cost paths to 100.0.1.0/24.
+
+2. **Madrid to 100.0.1.0/24**: Must pass through Kiev (waypoint). Set `Fa0/1` (to Barcelona) to 1000.
+   - Path options: Madrid → (100.0.1.0/24) via Kiev.
+   - Achieve 3 equal-cost paths by ensuring paths to Kiev through different routers (via varying routes).
+   - Set costs to achieve 3 paths: 
+     - Path 1: Madrid → (via Istanbul) → Bucharest → Kiev → 100.0.1.0/24 (total cost = 3).
+     - Path 2: Madrid → (via Sofia) → Bucharest → Kiev → 100.0.1.0/24 (total cost = 3).
+     - Path 3: Madrid → (via Barcelona) → Bucharest → Kiev (total cost = 3).
+
+3. **Madrid to 100.0.4.0/24**: Must pass through Basel (waypoint). Set `Fa1/0` (to Frankfurt) to 1000.
+   - Path options: Madrid → (via Barcelona) → Basel → 100.0.4.0/24.
+   - Set costs on paths to ensure they pass through Basel.
+
+4. **Basel**: Set `Fa1/0` (to Strasbourg) to 1000 to enforce the waypoint condition for Madrid's traffic to 100.0.4.0/24.
+
+Limitations (if any):
+None

@@ -1,0 +1,23 @@
+Q: Did your original intent require traffic from budapest to 100.0.29.0/24 to pass through london, through basel, or through a different waypoint?
+A: The original intent required traffic from Budapest to 100.0.29.0/24 to pass through London.
+
+Q: Did your original intent require traffic from geneva to 100.0.1.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from Geneva to 100.0.1.0/24 to pass through Kiev.
+
+Q: Did your original intent require traffic from madrid to 100.0.29.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+A: Yes, my original intent required traffic from Madrid to 100.0.29.0/24 to pass through London. The waypoint specified for this route is London.
+
+Q: Did your original intent require traffic from rotterdam to 100.0.4.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from rotterdam to 100.0.4.0/24 to pass through basel.
+
+Q: Did your original intent require traffic from vienna to 100.0.1.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from Vienna to 100.0.1.0/24 to pass through Kiev, as indicated in the waypoint requirement for (vienna,100.0.1.0/24).
+
+Q: Did your original intent require traffic from barcelona to 100.0.29.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from Barcelona to 100.0.29.0/24 to pass through London, as indicated by the waypoint requirement for the prefix (barcelona,100.0.29.0/24): ["london"].
+
+Q: Did your original intent require traffic from frankfurt to 100.0.29.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from Frankfurt to 100.0.29.0/24 to pass through London as the waypoint.
+
+Q: Did your original intent require traffic from luxembourg to 100.0.1.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from Luxembourg to 100.0.1.0/24 to pass through Kiev, as indicated in the waypoint requirements for (luxembourg,100.0.1.0/24).

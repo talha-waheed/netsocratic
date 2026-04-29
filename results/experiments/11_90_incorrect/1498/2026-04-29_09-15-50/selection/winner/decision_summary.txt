@@ -1,0 +1,23 @@
+Routers modified: Frankfurt, Istanbul, Budapest
+
+Reasoning:
+1. **Frankfurt to 100.0.29.0/24**: 
+   - Paths: 
+     - Frankfurt → Brussels → London (cost 2)
+     - Frankfurt → Vienna → London (cost 2)
+   - Both paths have the same cost, satisfying the load balancing requirement of 2 paths.
+
+2. **Istanbul to 100.0.9.0/24**: 
+   - Paths: 
+     - Istanbul → Bucharest → Frankfurt → Rotterdam (cost 3)
+     - Istanbul → Athens → Frankfurt → Rotterdam (cost 3)
+   - Both paths go through Rotterdam, satisfying the waypoint requirement and the load balancing requirement of 2 paths.
+
+3. **Budapest to 100.0.1.0/24**: 
+   - Paths: 
+     - Budapest → Sofia → Istanbul → Kiev (cost 3)
+     - Budapest → Bucharest → Istanbul → Kiev (cost 3)
+   - Both paths go through Kiev, satisfying the waypoint requirement and the load balancing requirement of 2 paths.
+
+Limitations (if any):
+None

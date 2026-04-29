@@ -1,0 +1,5 @@
+Round 1 — Clarification Questions
+
+1. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from strasbourg should reach? (Why: Impact on reachability)
+2. When you wrote 'the route from strasbourg to 100.0.29.0/24 includes london', what is the exact router hostname you are referring to? (Why: Impact on waypointing)
+3. How many paths should be used to distribute traffic across available paths? (Why: Impact on load balancing)

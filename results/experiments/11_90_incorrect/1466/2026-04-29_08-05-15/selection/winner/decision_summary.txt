@@ -1,0 +1,11 @@
+Routers modified: Amsterdam, Warsaw, Budapest, Strasbourg
+
+Reasoning:
+1. **Amsterdam to 100.0.1.0/24**: Traffic must pass through Kiev. Set costs on all bypass paths (to Warsaw, Budapest, Frankfurt, and Rotterdam) to 1000 to enforce the waypoint.
+2. **Warsaw to 100.0.1.0/24**: Similar to Amsterdam, traffic must pass through Kiev. Set cost on the bypass path to 1000.
+3. **Budapest to 100.0.9.0/24**: Traffic must pass through Rotterdam. Set costs on all bypass paths to 1000 to enforce the waypoint.
+4. **Strasbourg to 100.0.9.0/24**: Traffic must pass through Rotterdam. Set costs on all bypass paths to 1000 to enforce the waypoint. Also, for 100.0.1.0/24, set costs on bypass paths to Kiev to 1000.
+5. **Load Balancing**: For Amsterdam and Budapest, ensure that the paths through the required waypoints (Kiev and Rotterdam) are the only viable paths, thus achieving the required load balancing.
+
+Limitations (if any):
+None

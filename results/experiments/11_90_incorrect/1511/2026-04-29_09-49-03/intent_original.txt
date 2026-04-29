@@ -1,0 +1,24 @@
+Connect brussels to our servers.
+Traffic should go through rotterdam when feasible.
+amsterdam and that network should be connected.
+Use multiple paths for reliability.
+the destination network is accessible from warsaw.
+Traffic should go through rotterdam when feasible.
+Ensure fault tolerance with multiple routes.
+100.0.1.0/24 is accessible from roma.
+The path between roma and 100.0.1.0/24 involves kiev.
+Make sure there's redundancy.
+Connect praha to 100.0.9.0/24..
+Consider routing through rotterdam.
+Apply similar rules to this flow.
+budapest can reach 100.0.4.0/24.
+Preferably route via basel.
+Distribute traffic across available paths.
+Ensure connectivity between lyon and 100.0.1.0/24..
+Ensure good redundancy.
+Ensure connectivity between kiev and 100.0.4.0/24..
+Traffic should go through basel when feasible.
+It should also have redundancy.
+100.0.29.0/24 is accessible from milan.
+Traffic should go through london when feasible.
+The number of paths between milan and 100.0.29.0/24 should be 2.

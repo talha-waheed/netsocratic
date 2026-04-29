@@ -1,0 +1,13 @@
+Routers modified: Amsterdam, Athens, Frankfurt, Kiev, Lyon, Marseille, Praha
+
+Reasoning:
+1. **Amsterdam**: Needs to block paths to 100.0.1.0/24 (Kiev) to enforce waypointing. Set costs to 1000 on all bypass paths.
+2. **Athens**: Must reach 100.0.1.0/24 via Kiev. Set cost to 1000 on the path through Istanbul to enforce waypointing. Kept cost to Sofia at 1 to allow for the second path.
+3. **Frankfurt**: Must reach 100.0.1.0/24 via Kiev. Set cost to 1000 on the path through Strasbourg to enforce waypointing.
+4. **Kiev**: Must block paths to 100.0.1.0/24 from other routers. Set cost to 1000 on the path to Bucharest.
+5. **Lyon**: Must reach 100.0.1.0/24 via Kiev. Set cost to 1000 on the path to Marseille to enforce waypointing.
+6. **Marseille**: Must reach the remote network via Kiev. Set cost to 1000 on the path to Lyon to enforce waypointing.
+7. **Praha**: Must reach 100.0.1.0/24 via Kiev. Set cost to 1000 on the path to Frankfurt to enforce waypointing.
+
+Limitations (if any):
+None

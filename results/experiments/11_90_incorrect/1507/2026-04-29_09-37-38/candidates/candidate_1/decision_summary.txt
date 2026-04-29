@@ -1,0 +1,9 @@
+Routers modified: Rotterdam, Brussels, Warsaw
+
+Reasoning:
+1. **Rotterdam**: Needs to connect to 100.0.9.0/24 (from Roma) and should be a preferred waypoint. Set costs to 1 for all interfaces to ensure traffic can flow through Rotterdam without blocking alternatives.
+2. **Brussels**: Must connect to 100.0.1.0/24 with 4 load-balanced paths. Set costs to 1 on all relevant interfaces to ensure multiple paths are available and balanced.
+3. **Warsaw**: Needs to connect to 100.0.29.0/24. Set costs to 1 on all interfaces to allow multiple paths for redundancy.
+
+Limitations (if any):
+None

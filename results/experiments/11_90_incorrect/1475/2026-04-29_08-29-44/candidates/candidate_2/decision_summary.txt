@@ -1,0 +1,19 @@
+Routers modified: Praha, Kiev, Paris, Rotterdam
+
+Reasoning:
+1. Reachability from Praha to 100.0.1.0/24 must go through Kiev. 
+   - Cost from Praha to Kiev is set to 1.
+   - All other paths from Praha bypassing Kiev are set to 1000 to enforce the waypoint.
+   
+2. Load balancing from Praha to 100.0.1.0/24 requires 2 equal-cost paths:
+   - Paths through Kiev and the direct path from Praha to 100.0.1.0/24 need to be equalized.
+   - The costs are adjusted accordingly to ensure that both paths are viable.
+
+3. For Paris to 100.0.9.0/24, routing should prefer Rotterdam:
+   - Paths to Rotterdam get a cost of 1 while others are set to 1000 to maintain the waypoint.
+
+4. For Kiev to 100.0.9.0/24, paths must also prefer Rotterdam.
+   - Costs are similarly adjusted to ensure that the required path through Rotterdam is favored.
+
+Limitations (if any):
+None

@@ -1,0 +1,13 @@
+Routers modified: Amsterdam, Bucharest, Frankfurt, Kiev, Paris
+
+Reasoning:
+1. For traffic from Paris to 100.0.1.0/24, the required mandatory waypoint is Kiev. 
+   To ensure that traffic goes through Kiev, all bypass paths (like Paris to Frankfurt) must be set to a high cost (1000).
+2. Subsequently, we need to ensure there are exactly 2 equal-cost paths available for this traffic. 
+   Only the paths that include Kiev will be kept at a low cost (1), hence the modifications.
+3. For traffic from London to 100.0.4.0/24 via Basel, similar logic applies. Bypass paths need to be set high (cost 1000).
+4. Modifications to the OSPF costs ensure that mandatory waypoints are respected and path counts are correctly balanced.
+5. All other routers remain unchanged, as their configurations meet the routing requirements.
+
+Limitations (if any):
+There may not be enough distinct paths available to satisfy additional load balancing if required; however, the modifications achieve the specified constraints.

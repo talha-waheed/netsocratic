@@ -1,0 +1,11 @@
+Routers modified: marseille, basel, sofia, kiev
+
+Reasoning:
+- For the route from marseille to 100.0.4.0/24, there's a necessary waypoint through basel.
+  To ensure this, the cost to any bypass path (through other routers) must be set to 1000, while the route going through basel is kept at cost 1.
+- For the route from sofia to 100.0.29.0/24, the way must go through london. All bypass paths must also be kept at a high cost to enforce this required routing.
+- Since the pathway from basel to 100.0.1.0/24 needs to utilize kiev as a waypoint, the routing paths bypassing kiev are set to a cost of 1000. The designated path via kiev can be at cost 1 ensuring that it is preferred.
+- The connection from kiev to 100.0.1.0/24 must balance across two paths, so the cost to the other potential bypass paths was set at 10 to allow only two viable options.
+
+Limitations (if any):
+All bypass paths for waypoint enforcement were satisfactorily handled. The load balancing for basel couldn't yield more than two equal-cost paths due to the absence of multiple peers towards 100.0.1.0/24 from connected subnets.

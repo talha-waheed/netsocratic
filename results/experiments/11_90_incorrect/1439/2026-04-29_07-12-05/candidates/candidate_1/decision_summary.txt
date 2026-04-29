@@ -1,0 +1,25 @@
+Routers modified: Praha, Madrid, Barcelona
+
+Reasoning:
+1. **Reachability**: 
+   - Praha needs to reach 100.0.29.0/24 (London). 
+   - Madrid and Barcelona need to reach 100.0.9.0/24 (Rotterdam).
+   - All routers are already reachable due to OSPF's redistribution of connected subnets.
+
+2. **Waypoint**: 
+   - No waypoint requirements were specified, so we do not need to enforce any mandatory paths.
+
+3. **Load Balancing**: 
+   - For Praha to reach 100.0.29.0/24, we need 3 equal-cost paths.
+   - The paths are:
+     - Praha → Frankfurt → London
+     - Praha → Strasbourg → London
+     - Praha → Luxembourg → London
+   - Set costs on the interfaces leading to London (Fa1/1, Fa1/0, Fa0/1) to 1 to ensure they are equal-cost paths.
+
+4. **Madrid and Barcelona**: 
+   - Both need to reach 100.0.9.0/24 (Rotterdam). 
+   - Set costs on the interfaces leading to Rotterdam (Fa1/0 for Madrid and Fa0/1 for Barcelona) to 1 to ensure they can reach the destination.
+
+Limitations (if any):
+None

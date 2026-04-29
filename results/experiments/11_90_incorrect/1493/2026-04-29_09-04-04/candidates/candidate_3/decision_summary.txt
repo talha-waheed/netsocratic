@@ -1,0 +1,27 @@
+Routers modified: Frankfurt, Lyon, Bruxelles, Praha
+
+Reasoning:
+1. For the route from Praha to 100.0.4.0/24 via Basel:
+   - Paths:
+     - Praha → Frankfurt → Basel (cost: 1+1)
+     - Praha → Bratislava → Basel (cost: 1+1)
+   - Set cost 1 on Fa1/1 and Fa1/0 of Praha to ensure 2 paths have cost 2.
+   - Set cost 1000 on other paths bypassing Basel.
+
+2. For Lyon to 100.0.29.0/24 Via London:
+   - Paths:
+     - Lyon → Paris → London (cost: 1+1)
+     - Lyon → Marseille → London (cost: 1+1)
+   - Set cost 1 on the paths through London and costs of 1000 on bypasses.
+
+3. For Lyon to 100.0.9.0/24 Via Rotterdam:
+   - Paths:
+     - Lyon → Marseille → Barcelona → Rotterdam (cost: 1+1+1+1)
+     - Lyon → Geneva → Strasbourg → Rotterdam (cost: 1+1+1)
+     - Lyon → Paris → Brussels → Rotterdam (cost: 1+1+1)
+     - To achieve 6 paths, retain 1 on the main route and set 1000 on other bypass routes.
+
+4. Set costs on Brussels to ensure paths include Rotterdam as needed.
+
+Limitations (if any):
+All routes comply with the rules and costs as specified. There are no remaining paths that could be used to load-balance beyond the constraints given.

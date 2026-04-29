@@ -1,0 +1,11 @@
+Routers modified: Bratislava, Athens, Roma
+
+Reasoning:
+1. **Bratislava to 100.0.4.0/24**: Traffic must pass through Bratislava itself. Therefore, we set the cost to bypass Bratislava to 1000 (high cost) and keep the cost to itself at 1. We also need to ensure 4 equal-cost paths from Bratislava to 100.0.4.0/24. All interfaces remain at cost 1 to ensure those paths are maintained.
+
+2. **Athens to 100.0.9.0/24**: The path must go through Bratislava. Set the cost to bypass Bratislava to 1000 to enforce the waypoint requirement.
+
+3. **Roma to 100.0.29.0/24**: Traffic can use multiple paths, but we need to ensure that we have 2 ECMP paths reaching London. Therefore, we set high costs on the bypass paths to London while maintaining low costs on the paths that go through the existing routes leading to London. 
+
+Limitations (if any):
+None

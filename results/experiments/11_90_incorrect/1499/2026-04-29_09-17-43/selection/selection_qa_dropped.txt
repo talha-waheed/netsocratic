@@ -1,0 +1,2 @@
+Q: Did your original intent require traffic from athens to 100.0.9.0/24 to pass through bratislava, was no waypoint required, or was a different waypoint required?
+A: My original intent did not require traffic from Athens to 100.0.9.0/24 to pass through Bratislava. The required waypoint for this traffic is Rotterdam.

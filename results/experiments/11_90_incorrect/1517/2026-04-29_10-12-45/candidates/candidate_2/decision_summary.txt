@@ -1,0 +1,11 @@
+Routers modified: frankfurt, geneva, basel, marseille, vienna
+
+Reasoning:
+1. Frankfurt needs to reach 100.0.4.0/24 and 100.0.1.0/24, and both must go through Kiev as a waypoint. The cost to bypass Kiev was set to 1000 to enforce this.
+2. Geneva needs to reach 100.0.29.0/24 through Kiev, so the cost to bypass Kiev is also set to 1000.
+3. Basel must route to 100.0.1.0/24 and 100.0.29.0/24 through Kiev. The same logic applies as with Frankfurt and Geneva.
+4. Marseille must reach 100.0.4.0/24 and is routed through Basel, so bypass paths to Basel are set to 1000.
+5. Vienna has to reach 100.0.9.0/24 through Rotterdam, thus bypass paths to Rotterdam must be set to 1000.
+
+Limitations (if any):
+None

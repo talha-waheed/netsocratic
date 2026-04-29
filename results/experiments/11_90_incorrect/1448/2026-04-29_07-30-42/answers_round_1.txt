@@ -1,0 +1,13 @@
+Round 1 — Q&A
+
+Q: What is the exact router hostname you are referring to when you mention 'our servers'? (Why: impacts reachability)
+A: I am not referring to a specific router hostname when I mention 'our servers.' The focus is on the reachability of the specified networks in Luxembourg, Bucharest, and Brussels.
+
+Q: What is the exact router hostname for the waypoint 'rotterdam'? (Why: impacts waypointing)
+A: I don't have the exact router hostname for the waypoint 'rotterdam'.
+
+Q: What is the exact router hostname for the waypoint 'london'? (Why: impacts waypointing)
+A: The exact router hostname for the waypoint 'london' is not specified in the provided requirements.
+
+Q: What is the exact router hostname for the waypoint 'basel'? (Why: impacts waypointing)
+A: The exact router hostname for the waypoint 'basel' is not specified in the provided requirements.

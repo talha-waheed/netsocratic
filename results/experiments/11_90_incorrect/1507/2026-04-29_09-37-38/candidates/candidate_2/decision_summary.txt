@@ -1,0 +1,12 @@
+Routers modified: Brussels, Bratislava, Roma, Vienna
+
+Reasoning:
+1. **Brussels** is required to route to 100.0.1.0/24 through Kiev. All direct paths to 100.0.1.0/24 that bypass Kiev have been set to a high cost of 1000, while the path through Kiev has a cost of 1, ensuring the mandatory waypoint is respected.
+2. **Bratislava** is required to route to 100.0.29.0/24 through London. Similar to Brussels, paths bypassing London are set to 1000, while the path through London is set to 1.
+3. **Roma** must reach 100.0.9.0/24 via Rotterdam. The direct path is set to 1 while all others are set to 1000.
+4. **Vienna** also must route to 100.0.9.0/24 via Rotterdam. The same cost adjustments are applied as for Roma.
+
+All routers now conform to the reachability, waypoint, and load balancing requirements specified.
+
+Limitations (if any):
+None

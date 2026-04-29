@@ -1,0 +1,7 @@
+The subnet the main subnet is reachable from bratislava.
+Consider routing through rotterdam.
+Load balance the traffic appropriately.
+luxembourg can reach the destination network
+Use multiple paths for reliability.
+Ensure connectivity between strasbourg and 100.0.4.0/24.
+The number of paths between strasbourg and 100.0.4.0/24 should be 3.

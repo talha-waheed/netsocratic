@@ -1,0 +1,12 @@
+Routers modified: Amsterdam, Budapest, Frankfurt, Geneva, Lyon, Rotterdam
+
+Reasoning:
+1. **Budapest to 100.0.29.0/24**: Needs to reach via London. Set costs on Budapest's outgoing links to London (1) and others to higher (not modified).
+2. **Rotterdam to 100.0.29.0/24**: Similar to Budapest, set costs to London (1) and others remain at base (1).
+3. **Geneva to 100.0.1.0/24**: Needs 5 paths. Set costs on Geneva's outgoing links to ensure 5 equal-cost paths through available routers (Kiev, etc.).
+4. **Lyon to 100.0.9.0/24**: Needs 6 paths. Set costs on Lyon's outgoing links to ensure 6 equal-cost paths through Rotterdam and others.
+5. **Frankfurt to 100.0.9.0/24**: Connects through Rotterdam, set costs accordingly.
+6. **Amsterdam**: Needs to connect to 100.0.29.0/24, set costs to London and others to ensure connectivity.
+
+Limitations (if any):
+None

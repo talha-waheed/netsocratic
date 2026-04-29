@@ -1,0 +1,8 @@
+Q: Did your original intent require traffic from frankfurt to 100.0.4.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from Frankfurt to 100.0.4.0/24 to pass through Basel.
+
+Q: Did your original intent require traffic from istanbul to 100.0.1.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from Istanbul to 100.0.1.0/24 to pass through Kiev.
+
+Q: Did your original intent require all traffic from london to reach the destination network 100.0.9.0/24, or was it acceptable for some traffic to be denied?
+A: My original intent required all traffic from London to reach the destination network 100.0.9.0/24. There should be no denial of traffic to this prefix.

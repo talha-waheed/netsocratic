@@ -1,0 +1,11 @@
+Routers modified: milan, sofia, vienna
+
+Reasoning:
+1. To allow Milan to reach 100.0.9.0/24 with a mandatory waypoint through Rotterdam, the cost to Rotterdam was maintained at 1.
+2. To enforce traffic from Milan reaching 100.0.9.0/24 only through Rotterdam, all bypass paths to Rotterdam were set to 1000.
+3. For Sofia to reach 100.0.4.0/24 via Basel, the cost to Basel was kept at 1, while the bypass path to Basel was assigned a cost of 1000 to comply with the mandatory waypointing policy.
+4. Vienna was prescribed similar treatment to ensure it also reached 100.0.4.0/24 through Basel with the same cost setup, maintaining compliance with mandated waypoints.
+5. Load balancing of 2 paths from Milan, Sofia, and Vienna allows for efficient traffic distribution while maintaining the structural configuration of the network.
+
+Limitations (if any):
+None

@@ -1,0 +1,11 @@
+Routers modified: Rotterdam, Strasbourg, Vienna
+
+Reasoning:
+1. **Reachability from Praha to 100.0.9.0/24** requires traffic to reach Rotterdam, made reachable through OSPF.
+2. **Waypoint from Praha to 100.0.9.0/24 via Rotterdam**: Set Rotterdam's link cost toward the waypoints that need to be avoided to 1000, while keeping the link cost to Rotterdam at 1.
+3. **Load balancing for Praha to 100.0.9.0/24** needs to ensure two ECMP paths; limiting costs on all other viable routes to higher values correctly satisfies this requirement.
+4. **Waypoints for Strasbourg to 100.0.4.0/24 via Basel** follow the same principle as the above, with costs set to enforce route taking Basel while maintaining an alternative path with elevated costs.
+5. **Waypoint for Vienna to 100.0.29.0/24 via London** necessitates that paths which would bypass London must have their costs raised to 1000 while allowing paths through London at 1, ensuring that all relevant routes can balance effectively across two distinct paths with equal characteristics.
+
+Limitations (if any):
+All waypointing and load balancing requirements have been satisfied according to the topology with the given routing rules.

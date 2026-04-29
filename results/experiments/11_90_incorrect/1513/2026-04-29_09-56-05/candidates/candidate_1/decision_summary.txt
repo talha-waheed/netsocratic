@@ -1,0 +1,12 @@
+Routers modified: Barcelona, Budapest, Bucharest, Luxembourg, Strasbourg, Vienna
+
+Reasoning:
+1. **Barcelona to 100.0.4.0/24**: Set cost to 1 on the path through Basel (Fa1/1) and 1000 on bypass paths.
+2. **Budapest to 100.0.29.0/24**: Set cost to 1 on paths through London (Fa1/0 and Fa1/1) and 1000 on bypass paths.
+3. **Bucharest to 100.0.29.0/24**: Set cost to 1 on paths through London (Fa1/0) and 1000 on bypass paths.
+4. **Luxembourg to 100.0.9.0/24**: Set cost to 1 on paths through Brussels (Fa0/1) and 1000 on bypass paths.
+5. **Strasbourg to 100.0.1.0/24**: Set cost to 1 on paths through Kiev (Fa0/1) and 1000 on bypass paths.
+6. **Vienna to 100.0.1.0/24**: Set cost to 1 on paths through Frankfurt (Fa1/0) and 1000 on bypass paths.
+
+Limitations (if any):
+None

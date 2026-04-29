@@ -1,0 +1,9 @@
+Routers modified: Amsterdam, Budapest, Rotterdam
+
+Reasoning:
+1. **Amsterdam to 100.0.29.0/24**: Needs 2 equal-cost paths through London. Keeping costs at 1 for all interfaces to London, Brussels, Rotterdam, and Frankfurt allows for redundancy.
+2. **Budapest to 100.0.9.0/24**: Needs 2 equal-cost paths through Rotterdam. Setting costs to 1 on the paths through Budapest and Rotterdam allows for redundancy.
+3. **Rotterdam to 100.0.9.0/24**: Needs to ensure that traffic from Budapest can reach it. Setting the cost to 1000 on bypass paths ensures that traffic prefers the path through Budapest.
+
+Limitations (if any):
+None

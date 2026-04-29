@@ -1,0 +1,11 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Warsaw
+
+Reasoning:
+1. **Amsterdam to 100.0.29.0/24 (London)**: Traffic must pass through London. Set costs on all bypass paths (to Brussels, Rotterdam, Frankfurt) to 1000.
+2. **Brussels to 100.0.4.0/24 (Basel)**: Traffic must pass through Basel. Set costs on all bypass paths to Basel to 1000.
+3. **Frankfurt to 100.0.4.0/24 (Basel)**: Traffic must pass through Basel. Set costs on all bypass paths to Basel to 1000.
+4. **Warsaw to 100.0.1.0/24 (Kiev)**: Traffic must pass through Kiev. Set costs on all bypass paths to Kiev to 1000.
+5. **Load balancing**: The only load balancing requirement is from Basel to 100.0.9.0/24, which is satisfied by the existing configuration as it requires 1 path.
+
+Limitations (if any):
+None

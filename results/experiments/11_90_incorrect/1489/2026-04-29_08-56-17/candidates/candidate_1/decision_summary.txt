@@ -1,0 +1,11 @@
+Routers modified: [Budapest, Basel]
+
+Reasoning:
+1. The reachability from Budapest to 100.0.1.0/24 (Roma) is required, and it should preferably route via Kiev.
+2. The reachability from Praha to 100.0.9.0/24 (Rotterdam) is required, and it should preferably route via Rotterdam.
+3. Budapest needs to reach 100.0.4.0/24 (Basel) with a load-balancing requirement of 4 paths.
+4. To achieve the load-balancing of 4 paths from Budapest to Basel, I set the cost of all relevant interfaces to 1, ensuring that all paths through Basel are equal cost.
+5. The cost for the direct path from Budapest to Basel is kept at 1, while other paths are also set to 1 to allow for equal-cost multi-path routing.
+
+Limitations (if any):
+None

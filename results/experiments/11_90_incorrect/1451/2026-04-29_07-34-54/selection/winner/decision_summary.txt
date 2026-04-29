@@ -1,0 +1,10 @@
+Routers modified: Basel, Frankfurt, Rotterdam, Kiev
+
+Reasoning:
+1. **Basel to 100.0.4.0/24**: Traffic from Milan to 100.0.4.0/24 must pass through Basel. Therefore, the cost to Basel from Milan is kept at 1, while the cost to bypass Basel is set to 1000.
+2. **Strasbourg to 100.0.9.0/24**: Traffic from Strasbourg to 100.0.9.0/24 must pass through Rotterdam. The cost to Rotterdam is kept at 1, while the cost to bypass Rotterdam is set to 1000. Additionally, to achieve 2 equal-cost paths, the costs to the paths through Rotterdam are adjusted accordingly.
+3. **Madrid to 100.0.4.0/24**: Traffic from Madrid to 100.0.4.0/24 must pass through Kiev. The cost to Kiev is kept at 1, while the cost to bypass Kiev is set to 1000. To achieve 3 equal-cost paths, the costs to the paths through Kiev are adjusted accordingly.
+4. **Frankfurt**: The costs to bypass both Basel and Kiev are set to 1000 to enforce the waypointing requirements.
+
+Limitations (if any):
+None

@@ -1,0 +1,10 @@
+Routers modified: Basel, Paris, Zurich, Madrid
+
+Reasoning:
+1. **Basel** must be a waypoint for traffic from Paris to 100.0.4.0/24. Therefore, the cost to reach 100.0.4.0/24 from Paris must be set to 1000 to enforce this waypoint.
+2. **Paris** must also have its cost to reach 100.0.4.0/24 set to 1000 to ensure traffic must go through Basel.
+3. **Zurich** must reach 100.0.29.0/24 (London) through London, so the cost to bypass London must be set to 1000. Additionally, Zurich must have 5 equal-cost paths to London, which is achieved by keeping the costs to London and other paths at 1.
+4. **Madrid** must reach 100.0.29.0/24 through London, so the cost to bypass London must be set to 1000. The cost to London is kept at 1 to allow for the required path.
+
+Limitations (if any):
+None

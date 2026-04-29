@@ -1,0 +1,26 @@
+Connect amsterdam to 100.0.1.0/24..
+Distribute traffic across available paths.
+Connectivity from warsaw to our servers is established.
+Route through kiev if possible.
+This connection needs fault tolerance too.
+budapest and 100.0.9.0/24. need connectivity.
+Traffic should go through rotterdam when feasible.
+The number of paths between budapest and 100.0.9.0/24 should be 2.
+Connectivity from frankfurt to 100.0.4.0/24 is established.
+To reach 100.0.4.0/24 from frankfurt, traffic is directed through basel.
+Ensure good redundancy.
+Connectivity from geneva to the main subnet is established.
+Consider routing through rotterdam.
+Ensure fault tolerance with multiple routes.
+100.0.29.0/24 is accessible from marseille.
+Traffic should go through london when feasible.
+Load balance the traffic appropriately.
+Ensure milan can access 100.0.4.0/24. Apply the same policy to other relevant connections.
+Preferably route via basel.
+Ensure fault tolerance with multiple routes.
+strasbourg and our servers need connectivity.
+Traffic from strasbourg to 100.0.9.0/24 passes through rotterdam.
+To reach 100.0.9.0/24 from strasbourg, traffic is balanced on 2 paths.
+madrid and the remote network should be connected.
+The path between madrid and the remote network involves kiev.
+Use multiple paths for reliability.

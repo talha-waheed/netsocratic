@@ -1,0 +1,16 @@
+Routers modified: Amsterdam, Brussels, Dublin, Frankfurt, Paris
+
+Reasoning:
+1. The objective is to enforce mandatory waypointing through London for connections to 100.0.9.0/24 from Paris and Basel.
+2. For Paris to 100.0.9.0/24:
+   - The path must go through London; hence, all bypass paths (to Amsterdam) have been assigned a high cost (1000).
+   - The routes through London are preserved with a lower cost (1).
+3. For Basel to 100.0.29.0/24:
+   - Similar to Paris, all routes bypassing London are assigned a cost of 1000.
+4. Amsterdam's connections to London, Brussels, and Rotterdam are also set to 1000, ensuring traffic uses the preferred path through London.
+5. Dublin's connection to London is set to 1000 as it bypasses the waypoint.
+6. The cost settings ensure that only the specified routes through London are available for both mandatory waypointing and load balancing.
+7. For load balancing, the paths from Paris to 100.0.9.0/24 are set to have equal cost (1), fulfilling the requirement for two paths.
+
+Limitations (if any):
+None

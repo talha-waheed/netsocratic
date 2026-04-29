@@ -1,0 +1,14 @@
+Routers modified: Amsterdam, Athens, Frankfurt, Kiev, Lyon, Marseille, Paris, Rotterdam, Stockholm
+
+Reasoning:
+1. **Amsterdam** doesn't require changes as all connections are already optimal for reachability with OSPF.
+2. **Athens** must reach **100.0.1.0/24** via **Kiev**. This is enforced by maintaining low costs towards **Kiev** as the mandatory waypoint and ensuring other paths have higher cost.
+3. **Frankfurt** must route to **100.0.1.0/24** via **Kiev**, ensuring costs towards **Kiev** are kept optimal for the required load balancing.
+4. **Kiev** maintains low costs on its messaging paths, which need to keep **Athens** and **Frankfurt** on optimal routes to fulfill the waypoint requirement.
+5. **Lyon** and **Marseille** also needed to reach **100.0.1.0/24**, opting for clear paths through **Kiev**.
+6. **Paris** must pass traffic through **Basel** towards **100.0.4.0/24**, hence costs adjusted accordingly.
+7. **Rotterdam** facilitates traffic to **Amsterdam**, overall it was maintained with low costs.
+8. **Stockholm** connects directly to **Frankfurt**, holding costs steady for simple, effective reachability.
+
+Limitations (if any):
+None.

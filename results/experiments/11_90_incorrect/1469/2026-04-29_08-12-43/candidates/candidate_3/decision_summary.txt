@@ -1,0 +1,12 @@
+Routers modified: Luxembourg, Strasbourg, Barcelona, Prague, Budapest, Vienna
+
+Reasoning:
+1. Luxembourg to 100.0.4.0/24 requires Basel as a waypoint. Bypassing Basel incurs a cost of 1000. Hence, Luxembourg's path through Basel is cost 1, and all others are set to 1000 to enforce the waypoint.
+2. Strasbourg needs to reach 100.0.1.0/24 through Kiev as a waypoint. Paths bypassing Kiev are set to 1000, and the direct path through Kiev must be cost 1.
+3. Barcelona connecting to 100.0.1.0/24 should pass through Kiev. Bypassing entails a cost of 1000, while the path via Kiev remains cost 1.
+4. Prague has to reach 100.0.4.0/24 with a mandatory waypoint through Basel. Any bypass paths are set at 1000, with the path through Basel set to cost 1.
+5. Budapest must connect to 100.0.29.0/24 with London as a mandatory waypoint. Bypassing London incurs a cost of 1000, while the path through London continues as cost 1. 
+6. Vienna must connect to 100.0.1.0/24 using Kiev as a mandatory waypoint. The path through Kiev is cost 1, whilst the bypass paths are set to 1000. 
+
+Limitations (if any):
+None

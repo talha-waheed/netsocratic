@@ -1,0 +1,5 @@
+Round 1 — Clarification Questions
+
+1. When you wrote 'route via london', what is the exact router hostname you are referring to? (Why: impacts waypointing for the route from bucharest)
+2. When you wrote 'route via rotterdam', what is the exact router hostname you are referring to? (Why: impacts waypointing for the route from luxembourg)
+3. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that strasbourg should access? (Why: impacts reachability for strasbourg's access to the network)

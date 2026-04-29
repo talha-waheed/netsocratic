@@ -1,0 +1,19 @@
+Routers modified: [Sofia, Bratislava, Roma]
+
+Reasoning:
+1. **Sofia to 100.0.29.0/24 (London)**: 
+   - Paths: Sofia → Athens → London, Sofia → Budapest → London, Sofia → Bucharest → London.
+   - Set costs to ensure all paths are equal (cost 1) to allow for load balancing.
+   
+2. **Bratislava to 100.0.9.0/24 (Rotterdam)**:
+   - Paths: Bratislava → Budapest → Rotterdam, Bratislava → Vienna → Rotterdam.
+   - Set costs to ensure both paths are equal (cost 1) to allow for load balancing.
+
+3. **Roma to 100.0.1.0/24 (Kiev)**:
+   - Paths: Roma → Milan → Zurich → Frankfurt → Kiev, Roma → Milan → Geneva → Zurich → Frankfurt → Kiev.
+   - Set costs to ensure both paths are equal (cost 1) to allow for load balancing.
+
+4. All modifications ensure that the required reachability is maintained and that traffic can be load balanced across the available paths without blocking any bypass paths.
+
+Limitations (if any):
+None

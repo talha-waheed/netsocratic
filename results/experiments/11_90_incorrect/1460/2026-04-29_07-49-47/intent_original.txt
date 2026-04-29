@@ -1,0 +1,23 @@
+geneva can reach 100.0.4.0/24.
+Ensure good redundancy.
+the main subnet is accessible from rotterdam.
+The route from rotterdam to the main subnet includes basel.
+The number of paths between rotterdam and the main subnet should be 3.
+barcelona and 100.0.1.0/24. should be connected.
+Use kiev as intermediate hop if available.
+Ensure connectivity between vienna and 100.0.9.0/24.
+Preferably route via rotterdam.
+Traffic from vienna to 100.0.9.0/24 is evenly distributed across 3 paths.
+praha needs to reach 100.0.4.0/24.. The same connectivity requirements apply to the other subnets as well.
+Distribute traffic across available paths.
+paris and 100.0.29.0/24 should be connected.
+Route through london if possible.
+kiev and the remote network need connectivity.
+Traffic should go through basel when feasible.
+Ensure fault tolerance with multiple routes.
+Connect budapest to 100.0.4.0/24..
+Route through basel if possible.
+The same routing applies here.
+Connect amsterdam to 100.0.4.0/24.
+Traffic should go through basel when feasible.
+That traffic should be load balanced.

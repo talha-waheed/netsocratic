@@ -1,0 +1,20 @@
+Routers modified: ['Amsterdam', 'Sofia', 'Rotterdam', 'Istanbul']
+
+Reasoning:
+1. The reachability requirement for Amsterdam and Sofia to 100.0.9.0/24 necessitates ensuring that traffic travels through Rotterdam.
+2. For Amsterdam:
+   - Paths: 
+     - Amsterdam -> Rotterdam -> 100.0.9.0/24
+     - Amsterdam -> Frankfurt -> (others bypassing Rotterdam)
+   - Set costs through non-Rotterdam paths to 1000 to enforce the required waypoint. 
+   - Traffic must go through Rotterdam.
+3. For Sofia:
+   - Similarly, the paths must travel through Rotterdam to reach 100.0.9.0/24.
+   - Set costs on bypass paths to 1000, limiting non-Rotterdam paths.
+4. For Rotterdam:
+   - Paths from Amsterdam and Sofia to 100.0.9.0/24 must be ECMP, thus the costs for the links heading towards it are set to 1, ensuring equal cost distribution.
+5. For Istanbul:
+   - As it needs to reach 100.0.29.0/24 (from London), there were 9 paths needed. Setting costs for links heading to London and adjusting others ensures an appropriate distribution of traffic.
+
+Limitations (if any):
+None

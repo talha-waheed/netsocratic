@@ -1,0 +1,13 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from our servers should reach? (Why: impacts reachability)
+A: The exact destination subnets that traffic from your servers should reach are 100.0.1.0/24 for both Amsterdam and Warsaw, and 100.0.9.0/24 for Budapest.
+
+Q: What is the exact router hostname for the intermediate hop referred to as "rotterdam"? (Why: impacts waypointing)
+A: I don't have the exact router hostname for "rotterdam."
+
+Q: What is the exact router hostname for "warsaw"? (Why: impacts reachability)
+A: The exact router hostname for "warsaw" is not specified in the provided requirements.
+
+Q: What is the exact integer path count for distributing traffic across available paths? (Why: impacts load balancing)
+A: The exact integer path count for distributing traffic across available paths is 2 for each of the routes from Amsterdam and Warsaw to Kiev, and 2 for the route from Budapest to Rotterdam.

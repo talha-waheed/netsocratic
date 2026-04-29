@@ -1,0 +1,10 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from warsaw should reach when you mention 'the target subnet'? (Why: impacts reachability)
+A: The exact destination subnets that traffic from Warsaw should reach are 100.0.1.0/24 and 100.0.4.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from warsaw should reach when you mention 'the main subnet'? (Why: impacts reachability)
+A: The exact destination subnet that traffic from Warsaw should reach when referring to 'the main subnet' is 100.0.1.0/24.
+
+Q: What is the exact router hostname you are referring to when you mention 'the main subnet'? (Why: impacts waypointing)
+A: I do not have a specific hostname for 'the main subnet' as it is not defined in the routing requirements provided.

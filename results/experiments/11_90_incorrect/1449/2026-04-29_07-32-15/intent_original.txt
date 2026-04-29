@@ -1,0 +1,8 @@
+our servers is accessible from amsterdam.
+Route through kiev if possible.
+Ensure good redundancy.
+warsaw and the destination network need connectivity.
+Traffic should go through kiev when feasible.
+Distribute traffic across available paths.
+budapest can reach 100.0.9.0/24.
+Use rotterdam as intermediate hop if available.

@@ -1,0 +1,15 @@
+Routers modified: Brussels, Bucharest, Luxembourg, Strasbourg
+
+Reasoning:
+1. Bucharest must reach 100.0.29.0/24 (London) via London. Thus, routes not passing through London (via Kiev) are given a cost of 1000:
+   - Cost on Bucharest→Kiev must be set to 1000.
+2. Luxembourg must reach 100.0.9.0/24 (Rotterdam) via Rotterdam. Thus, routes not passing through Rotterdam (via Kiev) are given a cost of 1000:
+   - Cost on Luxembourg→Kiev must be set to 1000.
+3. Brussels must reach 100.0.29.0/24 (London) and should route via London. Thus, the routes not passing through London (via Kiev) are given a cost of 1000:
+   - Costs to bypass London (Brussels→Kiev) must be set to 1000.
+4. Strasbourg must reach 100.0.1.0/24 (Kiev). Therefore, routes not passing through Kiev must be given a cost of 1000:
+   - Cost on Strasbourg→Kiev must be set to 1000.
+5. All routers maintain the required routes while ensuring mandatory waypointing is enforced through high costs on bypass paths.
+
+Limitations (if any):
+None

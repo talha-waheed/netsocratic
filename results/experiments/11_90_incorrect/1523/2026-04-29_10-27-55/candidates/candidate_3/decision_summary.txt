@@ -1,0 +1,10 @@
+Routers modified: Brussels, Luxembourg, Rotterdam, Strasbourg
+
+Reasoning:
+1. To satisfy the waypoint requirement for Luxembourg to reach 100.0.29.0/24 (London) via London, I set the cost on all bypass paths to London (in this case, via Brussels and Luxembourg) to 1000. The path through London retains a cost of 1. Therefore, Brussels had to have the cost of its links to both Luxembourg and Rotterdam set to 1000.
+2. For Luxembourg, I ensured that it has two paths to 100.0.29.0/24 by having one path to Brussels (via London) and one direct path to its neighbor (Paris).
+3. The path from Basel to 100.0.9.0/24 (Rotterdam) must go via Rotterdam. Therefore, the cost on any non-Rotterdam path from Basel was set to 1000 to ensure it passes through Rotterdam with a cost of 1.
+4. The Strasbourg to 100.0.4.0/24 (Basel) connection must pass through Basel (cost set to 1) with all other connections set to a prohibitively high cost (1000) to ensure that traffic will prefer to traverse through Basel.
+
+Limitations (if any):
+None

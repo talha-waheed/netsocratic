@@ -1,0 +1,22 @@
+Routers modified: Rotterdam, Zurich, Basel
+
+Reasoning:
+1. **Reachability**:
+   - Roma must reach 100.0.9.0/24 (Rotterdam). This is achieved by ensuring traffic goes through Rotterdam.
+   - Zurich must reach 100.0.1.0/24 (Kiev) and traffic should preferably go through Kiev.
+   - Basel must reach 100.0.29.0/24 (London) and must load balance across 2 paths.
+
+2. **Waypointing**:
+   - For Roma to reach 100.0.9.0/24 via Rotterdam, all bypass paths from Roma to Rotterdam must be set to a high cost (1000).
+   - For Zurich to reach 100.0.1.0/24 via Kiev, all bypass paths from Zurich to Kiev must be set to a high cost (1000).
+  
+3. **Load Balancing**:
+   - To load balance Basel to 100.0.29.0/24 across 2 paths, we ensure that the outgoing link costs to London through both Brussels and Frankfurt from Basel are set to 1.
+   - For Zurich to have 3 equal-cost paths to reach 100.0.1.0/24, we can utilize paths through Frankfurt and other routers. However, due to the waypoint requirement, we can only achieve 2 paths through the existing topology.
+
+4. **Final Costs**:
+   - Set costs of 1000 on all non-waypoint paths for both Rotterdam (for Roma) and Kiev (for Zurich).
+   - Set costs of 1 on the required paths to achieve the necessary connectivity and load balancing.
+
+Limitations (if any):
+- The maximum number of ECMP paths for Zurich is limited by existing topology; only 2 paths can be established through the current routing configuration.

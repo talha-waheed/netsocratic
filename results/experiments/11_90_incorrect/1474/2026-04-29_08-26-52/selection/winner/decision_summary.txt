@@ -1,0 +1,9 @@
+Routers modified: marseille, sofia, basel
+
+Reasoning:
+1. For traffic from Marseille to 100.0.4.0/24 (Basel), we need to ensure it passes through Basel. Therefore, all paths bypassing Basel must have a high cost (1000).
+2. For Sofia to 100.0.29.0/24 (London), we need to ensure it passes through London. Thus, all paths bypassing London must also have a high cost (1000).
+3. For Basel to 100.0.1.0/24 (Kiev), we need to ensure two equal-cost paths exist. The paths through Kiev must have a cost of 1, while all other paths must be higher to enforce the waypoint.
+
+Limitations (if any):
+None

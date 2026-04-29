@@ -1,0 +1,10 @@
+Routers modified: [Geneva, Rotterdam, Barcelona, Vienna]
+
+Reasoning:
+1. **Geneva to 100.0.4.0/24** must pass through **Basel**. Set cost to 1000 on all bypass paths from Geneva to Basel.
+2. **Rotterdam to 100.0.4.0/24** must pass through **Basel** and be load-balanced across **3** paths. Set cost to 1000 on all bypass paths from Rotterdam to Basel, and adjust costs on paths through Basel to ensure 3 equal-cost paths.
+3. **Barcelona to 100.0.1.0/24** must pass through **Kiev**. Set cost to 1000 on all bypass paths from Barcelona to Kiev.
+4. **Vienna to 100.0.9.0/24** must pass through **Rotterdam** and be load-balanced across **3** paths. Set cost to 1000 on all bypass paths from Vienna to Rotterdam, and adjust costs on paths through Rotterdam to ensure 3 equal-cost paths.
+
+Limitations (if any):
+None

@@ -1,0 +1,17 @@
+Q: Did your original intent require traffic from praha to 100.0.1.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from praha to 100.0.1.0/24 to pass through kiev.
+
+Q: Did your original intent require traffic from lyon to 100.0.4.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+A: My original intent did not require traffic from lyon to 100.0.4.0/24 to pass through kiev. No waypoint was required for that traffic. The requirement for the prefix 100.0.4.0/24 from istanbul specifies a waypoint of basel, not kiev.
+
+Q: Did your original intent require traffic from praha to 100.0.1.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent required traffic from praha to 100.0.1.0/24 to be load-balanced across exactly 2 paths.
+
+Q: Did your original intent require traffic from lyon to 100.0.4.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent did not require traffic from lyon to 100.0.4.0/24 to be load-balanced across any specific number of paths, as there was no mention of that prefix in the requirements for lyon. The focus was on load-balancing for the prefix 100.0.1.0/24 from lyon, which is set to 2 paths.
+
+Q: Did your original intent require traffic from lyon to 100.0.4.0/24 to be reachable, or should that reachability not be required?
+A: My original intent did not require traffic from lyon to 100.0.4.0/24 to be reachable. The reachability requirement specifically states that only the prefix 100.0.1.0/24 is required for lyon.
+
+Q: Did your original intent require traffic from praha to 100.0.4.0/24 to be reachable, or should that reachability not be required?
+A: My original intent did not require traffic from praha to 100.0.4.0/24 to be reachable. The requirement specifies reachability for 100.0.1.0/24 from praha, lyon, and 100.0.4.0/24 only from istanbul.

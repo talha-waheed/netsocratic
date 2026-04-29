@@ -1,0 +1,22 @@
+Routers modified: praha, madrid, barcelona
+
+Reasoning:
+1. Requirement: Praha must reach 100.0.29.0/24 via London with 3 ECMP paths.
+   - Paths must traverse London: 
+     - Praha -> Frankfurt -> London
+     - Praha -> Bratislava -> Frankfurt -> London
+     - Praha -> Vienna -> Frankfurt -> London 
+   - Set costs on bypass paths (to destinations other than London) to 1000 to enforce the waypoint requirement.
+   - Ensure 3 paths with equal cost to London, hence the cost to Frankfurt is set to 1 on paths through London.
+
+2. Requirement: Madrid must reach 100.0.9.0/24 (Rotterdam) via Rotterdam.
+   - Set costs on bypass paths to Rotterdam to 1000, allowing only paths through Rotterdam.
+   - Ensure that the path from Madrid to Rotterdam has a cost of 1.
+
+3. Requirement: Barcelona must also reach 100.0.9.0/24 (Rotterdam).
+   - Similar to Madrid, set costs on bypass paths to Rotterdam to 1000 and ensure that paths through Rotterdam have a cost of 1.
+
+4. The modifications successfully enforce the waypointing and load balancing requirements for all specified routers.
+
+Limitations (if any):
+None

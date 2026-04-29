@@ -1,0 +1,10 @@
+Routers modified: Basel, Frankfurt, Rotterdam, Vienna
+
+Reasoning:
+1. **Basel** must connect to `100.0.4.0/24` and serve as a waypoint for traffic from `Rotterdam`. Set costs on Basel's interfaces to allow traffic to flow through Basel with a cost of 1.
+2. **Frankfurt** is also a waypoint for traffic from `Vienna` to `100.0.9.0/24`. Set costs on Frankfurt's interfaces to allow traffic to flow through Frankfurt with a cost of 1.
+3. **Rotterdam** needs to have multiple paths to `100.0.4.0/24` through Basel. Set costs on Rotterdam's interfaces to allow traffic to flow through with a cost of 1.
+4. **Vienna** must reach `100.0.9.0/24` with three equal-cost paths, preferably through Rotterdam. Set costs on Vienna's interfaces to allow traffic to flow through with a cost of 1.
+
+Limitations (if any):
+None

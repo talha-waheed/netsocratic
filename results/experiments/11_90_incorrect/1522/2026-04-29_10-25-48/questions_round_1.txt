@@ -1,0 +1,3 @@
+Round 1 — Clarification Questions
+
+1. What is the exact integer path count for load balancing the traffic? (Why: impact on load-balancing)

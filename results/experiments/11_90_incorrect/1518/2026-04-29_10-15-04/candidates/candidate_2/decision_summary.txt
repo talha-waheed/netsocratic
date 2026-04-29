@@ -1,0 +1,16 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Budapest, Lyon, Madrid, Milan, Strasbourg, Warsaw
+
+Reasoning:
+1. **Amsterdam to 100.0.9.0/24** must go through **Rotterdam**. Set cost 1000 on bypass paths to enforce this waypoint.
+2. **Brussels to 100.0.9.0/24** is similar; set cost 1000 to both **Rotterdam** and **London**.
+3. **Frankfurt to 100.0.9.0/24** must also go through **Rotterdam**; set cost 1000 to enforce this constraint.
+4. **Budapest to 100.0.4.0/24** must go through **Basel**; set cost 1000 to enforce this.
+5. **Budapest to 100.0.29.0/24** must go through **London**; set cost 1000 to enforce this.
+6. **Lyon to 100.0.4.0/24** must go through **Kiev**; set cost 1000 to enforce this.
+7. **Madrid to 100.0.4.0/24** must go through **Basel**; set cost 1000 to enforce this.
+8. **Milan to 100.0.1.0/24** must go through **Kiev**; set cost 1000 to enforce this.
+9. **Strasbourg to 100.0.29.0/24** must go through **London**; set cost 1000 to enforce this.
+10. **Warsaw to 100.0.29.0/24** must go through **Rotterdam**; set cost 1000 to enforce this.
+
+Limitations (if any):
+None

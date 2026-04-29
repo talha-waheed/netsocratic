@@ -1,0 +1,7 @@
+Connectivity from lyon to 100.0.4.0/24 is established.
+To reach 100.0.4.0/24 from lyon, traffic is directed through basel.
+zurich and 100.0.1.0/24. need connectivity.
+Consider routing through kiev.
+Traffic originating from luxembourg can reach the subnet the target subnet
+Route through london if possible.
+Distribute traffic across available paths.

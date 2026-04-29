@@ -1,0 +1,13 @@
+Routers modified: Warsaw, Rotterdam
+
+Reasoning:
+1. **Reachability**: Warsaw needs to reach 100.0.9.0/24 (Rotterdam's subnet). The base OSPF configuration allows this reachability.
+2. **Waypointing**: No mandatory waypointing is specified in the rules, so no costs are set to block bypass paths. 
+3. **Load Balancing**: The requirement specifies 2 paths from Warsaw to 100.0.9.0/24. 
+   - Path 1: Warsaw → Rotterdam (cost 1)
+   - Path 2: Warsaw → Frankfurt → Brussels → Rotterdam (cost 2)
+   - To achieve the load balancing requirement, we set the cost of the bypass path to a high value (1000) on Warsaw to ensure that the preferred path through Rotterdam is used.
+4. The cost on Rotterdam remains at 1 to maintain the path to Warsaw.
+
+Limitations (if any):
+None

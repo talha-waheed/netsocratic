@@ -1,0 +1,7 @@
+Connectivity from paris to 100.0.9.0/24 is established.
+Ensure fault tolerance with multiple routes.
+basel and 100.0.29.0/24. need connectivity.
+Traffic should go through london when feasible.
+Distribute traffic across available paths.
+Ensure connectivity between athens and our servers.
+Load balance the traffic appropriately.

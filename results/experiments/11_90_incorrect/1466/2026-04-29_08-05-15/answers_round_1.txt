@@ -1,0 +1,16 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from amsterdam should reach? (Why: impacts reachability)
+A: Traffic from Amsterdam should reach the subnet 100.0.1.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from madrid should reach? (Why: impacts reachability)
+A: Traffic from Madrid should reach the subnet 100.0.1.0/24.
+
+Q: What is the exact router hostname you are referring to when you mention "our servers"? (Why: impacts reachability)
+A: I am not referring to a specific router hostname when I mention "our servers." The routing requirements focus on reachability to specific IP address ranges in various cities.
+
+Q: What is the exact router hostname you are referring to when you mention "the remote network"? (Why: impacts reachability)
+A: The exact router hostname is not specified in the requirements provided. The focus is on the reachability of specific networks rather than a particular router hostname.
+
+Q: What is the exact router hostname you are referring to when you mention "the main subnet"? (Why: impacts reachability)
+A: I don't have a specific hostname for "the main subnet" as it is not defined in the routing requirements provided. The reachability is based on the specified subnets for each city.

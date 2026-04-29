@@ -1,0 +1,8 @@
+geneva and 100.0.29.0/24. need connectivity.
+Preferably route via london.
+Make sure there's redundancy.
+Connectivity from bucharest to the main subnet is established.
+Use basel as intermediate hop if available.
+Ensure connectivity between milan and the remote network.
+Route through london if possible.
+Make sure there's redundancy.

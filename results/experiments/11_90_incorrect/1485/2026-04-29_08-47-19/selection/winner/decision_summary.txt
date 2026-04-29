@@ -1,0 +1,11 @@
+Routers modified: Geneva, Kiev, Luxembourg, Basel
+
+Reasoning:
+1. **Geneva to 100.0.1.0/24** must pass through **Kiev**. Therefore, all paths bypassing Kiev must be set to a high cost (1000). The paths through Kiev must have a lower cost.
+2. **Load balancing** across **11 paths** from Geneva to 100.0.1.0/24 requires careful cost adjustments. The paths through Kiev must be equal in cost, while all other paths must be higher.
+3. **Luxembourg to 100.0.9.0/24** must pass through **Basel**. Thus, paths bypassing Basel are set to a high cost (1000), while the path through Basel remains at a lower cost (1).
+4. **Kiev** is set to allow paths to 100.0.1.0/24 with a cost of 1, ensuring it can be reached from Geneva.
+5. **Basel** is adjusted to allow paths to Luxembourg with a cost of 1, ensuring it can be reached from Luxembourg.
+
+Limitations (if any):
+None

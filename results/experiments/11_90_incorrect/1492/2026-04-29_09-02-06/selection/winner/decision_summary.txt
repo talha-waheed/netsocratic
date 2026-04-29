@@ -1,0 +1,23 @@
+Routers modified: Brussels, Kiev, Rotterdam
+
+Reasoning:
+1. **Brussels to 100.0.29.0/24 (London)**: 
+   - Must pass through London (waypoint).
+   - Set cost to London as 1, cost to Rotterdam as 1000 to enforce the waypoint.
+   - Two paths to London must be equal cost for load balancing: 
+     - Path 1: Brussels → Frankfurt → London
+     - Path 2: Brussels → Amsterdam → London
+   - Both paths have a total cost of 2 (1+1), satisfying the load balancing requirement.
+
+2. **Kiev to 100.0.1.0/24 (London)**:
+   - Must pass through Kiev (waypoint).
+   - Set cost to Bucharest as 1000 to enforce the waypoint.
+   - The only path to London is through Frankfurt, which has a cost of 2 (1+1).
+
+3. **Madrid to 100.0.9.0/24 (Rotterdam)**:
+   - Must pass through Rotterdam (waypoint).
+   - Set cost to Brussels as 1000 to enforce the waypoint.
+   - The only path to Rotterdam is through Amsterdam, which has a cost of 2 (1+1).
+
+Limitations (if any):
+None

@@ -1,0 +1,12 @@
+Routers modified: milan, strasbourg, geneva
+
+Reasoning:
+1. For Milan to reach 100.0.1.0/24 via Kiev, the cost of the path Milan → Kiev must be lower than any bypass paths. Thus, the cost to Kiev is set to 1, while bypass paths are set to 1000.
+2. For Strasbourg to reach 100.0.29.0/24 via London, the cost of the path Strasbourg → London must be lower than any bypass paths. Thus, the cost to London is set to 1, while bypass paths are set to 1000.
+3. For Geneva to reach 100.0.4.0/24 via Basel, the cost of the path Geneva → Basel must be lower than any bypass paths. Thus, the cost to Basel is set to 1, while bypass paths are set to 1000.
+4. Milan requires 2 equal-cost paths to 100.0.1.0/24. The paths through Kiev and the bypass paths are adjusted to ensure that exactly 2 paths have the same total cost.
+5. Strasbourg requires 2 equal-cost paths to 100.0.29.0/24. The paths through London and the bypass paths are adjusted to ensure that exactly 2 paths have the same total cost.
+6. Geneva requires 3 equal-cost paths to 100.0.4.0/24. The paths through Basel and the bypass paths are adjusted to ensure that exactly 3 paths have the same total cost.
+
+Limitations (if any):
+None

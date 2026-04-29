@@ -1,0 +1,10 @@
+Round 1 — Q&A
+
+Q: What is the exact router hostname for "the main subnet"? (Why: impacts reachability for the route from rotterdam to the main subnet)
+A: The specification does not provide information about router hostnames or details regarding "the main subnet." Please clarify or provide more context.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) for "the remote network"? (Why: impacts reachability for kiev and the remote network)
+A: The exact destination subnet for "the remote network" is 100.0.4.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) for "the same connectivity requirements apply to the other subnets"? (Why: impacts reachability for the other subnets)
+A: The exact destination subnet for "the same connectivity requirements apply to the other subnets" is 100.0.4.0/24.

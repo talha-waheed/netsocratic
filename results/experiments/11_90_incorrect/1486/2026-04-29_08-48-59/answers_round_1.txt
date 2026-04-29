@@ -1,0 +1,17 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from madrid should reach? (Why: impact on reachability)
+A: Traffic from Madrid should reach the subnets 100.0.4.0/24 and 100.0.1.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from madrid should reach for the other subnets? (Why: impact on reachability)
+A: Traffic from Madrid should reach the following destination subnets: 100.0.4.0/24 and 100.0.1.0/24.
+
+Q: What is the exact integer path count for load balancing when distributing traffic across available paths? (Why: impact on load balancing)
+A: The exact integer path count for load balancing is as follows: 
+
+- For Bucharest to 100.0.1.0/24, there are 2 paths.
+- For Madrid to 100.0.4.0/24, there are 2 paths.
+- For Madrid to 100.0.1.0/24, there are 3 paths.
+
+Q: What is the exact integer path count for load balancing when ensuring connectivity between madrid and 100.0.4.0/24? (Why: impact on load balancing)
+A: The exact integer path count for load balancing when ensuring connectivity between Madrid and 100.0.4.0/24 is 2.

@@ -1,0 +1,9 @@
+100.0.1.0/24 is accessible from paris.
+Use kiev as intermediate hop if available.
+Traffic from paris to 100.0.1.0/24 is evenly distributed across 2 paths.
+sofia can reach 100.0.1.0/24.
+Route through kiev if possible.
+Make sure there's redundancy.
+our servers is accessible from london.
+The route from london to our servers includes basel.
+Ensure fault tolerance with multiple routes.

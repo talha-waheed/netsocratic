@@ -1,0 +1,7 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from athens should reach when you mention 'the remote network'? (Why: impacts reachability)
+A: The exact destination subnet that traffic from Athens should reach is 100.0.1.0/24.
+
+Q: What is the exact router hostname you are referring to when you mention 'the main subnet'? (Why: impacts reachability)
+A: I am referring to the subnets for Athens, Paris, and Roma as the main subnets. Specifically, they are 100.0.1.0/24 for Athens, 100.0.4.0/24 for Paris, and 100.0.9.0/24 for Roma.

@@ -1,0 +1,23 @@
+Routers modified: ['Basel', 'Brussels']
+
+Reasoning:
+1. **Reachability Requirement**: 
+   - Brussels needs to reach `100.0.4.0/24` via Basel.
+   - Frankfurt also needs to reach `100.0.4.0/24` via Basel.
+   - Warsaw needs to reach `100.0.1.0/24` using Kiev as an intermediate hop.
+
+2. **Waypoint Requirement**:
+   - For both Brussels and Frankfurt to access `100.0.4.0/24`, we must enforce that traffic passes through Basel.
+   - Therefore, all paths from Brussels and Frankfurt to Basel must be given a high cost (1000) to block bypass routes.
+
+3. **Load Balancing Requirement**:
+   - For Brussels and Frankfurt, we require 2 equal-cost paths to `100.0.4.0/24`.
+   - The outgoing link from Brussels to Basel (via Fa1/0) and the other route (Fa0/1) both need to retain cost 1.
+   - This results in both paths from Brussels to Basel being eligible for load balancing.
+
+4. **Final Configuration**:
+   - In Basel, we set the costs for paths to 1 (the two paths to Brussels and Frankfurt).
+   - In Brussels, we block paths that do not pass through Basel by setting their costs to 1000.
+
+Limitations (if any):
+None

@@ -1,0 +1,23 @@
+Routers modified: ['Milan', 'Strasbourg', 'Geneva']
+
+Reasoning:
+1. **Milan to 100.0.1.0/24** must pass through **Kiev**. 
+   - Paths: Milan → Kiev → ... → 100.0.1.0/24 (valid)
+   - Other paths (Milan → Zurich → ... → 100.0.1.0/24) must be blocked.
+   - Set costs on bypass paths to 1000, and keep the path through Kiev at 1.
+   - Two equal-cost paths must be created, so ensure the costs are set accordingly.
+
+2. **Strasbourg to 100.0.29.0/24** must pass through **London**.
+   - Paths: Strasbourg → Frankfurt → London (valid)
+   - Other paths (Strasbourg → Luxembourg → London) must be blocked.
+   - Set costs on bypass paths to 1000, and keep the path through London at 1.
+   - Two equal-cost paths must be created, so ensure the costs are set accordingly.
+
+3. **Geneva to 100.0.4.0/24** must pass through **Basel**.
+   - Paths: Geneva → Basel → ... → 100.0.4.0/24 (valid)
+   - Other paths (Geneva → Zurich → ... → 100.0.4.0/24) must be blocked.
+   - Set costs on bypass paths to 1000, and keep the path through Basel at 1.
+   - Three equal-cost paths must be created, so ensure the costs are set accordingly.
+
+Limitations (if any):
+None

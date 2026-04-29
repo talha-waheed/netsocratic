@@ -1,0 +1,19 @@
+Routers modified: ['Kiev', 'Rotterdam', 'Istanbul', 'Milan']
+
+Reasoning:
+1. For Kiev to reach 100.0.9.0/24 (Rotterdam):
+   - Current paths include: Kiev→Brussels→Amsterdam→Rotterdam and Kiev→Budapest→Prague→Frankfurt→Amsterdam→Rotterdam.
+   - To enforce mandatory waypointing through Rotterdam, we set the cost of paths bypassing Rotterdam to 1000.
+   - This results in the only valid path being Kiev→Budapest→Prague→Frankfurt→Amsterdam→Rotterdam, ensuring that the total path count is restricted to 2 by focusing toward Rotterdam.
+
+2. For Istanbul to reach 100.0.29.0/24 (London):
+   - Current paths: Istanbul→Bucharest→Budapest→Prague→Frankfurt→Brussels→London or Istanbul→Athens→Brussels→London.
+   - We modify costs to prioritize routing through London. By setting the alternate paths (bypassing London) higher, the nodes are forced to use the designated paths.
+   - This allows for 3 active paths that meet the cost requirements.
+
+3. For Milan to reach 100.0.1.0/24 (Kiev):
+   - Paths include Milan→Zurich→Frankfurt→Praha→Kiev or Milan→Rome→Budapest→Kiev.
+   - To enforce path equality to achieve 2 respective equal-cost paths, we ensure costs maintain the route continuity through Kyiv effectively controlling the resultant expenses.
+
+Limitations (if any):
+- The requirement for multiple load-balanced paths may exceed the available routes based on network constraints.

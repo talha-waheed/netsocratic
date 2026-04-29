@@ -1,0 +1,5 @@
+Round 1 — Clarification Questions
+
+1. What is the exact router hostname for "our servers"? (Why: impacts reachability for bratislava's connection)
+2. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from brussels should reach when connecting to the main subnet? (Why: impacts reachability for brussels' connection)
+3. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from athens should reach? (Why: impacts reachability for athens' connection)

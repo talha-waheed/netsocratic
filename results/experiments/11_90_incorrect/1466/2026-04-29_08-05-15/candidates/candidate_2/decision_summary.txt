@@ -1,0 +1,27 @@
+Routers modified: frankfurt, brussels, budapest, rotterdam
+
+Reasoning:
+1. **Frankfurt to 100.0.4.0/24** must pass through **Basel**. Set costs on all paths bypassing Basel to 1000, preserving the path through Basel with a cost of 1.
+   - Paths: 
+     - Frankfurt → Strasbourg → Basel (cost: 1)
+     - Frankfurt → (bypass) → London (cost: 1000)
+     - Frankfurt → (bypass) → Prague (cost: 1000)
+   - Outcome: Only the Basel path remains viable.
+
+2. **Budapest to 100.0.9.0/24** must go through **Rotterdam** (mandatory waypoint). Set cost for paths bypassing Rotterdam to 1000.
+   - Paths:
+     - Budapest → Bratislava → (bypass) → Frankfurt (cost: 1000)
+     - Budapest → (via) → Zagreb → (via) → Rotterdam (cost: 1)
+   - Outcome: Only the path through Rotterdam is viable.
+
+3. **Brussels to 100.0.9.0/24** must go through **Rotterdam** (mandatory waypoint). Set cost for paths bypassing Rotterdam to 1000.
+   - Paths:
+     - Brussels → (via) → Frankfurt → (bypass) → Budapest (cost: 1000)
+     - Brussels → (via) → Rotterdam (cost: 1)
+   - Outcome: Only the path through Rotterdam remains viable.
+
+4. **Rotterdam** does not have any routes through which to enforce a waypoint but needs to ensure that it is non-preferred for paths from Budapest, hence all bypass paths are set to 1000.
+   - Outcome: Only the paths through Budapest remain viable.
+
+Limitations (if any):
+None

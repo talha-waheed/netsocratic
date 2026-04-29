@@ -1,0 +1,25 @@
+Routers modified: [bratislava, milan, istanbul]
+
+Reasoning:
+1. Reachability requirements:
+   - Bratislava must reach 100.0.1.0/24 (Kiev): Paths through Kiev will be adjusted.
+   - Milan must reach 100.0.4.0/24 (Basel): Path must go through Basel.
+   - Istanbul must reach 100.0.4.0/24 (Basel): Path must also go through Basel.
+
+2. Waypoint analysis:
+   - For Bratislava to 100.0.1.0/24, we enforce stopping at Kiev.
+   - For Milan and Istanbul to 100.0.4.0/24, we enforce stopping at Basel.
+
+3. Load balancing requirements:
+   - Both Bratislava and Istanbul require 2 equal-cost paths, ensuring two routes pass through their respective waypoints.
+   - Paths originating in Bratislava to 100.0.1.0/24 should also load-balance to Kiev through two different sequences.
+   - Milan's paths to 100.0.4.0/24 need to take the paths towards Basel, with respective load balancing maintained.
+
+4. Cost adjustments made:
+   - Set the paths bypassing the waypoint (Kiev for Bratislava, Basel for Milan and Istanbul) to a high cost (1000).
+   - All remaining valid paths through the waypoints are maintained at a cost of 1 to enable equal-cost path utilization.
+
+5. Routes with a shared minimum metric were achieved for the required paths, adhering to the stipulations laid out.
+
+Limitations (if any):
+None

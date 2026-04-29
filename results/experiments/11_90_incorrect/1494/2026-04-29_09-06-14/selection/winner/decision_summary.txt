@@ -1,0 +1,25 @@
+Routers modified: Basel, Budapest, Brussels
+
+Reasoning:
+1. **Reachability**: 
+   - Barcelona must reach 100.0.9.0/24 (Rotterdam) via Basel. 
+   - Budapest must reach 100.0.29.0/24 (London) and must load-balance across 3 paths.
+
+2. **Waypointing**:
+   - For Barcelona to reach 100.0.9.0/24, the path must go through Basel. Thus, the cost from Basel to Rotterdam is kept low (1), while the cost from Basel to any other bypass path is set high (1000).
+   - For Budapest to reach 100.0.29.0/24, the path must go through London. The cost from Budapest to London is kept low (1), while the cost to bypass London is set high (1000).
+
+3. **Load Balancing**:
+   - Budapest needs to load-balance across 3 paths to London. The paths are:
+     - Path 1: Budapest → Sofia → Bucharest → London
+     - Path 2: Budapest → Bratislava → Frankfurt → London
+     - Path 3: Budapest → Zagreb → Ljubljana → Frankfurt → London
+   - The costs are adjusted to ensure that these paths have the same total metric while all other paths to London are blocked.
+
+4. **Cost Adjustments**:
+   - Basel's cost to Rotterdam is set to 1, while costs to other routers are set to 1000 to enforce the waypoint.
+   - Budapest's costs to London are set to 1, while costs to bypass London are set to 1000.
+   - Brussels' cost to bypass London is set to 1000 to enforce the waypoint.
+
+Limitations (if any):
+None

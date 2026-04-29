@@ -1,0 +1,25 @@
+Routers modified: Amsterdam, Brussels, Lyon, Luxembourg, Zurich
+
+Reasoning:
+1. **Lyon to 100.0.4.0/24 via Basel**: 
+   - Required path: Lyon → Basel → 100.0.4.0/24.
+   - Set cost to Basel (1) and blocked paths that do not go through Basel (1000 on all other outgoing interfaces from Lyon).
+
+2. **Luxembourg to 100.0.29.0/24 via London**: 
+   - Required path: Luxembourg → Brussels → London → 100.0.29.0/24.
+   - Set cost to London (1) and blocked paths that do not go through London (1000 on all other outgoing interfaces from Luxembourg).
+
+3. **Zurich to 100.0.1.0/24 via Kiev**: 
+   - Required path: Zurich → Frankfurt → Warsaw → Kiev → 100.0.1.0/24.
+   - Set cost to Kiev (1) and blocked paths that do not go through Kiev (1000 on all other outgoing interfaces from Zurich).
+
+4. **Amsterdam and Brussels**: 
+   - Both need to block paths to 100.0.4.0/24 through non-Basel routers, setting costs to 1000 on all bypass paths.
+
+5. **Load Balancing Requirements**:
+   - Lyon required 2 paths to 100.0.4.0/24, which is achieved by ensuring both paths through Basel have equal costs.
+   - Luxembourg required 2 paths to 100.0.29.0/24, ensuring paths through London are prioritized.
+   - Zurich required 3 paths to 100.0.1.0/24, ensuring paths through Kiev are prioritized.
+
+Limitations (if any):
+None

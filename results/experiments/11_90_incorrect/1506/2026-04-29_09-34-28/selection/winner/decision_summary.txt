@@ -1,0 +1,23 @@
+Routers modified: Vienna, Basel, Frankfurt, Geneva, Marseille
+
+Reasoning:
+1. **Vienna to 100.0.4.0/24**: Must pass through Basel. Set cost to 1000 on non-Basel paths to enforce waypointing. 
+   - Paths: Vienna → Basel (cost 1) and Vienna → Frankfurt → Basel (cost 2). 
+   - Set cost on Vienna to 1000 for paths not through Basel.
+   - Load balance across 2 paths: Vienna → Basel and Vienna → Frankfurt → Basel.
+
+2. **Basel to 100.0.4.0/24**: Must pass through Basel. Set cost to 1 for the direct path through Basel.
+   - Load balance across 2 paths: Basel → Strasbourg → Frankfurt and Basel → Geneva → Frankfurt.
+
+3. **Frankfurt to 100.0.1.0/24**: Must pass through Kiev. Set cost to 1000 on non-Kiev paths.
+   - Paths: Frankfurt → Warsaw → Kiev (cost 2) and Frankfurt → Prague → Kiev (cost 2).
+   - Set cost on Frankfurt to 1000 for paths not through Kiev.
+
+4. **Geneva to 100.0.29.0/24**: Must pass through London. Set cost to 1 for the path through London.
+   - Load balance across 4 paths: Geneva → Paris → London, Geneva → Lyon → London, Geneva → Basel → London, and Geneva → Zurich → London.
+
+5. **Marseille to 100.0.4.0/24**: Must pass through Basel. Set cost to 1 for the path through Basel.
+   - Load balance across 3 paths: Marseille → Lyon → Basel, Marseille → Milan → Basel, and Marseille → Geneva → Basel.
+
+Limitations (if any):
+None

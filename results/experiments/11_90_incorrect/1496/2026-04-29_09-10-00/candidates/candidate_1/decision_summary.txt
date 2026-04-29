@@ -1,0 +1,10 @@
+Routers modified: London, Istanbul, Kiev, Geneva
+
+Reasoning:
+1. **London**: Required to provide 2 paths to 100.0.29.0/24 (Vienna). Set costs to 1 on all interfaces leading to the stub network.
+2. **Istanbul**: Needs to reach 100.0.1.0/24 (Kiev) with 4 paths. Set costs to 1 on all interfaces leading to the stub network. Set cost to 1000 on bypass paths to enforce mandatory waypointing through Kiev.
+3. **Kiev**: Needs to reach 100.0.1.0/24 (Istanbul) with 4 paths. Set costs to 1 on all interfaces leading to the stub network.
+4. **Geneva**: Needs to reach 100.0.9.0/24 (Rotterdam) with 3 paths. Set costs to 1 on all interfaces leading to the stub network.
+
+Limitations (if any):
+None

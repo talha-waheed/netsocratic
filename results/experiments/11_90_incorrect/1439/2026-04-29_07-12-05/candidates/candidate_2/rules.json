@@ -1,0 +1,14 @@
+{
+  "reachability": {
+    "praha": ["100.0.29.0/24"],
+    "madrid": ["100.0.9.0/24"],
+    "barcelona": ["100.0.9.0/24"]
+  },
+  "waypoint": {
+    "(praha,100.0.29.0/24)": ["london"],
+    "(madrid,100.0.9.0/24)": ["rotterdam"]
+  },
+  "loadbalancing": {
+    "(praha,100.0.29.0/24)": 3
+  }
+}

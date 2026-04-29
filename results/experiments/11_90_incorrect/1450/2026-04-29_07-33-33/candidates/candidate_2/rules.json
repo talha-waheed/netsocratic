@@ -1,0 +1,17 @@
+{
+  "reachability": {
+    "frankfurt": ["100.0.4.0/24"],
+    "geneva": ["100.0.9.0/24"],
+    "marseille": ["100.0.29.0/24"]
+  },
+  "waypoint": {
+    "(frankfurt,100.0.4.0/24)": ["basel"],
+    "(geneva,100.0.9.0/24)": ["rotterdam"],
+    "(marseille,100.0.29.0/24)": ["london"]
+  },
+  "loadbalancing": {
+    "(frankfurt,100.0.4.0/24)": 2,
+    "(geneva,100.0.9.0/24)": 3,
+    "(marseille,100.0.29.0/24)": 4
+  }
+}

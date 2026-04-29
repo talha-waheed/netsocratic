@@ -1,0 +1,10 @@
+Routers modified: Paris, Basel, Zurich, Madrid
+
+Reasoning:
+1. Paris needs to reach 100.0.4.0/24 via Basel (waypoint). Therefore, all bypass paths to 100.0.4.0/24 must have a high cost (1000).
+2. For Zurich to connect to 100.0.29.0/24 via London: all bypass paths to London will be set to 1000, while paths through London will maintain a cost of 1.
+3. Madrid should also reach 100.0.29.0/24 via London (waypoint). Thus, Madrid's cost to London must be 1000 to enforce the waypointing rule.
+4. Zurich requires 5 equal-cost paths to 100.0.29.0/24. To achieve this, costs on routes must be adjusted to ensure five paths from Zurich to London share the same minimal cost (cost 1) while other routes are blocked (cost 1000).
+
+Limitations (if any):
+None

@@ -1,0 +1,31 @@
+Routers modified: Rotterdam, Marseille, Bucharest
+
+Reasoning:
+1. **Rotterdam to 100.0.29.0/24 (London)**:
+   - Paths: 
+     - Rotterdam → Amsterdam → Brussels → London (cost = 3)
+     - Rotterdam → Amsterdam → Frankfurt → London (cost = 3)
+   - To enforce the waypoint (London), set costs on bypass paths (Rotterdam → Brussels) to 1000.
+   - Resulting paths: 
+     - Rotterdam → Amsterdam → Brussels → London (cost = 3)
+     - Rotterdam → Amsterdam → Frankfurt → London (cost = 3)
+   - Both paths have equal cost (3), satisfying the load balancing requirement of 2 paths.
+
+2. **Marseille to 100.0.29.0/24 (London)**:
+   - Paths:
+     - Marseille → Lyon → Paris → London (cost = 3)
+     - Marseille → Lyon → Geneva → London (cost = 4)
+   - To enforce the waypoint (London), set costs on bypass paths (Marseille → Lyon) to 1000.
+   - Resulting paths:
+     - Marseille → Lyon → Paris → London (cost = 3)
+     - Marseille → Lyon → Geneva → London (cost = 4)
+   - Only one valid path remains (cost = 3), so we set the cost of the Marseille → Lyon link to 1000 to ensure the other path is blocked.
+
+3. **Bucharest to 100.0.4.0/24 (Basel)**:
+   - Paths:
+     - Bucharest → Budapest → Bratislava → Frankfurt → Basel (cost = 4)
+     - Bucharest → Istanbul → Athens → Sofia → Budapest → Bratislava → Frankfurt → Basel (cost = 7)
+   - The direct path through Budapest is valid and does not require any changes to costs.
+
+Limitations (if any):
+- The topology constraints limited the ability to create multiple paths for Marseille to London while enforcing the waypoint.

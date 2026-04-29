@@ -1,0 +1,9 @@
+amsterdam and that network should be connected.
+Consider routing through kiev.
+Use multiple paths for reliability.
+luxembourg should connect to 100.0.29.0/24, and similar routing should be used for related traffic.
+Consider routing through london.
+Traffic from luxembourg to 100.0.29.0/24 should be load-balanced across 2 paths.
+athens should connect to 100.0.4.0/24., and similar routing should be used for related traffic.
+Use basel as intermediate hop if available.
+Distribute traffic across available paths.

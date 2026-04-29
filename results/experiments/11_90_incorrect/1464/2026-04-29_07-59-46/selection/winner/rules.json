@@ -1,0 +1,25 @@
+{
+  "reachability": {
+    "roma": ["100.0.9.0/24"],
+    "zurich": ["100.0.29.0/24"]
+  },
+  "waypoint": {
+    "(athens,100.0.1.0/24)": ["kiev"],
+    "(paris,100.0.4.0/24)": ["basel"],
+    "(frankfurt,100.0.1.0/24)": ["kiev"],
+    "(praha,100.0.1.0/24)": ["kiev"],
+    "(lyon,100.0.1.0/24)": ["kiev"],
+    "(istanbul,100.0.4.0/24)": ["basel"],
+    "(marseille,remote network)": ["kiev"],
+    "(zurich,100.0.29.0/24)": ["london"]
+  },
+  "loadbalancing": {
+    "(athens,100.0.1.0/24)": 2,
+    "(paris,100.0.4.0/24)": 2,
+    "(frankfurt,100.0.1.0/24)": 2,
+    "(praha,100.0.1.0/24)": 2,
+    "(lyon,100.0.1.0/24)": 0,
+    "(istanbul,100.0.4.0/24)": 0,
+    "(marseille,remote network)": 0
+  }
+}

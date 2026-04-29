@@ -1,0 +1,20 @@
+Routers modified: Milan, Strasbourg
+
+Reasoning:
+1. **Milan** needs to reach subnet 100.0.4.0/24 through **Basel** (mandatory waypoint).
+   - Paths available from Milan to 100.0.4.0/24 are:
+     - Milan → Basel (cost 1) 
+   - This path will not require cost increases since it's the only path, thus maintaining cost at 1.
+
+2. **Strasbourg** must route to 100.0.9.0/24 with **Rotterdam** as the mandated waypoint.
+   - Paths from Strasbourg:
+     - Strasbourg → Frankfurt → Rotterdam (cost 1 + 1 = 2)
+     - Strasbourg → Luxembourg → Brussels → Amsterdam → Rotterdam (cost 1 + 1 + 1 + 1 + 1 = 5)
+   - Set the cost from Strasbourg to all paths that bypass the Rotterdam waypoint to a prohibitively high value (1000).
+   - Maintain the path through Rotterdam at cost 1.
+
+3. **Load balancing for Strasbourg to 100.0.9.0/24** is specified to be 2 paths. We ensure the paths that include the Rotterdam waypoint total cost needs to equalize to achieve true load balancing:
+   - Current options align with the requirement, as we have two paths reaching through Rotterdam.
+
+Limitations (if any):
+None

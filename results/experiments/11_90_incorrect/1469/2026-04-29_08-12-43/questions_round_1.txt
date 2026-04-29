@@ -1,0 +1,7 @@
+Round 1 — Clarification Questions
+
+1. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from athens should connect to? (Why: impacts reachability for athens)
+2. What is the exact router hostname you are referring to when you mention "that network"? (Why: impacts reachability for connectivity between brussels and that network)
+3. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that geneva should connect to? (Why: impacts reachability for geneva)
+4. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that barcelona should connect to? (Why: impacts reachability for connectivity between barcelona and that network)
+5. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that budapest should connect to? (Why: impacts reachability for budapest)

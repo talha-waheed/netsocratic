@@ -1,0 +1,7 @@
+candidate_1 vs candidate_2: reach_diff=False, waypoint_diff=False, lb_diff=False
+candidate_1 vs candidate_3: reach_diff=False, waypoint_diff=False, lb_diff=False
+candidate_2 vs candidate_3: reach_diff=False, waypoint_diff=False, lb_diff=False
+candidate_1 and candidate_2 are EC-equivalent → merged
+candidate_1 and candidate_3 are EC-equivalent → merged
+candidate_2 and candidate_3 are EC-equivalent → merged
+Verification EC count: 1

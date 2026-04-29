@@ -1,0 +1,23 @@
+Q: Did your original intent require traffic from barcelona to 100.0.4.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from Barcelona to 100.0.4.0/24 to pass through Basel.
+
+Q: Did your original intent require traffic from barcelona to 100.0.9.0/24 to pass through rotterdam, was no waypoint required, or was a different waypoint required?
+A: Yes, my original intent required traffic from Barcelona to 100.0.9.0/24 to pass through Rotterdam as the waypoint.
+
+Q: Did your original intent require traffic from bucharest to 100.0.29.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+A: Yes, my original intent required traffic from Bucharest to 100.0.29.0/24 to pass through London, as specified in the waypoint requirements.
+
+Q: Did your original intent require traffic from istanbul to 100.0.1.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from Istanbul to 100.0.1.0/24 to pass through the waypoint "kiev." Therefore, no traffic from Istanbul to 100.0.1.0/24 should pass through London.
+
+Q: Did your original intent require traffic from strasbourg to 100.0.1.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from Strasbourg to 100.0.1.0/24 to pass through Kiev as the waypoint.
+
+Q: Did your original intent require traffic from budapest to 100.0.29.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+A: Yes, my original intent required traffic from Budapest to 100.0.29.0/24 to pass through London as the waypoint.
+
+Q: Did your original intent require traffic from luxembourg to 100.0.9.0/24 to pass through rotterdam, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from Luxembourg to 100.0.9.0/24 to pass through Rotterdam, as specified in the waypoint requirements.
+
+Q: Did your original intent require traffic from barcelona to 100.0.4.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent required traffic from Barcelona to 100.0.4.0/24 to be load-balanced across exactly 3 paths.

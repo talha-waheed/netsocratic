@@ -219,6 +219,8 @@ def run_experiment(
     kb_dir: str,
     topo_dir: str,
     batfish_script_dir: str,
+    batfish_container: str,
+    auto_start_batfish: bool,
     max_recovery_rounds: int,
     use_strategies: bool,
     skip_selector: bool,
@@ -338,6 +340,8 @@ def run_experiment(
                 batfish_script_dir=batfish_script_dir,
                 kb_dir=kb_dir,
                 topo_dir=topo_dir,
+                auto_start_batfish=auto_start_batfish,
+                batfish_container=batfish_container,
                 dry_run=dry_run,
             )
             winner, further_clarified = sel_agent.run(
@@ -517,6 +521,16 @@ def build_arg_parser() -> argparse.ArgumentParser:
                    default=os.path.join(config.RESULTS_DIR, "experiments"),
                    help="Root output directory (default: results/experiments).")
     p.add_argument("--batfish-script-dir", default="batfish")
+    p.add_argument(
+        "--batfish-container",
+        default="batfish",
+        help="Docker container name to start if Batfish is unavailable (default: batfish).",
+    )
+    p.add_argument(
+        "--no-auto-start-batfish",
+        action="store_true",
+        help="Do not automatically run 'docker start <container>' when Batfish is down.",
+    )
     p.add_argument("--max-recovery-rounds", type=int, default=2)
     p.add_argument("--no-strategies", action="store_true",
                    help="Disable per-candidate strategy hints (temperature-only diversity).")
@@ -575,6 +589,8 @@ def main() -> None:
             kb_dir=args.kb_dir,
             topo_dir=args.topo_dir,
             batfish_script_dir=args.batfish_script_dir,
+            batfish_container=args.batfish_container,
+            auto_start_batfish=not args.no_auto_start_batfish,
             max_recovery_rounds=args.max_recovery_rounds,
             use_strategies=not args.no_strategies,
             skip_selector=args.skip_selector,

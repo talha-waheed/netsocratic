@@ -1,0 +1,22 @@
+Routers modified: [Rotterdam, Warsaw, Zurich]
+
+Reasoning:
+1. **Reachability**: 
+   - Warsaw needs to reach 100.0.9.0/24 (Rotterdam). 
+   - Zurich needs to reach 100.0.4.0/24 (Basel). 
+   - Both reachability requirements are satisfied with existing connections.
+
+2. **Waypointing**:
+   - For Warsaw to 100.0.9.0/24, Rotterdam must be used as a waypoint:
+     - Set cost on the link from Warsaw to any other potential bypass routes (like Frankfurt) to a prohibitively high value of 1000.
+     - The link to Rotterdam is kept at cost 1 to ensure it's the preferred path.
+   - For Zurich to 100.0.4.0/24, Basel must be the waypoint:
+     - Set cost to Basel links to cost 1 and all others to a high value (i.e., 1000).
+
+3. **Load Balancing**:
+   - For Warsaw to 100.0.9.0/24, we need 2 ECMP paths:
+     - One path through Rotterdam (cost 1) and one through another route (which requires setting costs as above).
+   - Ensured that only 2 paths are possible by keeping the bypass costs at 1000, leading to the specified load balancing.
+
+Limitations (if any):
+None

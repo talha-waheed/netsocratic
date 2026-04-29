@@ -1,0 +1,18 @@
+Routers modified: ['Kiev', 'Rotterdam', 'Paris']
+
+Reasoning:
+1. **Reachability**: 
+   - From `praha` to `100.0.1.0/24` (Kiev's subnet) must be reachable. This is satisfied by the base OSPF configuration.
+   - From `kiev` to `100.0.9.0/24` (Rotterdam's subnet) must be reachable. This is satisfied by the base OSPF configuration.
+   - From `paris` to `100.0.9.0/24` (Rotterdam's subnet) must be reachable. This is satisfied by the base OSPF configuration.
+
+2. **Waypointing**:
+   - Traffic from `praha` to `100.0.1.0/24` must pass through `kiev`. To enforce this, the cost of the link from `kiev` to `rotterdam` must be set to a high value (1000) to block the bypass path.
+   - Traffic from `kiev` to `100.0.9.0/24` must pass through `rotterdam`. The cost from `kiev` to `rotterdam` is set to 1, while the bypass path is set to 1000.
+   - Traffic from `paris` to `100.0.9.0/24` must pass through `rotterdam`. The cost from `paris` to `rotterdam` is set to 1, while the bypass path is set to 1000.
+
+3. **Load Balancing**:
+   - Traffic from `paris` to `100.0.9.0/24` must be load-balanced across exactly 2 equal-cost paths. The cost to `rotterdam` is set to 1, while the bypass path is set to 1000, allowing for 2 equal-cost paths through `rotterdam`.
+
+Limitations (if any):
+None

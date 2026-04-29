@@ -1,0 +1,15 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, London, Milan, Zurich
+
+Reasoning:
+1. The goal is to ensure that `paris` can reach `100.0.4.0/24` via `basel`. To enforce this, the costs to all bypass routes to `100.0.4.0/24` must be set to 1000.
+   - In `Amsterdam` and `Brussels`, all outgoing links to `Fa0/0` must be adjusted to cost 1000 to ensure they route through `basel`.
+   
+2. `Zurich` needs to reach `100.0.29.0/24` via `london`. We also set costs similarly in `Zurich` and `London` so that the paths through `london` are preferred.
+   - Any alternatives bypassing `london` must also have their costs set to 1000.
+   
+3. The load balancing in `madrid` and the relation with `london` again mandated adjustments where paths to these destinations must be equally preferred, thus necessitating similar adjustments in `milan` and again in the connection to `frankfurt`.
+
+4. After evaluating paths, several routes can be blocked to enforce mandatory waypointing while meeting the load balancing criteria.
+
+Limitations (if any):
+- None — all paths flowed correctly as per assigned requirements.

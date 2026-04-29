@@ -1,0 +1,11 @@
+{
+  "reachability": {
+    "luxembourg": ["100.0.1.0/24"],
+    "strasbourg": ["100.0.1.0/24"],
+    "marseille": ["100.0.9.0/24"]
+  },
+  "waypoint": {},
+  "loadbalancing": {
+    "(luxembourg,100.0.1.0/24)": 10
+  }
+}

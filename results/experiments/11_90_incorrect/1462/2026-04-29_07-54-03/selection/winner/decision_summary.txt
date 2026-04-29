@@ -1,0 +1,14 @@
+Routers modified: kiev, milan, lyon, luxembourg, madrid, barcelona, rotterdam
+
+Reasoning:
+1. **Kiev to 100.0.9.0/24**: Must pass through Rotterdam. Set cost to 1000 on bypass paths (Fa0/1 to Madrid) and keep paths through Rotterdam at cost 1.
+2. **Kiev to 100.0.9.0/24**: Must have 2 equal-cost paths. The paths through Rotterdam (Fa1/0 and Fa1/1) are set to cost 1, satisfying the load balancing requirement.
+3. **Milan to 100.0.1.0/24**: Must pass through Kiev. Set cost to 1000 on bypass paths (Fa1/0 to Zurich).
+4. **Lyon to 100.0.4.0/24**: Must pass through Basel. Set cost to 1000 on bypass paths (Fa1/0 to Geneva).
+5. **Luxembourg to 100.0.29.0/24**: Must pass through London. Set cost to 1000 on bypass paths (Fa0/1 to Brussels).
+6. **Madrid to 100.0.9.0/24**: Must pass through Rotterdam and have 2 equal-cost paths. Set cost to 1 on paths through Rotterdam and 1000 on bypass paths.
+7. **Barcelona to 100.0.9.0/24**: Must pass through Rotterdam. Set cost to 1000 on bypass paths (Fa0/1 to Madrid).
+8. **Rotterdam**: Set costs to 1 on paths to Amsterdam and Brussels to allow for load balancing.
+
+Limitations (if any):
+None

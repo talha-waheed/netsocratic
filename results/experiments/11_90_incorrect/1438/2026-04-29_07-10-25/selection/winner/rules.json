@@ -1,0 +1,17 @@
+{
+  "reachability": {
+    "lyon": ["100.0.4.0/24"],
+    "zurich": ["100.0.1.0/24"],
+    "luxembourg": ["100.0.29.0/24"]
+  },
+  "waypoint": {
+    "(lyon,100.0.4.0/24)": ["basel"],
+    "(zurich,100.0.1.0/24)": ["kiev"],
+    "(luxembourg,100.0.29.0/24)": ["london"]
+  },
+  "loadbalancing": {
+    "(lyon,100.0.4.0/24)": 2,
+    "(zurich,100.0.1.0/24)": 3,
+    "(luxembourg,100.0.29.0/24)": 2
+  }
+}

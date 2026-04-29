@@ -1,0 +1,21 @@
+Routers modified: Amsterdam, Brussels, Rotterdam, Kiev, Warsaw
+
+Reasoning:
+1. **Marseille to 100.0.9.0/24 (Rotterdam as waypoint)**: 
+   - Paths: 
+     - Marseille → Lyon → Paris → (Rotterdam → Amsterdam) → 100.0.9.0
+     - Marseille → Lyon → Paris → (Brussels → Rotterdam → Amsterdam) → 100.0.9.0
+   - Highest cost must be set for non-Rotterdam paths from Marseille.
+
+2. **Kiev to 100.0.29.0/24 (mandatory via London)**:
+   - Paths:
+     - Kiev → (Bucharest → Istanbul →) → London → 100.0.29.0
+     - Kiev → (Bucharest → Warsaw →) → Frankfurt → Amsterdam → 100.0.29.0
+   - Set cost to a high value (1000) on bypassing connections to enforce mandatory waypoint.
+
+3. **Load Balancing**:
+   - Achieving 2 ECMP paths for Marseille via Rotterdam and ensuring 3 paths from Kiev through London.
+   - Set routes through non-boundary routers via a cost of 1 and enforce higher costs on all bypass paths.
+
+Limitations (if any):
+None

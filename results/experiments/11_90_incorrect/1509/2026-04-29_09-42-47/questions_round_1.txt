@@ -1,0 +1,7 @@
+Round 1 — Clarification Questions
+
+1. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from sofia should reach? (Why: impacts reachability for the traffic pair sofia → 100.0.4.0/24)
+2. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from rotterdam should reach? (Why: impacts reachability for the traffic pair rotterdam → 100.0.4.0/24)
+3. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from bucharest should reach? (Why: impacts reachability for the traffic pair bucharest → 100.0.4.0/24)
+4. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from istanbul should reach? (Why: impacts reachability for the traffic pair istanbul → our servers)
+5. What is the exact router hostname for the waypoint referred to as "our servers"? (Why: impacts waypointing for the traffic pair istanbul → our servers)

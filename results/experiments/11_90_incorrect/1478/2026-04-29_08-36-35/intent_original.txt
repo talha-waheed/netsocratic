@@ -1,0 +1,7 @@
+Connect brussels to 100.0.1.0/24.
+Use kiev as intermediate hop if available.
+Traffic from brussels to 100.0.1.0/24 should be load-balanced across 4 paths.
+warsaw can reach the main subnet
+It should also have redundancy.
+Ensure connectivity between marseille and 100.0.1.0/24.
+The path between marseille and 100.0.1.0/24 involves kiev.

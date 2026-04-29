@@ -1,0 +1,10 @@
+--- Initializing Snapshots ---
+Searching for behavioral divergences...
+
+[DIVERGENCE DISCOVERED]
+Flow: start=amsterdam [10.0.0.33->100.0.0.0 ICMP (type=8, code=0)]
+- Waypointing Difference:
+  * Candidate 1 uniquely transits: {'brussels', 'paris', 'london'}
+  * Candidate 2 uniquely transits: {'frankfurt', 'geneva', 'zurich'}
+- Load Balancing Difference:
+  * Candidate 1 has 2 paths, Candidate 2 has 1 paths.

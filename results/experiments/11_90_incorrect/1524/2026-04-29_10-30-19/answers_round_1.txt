@@ -1,0 +1,7 @@
+Round 1 — Q&A
+
+Q: What is the exact destination network (in CIDR notation, e.g. 10.0.0.0/24) that traffic from london should reach? (Why: impacts reachability)
+A: The exact destination network that traffic from London should reach is 100.0.9.0/24.
+
+Q: When you wrote 'route via rotterdam', what is the exact router hostname you are referring to? (Why: impacts waypointing)
+A: I am not specifying an exact router hostname; I am referring to the waypoint of Rotterdam for traffic destined to London (100.0.9.0/24).

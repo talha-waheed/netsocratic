@@ -1,0 +1,20 @@
+Routers modified: Paris, Zurich, Madrid
+
+Reasoning:
+1. **Reachability**: Paris must reach 100.0.4.0/24 (Basel's subnet). Zurich and Madrid must reach 100.0.29.0/24 (London's subnet). All routers are connected via OSPF and have their stub networks redistributed, ensuring reachability.
+  
+2. **Waypointing**: No mandatory waypointing is specified in the rules, so no costs are set to 1000. Instead, costs are kept at 1 for preferred paths.
+
+3. **Load Balancing**: Zurich needs to load balance traffic to 100.0.29.0/24 across 5 paths. The following paths are available:
+   - Path 1: Zurich → Frankfurt → Brussels → London
+   - Path 2: Zurich → Geneva → Paris → London
+   - Path 3: Zurich → Milan → Vienna → Frankfurt → Brussels → London
+   - Path 4: Zurich → Milan → Roma → Frankfurt → Brussels → London
+   - Path 5: Zurich → Geneva → Lyon → Paris → London
+
+   Each of these paths can be adjusted to have the same total cost by ensuring the costs on the relevant interfaces are set to 1. 
+
+4. **Madrid**: Traffic from Madrid to 100.0.29.0/24 must go through London. The cost for the interface to London is set to 1, ensuring it is preferred.
+
+Limitations (if any):
+None

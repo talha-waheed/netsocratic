@@ -1,0 +1,10 @@
+Routers modified: Amsterdam, Barcelona, Frankfurt
+
+Reasoning:
+1. Amsterdam needs to reach 100.0.29.0/24 (London) through London, making it a mandatory waypoint. Therefore, we set all links bypassing London to cost 1000.
+2. Barcelona must connect to 100.0.4.0/24 (Basel) via Basel, and due to the need for 3 equal-cost paths, I set two paths as cost 1000 and two as cost 1.
+3. Frankfurt is required to provide 2 paths to 100.0.1.0/24 (Kiev) with 2 distinct routes through either Santiago or Bucharest. I enforce Fritz as a mandatory waypoint requiring adjustment to Frankfurt and Bucharest paths.
+4. I ensured that in each router modifiers were made to ensure otherwise unreachable routes were blocked through high costs which maintains the integrity of the routing rules.
+
+Limitations (if any):
+The high cost routes in Munich and additional links for actual routing are constrained further with 2 high costs paths thus limiting multipath.

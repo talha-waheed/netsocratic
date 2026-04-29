@@ -1,0 +1,19 @@
+Routers modified: Amsterdam, Athens, Barcelona, Brussels, Frankfurt, Geneva, Luxembourg, Strasbourg, Warsaw
+
+Reasoning:
+1. **Reachability from Barcelona to 100.0.4.0/24** requires a mandatory waypoint through Basel. Thus, all bypass paths must be set to a high cost (1000) while keeping Basel's path at cost 1.
+   
+2. **Luxembourg to 100.0.9.0/24** requires use of Rotterdam as a waypoint, so paths bypassing Rotterdam are set at a high cost.
+   
+3. **Bucharest and Budapest to 100.0.29.0/24** both require London as a waypoint. Accordingly, all routes directly bypassing London are assigned higher costs.
+   
+4. **Istanbul to 100.0.1.0/24** also requires a mandatory waypoint at Kiev; thus, all bypass paths have been adjusted to a high cost to satisfy this requirement.
+   
+5. **Strasbourg’s traffic to 100.0.1.0/24** must go through Kiev, necessitating high costs for bypass routes.
+  
+6. **Geneva requires connectivity to 100.0.9.0/24** via Rotterdam, resulting in similar treatment of bypass routes.
+  
+7. The **load balancing** requirements across multiple routers dictate that some paths need to share equal costs while others require stricter metrics to ensure inefficiency.
+
+Limitations (if any):
+None

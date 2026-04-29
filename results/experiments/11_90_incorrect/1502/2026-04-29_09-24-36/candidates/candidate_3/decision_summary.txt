@@ -1,0 +1,19 @@
+Routers modified: Brussels, Rotterdam, Strasbourg
+
+Reasoning:
+1. For Bratislava to reach 100.0.9.0/24 (Rotterdam), the path must go through Rotterdam as a waypoint. 
+   Thus, the cost to Rotterdam must be kept low (1), while bypass paths must be set to a high cost (1000).
+   
+2. Setting the cost on Brussels → Rotterdam to 1000 and leaving the cost to the Rotterdam route as 1 allows traffic to flow through Rotterdam as required by the waypoint directive.
+
+3. There must be 2 ECMP paths from Bratislava to 100.0.9.0/24: 
+   - Optimal paths will be from Bratislava to Brussels to Rotterdam (cost 2).
+   - Another path can go from Bratislava directly to Rotterdam via an alternative route which also maintains a cost of 2.
+   - All other paths to Rotterdam must be denied (set to 1000).
+
+4. The reachability of 100.0.4.0/24 (Basel) from Strasbourg must guarantee paths through Brussels. Keeping Brussels's link to Strasbourg at 1 cost while the bypasses (Fa3/0 and Fa2/0) are set high prevents bypassing Basel. 
+
+5. Lastly, ensure that Luxembourg reaches 100.0.1.0/24 (Kiev) where the required paths must also be equal in cost, targeting specifically 2 equal-cost paths.
+
+Limitations (if any):
+None

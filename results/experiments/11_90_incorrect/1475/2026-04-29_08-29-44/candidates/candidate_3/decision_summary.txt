@@ -1,0 +1,10 @@
+Routers modified: Brussels, Prague, Kiev
+
+Reasoning:
+1. The required reachability from praha (to 100.0.1.0/24) mandates that traffic must route through Kiev. 
+2. To achieve this, the cost to bypass Kiev from Prague to 100.0.1.0/24 needs to be set to 1000 to ensure that traffic always uses the path through Kiev.
+3. To implement the waypoint requirement for Paris reaching 100.0.9.0/24, the cost to bypass Rotterdam from Brussels to this subnet is set to 1000.
+4. Both the waypoint and load balancing constraints are satisfied as there will be two paths available from Prague to Kiev with minimal total cost (1 for direct and lowered cost to reach the waypoint).
+
+Limitations (if any):
+None

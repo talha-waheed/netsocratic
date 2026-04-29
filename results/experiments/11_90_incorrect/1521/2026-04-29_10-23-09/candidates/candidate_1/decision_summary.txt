@@ -1,0 +1,11 @@
+Routers modified: Luxembourg, Strasbourg, Kiev
+
+Reasoning:
+1. Luxembourg needs to reach 100.0.1.0/24 (Kiev's subnet) with 10 equal-cost paths.
+2. To achieve this, we set the cost of the path through Kiev to 1 and all bypass paths to 1000.
+3. The same logic applies to Strasbourg, which also needs to reach 100.0.1.0/24.
+4. For Kiev, the cost to its stub network is kept at 1, while the cost to bypass paths is set to 1000.
+5. This configuration allows for 10 equal-cost paths from Luxembourg to 100.0.1.0/24 through Kiev, while also ensuring Strasbourg can reach the same destination.
+
+Limitations (if any):
+None

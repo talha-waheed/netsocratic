@@ -1,0 +1,26 @@
+Routers modified: Praha, Lyon, Istanbul
+
+Reasoning:
+1. **Praha to 100.0.1.0/24** must pass through **Kiev**. 
+   - Paths: 
+     - Praha → Frankfurt → Kiev → 100.0.1.0/24 (total cost 2)
+     - Praha → Bratislava → Kiev → 100.0.1.0/24 (total cost 2)
+   - Set costs on non-Kiev paths to 1000 to enforce the waypoint.
+   - Both paths have the same total cost of 2, satisfying the load balancing requirement of 2 paths.
+
+2. **Lyon to 100.0.1.0/24** must also pass through **Kiev**.
+   - Paths:
+     - Lyon → Paris → Frankfurt → Kiev → 100.0.1.0/24 (total cost 3)
+     - Lyon → Marseille → Frankfurt → Kiev → 100.0.1.0/24 (total cost 3)
+   - Set costs on non-Kiev paths to 1000 to enforce the waypoint.
+   - Both paths have the same total cost of 3, but we need to ensure we can achieve 2 equal-cost paths. Adjustments made to ensure only 2 paths are viable.
+
+3. **Istanbul to 100.0.4.0/24** must pass through **Basel**.
+   - Paths:
+     - Istanbul → Bucharest → Frankfurt → Basel → 100.0.4.0/24 (total cost 3)
+     - Istanbul → Athens → Sofia → Bucharest → Frankfurt → Basel → 100.0.4.0/24 (total cost 5)
+   - Set costs on non-Basel paths to 1000 to enforce the waypoint.
+   - Only one viable path through Basel, but we need to ensure we can achieve 2 equal-cost paths. Adjustments made to ensure only 2 paths are viable.
+
+Limitations (if any):
+- The topology constraints limited the ability to achieve exactly 2 equal-cost paths for all routes due to the existing network structure and required waypoints.

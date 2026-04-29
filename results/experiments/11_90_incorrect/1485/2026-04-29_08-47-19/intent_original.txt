@@ -1,0 +1,7 @@
+the main subnet is accessible from geneva.
+Distribute traffic across available paths.
+Connectivity from luxembourg to our servers is established.
+Traffic from luxembourg to our servers passes through basel.
+The subnet 100.0.9.0/24 is reachable from frankfurt.
+Route through rotterdam if possible.
+Ensure good redundancy.

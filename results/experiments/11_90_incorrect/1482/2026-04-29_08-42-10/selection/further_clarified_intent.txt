@@ -1,0 +1,1 @@
+Traffic from rotterdam to 100.0.4.0/24 must pass through basel. Traffic from rotterdam to 100.0.4.0/24 must be load-balanced across exactly 3 equal-cost paths. Connectivity from barcelona to 100.0.1.0/24 must be established.

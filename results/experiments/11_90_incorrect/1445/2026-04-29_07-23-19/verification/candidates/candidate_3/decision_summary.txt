@@ -1,0 +1,13 @@
+Routers modified: Frankfurt, Istanbul, Kiev, Praha, Lyon
+
+Reasoning:
+1. For reachability to 100.0.1.0/24 from Praha and Lyon, traffic must pass through Kiev. Thus, the cost on the other paths bypassing Kiev was set to 1000 on Frankfurt's Fa1/1 and Fa3/0 interfaces.
+2. The paths from Frankfurt to 100.0.1.0/24 must be blocked as part of the waypoint requirement. Hence the costs of routes from Frankfurt to Kiev (and from Frankfurt to Istanbul) are set to 1000. This creates a mandatory waypoint on routes using Kiev.
+3. For the load-balancing requirement from Praha and Lyon to 100.0.1.0/24, we set appropriate costs for paths going through Kiev:
+   - From Praha: set the costs on interfaces Fa1/0 and Fa0/1 to 1.
+   - From Lyon: set the costs on interfaces Fa1/0 to 1 and Fa1/1 to 1.
+4. For Istanbul to reach 100.0.4.0/24, we set high costs on paths that do not go through Basel, blocking all routes except the mandatory path using Basel.
+5. After examining the routes and their costs, we have ensured that each required path is load-balanced across exactly 2 paths while respecting waypoint constraints.
+
+Limitations (if any):
+None

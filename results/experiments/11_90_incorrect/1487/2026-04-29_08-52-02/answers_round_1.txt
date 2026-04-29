@@ -1,0 +1,13 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from strasbourg should reach? (Why: impacts reachability for strasbourg to 100.0.29.0/24)
+A: The exact destination subnet that traffic from Strasbourg should reach is 100.0.29.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from geneva should reach? (Why: impacts reachability for geneva to 100.0.4.0/24)
+A: The exact destination subnet that traffic from Geneva should reach is 100.0.4.0/24.
+
+Q: What is the exact router hostname you are referring to when you mention "our servers"? (Why: impacts reachability for strasbourg to "our servers")
+A: I am not referring to a specific router hostname when I mention "our servers." The reachability for Strasbourg is defined by the network address 100.0.29.0/24.
+
+Q: What is the exact router hostname you are referring to when you mention "available paths"? (Why: impacts load balancing across paths for traffic distribution)
+A: I don't have a specific router hostname to refer to for "available paths." My routing requirements focus on reachability, waypoints, and load balancing for specific networks.

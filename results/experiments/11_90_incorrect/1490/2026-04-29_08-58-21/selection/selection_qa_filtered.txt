@@ -1,0 +1,8 @@
+Q: Did your original intent require traffic from lyon to 100.0.1.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from lyon to 100.0.1.0/24 to pass through kiev as the specified waypoint.
+
+Q: Did your original intent require traffic from milan to 100.0.29.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+A: Yes, my original intent required traffic from milan to 100.0.29.0/24 to pass through london as the specified waypoint.
+
+Q: Did your original intent require traffic from kiev to 100.0.4.0/24 to be reachable, or should that reachability not be required?
+A: Yes, my original intent required traffic from kiev to 100.0.4.0/24 to be reachable. The requirement specifies that kiev must reach the prefix 100.0.4.0/24.

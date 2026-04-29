@@ -1,0 +1,23 @@
+Routers modified: Amsterdam, Barcelona, Basel
+
+Reasoning:
+1. **Amsterdam to 100.0.29.0/24 (London)**: 
+   - Must pass through London (waypoint).
+   - Set cost to London (Fa1/1) to 1, and block all other paths to London with cost 1000.
+   - This ensures traffic from Amsterdam to London must go through London.
+
+2. **Barcelona to 100.0.4.0/24 (Basel)**:
+   - Must pass through Basel (waypoint).
+   - Set cost to Basel (Fa1/0) to 1, and block all other paths to Basel with cost 1000.
+   - This ensures traffic from Barcelona to Basel must go through Basel.
+
+3. **Load Balancing for Barcelona to 100.0.4.0/24**:
+   - Need 3 equal-cost paths to Basel.
+   - Set costs on paths through Basel to ensure they are equal while blocking others.
+
+4. **Load Balancing for Amsterdam to 100.0.29.0/24**:
+   - Need 2 equal-cost paths to London.
+   - Set costs on paths through London to ensure they are equal while blocking others.
+
+Limitations (if any):
+None

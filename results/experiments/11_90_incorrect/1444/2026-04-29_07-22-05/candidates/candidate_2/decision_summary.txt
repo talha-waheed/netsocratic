@@ -1,0 +1,18 @@
+Routers modified: [Marseille, Frankfurt, Zurich]
+
+Reasoning:
+1. **Marseille to 100.0.1.0/24 (via Kiev)**: 
+   - Only path is Marseille → Kiev. 
+   - Set cost from Marseille to Kiev as 1. Paths bypassing Kiev to 100.0.1.0/24 set to 1000 to enforce mandatory waypointing.
+   
+2. **Frankfurt to 100.0.1.0/24 (via Kiev)**: 
+   - Paths are Frankfurt → Kiev or Frankfurt → Budapest → Sofia → Marseille. 
+   - Set cost to Kiev as 1 and others (Budapest, Sofia) to 1000 to enforce that all traffic must go through Kiev.
+   
+3. **Zurich to 100.0.29.0/24 (via London)**: 
+   - Available paths are Zurich → Frankfurt → Brussels → London or Zurich → Geneva → Paris → London and others.
+   - Set cost to London via Frankfurt and Geneva as 1 for ECMP. Other paths that bypass London set to 1000.
+   - For load balancing, ensure 5 paths through London have equal cost by appropriately adjusting costs.
+
+Limitations (if any):
+- None

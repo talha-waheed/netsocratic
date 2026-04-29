@@ -1,0 +1,28 @@
+Routers modified: ['Kiev', 'Istanbul', 'Rotterdam']
+
+Reasoning:
+1. **Kiev to 100.0.9.0/24 (Rotterdam)**:
+   - Paths: 
+     - Kiev → Rotterdam (cost 1)
+     - Kiev → Frankfurt → Brussels → Rotterdam (cost 3)
+   - To enforce mandatory waypointing through Rotterdam, set the cost of the bypass path to 1000.
+   - Set the cost of the direct path to 1.
+   - For load balancing, we need 2 equal-cost paths. The direct path (1) and the path through Frankfurt (3) cannot be used together. Thus, we keep the direct path and set the bypass path to 1000.
+
+2. **Istanbul to 100.0.29.0/24 (London)**:
+   - Paths:
+     - Istanbul → Bucharest → Frankfurt → Brussels → London (cost 4)
+     - Istanbul → Athens → Sofia → Budapest → Frankfurt → Brussels → London (cost 6)
+   - To enforce mandatory waypointing through London, set the cost of the bypass path to 1000.
+   - Set the cost of the path through London to 1.
+   - For load balancing, we need 3 equal-cost paths. However, only one path through London is available. Thus, we set the bypass path to 1000.
+
+3. **Rotterdam to 100.0.9.0/24 (Kiev)**:
+   - Paths:
+     - Rotterdam → Brussels → Frankfurt → Kiev (cost 3)
+     - Rotterdam → Amsterdam → Kiev (cost 2)
+   - To enforce mandatory waypointing through Rotterdam, we keep the cost of the direct path to 1.
+   - For load balancing, we need 2 equal-cost paths. The direct path through Brussels (3) cannot be used together with the direct path to Kiev (2). Thus, we keep the direct path and set the bypass path to 1000.
+
+Limitations (if any):
+The topology constraints limit the number of equal-cost paths available for load balancing, especially for Istanbul to London where only one path exists.

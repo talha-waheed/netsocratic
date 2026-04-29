@@ -1,0 +1,8 @@
+roma and 100.0.1.0/24 need connectivity.
+Preferably route via kiev.
+Traffic originating from praha can reach the subnet the main subnet
+Preferably route via rotterdam.
+Ensure fault tolerance with multiple routes.
+Ensure connectivity between budapest and that network.
+Routing traffic between budapest and 100.0.4.0/24 goes via basel.
+Traffic from budapest to 100.0.4.0/24 should be load-balanced across 4 paths.

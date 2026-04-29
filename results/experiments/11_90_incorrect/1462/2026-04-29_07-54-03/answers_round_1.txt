@@ -1,0 +1,16 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from kiev should reach when referring to the main subnet? (Why: impacts reachability)
+A: The exact destination subnet that traffic from Kiev should reach is 100.0.9.0/24.
+
+Q: What is the exact router hostname you are referring to when you mention "our servers"? (Why: impacts reachability)
+A: I am not referring to a specific router hostname when I mention "our servers." The routing requirements focus on reachability to specific IP address ranges associated with various cities.
+
+Q: What is the exact router hostname you are referring to when you mention "the target subnet"? (Why: impacts reachability)
+A: The target subnet refers to the specific subnets associated with each city, such as "100.0.9.0/24" for Kiev, "100.0.29.0/24" for Istanbul, and so on. Each city has its own designated subnet.
+
+Q: What is the exact router hostname you are referring to when you mention "the main subnet"? (Why: impacts reachability)
+A: I do not have a specific hostname for "the main subnet" as it is not defined in the routing requirements provided.
+
+Q: What is the exact integer path count for load balancing when you mention "load balance the traffic appropriately" for the connectivity from istanbul and the servers? (Why: impacts load balancing)
+A: The exact integer path count for load balancing from Istanbul is 3.

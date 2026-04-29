@@ -1,0 +1,12 @@
+Routers modified: Amsterdam, Brussels, Dublin, Frankfurt, Kiev, Lisbon, Milan, Madrid, Marseille, Stockholm
+
+Reasoning:
+1. All traffic from Kiev to 100.0.9.0/24, 100.0.29.0/24, and 100.0.1.0/24 must go through London. 
+   All non-London paths must be made prohibitively expensive (cost set to 1000).
+2. The same applies to Istanbul needing to reach 100.0.29.0/24.
+3. The costs on the specified neighboring routes (router interfaces) from Amsterdam and Frankfurt to London, between Brussels and London, as well as from Dublin to London were set to 1000 to ensure that all traffic routes through London for the reachability and waypoint constraints.
+4. Each city that had to establish paths with costs aligned to the requirements has been updated across the configured routes in OSPF.
+5. Lastly, due to the path specification through London, certain routes in Milan, Madrid, Marseille, and Stockholm had to enforce the high costs on those routes not leading to London.
+
+Limitations (if any):
+None.

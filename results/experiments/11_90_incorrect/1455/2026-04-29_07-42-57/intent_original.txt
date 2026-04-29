@@ -1,0 +1,9 @@
+warsaw and 100.0.9.0/24 need connectivity.
+The route from warsaw to 100.0.9.0/24 includes rotterdam.
+To reach 100.0.9.0/24 from warsaw, traffic should be split across 2 paths.
+the destination network is accessible from athens.
+Use basel as intermediate hop if available.
+Use multiple paths for reliability.
+Connectivity from zurich to the remote network is established.
+To reach the remote network from zurich, traffic is directed through basel.
+Distribute traffic across available paths.

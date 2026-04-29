@@ -1,0 +1,14 @@
+candidate_1 vs candidate_2: reach_diff=True, waypoint_diff=True, lb_diff=False
+candidate_1 vs candidate_3: reach_diff=True, waypoint_diff=False, lb_diff=False
+candidate_2 vs candidate_3: reach_diff=True, waypoint_diff=False, lb_diff=False
+EC pruning: 3 candidates → 3 survivors: ['candidate_1', 'candidate_2', 'candidate_3']
+Round 1  Q: Did your original intent require traffic from frankfurt to 100.0.4.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+Round 1  A: My original intent required traffic from Frankfurt to 100.0.4.0/24 to pass through Basel.
+Round 2  Q: Did your original intent require traffic from istanbul to 100.0.1.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+Round 2  A: My original intent required traffic from Istanbul to 100.0.1.0/24 to pass through Kiev.
+Round 3  Q: Did your original intent require traffic from london to 100.0.9.0/24 to pass through rotterdam, was no waypoint required, or was a different waypoint required?
+Round 3  A: My original intent required traffic from London to 100.0.9.0/24 to pass through Rotterdam as the specified waypoint.
+Round 4  Q: Did your original intent require all traffic from london to reach the destination network 100.0.9.0/24, or was it acceptable for some traffic to be denied?
+Round 4  A: My original intent required all traffic from London to reach the destination network 100.0.9.0/24. There should be no denial of traffic to this prefix.
+Remaining candidates are behaviourally indistinguishable or all distinguishable pairs already asked.
+Synthesized corrected candidate from further clarified intent.

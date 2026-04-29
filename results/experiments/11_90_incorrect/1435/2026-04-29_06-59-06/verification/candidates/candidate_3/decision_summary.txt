@@ -1,0 +1,25 @@
+Routers modified: [Rotterdam, Sofia, Frankfurt, Bratislava]
+
+Reasoning:
+1. For traffics from Sofia to 100.0.9.0/24 (Rotterdam):
+   - Identify paths: 
+     - Sofia → Budapest → Zagreb → Rotterdam (total cost 4)
+     - Sofia → Istanbul → Bucharest → Zagreb → Rotterdam (total cost 4)
+     - Sofia → Athens → Istanbul → Bucharest → Zagreb → Rotterdam (total cost 4)
+     - All three paths equal cost of 4.
+   - Bypass traffic through Rotterdam must be done by setting other routes to 1000.
+
+2. For traffics from Strasbourg to 100.0.29.0/24 (London):
+   - Path options include:
+     - Strasbourg → Frankfurt → Brussels → London (total cost 3)
+     - Needed to ensure only 2 are equal but through London.
+     - Other non-London paths need to be set to 1000.
+
+3. For traffics from Bratislava to 100.0.4.0/24 (Basel):
+   - Possible paths can be identified going through Basel.
+   - Alter path costs through other routers to achieve equal load.
+
+4. For Rotterdam, maintaining costs as required to keep it available for Sofia’s paths while blocking direct paths through any non-specified routers.
+
+Limitations (if any):
+- None

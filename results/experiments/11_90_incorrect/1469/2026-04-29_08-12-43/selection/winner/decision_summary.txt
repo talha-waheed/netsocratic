@@ -1,0 +1,17 @@
+Routers modified: Luxembourg, Kiev, Strasbourg
+
+Reasoning:
+1. **Luxembourg to 100.0.4.0/24**: Needs 4 equal-cost paths. Set costs to 1000 on non-Kiev paths and 1 on paths through Kiev.
+   - Paths: Luxembourg → Brussels → Frankfurt (cost 2), Luxembourg → Strasbourg → Frankfurt (cost 2), Luxembourg → Strasbourg → Basel (cost 2), Luxembourg → Brussels → Basel (cost 2).
+   - All paths through Kiev are set to 1, while others are set to 1000 to enforce the waypoint and achieve 4 equal-cost paths.
+
+2. **Kiev to 100.0.4.0/24**: Needs 2 equal-cost paths. Set costs to 1000 on non-Basel paths and 1 on paths through Basel.
+   - Paths: Kiev → Bucharest → Frankfurt (cost 2), Kiev → Bucharest → Luxembourg (cost 2).
+   - Set costs to 1 for paths through Basel and 1000 for others to enforce the waypoint and achieve 2 equal-cost paths.
+
+3. **Strasbourg to 100.0.1.0/24**: Needs to pass through Kiev. Set costs to 1000 on non-Kiev paths and 1 on paths through Kiev.
+   - Paths: Strasbourg → Frankfurt → Geneva (cost 2), Strasbourg → Basel → Geneva (cost 2).
+   - Set costs to 1 for paths through Kiev and 1000 for others to enforce the waypoint.
+
+Limitations (if any):
+None

@@ -1,0 +1,9 @@
+the target subnet is accessible from luxembourg.
+To reach the target subnet from luxembourg, traffic is directed through london.
+Use multiple paths for reliability.
+Traffic originating from basel can reach the subnet 100.0.9.0/24.
+Consider routing through rotterdam.
+Use multiple paths for reliability.
+Ensure connectivity between strasbourg and the remote network.
+Traffic should go through basel when feasible.
+Distribute traffic across available paths.

@@ -1,0 +1,29 @@
+Routers modified: lyon, milan, kiev
+
+Reasoning:
+1. **Lyon to 100.0.1.0/24** must pass through **Kiev**. 
+   - Paths: Lyon → Marseille → Milan → Zurich → Frankfurt → Strasbourg → Basel → Kiev (valid)
+   - Paths bypassing Kiev (e.g., Lyon → Paris → Frankfurt → Strasbourg → Basel) must be blocked.
+   - Set costs on Lyon's interfaces leading to bypass paths to 1000, while keeping the path through Kiev at 1.
+
+2. **Milan to 100.0.29.0/24** must pass through **London**.
+   - Paths: Milan → Zurich → Frankfurt → Brussels → London (valid)
+   - Paths bypassing London (e.g., Milan → Roma → Marseille → Lyon → Paris) must be blocked.
+   - Set costs on Milan's interfaces leading to bypass paths to 1000, while keeping the path through London at 1.
+
+3. **Kiev to 100.0.4.0/24** must be reachable.
+   - Paths: Kiev → Bucharest → Budapest → Basel (valid)
+   - No changes needed for this path as it is already reachable.
+
+4. **Load balancing**:
+   - For Lyon to 100.0.1.0/24, two paths through Kiev must be equal cost:
+     - Path 1: Lyon → Marseille → Milan → Zurich → Frankfurt → Strasbourg → Basel → Kiev
+     - Path 2: Lyon → Marseille → Paris → Frankfurt → Strasbourg → Basel → Kiev
+   - Set costs on Lyon's interfaces leading to bypass paths to 1000, while keeping the paths through Kiev at 1.
+   - For Milan to 100.0.29.0/24, two paths through London must be equal cost:
+     - Path 1: Milan → Zurich → Frankfurt → Brussels → London
+     - Path 2: Milan → Roma → Marseille → Lyon → Paris → Brussels → London
+   - Set costs on Milan's interfaces leading to bypass paths to 1000, while keeping the paths through London at 1.
+
+Limitations (if any):
+None

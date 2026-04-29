@@ -1,0 +1,26 @@
+Routers modified: Amsterdam, Brussels, Budapest, Frankfurt, Kiev, Marseille, Rotterdam
+
+Reasoning:
+1. **Reachability from Barcelona to 100.0.4.0/24 via Basel**: 
+   - Set cost 1 on the path from Barcelona to Basel.
+   - Set cost 1000 on any bypass paths to ensure traffic goes through Basel.
+
+2. **Reachability from Budapest to 100.0.29.0/24 via London**: 
+   - Set cost 1 on paths to London.
+   - Ensure three distinct paths exist for load balancing; set costs accordingly.
+
+3. **Waypoints for Bucharest to 100.0.29.0/24 via London**: 
+   - Set cost 1000 on paths that do not go through London.
+
+4. **Waypoints and load balancing from Istanbul to 100.0.1.0/24 via London**: 
+   - Set cost 1 on the path through London and cost 1000 on bypass paths.
+   - Ensure four paths are available by adjusting costs accordingly.
+
+5. **Reachability from Strasbourg to 100.0.1.0/24 via Kiev**: 
+   - Set cost 1 on paths to Kiev and cost 1000 on bypass paths.
+
+6. **Reachability from Geneva to 100.0.9.0/24 via Rotterdam**: 
+   - Set cost 1 on the path through Rotterdam.
+
+Limitations (if any):
+None

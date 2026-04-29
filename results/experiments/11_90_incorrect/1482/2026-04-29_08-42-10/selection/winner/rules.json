@@ -1,0 +1,12 @@
+{
+  "reachability": {
+    "rotterdam": ["100.0.4.0/24"],
+    "barcelona": ["100.0.1.0/24"]
+  },
+  "waypoint": {
+    "(rotterdam,100.0.4.0/24)": ["basel"]
+  },
+  "loadbalancing": {
+    "(rotterdam,100.0.4.0/24)": 3
+  }
+}

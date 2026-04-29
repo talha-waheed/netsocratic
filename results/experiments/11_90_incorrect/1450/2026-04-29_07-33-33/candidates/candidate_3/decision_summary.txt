@@ -1,0 +1,11 @@
+Routers modified: [Frankfurt, Geneva, Marseille]
+
+Reasoning:
+1. **Frankfurt's requirement** to reach 100.0.4.0/24 via Basel necessitated costs be adjusted. The routing must pass through Basel, thus the cost to Basel's connections was set to 1, while costs on bypass routes were set to 1000 to block alternative paths.
+   
+2. **Geneva's requirement** to reach 100.0.9.0/24 via Rotterdam meant paths through Rotterdam must have a total cost lower than bypass paths. The bypass paths to Rotterdam were set to 1000, while the direct connection to Rotterdam was maintained at 1. As there are three direct neighboring options, appropriate cost adjustments satisfied the 3-path load balancing requirement.
+   
+3. **Marseille's requirement** to prefer London for 100.0.29.0/24 also involved ensuring that the paths through London had a lower cost than potential bypass routes. Thus, bypass costs to London were set to 1000 while direct paths were set to 1, achieving the 4-path load balancing as specified.
+
+Limitations (if any):
+The total number of distinct and valid routes could be constrained by existing routing and OSPF cost configurations and topology. Specifically, if alternative paths available were inherently fewer than the required distinct path counts due to existing network structure, this would have limited effective load balancing.

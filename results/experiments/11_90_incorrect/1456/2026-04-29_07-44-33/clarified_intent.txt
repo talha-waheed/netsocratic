@@ -1,0 +1,1 @@
+Establish connectivity from Geneva to 100.0.29.0/24, preferably routing via London. Ensure there are 8 paths for redundancy. Connectivity from Bucharest to 100.0.29.0/24 is established. Use Basel as an intermediate hop if available. Ensure connectivity between Milan and the remote network, routing through London if possible, and maintain redundancy.

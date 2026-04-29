@@ -1,0 +1,17 @@
+Routers modified: Luxembourg, Basel, Rotterdam
+
+Reasoning:
+1. For Luxembourg to reach 100.0.29.0/24 (London), it must go through London. Hence, the cost to bypass London must be set to 1000 to enforce the waypoint.
+   - Paths: Luxembourg → Brussels → London (cost 2), Luxembourg → Strasbourg → London (cost 2) 
+   - Set cost to 1 on paths through London, and cost to 1000 on bypass paths.
+   
+2. For Basel to reach 100.0.9.0/24 (Rotterdam), it must go through Rotterdam. Hence, the cost to bypass Rotterdam is set to 1000.
+   - Paths: Basel → Strasbourg → Rotterdam (cost 2), Basel → Geneva → Rotterdam (cost 2)
+   - Set cost to 1 on paths through Rotterdam, and set cost to 1000 on bypass paths.
+
+3. The load balancing requirement of 2 paths for both Luxembourg to London and Basel to Rotterdam is satisfied by ensuring that 2 routes exist with equal cost.
+
+4. For Strasbourg to reach 100.0.4.0/24 (Basel), the path through Basel must be preferred. Hence, we ensure the path through Basel has a cost of 1, while other paths are set to 1000.
+
+Limitations (if any):
+None

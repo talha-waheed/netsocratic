@@ -1,0 +1,1 @@
+Traffic from london to 100.0.1.0/24 must pass through kiev. Traffic from basel to 100.0.1.0/24 must pass through kiev. Traffic from madrid to 100.0.1.0/24 must pass through basel. Traffic from madrid to 100.0.1.0/24 must be load-balanced across exactly 2 equal-cost paths. Traffic from basel to 100.0.1.0/24 must be load-balanced across exactly 7 equal-cost paths.

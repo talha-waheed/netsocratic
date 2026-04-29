@@ -1,0 +1,21 @@
+Routers modified: Rotterdam, Frankfurt
+
+Reasoning:
+1. **Reachability**: Traffic from Marseille (100.0.21.0/24) must reach 100.0.9.0/24 (Rotterdam). 
+   - The path from Marseille to Rotterdam is direct, so it is reachable without changes.
+   
+2. **Waypointing**: No mandatory waypointing is specified in the rules, so we do not enforce high costs on bypass paths.
+
+3. **Load Balancing**: Traffic from Kiev (100.0.1.0/24) to 100.0.29.0/24 (London) must be distributed across 3 paths.
+   - The paths available are:
+     - Path 1: Kiev → Bucharest → Istanbul → London
+     - Path 2: Kiev → Warsaw → Frankfurt → London
+     - Path 3: Kiev → Bucharest → Sofia → Budapest → Frankfurt → London
+   - To achieve 3 equal-cost paths, we need to ensure that the costs on the paths through Frankfurt and Rotterdam are adjusted to allow for equal distribution:
+     - Set costs on the paths through Frankfurt and Rotterdam to 1000 to prevent them from being used as bypass paths.
+     - This allows the remaining paths to be used for load balancing.
+
+4. The changes ensure that the traffic from Kiev to London is balanced across the available paths while not blocking any necessary routes.
+
+Limitations (if any):
+None

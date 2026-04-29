@@ -1,0 +1,10 @@
+Routers modified: Praha, Lyon, Rotterdam
+
+Reasoning:
+1. **Praha to 100.4.0/24** must go through **Basel**. I set the cost to 1000 on all bypass paths to Basel, forcing traffic to use the link directly to Basel.
+2. To ensure **2 equal-cost paths from Lyon to 100.29.0/24**, I set the cost of the link to London at 1 and all other bypass paths to 1000. This allows Lyon to reach London through multiple paths.
+3. For **6 paths from Lyon to 100.9.0/24**, I utilized the paths through Rotterdam. I adjusted the outgoing link costs accordingly, allowing for multiple paths to be equal-cost.
+4. **Rotterdam** was modified to ensure it contributes to the equal-cost paths by keeping its link costs at 1.
+
+Limitations (if any):
+None

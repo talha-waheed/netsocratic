@@ -1,0 +1,20 @@
+Routers modified: brussels, kiev, milan, strasbourg
+
+Reasoning:
+1. Reachability requirements:
+   - Bratislava must reach 100.0.1.0/24.
+   - Milan must reach 100.0.4.0/24, with Basel as a mandatory waypoint.
+   - Istanbul must reach 100.0.4.0/24, also with Basel as a mandatory waypoint.
+
+2. Waypoint requirements:
+   - For Bratislava (to 100.0.1.0/24), the mandatory waypoint is Kiev. Therefore, we need to block all non-Kiev paths from Bratislava, which leads to setting costs of 1000 on those paths from Bratislava.
+   - Milan and Istanbul's paths to 100.0.4.0/24 must pass through Basel. Thus, costs to Basel are set to 1 while other routes are set to 1000.
+
+3. Load balancing requirements:
+   - Bratislava to 100.0.1.0/24 requires 2 paths, which can be fulfilled by allowing sufficiently low-cost paths to Kiev.
+   - Milan and Istanbul must similarly be set for 2 equal-cost paths to 100.0.4.0/24 through Basel and others, hence costs adjusted to direct traffic correctly.
+
+4. All constraints are satisfied; paths from both Milan and Istanbul go to Basel for required connections, while also adhering to the conditions for required ECMP paths for Bratislava.
+
+Limitations (if any):
+None.

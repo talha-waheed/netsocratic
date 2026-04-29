@@ -1,0 +1,20 @@
+lyon and 100.0.29.0/24. should be connected.
+Use multiple paths for reliability.
+The subnet 100.0.29.0/24 is reachable from warsaw.
+Routing traffic between warsaw and 100.0.29.0/24 goes via london.
+Distribute traffic across available paths.
+Ensure connectivity between brussels and the main subnet.
+The number of paths between brussels and the main subnet should be 2.
+Ensure connectivity between london and 100.0.9.0/24..
+Ensure good redundancy.
+bratislava should connect to our servers, and similar routing should be used for related traffic.
+Load balance the traffic appropriately.
+The subnet the main subnet is reachable from basel.
+Route through rotterdam if possible.
+Ensure connectivity between paris and 100.0.9.0/24..
+The route from paris to 100.0.9.0/24 includes rotterdam.
+Use multiple paths for reliability.
+basel can reach 100.0.29.0/24.
+Ensure fault tolerance with multiple routes.
+Ensure connectivity between athens and 100.0.9.0/24.
+Use rotterdam as intermediate hop if available.

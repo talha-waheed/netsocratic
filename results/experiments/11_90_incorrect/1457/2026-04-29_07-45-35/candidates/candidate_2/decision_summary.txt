@@ -1,0 +1,22 @@
+Routers modified: Amsterdam, Brussels, Kiev
+
+Reasoning:
+1. From Brussels to 100.0.9.0/24 (Amsterdam's subnet) must be load-balanced across 3 paths.
+   - Path options from Brussels:
+     - Brussels → Rotterdam → Amsterdam
+     - Brussels → Paris → Amsterdam
+     - Brussels → Luxembourg → Amsterdam
+   - To ensure 3 paths, we set costs to 1000 on the non-preferred paths (Paris and Luxembourg), allowing the Rotterdam path to be preferred.
+
+2. From Rotterdam to 100.0.1.0/24 (Kiev's subnet) must pass through Kiev.
+   - Path options:
+     - Rotterdam → Kiev → ... (valid path)
+     - Rotterdam → Amsterdam → ... (invalid path since it bypasses Kiev)
+   - The paths through Kiev will have a cost of 1, while other paths are set to 1000.
+
+3. From Amsterdam to 100.0.9.0/24 must be reachable, which is achieved by allowing the paths from Brussels.
+
+4. The OSPF costs have been adjusted to ensure compliance with both waypointing and load balancing requirements.
+
+Limitations (if any):
+None

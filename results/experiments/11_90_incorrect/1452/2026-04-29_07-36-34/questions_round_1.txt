@@ -1,0 +1,5 @@
+Round 1 — Clarification Questions
+
+1. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from praha should reach when you refer to "our servers"? (Why: impacts reachability)
+2. What is the exact router hostname you are referring to when you mention "available paths" for distributing traffic? (Why: impacts load balancing)
+3. What is the exact router hostname for the "intermediate hop" when you mention using london? (Why: impacts waypointing)

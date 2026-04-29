@@ -1,0 +1,15 @@
+Routers modified: Amsterdam, Athens, Basel, Budapest, Frankfurt, Luxembourg, Madrid, Paris, Prague, Rotterdam
+
+Reasoning:
+1. **Reachability**: All required reachability is satisfied by the base OSPF configuration.
+2. **Waypointing**: 
+   - For traffic from Sofia to 100.0.4.0/24 (Basel), costs on bypass paths from Sofia to Basel are set to 1000 to ensure traffic goes through Basel.
+   - For traffic from London to the remote network, costs on bypass paths are set to 1000 to ensure traffic goes through Kiev.
+   - Similar adjustments are made for other routers as per the waypoint rules.
+3. **Load Balancing**:
+   - For Sofia to 100.0.4.0/24, four paths are established through Basel and other routers.
+   - For Bucharest to the remote network, three paths are established through London and Kiev.
+   - Costs are adjusted to ensure the required number of equal-cost paths while keeping other paths at a higher cost.
+
+Limitations (if any):
+None

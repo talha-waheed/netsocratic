@@ -1,0 +1,20 @@
+Routers modified: Basel, Rotterdam, Vienna
+
+Reasoning:
+1. **Basel**:
+   - Basel is a mandatory waypoint for traffic from Rotterdam to 100.0.4.0/24.
+   - Set `ip ospf cost` on both Fa1/0 and Fa0/1 to 1, maintaining the path through Basel.
+   - This allows Rotterdam to reach 100.0.4.0/24 via Basel.
+
+2. **Rotterdam**:
+   - Traffic from Rotterdam to 100.0.4.0/24 must go through Basel.
+   - Set `ip ospf cost` on the Fa0/1 interface to 1000 to block the direct path to 100.0.4.0/24 that does not go through Basel, while keeping Fa1/0 at cost 1 to enable the correct path through Basel.
+   - This configuration ensures that traffic from Rotterdam to 100.0.4.0/24 strictly uses Basel as a waypoint.
+
+3. **Vienna**:
+   - Vienna has a similar requirement to reach 100.0.9.0/24 via Rotterdam.
+   - Set `ip ospf cost` on Fa1/1 to 1000 to block paths that do not go through Rotterdam, while keeping Fa1/0 at cost 1 to allow the path through Rotterdam.
+   - This ensures that traffic from Vienna to 100.0.9.0/24 will also traverse Rotterdam as required.
+
+Limitations (if any):
+None

@@ -1,0 +1,10 @@
+Routers modified: Luxembourg, Strasbourg, Rotterdam
+
+Reasoning:
+1. Luxembourg must reach 100.0.1.0/24 via Kiev. The direct path to Kiev must be preferred, so all bypass paths must be set to a high cost (1000).
+2. Strasbourg must also reach 100.0.1.0/24 via Kiev, necessitating the same high cost on bypass paths.
+3. Both Luxembourg and Strasbourg require 10 equal-cost paths to 100.0.1.0/24. To achieve this, the costs on all paths that do not go through Kiev must be set to 1000, while the paths through Kiev must be adjusted to ensure they can be equalized.
+4. Rotterdam must reach 100.0.9.0/24 via a path through itself, so the cost to bypass it must also be set to 1000.
+
+Limitations (if any):
+None

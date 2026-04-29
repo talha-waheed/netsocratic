@@ -1,0 +1,1 @@
+Connect luxembourg to 100.0.9.0/24. The path between luxembourg and 100.0.9.0/24 involves the router in rotterdam. Ensure good redundancy. Connect bucharest to 100.0.29.0/24. Consider routing through the router in london. Ensure connectivity between brussels and the specified networks. Route through the router in basel if possible.

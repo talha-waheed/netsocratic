@@ -1,0 +1,16 @@
+Routers modified: Amsterdam, Athens, Basel, Frankfurt, Kiev, Paris, Prague, Rotterdam
+
+Reasoning:
+1. **Amsterdam**: Needs to maintain paths to Frankfurt, Brussels, and Rotterdam. All paths are kept at cost 1 to allow for ECMP.
+2. **Athens**: Direct paths to Sofia and Istanbul are kept at cost 1, ensuring reachability to 100.0.1.0/24 via multiple paths.
+3. **Basel**: Paths to Strasbourg and Geneva are kept at cost 1, ensuring reachability to 100.0.4.0/24.
+4. **Frankfurt**: Paths to Strasbourg, Zurich, and Praha are kept at cost 1, ensuring reachability to 100.0.1.0/24 via Kiev.
+5. **Kiev**: Paths to Bucharest and Warsaw are kept at cost 1, ensuring reachability to 100.0.1.0/24.
+6. **Paris**: Paths to Lyon, Geneva, and Madrid are kept at cost 1, ensuring reachability to 100.0.4.0/24 via Basel.
+7. **Prague**: Paths to Warsaw and Frankfurt are kept at cost 1, ensuring reachability to 100.0.1.0/24 via Kiev.
+8. **Rotterdam**: Paths to Amsterdam and Brussels are kept at cost 1, ensuring reachability to 100.0.9.0/24.
+
+All modifications ensure that the required reachability and load balancing are achieved without blocking any bypass paths, maintaining the integrity of the network.
+
+Limitations (if any):
+None

@@ -1,0 +1,12 @@
+Routers modified: Amsterdam, Bucharest, Bratislava, Rotterdam
+
+Reasoning:
+1. **Reachability**: Each specified source (rotterdam, marseille, bucharest) must reach the respective destination (100.0.29.0/24 and 100.0.4.0/24) as defined in the routing rules.
+2. **Waypointing**: For routes from Rotterdam and Marseille to 100.0.29.0/24, routes bypassing London must be blocked with a high cost (1000) on those paths, and costs to paths going through London set to 1.
+   - For Rotterdam, the preferred path is through London.
+   - For Marseille, mandatory waypoint to London enforced by placing cost 1000 on bypass paths.
+3. **Load Balancing**: Both Rotterdam and Marseille require 2 equal-cost paths to 100.0.29.0/24. After initial evaluations, ensuring paths via London share equal cost while all others have higher costs is guaranteed by adjusting relevant interface costs accordingly.
+4. For Bucharest to 100.0.4.0/24 via Basel, set the bypass paths to high costs while keeping the cost to Basel at 1.
+
+Limitations (if any):
+None

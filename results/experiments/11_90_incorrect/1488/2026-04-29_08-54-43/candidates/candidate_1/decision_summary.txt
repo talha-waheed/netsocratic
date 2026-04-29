@@ -1,0 +1,14 @@
+Routers modified: Rotterdam, Warsaw
+
+Reasoning:
+1. The reachability requirement states that Brussels, Amsterdam, and Warsaw must connect to the subnet 100.0.9.0/24 (Rotterdam's subnet).
+2. For Warsaw to reach 100.0.9.0/24, two paths must be load-balanced. The paths are:
+   - Path 1: Warsaw → Frankfurt → Brussels → Rotterdam
+   - Path 2: Warsaw → Frankfurt → Luxembourg → Brussels → Rotterdam
+3. To achieve load balancing, both paths must have the same total cost. The cost from Warsaw to Frankfurt is 1, from Frankfurt to Brussels is 1, and from Brussels to Rotterdam is 1, totaling 3.
+4. The same applies to the paths from Rotterdam to Brussels and Amsterdam, ensuring they can also reach 100.0.9.0/24.
+5. The cost on the links from Warsaw to Frankfurt, Brussels, and Rotterdam are set to 1, allowing for two equal-cost paths.
+6. No bypass paths are blocked, as the rules do not require mandatory waypointing.
+
+Limitations (if any):
+None

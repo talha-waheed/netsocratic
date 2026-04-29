@@ -1,0 +1,22 @@
+Routers modified: Basel, Zurich
+
+Reasoning:
+1. **Basel to 100.0.29.0/24 (London)**: 
+   - Required 2 equal-cost paths.
+   - Paths through Basel to London can be:
+     - Basel → Strasbourg → Frankfurt → London (cost = 3)
+     - Basel → Geneva → London (cost = 2)
+   - Set cost 1 on the direct path to London via Geneva, and cost 1 on the path through Strasbourg to allow for load balancing.
+
+2. **Zurich to 100.0.1.0/24 (Kiev)**:
+   - Required 3 equal-cost paths.
+   - Possible paths:
+     - Zurich → Geneva → Lyon → Paris → Frankfurt → Warsaw → Kiev (cost = 6)
+     - Zurich → Geneva → Lyon → Paris → Frankfurt → Bucharest → Kiev (cost = 6)
+     - Zurich → Geneva → Lyon → Paris → Frankfurt → Warsaw → Kiev (cost = 6)
+   - Set cost 1 on all paths through Geneva to ensure they are equal cost and allow for load balancing.
+
+3. All other routers remain unchanged, maintaining their base cost of 1.
+
+Limitations (if any):
+None

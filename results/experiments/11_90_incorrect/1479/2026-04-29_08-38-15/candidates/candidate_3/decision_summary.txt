@@ -1,0 +1,20 @@
+Routers modified: rotterdam, praha, basel
+
+Reasoning:
+1. **Rotterdam** must reach `100.0.1.0/24` via `Kiev`.
+   - All paths through Kiev must have lower total costs than bypass paths.
+   - Set cost on `Fa0/0` (to bypass Kiev) to 1000. Kept `Fa1/0` and `Fa0/1` at cost 1.
+   - Result: `Rotterdam → Kiev → 100.0.1.0/24` (cost: 2), `Rotterdam` path through `Kiev` is preferred.
+
+2. **Praha** must reach `100.0.29.0/24` via `London`.
+   - All paths not going through London must be significantly higher cost.
+   - Set cost on `Fa1/1` (to bypass London) to 1000. Kept the path through London (`Fa0/1` to `London`) at cost 1.
+   - This ensures that `Praha` reaches `London` through `Fa0/1`.
+
+3. **Basel** must also connect to `100.0.1.0/24` via `Rotterdam`.
+   - Set cost on the bypass path (`Fa0/0`) to 1000. This means any traffic must go through `Rotterdam`.
+   - Kept `Fa1/0` and `Fa0/1` (to Strasbourg and Geneva) at cost 1.
+   - This connection structure provides paths through `Rotterdam`.
+
+Limitations (if any):
+- The network topology does not allow for additional paths for load balancing that could connect to the required destinations without overriding the mandatory waypoint constraints.

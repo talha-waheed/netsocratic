@@ -1,0 +1,8 @@
+The subnet the target subnet is reachable from milan.
+Load balance the traffic appropriately.
+sofia needs to reach the target subnet. The same connectivity requirements apply to the other subnets as well.
+Use basel as intermediate hop if available.
+Distribute traffic across available paths.
+Ensure vienna can access the target subnet. Apply the same policy to other relevant connections.
+Consider routing through basel.
+The number of paths between vienna and 100.0.4.0/24 should be 2.

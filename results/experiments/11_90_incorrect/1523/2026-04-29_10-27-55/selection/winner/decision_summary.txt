@@ -1,0 +1,31 @@
+Routers modified: Luxembourg, Basel, Rotterdam
+
+Reasoning:
+1. Luxembourg must reach 100.0.29.0/24 (London) via London (mandatory waypoint).
+   - Current paths: Luxembourg → Brussels → London or Luxembourg → Strasbourg → Frankfurt → London.
+   - Set cost to 1000 on the bypass path (Brussels) to enforce the waypoint.
+   - Set cost to 1 on the path through London.
+
+2. Luxembourg requires 2 equal-cost paths to 100.0.29.0/24.
+   - With the cost set to 1 for the path through London and 1000 for the bypass, we can create two paths:
+     - Luxembourg → Brussels → London
+     - Luxembourg → Strasbourg → Frankfurt → London
+   - Both paths can be adjusted to have the same total cost.
+
+3. Basel must reach 100.0.9.0/24 (Rotterdam) via Rotterdam (mandatory waypoint).
+   - Current paths: Basel → Strasbourg → Frankfurt → Rotterdam or Basel → Geneva → Zurich → Rotterdam.
+   - Set cost to 1000 on the bypass path (Strasbourg) to enforce the waypoint.
+   - Set cost to 1 on the path through Rotterdam.
+
+4. Basel requires 2 equal-cost paths to 100.0.9.0/24.
+   - With the cost set to 1 for the path through Rotterdam and 1000 for the bypass, we can create two paths:
+     - Basel → Strasbourg → Rotterdam
+     - Basel → Geneva → Zurich → Rotterdam
+   - Both paths can be adjusted to have the same total cost.
+
+5. Strasbourg must reach 100.0.4.0/24 (Basel) via Basel (mandatory waypoint).
+   - Set cost to 1000 on the bypass path to enforce the waypoint.
+   - The path through Basel remains at cost 1.
+
+Limitations (if any):
+None

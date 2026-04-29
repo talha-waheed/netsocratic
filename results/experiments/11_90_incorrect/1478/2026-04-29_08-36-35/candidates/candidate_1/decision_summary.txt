@@ -1,0 +1,21 @@
+Routers modified: Brussels, Warsaw
+
+Reasoning:
+1. **Brussels to 100.0.1.0/24**: 
+   - Required paths: 4.
+   - Identify paths: 
+     - Path 1: Brussels → Frankfurt → Warsaw → Kiev → 100.0.1.0/24
+     - Path 2: Brussels → Frankfurt → Warsaw → 100.0.1.0/24
+     - Path 3: Brussels → Frankfurt → 100.0.1.0/24
+     - Path 4: Brussels → Frankfurt → Paris → 100.0.1.0/24
+   - Set costs to ensure 4 paths share the same total metric.
+   - Set costs on bypass paths (Brussels to Frankfurt, Warsaw to Kiev) to 1000 to enforce the waypointing.
+
+2. **Warsaw to 100.0.1.0/24**:
+   - Required paths: 1.
+   - Identify paths: 
+     - Path 1: Warsaw → Kiev → 100.0.1.0/24
+   - Set costs on bypass paths to 1000 to ensure traffic prefers the route through Kiev.
+
+Limitations (if any):
+None

@@ -1,0 +1,24 @@
+Connectivity from athens to the destination network is established.
+To reach the destination network from athens, traffic is balanced on 2 paths.
+Connectivity from paris to 100.0.4.0/24 is established.
+Traffic from paris to 100.0.4.0/24 passes through basel.
+Load balance the traffic appropriately.
+The subnet that network is reachable from roma.
+Preferably route via rotterdam.
+Connectivity from marseille to the remote network is established.
+Routing traffic between marseille and the remote network goes via kiev.
+Distribute traffic across available paths.
+Connect frankfurt to the target subnet.
+To reach the target subnet from frankfurt, traffic is directed through kiev.
+Apply similar rules to this flow.
+100.0.29.0/24 is accessible from zurich.
+Route through london if possible.
+Use multiple paths for reliability.
+Traffic originating from praha can reach the subnet the target subnet
+Traffic from praha to 100.0.1.0/24 passes through kiev.
+The number of paths between praha and 100.0.1.0/24 should be 2.
+Traffic originating from lyon can reach the subnet 100.0.1.0/24.
+Use multiple paths for reliability.
+The subnet 100.0.4.0/24 is reachable from istanbul.
+Traffic from istanbul to 100.0.4.0/24 passes through basel.
+Distribute traffic across available paths.

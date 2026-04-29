@@ -1,0 +1,7 @@
+Round 1 — Q&A
+
+Q: What is the exact router hostname you are referring to when you mention "routing through london"? (Why: impact on waypointing)
+A: The routing through London refers to the waypoint for the Amsterdam reachability, specifically for the network 100.0.29.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from istanbul should reach? (Why: impact on reachability)
+A: The exact destination subnet that traffic from Istanbul should reach is 100.0.1.0/24.

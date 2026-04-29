@@ -1,0 +1,16 @@
+Routers modified: Amsterdam, Athens, Brussels, Frankfurt, Kiev, Milan, Paris, Praha, Rotterdam, Zagreb
+
+Reasoning:
+1. **Amsterdam**: Traffic to 100.0.4.0/24 (Paris) must go via Basel. Set costs to 1000 on bypass paths to Basel from Amsterdam.
+2. **Athens**: Traffic to 100.0.1.0/24 must go via Kiev. Set costs to 1000 on bypass paths to Kiev from Athens.
+3. **Brussels**: Traffic to 100.0.4.0/24 must go via Basel from Paris. Set costs to 1000 on bypass paths to Basel from Brussels.
+4. **Frankfurt**: Traffic to 100.0.1.0/24 must go via Kiev. Set costs to 1000 on bypass paths to Kiev from Frankfurt.
+5. **Kiev**: Traffic to 100.0.4.0/24 must go via Basel from Istanbul. Set costs to 1000 on bypass paths to Basel from Kiev.
+6. **Milan**: Traffic to 100.0.9.0/24 must preferentially go via Rotterdam. Set costs to 1000 on bypass paths to Rotterdam from Milan.
+7. **Paris**: Traffic to 100.0.4.0/24 must go via Basel. Set costs to 1000 on bypass paths to Basel from Paris.
+8. **Praha**: Traffic to 100.0.1.0/24 must go via Kiev. Set costs to 1000 on bypass paths to Kiev from Praha.
+9. **Rotterdam**: Traffic to 100.0.9.0/24 must go via Amsterdam. Set costs to 1000 on bypass paths to Amsterdam from Rotterdam.
+10. **Zagreb**: Traffic to 100.0.1.0/24 must go via Kiev. Set costs to 1000 on bypass paths to Kiev from Zagreb.
+
+Limitations (if any):
+None

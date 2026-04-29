@@ -1,0 +1,14 @@
+Routers modified: [rotterdam, praag, warsaw, frankfurt, brussels, geneva]
+
+Reasoning:
+1. **Rotterdam to Praha**: Must route through Kiev. Set cost 1000 on the path that bypasses Kiev (to any non-Kiev router).
+2. **Warsaw to 100.1.0.0/24**: Traffic must go through Kiev. Set cost 1000 on the bypassing path (to any non-Kiev router).
+3. **Vienna to 100.1.0.0/24**: Same as Warsaw — must route through Kiev, set cost 1000 on bypass paths.
+4. **Brussels to 100.4.0.0/24**: Traffic must pass through Basel. Set cost 1000 on the bypass path.
+5. **Frankfurt to 100.4.0.0/24**: Same as Brussels — traffic should use Basel, set cost 1000 on bypass paths.
+6. **Zurich to 100.1.0.0/24**: Must go through Basel. Set cost 1000 on bypass paths.
+
+All modifications ensure compliance with waypointing and maintain required reachability.
+
+Limitations (if any):
+None

@@ -1,0 +1,24 @@
+Routers modified: [Budapest, Praha, Roma]
+
+Reasoning:
+1. **Reachability** requirements have been satisfied for:
+   - Budapest to 100.0.1.0/24 (via Kiev) and to 100.0.4.0/24 (via Basel).
+   - Praha to 100.0.9.0/24 (via Rotterdam).
+   - Roma to 100.0.1.0/24 (via Kiev).
+
+2. **Waypointing** implemented:
+   - Budapest to 100.0.1.0/24 must pass through Kiev.
+   - Prague to 100.0.9.0/24 must pass through Rotterdam.
+   - Budapest to 100.0.4.0/24 must pass through Basel.
+   - Set costs to 1000 on all paths that bypass the mandatory waypoint and kept the cost through the waypoint at 1.
+
+3. **Load Balancing** specified:
+   - Budapest to 100.0.4.0/24: Required 4 ECMP paths. Implemented appropriate path costs to achieve this (4 paths totaling to the same minimal cost).
+   - Roma to 100.0.1.0/24: Required 2 ECMP paths. Implemented with suitable costs.
+   - Praha to 100.0.9.0/24: Required 2 ECMP paths. Appropriate path costs adjusted.
+
+4. The configurations are efficient while satisfying reachability, waypointing, and load balancing constraints.
+
+
+Limitations (if any):
+None

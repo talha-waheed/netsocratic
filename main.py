@@ -82,6 +82,16 @@ def build_arg_parser() -> argparse.ArgumentParser:
         help="Directory containing diff_analysis.py / diff_advanced.py (default: batfish).",
     )
     p.add_argument(
+        "--batfish-container",
+        default="batfish",
+        help="Docker container name to start if Batfish is unavailable (default: batfish).",
+    )
+    p.add_argument(
+        "--no-auto-start-batfish",
+        action="store_true",
+        help="Do not automatically run 'docker start <container>' when Batfish is down.",
+    )
+    p.add_argument(
         "--max-recovery-rounds",
         type=int,
         default=2,
@@ -218,6 +228,8 @@ def main() -> None:
             batfish_script_dir=args.batfish_script_dir,
             kb_dir=args.kb_dir,
             topo_dir=args.topo_dir,
+            auto_start_batfish=not args.no_auto_start_batfish,
+            batfish_container=args.batfish_container,
             dry_run=args.dry_run,
         )
 

@@ -1,0 +1,19 @@
+Routers modified: Brussels, Rotterdam
+
+Reasoning:
+1. **Brussels to 100.0.9.0/24**: 
+   - Required to load balance across 3 paths.
+   - All paths through Brussels have a cost of 1, allowing for equal-cost paths to 100.0.9.0/24.
+   - No paths are blocked, allowing for flexibility in routing.
+
+2. **Rotterdam to 100.0.1.0/24**:
+   - Required to load balance across 4 paths.
+   - Set costs to 1 for all paths through Rotterdam, ensuring they are preferred but not blocked.
+   - All other paths are kept at cost 1 to allow for load balancing.
+
+3. **Waypointing**: No mandatory waypointing was specified, hence no costs were set to 1000. All paths remain available.
+
+4. **Load Balancing**: Ensured that the specified number of paths (3 for Brussels and 4 for Rotterdam) can be achieved with the modified costs.
+
+Limitations (if any):
+None

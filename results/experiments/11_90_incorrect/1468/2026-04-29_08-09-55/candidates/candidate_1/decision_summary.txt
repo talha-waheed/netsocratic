@@ -1,0 +1,12 @@
+Routers modified: Amsterdam, Brussels, Basel, Milan, Rotterdam, Warsaw
+
+Reasoning:
+1. **Amsterdam to 100.0.1.0/24**: Required 2 paths. Set costs on interfaces leading to Rotterdam and Kiev to 1, allowing two equal-cost paths.
+2. **Brussels to 100.0.9.0/24**: Traffic must go through Rotterdam. Set costs on the path to Rotterdam to 1, allowing access while keeping other paths available.
+3. **Basel for Athens and Bucharest**: Traffic from both must go through Basel to reach 100.0.4.0/24. Set costs to 1 on paths leading to Basel.
+4. **Milan to 100.0.29.0/24**: Traffic must go through London. Set costs on the path to London to 1.
+5. **Rotterdam to 100.0.1.0/24**: Traffic must go through Kiev when feasible. Set costs on the path to Kiev to 1.
+6. **Warsaw to 100.0.9.0/24**: Traffic must go through Rotterdam. Set costs on the path to Rotterdam to 1.
+
+Limitations (if any):
+None

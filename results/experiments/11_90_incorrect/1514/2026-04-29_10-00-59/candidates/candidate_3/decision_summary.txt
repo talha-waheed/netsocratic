@@ -1,0 +1,33 @@
+Routers modified: Rotterdam, Amsterdam, Marseille, Frankfurt, Budapest, Prague, Zagreb, Athens
+
+Reasoning:
+1. **Rotterdam to 100.0.9.0/24 (Marseille)**:
+   - Need to ensure traffic from Rotterdam to Marseille includes the waypoint of Rotterdam.
+   - Set `Fa0/1` cost from Rotterdam to Amsterdam to 1000 to prevent the bypass.
+   - Keeping `Fa1/0` cost to Marseille as 1 allows traffic through.
+
+2. **Amsterdam to 100.0.9.0/24 (Marseille)**:
+   - Control paths from Amsterdam to Marseille to go through Rotterdam.
+   - Set `Fa2/0` cost to 1000 to enforce waypointing.
+
+3. **Marseille to 100.0.9.0/24 (Rotterdam)**:
+   - Set `Fa0/1` cost to 1000 (bypass to Rotterdam) and `Fa1/1` (toward Rotterdam) to 1.
+
+4. **Frankfurt to 100.0.1.0/24 (Kiev)**:
+   - Basic requirement through London must be controlled with cost adjustments.
+   - Setting `Fa1/0` cost to 1000 on bypass path towards Kiev prevents an alternate route being chosen, ensuring traffic goes via London.
+
+5. **Budapest to 100.0.1.0/24 (Kiev)**:
+   - To fulfill requirement through Kiev with mandatory waypointing, `Fa0/1` is set to 1000 while `Fa1/1` remains at 1.
+
+6. **Prague to 100.0.4.0/24 (Bratislava)**:
+   - Traffic must go through Basel, thus setting costs on all bypass paths to 1000, while the route through Basel is allowed due to 1 cost.
+
+7. **Zagreb to 100.0.9.0/24 (Marseille)**:
+   - Traffic control requires cost 1000 to Budapest to guarantee compliance with waypoint routing rules.
+
+8. **Athens to 100.0.9.0/24 (Rotterdam)**:
+   - Path must prefer routing through Rotterdam, hence, costs are adjusted similarly to Zagreb.
+
+Limitations (if any):
+None

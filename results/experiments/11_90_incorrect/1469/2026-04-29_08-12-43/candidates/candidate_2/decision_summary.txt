@@ -1,0 +1,17 @@
+Routers modified: Luxembourg, Prague, Budapest, Barcelona
+
+Reasoning:
+1. For Luxembourg to reach 100.0.4.0/24 through Basel (mandatory waypoint):
+   - Set costs to 1 for the link to Basel (Fa1/1) and 1000 for the bypass paths to Brussels and Strasbourg.
+
+2. For Prague to reach 100.0.4.0/24 through Basel (mandatory waypoint):
+   - Set costs to 1 for the links to Basel (Fa1/1 and Fa1/0) and 1000 for the bypass path to Warsaw.
+
+3. For Budapest to reach 100.0.29.0/24 through Basel (mandatory waypoint):
+   - Set costs to 1 for the link to Basel (Fa1/1) and 1000 for the bypass path to Bucharest.
+
+4. For Barcelona to reach 100.0.1.0/24 through Kiev (mandatory waypoint):
+   - Set costs to 1 for the link to Sofia (Fa1/0) and 1000 for the bypass path leading to Madrid.
+
+Limitations (if any):
+None

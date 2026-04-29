@@ -1,0 +1,13 @@
+{
+  "reachability": {
+    "rotterdam": ["100.0.1.0/24"],
+    "sofia": ["100.0.29.0/24"],
+    "vienna": ["100.0.29.0/24"]
+  },
+  "waypoint": {
+    "(vienna,100.0.29.0/24)": ["london"]
+  },
+  "loadbalancing": {
+    "(sofia,100.0.29.0/24)": 11
+  }
+}

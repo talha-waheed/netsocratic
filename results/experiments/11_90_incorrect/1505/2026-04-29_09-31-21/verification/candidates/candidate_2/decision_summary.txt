@@ -1,0 +1,18 @@
+Routers modified: Amsterdam, Luxembourg, Athens
+
+Reasoning:
+1. **Amsterdam** needs to reach `100.0.1.0/24` via `Kiev`. Thus, the cost for interfaces leading to `Kiev` must be low (1), while costs to other routes must be high (1000).
+   - Preferred routes: Amsterdam → Frankfurt → Luxembourg → Warsaw → Kiev (total cost = 4).
+   - Other routes (via Brussels, London, etc.) must be set to 1000 to enforce the waypointing through Kiev.
+   - This results in 2 paths to `100.0.1.0/24` with equal cost.
+   
+2. **Luxembourg** must reach `100.0.29.0/24` via `London`. Therefore, the cost to London must be low (1) and all bypass paths (through Frankfurt, etc.) need to be high (1000).
+   - The routes through London will total a cost of 2.
+   - This allows for 2 equal-cost paths to `100.0.29.0/24`.
+
+3. **Athens** requires to reach `100.0.4.0/24` through `Basel`. Here, we need to ensure paths going through Basel have a lower cost (1) while all bypass paths must have a high cost (1000).
+   - The paths through Basel provide the required reachability.
+   - Setting the cost to Basel and the required path will ensure 2 equal-cost paths.
+
+Limitations (if any):
+None

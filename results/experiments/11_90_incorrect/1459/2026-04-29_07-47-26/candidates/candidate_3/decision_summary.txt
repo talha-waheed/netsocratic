@@ -1,0 +1,12 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Geneva, Lyon, Roma
+
+Reasoning:
+1. Traffic from Budapest to 100.0.29.0/24 must go through London, which requires the setting of high costs (1000) on any alternative paths from Budapest, and associated adjustments through intermediate routers (e.g. Amsterdam) that could lead to London.
+2. Similar mandatory waypoint routing applied for Frankfurt to 100.0.9.0/24, which must also go through Rotterdam. 
+3. For Geneva reaching 100.0.1.0/24 via Kiev, the costs for routers on bypass paths were set to 1000 to enforce that traffic must go to Kyiv before being forwarded to the destination.
+4. Lyon's path to 100.0.9.0/24 is enforced to cross Rotterdam, hence the bypassing paths were also assigned a high cost.
+5. Rome accessing 100.0.29.0/24 through London required setting other paths' costs high enough to prioritize the London route.
+6. The configuration reflects both mandatory waypoints and load balancing requirements, with costs adjusted to meet the specified number of equal-cost paths where applicable.
+
+Limitations (if any):
+Among the paths for Budapest and Rotterdam, the load balancing count could not exceed 2 due to topology limitations; the network configuration only supports those specific connections thus used the highest priority routes.

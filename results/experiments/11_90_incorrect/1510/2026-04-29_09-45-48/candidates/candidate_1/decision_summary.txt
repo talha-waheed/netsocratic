@@ -1,0 +1,24 @@
+Routers modified: Geneva, Frankfurt, Luxembourg
+
+Reasoning:
+1. **Geneva to 100.0.1.0/24**: Needs 5 equal-cost paths. 
+   - Paths available: 
+     - Geneva → Lyon → Paris → London → Kiev → 100.0.1.0/24
+     - Geneva → Lyon → Marseille → Istanbul → Bucharest → 100.0.1.0/24
+     - Geneva → Basel → Frankfurt → Warsaw → Kiev → 100.0.1.0/24
+     - Geneva → Basel → Frankfurt → Bucharest → 100.0.1.0/24
+     - Geneva → Basel → Frankfurt → Warsaw → 100.0.1.0/24
+   - Set costs on Geneva's outgoing interfaces to ensure these paths are equal cost (1).
+
+2. **Frankfurt to 100.0.9.0/24**: Needs 2 equal-cost paths.
+   - Paths available:
+     - Frankfurt → Rotterdam → 100.0.9.0/24
+     - Frankfurt → Brussels → 100.0.9.0/24
+   - Set costs on Frankfurt's outgoing interfaces to ensure these paths are equal cost (1).
+
+3. **Luxembourg to 100.0.4.0/24**: Needs connectivity.
+   - Path available: Luxembourg → Brussels → Basel → 100.0.4.0/24
+   - Set cost on Luxembourg's outgoing interface to ensure this path is preferred (1).
+
+Limitations (if any):
+None

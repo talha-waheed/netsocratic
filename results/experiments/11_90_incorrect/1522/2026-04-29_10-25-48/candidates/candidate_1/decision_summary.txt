@@ -1,0 +1,24 @@
+Routers modified: Rotterdam, Sofia, Vienna
+
+Reasoning:
+1. **Reachability**: 
+   - Rotterdam must reach 100.0.1.0/24 (not directly specified in the rules, but assumed to be part of the topology).
+   - Sofia must reach 100.0.29.0/24, which is reachable via London.
+   - Vienna must also reach 100.0.29.0/24, which is reachable via London.
+
+2. **Waypointing**: 
+   - No specific waypointing is required in the rules, so we do not enforce any mandatory waypoints.
+
+3. **Load Balancing**:
+   - Sofia must load balance across 11 paths to 100.0.29.0/24. 
+   - To achieve this, we need to ensure that Sofia has multiple paths to London. 
+   - We set costs on the paths from Sofia to other routers (Budapest, Athens) to ensure they are lower than any bypass paths to London.
+   - We set costs on the paths from Rotterdam and Vienna to London to 1000 to prevent them from being used, ensuring that traffic from Sofia to London is preferred.
+
+4. **Cost Adjustments**:
+   - For Rotterdam, we set the costs of the paths to London and other routers to 1000 to block those paths.
+   - For Sofia, we keep the costs low to ensure multiple paths can be utilized to reach London.
+   - For Vienna, we also set the costs to 1000 to ensure it does not bypass London.
+
+Limitations (if any):
+None

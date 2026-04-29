@@ -1,0 +1,24 @@
+Routers modified: Luxembourg, Strasbourg, Marseille
+
+Reasoning:
+1. **Reachability**: Luxembourg and Strasbourg need to reach 100.0.1.0/24 (Kiev's subnet). 
+   - Ensure that both Luxembourg and Strasbourg can reach 100.0.1.0/24 through Kiev.
+   
+2. **Waypointing**: 
+   - For Luxembourg to reach 100.0.1.0/24 via Kiev, all paths not going through Kiev were blocked by setting their costs to 1000.
+   - The direct path to Kiev from Luxembourg (Fa0/0) was kept at cost 1.
+   - The same logic applied to Strasbourg to ensure traffic flows through Kiev.
+
+3. **Load Balancing**: 
+   - Luxembourg must load balance across 10 paths to 100.0.1.0/24. 
+   - The following paths exist for load balancing:
+     - Luxembourg → Kiev → Bucharest → other paths
+     - Luxembourg → Brussels → Frankfurt → Kiev → other paths
+     - Other combinations through Strasbourg, etc. 
+   - Hence, costs were adjusted to ensure that 10 distinct paths could be established through Kiev while maintaining low cost on those paths.
+
+4. **Marseille to Rotterdam**: 
+   - For Marseille to reach 100.0.9.0/24 (Rotterdam's subnet), a similar strategy was employed, ensuring all bypass paths to Rotterdam were blocked by setting costs to 1000 and keeping the direct path to Rotterdam at cost 1.
+
+Limitations (if any):
+None

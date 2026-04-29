@@ -1,0 +1,25 @@
+Routers modified: geneva, frankfurt, luxembourg
+
+Reasoning:
+1. Geneva must connect to 100.0.1.0/24 and 100.0.4.0/24, preferring routes via Kiev and Basel. 
+   - For 100.0.1.0/24, we need 5 equal-cost paths. The paths through:
+     - Geneva → Basel → Strasbourg → Frankfurt → Kiev
+     - Geneva → Basel → Luxembourg → Frankfurt → Kiev
+     - Geneva → Basel → Luxembourg → Frankfurt → Warsaw
+     - Geneva → Basel → Strasbourg → Frankfurt → Warsaw
+     - Geneva → Kiev → Bucharest → Frankfurt → Warsaw
+   - The cost to Basel and Kiev is set to 1, while any paths that do not go through these waypoints are set to 1000.
+   
+2. Frankfurt must reach 100.0.9.0/24 through Rotterdam.
+   - The valid paths are:
+     - Frankfurt → Rotterdam
+     - Frankfurt → Brussels → Rotterdam
+   - We set the cost to Rotterdam to 1 and the bypass cost to 1000.
+
+3. Luxembourg must connect to 100.0.4.0/24 via Basel.
+   - The only valid path is Luxembourg → Basel → Frankfurt. Any bypass costs need to be set to 1000.
+
+4. The modifications ensure that all paths conform to the waypointing and load balancing requirements.
+
+Limitations (if any):
+None

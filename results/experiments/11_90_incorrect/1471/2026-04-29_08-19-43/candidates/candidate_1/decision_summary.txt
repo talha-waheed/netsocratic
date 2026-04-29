@@ -1,0 +1,12 @@
+Routers modified: Basel, Frankfurt, Madrid, Rotterdam
+
+Reasoning:
+1. **Basel** needs to facilitate traffic to 100.0.1.0/24 from various routers, including Frankfurt and Madrid. The cost on Fa1/0 and Fa0/1 is set to 1 to allow preferred paths through Basel.
+2. **Frankfurt** must connect to 100.0.4.0/24 via Basel. The costs on Fa1/0 and Fa1/1 are set to 1 to ensure traffic can flow through Basel effectively.
+3. **Madrid** needs to reach 100.0.4.0/24 and should do so through Basel. The costs on Fa1/0 and Fa0/1 are set to 1 to enable this path.
+4. **Rotterdam** must connect to the main subnet (100.0.4.0/24) and facilitate load balancing across 4 paths. The costs on Fa0/1 and Fa1/0 are set to 1 to ensure this connectivity.
+
+Load balancing is achieved by ensuring that the paths through Basel, Frankfurt, and Madrid all have the same total cost, allowing for redundancy and fault tolerance.
+
+Limitations (if any):
+None

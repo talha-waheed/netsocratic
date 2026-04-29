@@ -1,0 +1,1 @@
+Ensure connectivity between roma and 100.0.9.0/24. Routing traffic between roma and 100.0.9.0/24 goes via rotterdam. Distribute traffic across 3 available paths. Connect zurich to 100.0.1.0/24. Route through kiev if possible. The same routing applies here. Connect basel to 100.0.29.0/24. Load balance the traffic across 2 paths for basel and 3 paths for zurich.

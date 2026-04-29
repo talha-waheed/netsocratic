@@ -1,0 +1,20 @@
+{
+  "reachability": {
+    "milan": ["100.0.9.0/24"],
+    "sofia": ["100.0.4.0/24"],
+    "london": ["remote network"],
+    "madrid": ["100.0.4.0/24"],
+    "luxembourg": ["100.0.9.0/24"],
+    "bucharest": ["remote network"],
+    "brussels": ["100.0.4.0/24"]
+  },
+  "waypoint": {
+    "(sofia,100.0.4.0/24)": ["basel"],
+    "(london,remote network)": ["kiev"],
+    "(basel,remote network)": ["kiev"]
+  },
+  "loadbalancing": {
+    "(sofia,100.0.4.0/24)": 4,
+    "(bucharest,remote network)": 3
+  }
+}

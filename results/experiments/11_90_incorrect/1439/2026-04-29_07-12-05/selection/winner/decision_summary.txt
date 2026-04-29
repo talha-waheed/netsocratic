@@ -1,0 +1,28 @@
+Routers modified: Frankfurt, London, Madrid
+
+Reasoning:
+1. **Praha to 100.0.29.0/24 (London)**:
+   - Required to pass through London.
+   - Paths: 
+     - Praha → Frankfurt → London (cost 2)
+     - Praha → Bratislava → Frankfurt → London (cost 3)
+     - Praha → Bratislava → Vienna → Frankfurt → London (cost 4)
+   - To enforce the waypoint, set costs on non-London paths to 1000.
+   - Adjusted costs to ensure 3 equal-cost paths through London:
+     - Set costs on Frankfurt and London interfaces to 1000 for bypass paths.
+     - Kept the path through London at cost 2.
+
+2. **Madrid to 100.0.9.0/24 (Rotterdam)**:
+   - Required to pass through Rotterdam.
+   - Paths:
+     - Madrid → Paris → Rotterdam (cost 2)
+     - Madrid → Barcelona → Rotterdam (cost 2)
+   - To enforce the waypoint, set costs on non-Rotterdam paths to 1000.
+   - Adjusted costs to ensure 2 equal-cost paths through Rotterdam:
+     - Set costs on Madrid's bypass paths to 1000.
+
+3. **Barcelona to 100.0.9.0/24**:
+   - Barcelona can reach 100.0.9.0/24 through Rotterdam, but no changes needed as it does not affect the routing policy.
+
+Limitations (if any):
+None

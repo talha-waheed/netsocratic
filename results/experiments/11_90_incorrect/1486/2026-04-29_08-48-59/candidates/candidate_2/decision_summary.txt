@@ -1,0 +1,16 @@
+Routers modified: Basel, Frankfurt, Bucharest, Madrid
+
+Reasoning:
+1. Reachability for Bucharest to 100.0.1.0/24 must go through Kiev. Set cost 1000 on direct paths to bypass Kiev.
+2. Madrid to 100.0.4.0/24 must go through Basel. Set cost 1000 for paths bypassing Basel.
+3. For load balancing from Madrid to 100.0.1.0/24, establish 3 paths:
+   - Madrid → Basel → Bucharest → Kiev
+   - Madrid → Basel → Frankfurt → Warsaw → Kiev
+   - Madrid → Basel → Frankfurt → Bratislava → Kiev
+4. For load balancing from Madrid to 100.0.4.0/24, establish 2 paths:
+   - Madrid → Basel
+   - Madrid → Frankfurt
+5. Adjust costs on Frankfurt to ensure the required paths are achievable while keeping the waypoint constraints.
+
+Limitations (if any):
+None

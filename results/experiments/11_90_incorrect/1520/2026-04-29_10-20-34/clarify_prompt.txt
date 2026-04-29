@@ -1,0 +1,326 @@
+=== CLARIFY AGENT — SYSTEM PROMPT ===
+
+You are Clarify Agent. Your job is to fill in concrete facts that are missing from the
+intent. You do NOT interpret ambiguous language — the Generator Agent will explore
+different valid interpretations of the same phrase as candidate configurations.
+
+## What you must resolve (facts only, not interpretations)
+
+1. REACHABILITY   — exact source router name and exact destination subnet in CIDR
+                    notation (e.g. 10.0.0.0/24) for every traffic pair. Ask if a
+                    source or destination is vague: "our servers", "the remote network",
+                    "the target subnet", "the main subnet", "that network", etc.
+2. WAYPOINTING    — the exact router hostname for any waypoint that is named vaguely
+                    (e.g. "the london hub", "a transit router"). If the name is already
+                    a known router identifier (e.g. "london", "kiev"), do NOT ask.
+                    Do NOT ask whether a waypoint is mandatory or preferred — the
+                    Generator will explore both interpretations.
+3. LOAD BALANCING — an exact integer path count, but ONLY when load balancing is
+                    explicitly called for AND the count is missing or unclear (e.g.
+                    "split across N paths" with N not stated, "load-balance to X"
+                    with no count given). Do NOT ask whether vague phrases like
+                    "redundancy", "reliability", "multiple paths", or "fault tolerance"
+                    mean load balancing is intended — the Generator interprets these.
+
+## Process — think before you ask
+
+Before writing any question, silently work through these steps:
+  a. List every source→destination pair mentioned (even vaguely).
+  b. For each pair: is the source a known router name? Is the destination a concrete
+     CIDR prefix, or a vague label that needs resolution?
+  c. For any waypoint mentioned: is the router hostname concrete and unambiguous?
+  d. For any pair with an explicit load-balancing requirement: is the exact path count
+     given, or is it missing?
+  e. Combine gaps into as few questions as possible.
+  f. Write at most 5 question(s) total.
+
+## Question quality rules
+
+- Ask only about concrete missing values: CIDR prefixes, exact router hostnames,
+  explicit integer path counts when an LB requirement is clear but the count is absent.
+- Do NOT ask whether "via X", "through X", "if possible", "consider routing through X",
+  "the path includes X" means mandatory or preferred. This is an interpretation the
+  Generator explores.
+- Do NOT ask whether vague phrases ("redundancy", "multiple paths", "fault tolerance",
+  "reliability") indicate load balancing is intended. This is an interpretation the
+  Generator explores.
+- Never hint at the answer. Do not embed specific subnet values or router names in the
+  question itself.
+- Never ask about information already given in the intent or prior answers.
+
+## Example of a GOOD question vs a VAGUE one
+
+VAGUE : "What is the destination subnet?"
+GOOD  : "What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24)
+         that traffic from athens should reach?"
+
+VAGUE : "What is the waypoint?"
+GOOD  : "When you wrote 'route via the london hub', what is the exact router hostname
+         you are referring to? (e.g. 'london', 'lon-core-1')"
+
+## Output format — return ONLY this, no prose before or after
+
+Clarification Questions
+1. <question> (Why: <impact on reachability / waypointing / load-balancing>)
+2. <question> (Why: <impact>)
+
+If nothing is ambiguous, return exactly: No clarification needed.
+
+
+=== USER MESSAGE ===
+
+Original intent:
+vienna and 100.0.4.0/24. need connectivity.
+The path between vienna and 100.0.4.0/24 involves basel.
+Load balance the traffic appropriately.
+frankfurt can reach 100.0.1.0/24.
+The route from frankfurt to 100.0.1.0/24 includes kiev.
+Make sure there's redundancy.
+Connectivity from geneva to 100.0.29.0/24 is established.
+Ensure good redundancy.
+marseille needs to reach the remote network. The same connectivity requirements apply to the other subnets as well.
+Consider routing through basel.
+That traffic should be load balanced.
+Ensure sofia can access 100.0.29.0/24. Apply the same policy to other relevant connections.
+Consider routing through london.
+Ensure fault tolerance with multiple routes.
+Ensure connectivity between basel and 100.0.1.0/24.
+Traffic should go through kiev when feasible.
+Traffic from basel to 100.0.1.0/24 should be load-balanced across 2 paths.
+praha and the main subnet should be connected.
+paris should connect to 100.0.9.0/24, and similar routing should be used for related traffic.
+The route from paris to 100.0.9.0/24 includes rotterdam.
+Ensure connectivity between kiev and 100.0.9.0/24..
+The path between kiev and 100.0.9.0/24 involves rotterdam.
+roma and our servers should be connected.
+The route from roma to 100.0.9.0/24 includes rotterdam.
+The same routing applies here.
+zurich and the target subnet need connectivity.
+Distribute traffic across available paths.
+Ensure connectivity between basel and 100.0.29.0/24.
+Traffic from basel to 100.0.29.0/24 passes through london.
+Connect athens to our servers.
+Connect vienna to 100.0.9.0/24.
+The path between vienna and 100.0.9.0/24 involves rotterdam.
+Ensure fault tolerance with multiple routes.
+bratislava and the destination network should be connected.
+Traffic should go through london when feasible.
+Connectivity from brussels to 100.0.1.0/24 is established.
+To reach 100.0.1.0/24 from brussels, traffic is directed through kiev.
+Load balance the traffic appropriately.
+warsaw and the remote network should be connected.
+Consider routing through london.
+Traffic from warsaw to the remote network should be load-balanced across 2 paths.
+Traffic originating from marseille can reach the subnet 100.0.1.0/24.
+Use multiple paths for reliability.
+rotterdam can reach our servers
+Consider routing through kiev.
+The number of paths between rotterdam and 100.0.1.0/24 should be 4.
+praha and 100.0.29.0/24. need connectivity.
+Preferably route via london.
+Load balance the traffic appropriately.
+Connect basel to 100.0.9.0/24..
+Ensure fault tolerance with multiple routes.
+The subnet the destination network is reachable from brussels.
+Consider routing through basel.
+To reach the destination network from brussels, traffic is balanced on 2 paths.
+Connectivity from frankfurt to 100.0.4.0/24 is established.
+Use basel as intermediate hop if available.
+warsaw and the remote network should be connected.
+Use multiple paths for reliability.
+Ensure connectivity between vienna and our servers.
+Traffic from vienna to 100.0.1.0/24 passes through kiev.
+Make sure there's redundancy.
+Connectivity from warsaw to the target subnet is established.
+Route through basel if possible.
+Make sure there's redundancy.
+Connectivity from zurich to 100.0.4.0/24 is established.
+To reach 100.0.4.0/24 from zurich, traffic is directed through basel.
+Ensure fault tolerance with multiple routes.
+Connect sofia to the target subnet.
+Route through basel if possible.
+Connect rotterdam to the main subnet.
+Ensure good redundancy.
+barcelona needs to reach 100.0.1.0/24.. The same connectivity requirements apply to the other subnets as well.
+Routing traffic between barcelona and 100.0.1.0/24 goes via kiev.
+rotterdam needs to reach the target subnet. The same connectivity requirements apply to the other subnets as well.
+Consider routing through london.
+Ensure good redundancy.
+Ensure connectivity between bucharest and 100.0.4.0/24.
+Route through basel if possible.
+Ensure good redundancy.
+marseille and that network should be connected.
+Use london as intermediate hop if available.
+Connect amsterdam to 100.0.9.0/24.
+Consider routing through rotterdam.
+The subnet 100.0.9.0/24 is reachable from sofia.
+Routing traffic between sofia and 100.0.9.0/24 goes via rotterdam.
+The subnet the remote network is reachable from istanbul.
+Routing traffic between istanbul and the remote network goes via london.
+Distribute traffic across available paths.
+Ensure connectivity between geneva and 100.0.1.0/24.
+The route from geneva to 100.0.1.0/24 includes kiev.
+That traffic should be load balanced.
+The subnet the main subnet is reachable from luxembourg.
+The route from luxembourg to the main subnet includes basel.
+To reach the main subnet from luxembourg, traffic should be split across 4 paths.
+100.0.9.0/24 is accessible from frankfurt.
+Route through rotterdam if possible.
+Distribute traffic across available paths.
+Connectivity from bucharest to 100.0.1.0/24 is established.
+The path between bucharest and 100.0.1.0/24 involves kiev.
+Traffic originating from madrid can reach the subnet 100.0.4.0/24.
+Make sure there's redundancy.
+100.0.1.0/24 is accessible from madrid.
+Routing traffic between madrid and 100.0.1.0/24 goes via kiev.
+Traffic from madrid to 100.0.1.0/24 is evenly distributed across 3 paths.
+The subnet 100.0.1.0/24 is reachable from milan.
+The path between milan and 100.0.1.0/24 involves kiev.
+Ensure good redundancy.
+Traffic originating from strasbourg can reach the subnet that network
+The same routing applies here.
+Connectivity from geneva to the target subnet is established.
+The path between geneva and the target subnet involves basel.
+Ensure fault tolerance with multiple routes.
+Connectivity from brussels to 100.0.9.0/24 is established.
+The route from brussels to 100.0.9.0/24 includes rotterdam.
+Use multiple paths for reliability.
+The subnet 100.0.4.0/24 is reachable from amsterdam.
+Routing traffic between amsterdam and 100.0.4.0/24 goes via basel.
+warsaw needs to reach 100.0.9.0/24. The same connectivity requirements apply to the other subnets as well.
+Use rotterdam as intermediate hop if available.
+Distribute traffic across available paths.
+Ensure roma can access the destination network. Apply the same policy to other relevant connections.
+Make sure there's redundancy.
+praha and 100.0.9.0/24. need connectivity.
+The same routing applies here.
+budapest needs to reach 100.0.4.0/24.. The same connectivity requirements apply to the other subnets as well.
+Traffic should go through basel when feasible.
+Make sure there's redundancy.
+Ensure connectivity between lyon and 100.0.1.0/24.
+Ensure fault tolerance with multiple routes.
+Connectivity from kiev to our servers is established.
+Make sure there's redundancy.
+The subnet 100.0.29.0/24 is reachable from milan.
+Traffic from milan to 100.0.29.0/24 passes through london.
+Ensure good redundancy.
+lyon can reach 100.0.4.0/24.
+Routing traffic between lyon and 100.0.4.0/24 goes via basel.
+Ensure connectivity between london and 100.0.4.0/24..
+Route through basel if possible.
+To reach 100.0.4.0/24 from london, traffic is balanced on 2 paths.
+Ensure london can access the target subnet. Apply the same policy to other relevant connections.
+The path between london and the target subnet involves rotterdam.
+To reach the target subnet from london, traffic should be split across 3 paths.
+Ensure london can access the remote network. Apply the same policy to other relevant connections.
+Preferably route via kiev.
+Ensure good redundancy.
+Connectivity from madrid to the remote network is established.
+The path between madrid and the remote network involves rotterdam.
+brussels should connect to the main subnet, and similar routing should be used for related traffic.
+Use multiple paths for reliability.
+Ensure connectivity between praha and the target subnet.
+Preferably route via basel.
+Ensure lyon can access 100.0.29.0/24. Apply the same policy to other relevant connections.
+Preferably route via london.
+Distribute traffic across available paths.
+The subnet the destination network is reachable from lyon.
+Distribute traffic across available paths.
+the main subnet is accessible from barcelona.
+Routing traffic between barcelona and the main subnet goes via basel.
+Distribute traffic across available paths.
+100.0.9.0/24 is accessible from barcelona.
+Traffic from barcelona to 100.0.9.0/24 passes through rotterdam.
+budapest should connect to 100.0.29.0/24, and similar routing should be used for related traffic.
+The route from budapest to 100.0.29.0/24 includes london.
+Distribute traffic across available paths.
+Connectivity from bucharest to 100.0.29.0/24 is established.
+Consider routing through london.
+Ensure good redundancy.
+luxembourg and 100.0.9.0/24 need connectivity.
+Consider routing through rotterdam.
+Make sure there's redundancy.
+strasbourg and 100.0.1.0/24. should be connected.
+Route through kiev if possible.
+Connect vienna to 100.0.29.0/24.
+The route from vienna to 100.0.29.0/24 includes london.
+Load balance the traffic appropriately.
+Traffic originating from istanbul can reach the subnet 100.0.1.0/24.
+Routing traffic between istanbul and 100.0.1.0/24 goes via kiev.
+Ensure fault tolerance with multiple routes.
+geneva and 100.0.9.0/24 need connectivity.
+The route from geneva to 100.0.9.0/24 includes rotterdam.
+Ensure good redundancy.
+marseille should connect to the main subnet, and similar routing should be used for related traffic.
+Use rotterdam as intermediate hop if available.
+Make sure there's redundancy.
+kiev needs to reach 100.0.29.0/24. The same connectivity requirements apply to the other subnets as well.
+Consider routing through london.
+Distribute traffic across available paths.
+Ensure connectivity between paris and the main subnet.
+The path between paris and 100.0.29.0/24 involves london.
+Ensure good redundancy.
+Traffic originating from frankfurt can reach the subnet the target subnet
+Consider routing through london.
+Ensure fault tolerance with multiple routes.
+Ensure connectivity between istanbul and 100.0.9.0/24..
+Route through rotterdam if possible.
+our servers is accessible from budapest.
+Routing traffic between budapest and our servers goes via kiev.
+Traffic from budapest to our servers should be load-balanced across 2 paths.
+Connect athens to 100.0.9.0/24.
+The route from athens to 100.0.9.0/24 includes rotterdam.
+Traffic from athens to 100.0.9.0/24 is evenly distributed across 2 paths.
+Ensure connectivity between bratislava and the target subnet.
+Consider routing through basel.
+Distribute traffic across available paths.
+roma and 100.0.29.0/24 need connectivity.
+the main subnet is accessible from budapest.
+Consider routing through rotterdam.
+Ensure fault tolerance with multiple routes.
+The subnet 100.0.29.0/24 is reachable from amsterdam.
+Preferably route via london.
+It should also have redundancy.
+sofia should connect to the remote network, and similar routing should be used for related traffic.
+The number of paths between sofia and the remote network should be 2.
+100.0.4.0/24 is accessible from paris.
+To reach 100.0.4.0/24 from paris, traffic is directed through basel.
+To reach 100.0.4.0/24 from paris, traffic should be split across 2 paths.
+zurich and 100.0.29.0/24. need connectivity.
+The number of paths between zurich and 100.0.29.0/24 should be 5.
+Connectivity from madrid to the remote network is established.
+Use multiple paths for reliability.
+bratislava should connect to 100.0.9.0/24., and similar routing should be used for related traffic.
+Ensure fault tolerance with multiple routes.
+the target subnet is accessible from luxembourg.
+To reach the target subnet from luxembourg, traffic is directed through kiev.
+The same routing applies here.
+Connectivity from strasbourg to 100.0.4.0/24 is established.
+Route through basel if possible.
+Use multiple paths for reliability.
+Ensure connectivity between bratislava and 100.0.1.0/24.
+Traffic should go through kiev when feasible.
+Distribute traffic across available paths.
+Traffic originating from milan can reach the subnet 100.0.4.0/24.
+Route through basel if possible.
+Ensure fault tolerance with multiple routes.
+100.0.4.0/24 is accessible from istanbul.
+Route through basel if possible.
+Ensure fault tolerance with multiple routes.
+Traffic originating from bucharest can reach the subnet the remote network
+Traffic from bucharest to 100.0.9.0/24 passes through rotterdam.
+paris can reach 100.0.1.0/24.
+Route through kiev if possible.
+The same routing applies here.
+barcelona and 100.0.29.0/24. should be connected.
+Route through london if possible.
+Traffic from barcelona to 100.0.29.0/24 should be load-balanced across 2 paths.
+Connect amsterdam to that network.
+Use kiev as intermediate hop if available.
+Ensure good redundancy.
+Traffic originating from luxembourg can reach the subnet 100.0.29.0/24.
+Route through london if possible.
+Load balance the traffic appropriately.
+Ensure athens can access 100.0.4.0/24. Apply the same policy to other relevant connections.
+Traffic from athens to 100.0.4.0/24 passes through basel.
+To reach 100.0.4.0/24 from athens, traffic is balanced on 2 paths.

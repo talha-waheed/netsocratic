@@ -1,0 +1,22 @@
+Routers modified: Basel, Frankfurt, Kiev
+
+Reasoning:
+1. **Reachability**: 
+   - Vienna must reach 100.0.4.0/24 (Basel's subnet). This is satisfied by the base OSPF configuration.
+   - Frankfurt must reach 100.0.1.0/24 (Kiev's subnet). This is satisfied by the base OSPF configuration.
+   - Geneva must reach 100.0.29.0/24 (London's subnet). This is satisfied by the base OSPF configuration.
+
+2. **Waypointing**:
+   - Traffic from Vienna to 100.0.4.0/24 must pass through Basel. To enforce this, we set the cost of the link from Vienna to any bypassing path to Basel to a high value (1000).
+   - Traffic from Frankfurt to 100.0.1.0/24 must pass through Kiev. To enforce this, we set the cost of the link from Frankfurt to any bypassing path to Kiev to a high value (1000).
+
+3. **Load Balancing**:
+   - Traffic from Frankfurt to 100.0.1.0/24 must be load-balanced across exactly 2 equal-cost paths. We ensure that the paths through Kiev have the same total cost by adjusting the costs accordingly.
+
+4. **Final Configuration**:
+   - Basel's costs remain low to allow traffic from Vienna to pass through.
+   - Frankfurt's costs to Kiev are set high to enforce the waypoint.
+   - Kiev's costs to bypass paths are set high to enforce the waypoint.
+
+Limitations (if any):
+None

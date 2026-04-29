@@ -1,0 +1,13 @@
+{
+  "reachability": {
+    "brussels": ["100.0.9.0/24"],
+    "warsaw": ["100.0.9.0/24"]
+  },
+  "waypoint": {
+    "(brussels,100.0.9.0/24)": ["rotterdam"]
+  },
+  "loadbalancing": {
+    "(brussels,100.0.9.0/24)": 3,
+    "(warsaw,100.0.9.0/24)": 2
+  }
+}

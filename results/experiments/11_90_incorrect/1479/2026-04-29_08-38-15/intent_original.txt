@@ -1,0 +1,9 @@
+Connect rotterdam to the destination network.
+Traffic from rotterdam to the destination network passes through kiev.
+Use multiple paths for reliability.
+Ensure connectivity between praha and the destination network.
+The route from praha to the destination network includes london.
+The number of paths between praha and the destination network should be 3.
+basel and the main subnet need connectivity.
+Route through rotterdam if possible.
+Ensure fault tolerance with multiple routes.

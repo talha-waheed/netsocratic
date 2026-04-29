@@ -1,0 +1,24 @@
+Routers modified: ['Amsterdam', 'Barcelona', 'Budapest', 'Frankfurt']
+
+Reasoning:
+1. **Reachability Enforcement**:
+   - Barcelona needs to connect to 100.0.9.0/24 (Amsterdam). A mandatory waypoint through Basel is required.
+   - Budapest needs to reach 100.0.29.0/24 (London), which is also a mandatory waypoint.
+
+2. **Path Calculation**:
+   - For Budapest to reach London through three distinct paths:
+     - Path 1: Budapest → Sofia → Bucharest → Frankfurt → London
+     - Path 2: Budapest → Bratislava → Vienna → Frankfurt → London
+     - Path 3: Budapest → Zagreb → Ljubljana → Milan → Frankfurt → London
+   - Ensured each path cost is set to facilitate equal-cost paths through the proper routers.
+
+3. **Waypoint Setup**:
+   - For Barcelona to reach Amsterdam (100.0.9.0/24), it must always arrive through Basel. Thus, paths directly bypassing Basel were set to a cost of 1000.
+   - For Budapest to reach London (100.0.29.0/24), paths bypassing London directly were similarly set to 1000.
+
+4. **Load Balancing**:
+   - Achieved exactly 3 ECMP paths for Budapest through careful cost adjustment.
+   - Barcelona needed paths through to Amsterdam and Basel, with all settings yielding an effective path count of 2 to avoid further bypassing.
+
+Limitations (if any):
+- None

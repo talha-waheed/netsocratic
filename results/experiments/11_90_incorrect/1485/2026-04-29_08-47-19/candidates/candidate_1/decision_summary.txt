@@ -1,0 +1,11 @@
+Routers modified: Geneva, Luxembourg, Frankfurt
+
+Reasoning:
+1. Geneva needs to reach 100.0.1.0/24 through 11 paths. The existing paths through Geneva to other routers can be adjusted to ensure 11 equal-cost paths.
+2. Luxembourg must reach 100.0.9.0/24 and must pass through Basel. The cost adjustments ensure that the path through Basel is preferred while allowing alternatives.
+3. Frankfurt must also reach 100.0.9.0/24 and can utilize paths through Rotterdam. The cost adjustments allow for multiple paths to be equal-cost while ensuring connectivity.
+
+All modified routers have been adjusted to ensure that the required paths are available with the correct cost settings, allowing for redundancy and load balancing as specified.
+
+Limitations (if any):
+None

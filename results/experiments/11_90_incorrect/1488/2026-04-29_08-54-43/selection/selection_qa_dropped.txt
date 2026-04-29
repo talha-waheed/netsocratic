@@ -1,0 +1,5 @@
+Q: Did your original intent require traffic from warsaw to 100.0.9.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+A: My original intent did not require traffic from Warsaw to 100.0.9.0/24 to pass through Basel. The required waypoint for this traffic is Rotterdam.
+
+Q: Did your original intent require traffic from amsterdam to 100.0.9.0/24 to be reachable, or should that reachability not be required?
+A: My original intent did not require traffic from Amsterdam to 100.0.9.0/24 to be reachable. The reachability requirement specifically states that 100.0.9.0/24 should be reachable from Brussels and Warsaw, but not from Amsterdam.

@@ -1,0 +1,12 @@
+Routers modified: Bucharest, Kiev, Madrid, Basel
+
+Reasoning:
+1. **Bucharest to 100.0.1.0/24** must pass through **Kiev**. Set cost to **1000** on all bypass paths from Bucharest to 100.0.1.0/24, while keeping the path through Kiev at cost **1**.
+2. **Madrid to 100.0.1.0/24** must also pass through **Kiev**. Set cost to **1000** on all bypass paths from Madrid to 100.0.1.0/24, while keeping the path through Kiev at cost **1**.
+3. **Madrid to 100.0.4.0/24** must pass through **Basel**. Set cost to **1000** on all bypass paths from Madrid to 100.0.4.0/24, while keeping the path through Basel at cost **1**.
+4. **Load balancing** for Bucharest to 100.0.1.0/24 requires **2** equal-cost paths. The paths through Kiev are set to cost **1**, while bypass paths are set to **1000**.
+5. **Load balancing** for Madrid to 100.0.1.0/24 requires **3** equal-cost paths. The paths through Kiev are set to cost **1**, while bypass paths are set to **1000**.
+6. **Load balancing** for Madrid to 100.0.4.0/24 requires **2** equal-cost paths. The paths through Basel are set to cost **1**, while bypass paths are set to **1000**.
+
+Limitations (if any):
+None

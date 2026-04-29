@@ -1,0 +1,9 @@
+Routers modified: [Vienna, Istanbul, Geneva]
+
+Reasoning:
+1. For Vienna to reach 100.0.29.0/24 with 2 paths via London, I set the cost to 1000 on all paths that don't go through London (via Frankfurt) and allowed the route through London.
+2. Istanbul to 100.0.1.0/24 must go through Kiev with 4 paths. I maintained low costs for routes to Kiev and Bucharest, and blocked all bypass options to Kiev by setting those costs to 1000. This creates 4 valid paths going through Kiev.
+3. Geneva to 100.0.9.0/24 required passing through Rotterdam with 3 paths, thus routes bypassing Rotterdam were set to cost 1000, maintaining the preferred path through Rotterdam. 
+
+Limitations (if any):
+None

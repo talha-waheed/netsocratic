@@ -1,0 +1,29 @@
+Routers modified: bratislava, kiev, milan, zurich
+
+Reasoning:
+1. **Bratislava to 100.0.1.0/24** must pass through **Kiev**. 
+   - Paths: 
+     - Bratislava → Kiev → ... → 100.0.1.0/24 (valid)
+     - Bratislava → other routes (invalid due to waypoint)
+   - Set cost to **1000** on all non-Kiev paths to enforce the waypoint.
+   - Two paths must be load-balanced, so set costs on paths through Kiev to **1**.
+
+2. **Milan to 100.0.4.0/24** must pass through **Basel**.
+   - Paths:
+     - Milan → Basel → ... → 100.0.4.0/24 (valid)
+     - Milan → other routes (invalid due to waypoint)
+   - Set cost to **1000** on all non-Basel paths to enforce the waypoint.
+   - Two paths must be load-balanced, so set costs on paths through Basel to **1**.
+
+3. **Istanbul to 100.0.4.0/24** must also pass through **Basel**.
+   - Paths:
+     - Istanbul → Bucharest → ... → Basel → ... → 100.0.4.0/24 (valid)
+     - Istanbul → other routes (invalid due to waypoint)
+   - Set cost to **1000** on all non-Basel paths to enforce the waypoint.
+   - Two paths must be load-balanced, so set costs on paths through Basel to **1**.
+
+4. **Zurich** is involved in the paths to **Basel** and must maintain low costs to facilitate the required paths.
+   - Ensure costs to Basel are kept at **1** to allow for the required paths.
+
+Limitations (if any):
+None

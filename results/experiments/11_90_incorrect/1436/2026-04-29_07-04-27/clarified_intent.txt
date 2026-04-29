@@ -1,0 +1,1 @@
+Traffic from Paris to 100.0.1.0/24 is evenly distributed across 2 paths. Use Kiev as an intermediate hop if available for traffic from Paris to 100.0.1.0/24. Sofia can reach 100.0.1.0/24. The route from London to 100.0.4.0/24 includes Basel. Ensure fault tolerance with multiple routes.

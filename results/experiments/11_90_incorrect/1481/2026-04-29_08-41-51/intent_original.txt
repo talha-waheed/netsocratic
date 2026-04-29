@@ -1,0 +1,9 @@
+The subnet the main subnet is reachable from vienna.
+Route through kiev if possible.
+Distribute traffic across available paths.
+The subnet the destination network is reachable from warsaw.
+Route through basel if possible.
+Use multiple paths for reliability.
+Connect zurich to the main subnet.
+Route through basel if possible.
+The number of paths between zurich and the main subnet should be 2.

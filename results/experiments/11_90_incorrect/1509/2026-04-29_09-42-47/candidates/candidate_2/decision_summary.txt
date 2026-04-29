@@ -1,0 +1,18 @@
+Routers modified: Amsterdam, Athens, Brussels, Bucharest, Budapest, Frankfurt, Geneva, Istanbul, Luxembourg, Milan, Rotterdam, Stockholm
+
+Reasoning:
+1. **Amsterdam** must connect to 100.0.9.0/24 via Rotterdam (mandatory waypoint). All other paths bypassing Rotterdam are set to 1000. 
+2. **Athens** to 100.0.4.0/24 must go through Basel (mandatory waypoint). The cost is set to 1000 on links bypassing Basel.
+3. **Brussels** must connect to 100.0.4.0/24 via Basel. All bypass paths to Basel are set to 1000 while the path through it remains 1. 
+4. **Bucharest**'s traffic to 100.0.4.0/24 must go through Basel. Cost to bypass is set to 1000.
+5. **Budapest** to 100.0.4.0/24 must go through Basel as well, hence costs are set accordingly.
+6. **Frankfurt** to 100.0.29.0/24 must use London (mandatory waypoint), costs set to 1000 for bypass paths.
+7. **Geneva** must connect to 100.0.29.0/24 via London, hence bypass costs are 1000.
+8. **Istanbul** must reach 100.0.29.0/24 through London, bypass costs set to 1000.
+9. **Luxembourg** must connect to 100.0.4.0/24 through Basel, bypass paths set to 1000.
+10. **Milan** must reach 100.0.29.0/24 via London, so costs for any bypass routes are set to 1000.
+11. **Rotterdam** must connect to 100.0.29.0/24 via London, thus, costs to bypass are set to 1000.
+12. **Stockholm** must reach 100.0.29.0/24 via Frankfurt, thus costs to bypass are set to 1000.
+
+Limitations (if any):
+None

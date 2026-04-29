@@ -1,0 +1,8 @@
+--- Initializing Snapshots ---
+Searching for behavioral divergences...
+
+[DIVERGENCE DISCOVERED]
+Flow: start=athens interface=FastEthernet0/0 [100.0.5.2->10.0.0.6 ICMP (type=8, code=0)]
+- Waypointing Difference:
+  * Candidate 1 uniquely transits: {'istanbul'}
+  * Candidate 2 uniquely transits: {'sofia', 'budapest'}

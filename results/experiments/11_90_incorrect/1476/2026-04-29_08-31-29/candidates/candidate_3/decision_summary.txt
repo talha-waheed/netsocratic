@@ -1,0 +1,27 @@
+Routers modified: [rotterdam, roma, basel, kiev]
+
+Reasoning:
+1. Reachability requirements:
+   - Roma needs to reach 100.0.9.0/24 via Rotterdam (mandatory waypoint).
+   - Basel needs to reach 100.0.29.0/24 via London (mandatory waypoint).
+   - Zurich needs to reach 100.0.1.0/24 via Kiev (mandatory waypoint).
+
+2. For Roma → 100.0.9.0/24:
+   - Paths available:
+     - Roma → ... → Rotterdam → 100.0.9.0/24
+     - Roma → ... (bypass Rotterdam)
+   - To enforce waypoint: set Rotterdam's costs to 1000 for non-paths. 
+
+3. For Basel → 100.0.29.0/24:
+   - If Basel is connected but cannot follow the required path, the bypass must be set to 1000 to ensure it goes via London.
+
+4. For Zurich → 100.0.1.0/24:
+   - Similar approach; Kiev must remain at a cost of 1 to allow the traffic flow to 100.0.1.0. 
+
+5. Load balancing adjustments:
+   - Roma requires 3 distinct routes to 100.0.9.0/24 (all through Rotterdam and others imposed to a cost of 1000). 
+   - Basel requires 2 routes to 100.0.29.0/24, thus required to limit bypass.
+   - Zurich needed 2 routes to 100.0.1.0 based on existing paths through Kiev.
+
+Limitations (if any):
+- Some routing constraints may limit load balanced paths based on existing topology.

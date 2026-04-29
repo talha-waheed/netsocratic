@@ -1,0 +1,20 @@
+Routers modified: ['brussels', 'rotterdam', 'sofia', 'kiev']
+
+Reasoning:
+1. **Sofia to 100.0.29.0/24 (London)**
+   - Paths: Sofia → Bucharest → London, Sofia → Budapest → London, Sofia → Istanbul → London, Sofia → Bucharest → Frankfurt → London, Sofia → Budapest → Frankfurt → London
+   - Want 5 paths, but paths directly through London must be enforced. Set costs on bypass paths (e.g., Sofia → Budapest) to 1000 to enforce London as a mandatory waypoint.
+  
+2. **Bratislava to 100.0.9.0/24 (Rotterdam)**
+   - Paths: Bratislava → Budapest → Rotterdam, Bratislava → Praha → Frankfurt → Rotterdam, Bratislava → Vienna → Frankfurt → Rotterdam, etc.
+   - Need 7 equal-cost paths. Set costs on bypass paths (e.g., Bratislava → Prague) to 1000, allowing only paths through Rotterdam.
+
+3. **Roma to 100.0.1.0/24 (Kiev)**
+   - Paths: Roma → Milan → Zurich → Frankfurt → Kiev, Roma → Milan → Zurich → Bucharest → Kiev, etc.
+   - Must enforce Kiev as a mandatory waypoint. Set costs on bypass paths (e.g., Roma → Milan → Frankfurt) to 1000.
+
+4. **Rotterdam**
+   - As it needs to be reachable from Bratislava and is involved in the paths through Brussels, set costs appropriately to enforce the paths towards Brussels.
+
+Limitations (if any):
+- The current topology only allows for the specified number of paths to meet the required constraints. Therefore, exact equal-cost paths may not be achievable if fewer than specified paths exist.

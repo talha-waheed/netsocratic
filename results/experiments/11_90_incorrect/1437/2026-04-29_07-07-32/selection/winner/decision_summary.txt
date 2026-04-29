@@ -1,0 +1,26 @@
+Routers modified: ['Kiev', 'Rotterdam', 'Istanbul', 'Milan']
+
+Reasoning:
+1. **Kiev to 100.0.9.0/24 (Rotterdam)**:
+   - Paths: 
+     - Kiev → Rotterdam (cost 1)
+     - Kiev → Frankfurt → Brussels → Rotterdam (cost 3)
+   - Set cost of the path through Frankfurt and Brussels to 1000 to enforce the mandatory waypoint through Rotterdam.
+   - Result: 1 path through Rotterdam (cost 1) and 1 path through Frankfurt and Brussels (cost 3) → 2 paths total.
+
+2. **Istanbul to 100.0.29.0/24 (London)**:
+   - Paths:
+     - Istanbul → Bucharest → Frankfurt → Brussels → London (cost 4)
+     - Istanbul → Athens → Sofia → Budapest → Frankfurt → Brussels → London (cost 5)
+   - Set cost of the path through Bucharest to 1000 to enforce the mandatory waypoint through London.
+   - Result: 1 path through London (cost 4) and 1 path through Athens and Sofia (cost 5) → 2 paths total.
+
+3. **Milan to 100.0.1.0/24 (Kiev)**:
+   - Paths:
+     - Milan → Zurich → Frankfurt → Kiev (cost 3)
+     - Milan → Roma → Zurich → Frankfurt → Kiev (cost 4)
+   - Set cost of the path through Zurich to 1000 to enforce the mandatory waypoint through Kiev.
+   - Result: 1 path through Kiev (cost 3) and 1 path through Roma (cost 4) → 2 paths total.
+
+Limitations (if any):
+None

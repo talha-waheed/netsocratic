@@ -1,0 +1,9 @@
+Routers modified: ['Milan', 'Strasbourg', 'Geneva']
+
+Reasoning:
+1. For Milan to reach 100.0.1.0/24 via Kiev, we must set the cost of all bypass paths (Milan → Frankfurt → Kiev) to a high value (1000). The direct path (Milan → Roma → Zurich → Frankfurt) remains at 1 to ensure the cost remains higher than the two paths going through Kiev, allowing for 2 equal-cost paths.
+2. For Strasbourg to reach 100.0.29.0/24 via London, we set the cost of all bypass paths to a high value (1000) while keeping the link to London at 1. This ensures that traffic will always go through London and allows for 2 equal-cost paths.
+3. For Geneva to reach 100.0.4.0/24 via Basel, we set the cost of all bypass paths to a high value (1000) while keeping the link to Basel at 1. This ensures that traffic will always go through Basel. 
+
+Limitations (if any):
+None

@@ -1,0 +1,11 @@
+Q: Did your original intent require traffic from madrid to 100.0.4.0/24 to pass through kiev, was no waypoint required, or was a different waypoint required?
+A: My original intent did not require traffic from Madrid to 100.0.4.0/24 to pass through Kiev. Instead, the requirement specified that traffic to 100.0.4.0/24 from Milan should pass through Basel as the waypoint.
+
+Q: Did your original intent require traffic from madrid to 100.0.4.0/24 to be load-balanced across exactly 3 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent did not require traffic from madrid to 100.0.4.0/24 to be load-balanced across exactly 3 paths. In fact, there was no requirement specified for the path count for that traffic. The load balancing requirements were specifically for the prefixes associated with milan, strasbourg, and madrid, with 2 paths for milan and strasbourg, and 3 paths for madrid to 100.0.1.0/24.
+
+Q: Did your original intent require traffic from madrid to 100.0.9.0/24 to be load-balanced across exactly 3 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent did not require traffic from madrid to 100.0.9.0/24 to be load-balanced across exactly 3 paths. In fact, there was no specific path count required for that traffic. The load balancing requirement was specifically for the prefixes associated with milan (2 paths), strasbourg (2 paths), and madrid (3 paths) to their respective waypoints.
+
+Q: Did your original intent require traffic from madrid to 100.0.4.0/24 to be reachable, or should that reachability not be required?
+A: My original intent did not require traffic from madrid to 100.0.4.0/24 to be reachable. The reachability requirement specifically mentions only the prefixes for milan, strasbourg, and madrid, without including any inter-prefix reachability.

@@ -1,0 +1,15 @@
+Routers modified: Bratislava, Sofia, Warsaw, Amsterdam
+
+Reasoning:
+1. **Bratislava to 100.0.9.0/24 (Budapest)**: Budapest must be the waypoint. Paths not through Budapest (e.g., Bratislava → Praha → Frankfurt → Brussels → Amsterdam) are set to 1000. The link to Budapest remains at cost 1.
+   
+2. **Sofia to 100.0.1.0/24 (Kiev)**: Kiev must be the waypoint. Paths bypassing Kiev (e.g., Sofia → Istanbul → Bucharest) are set to 1000. The link to Kiev remains at cost 1.
+
+3. **Warsaw to 100.0.1.0/24 (Kiev)**: Must ensure traffic from Warsaw goes through Kiev. All bypass paths (e.g., Warsaw → Frankfurt → Budapest) are set to 1000, and the link to Kiev is at cost 1.
+
+4. **Amsterdam to 100.0.29.0/24 (London)**: All paths not going through London (e.g., Amsterdam → Frankfurt → Prague → Warsaw) are set to 1000. The link to London remains at cost 1.
+
+5. **Load Balancing Requirement for Sofia**: Two paths must be available to 100.0.1.0/24 through Kiev. The costs are adjusted on Sofia to ensure that both paths have equal total costs while enforcing the waypoint through Kiev.
+
+Limitations (if any):
+None

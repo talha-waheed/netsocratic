@@ -1,0 +1,20 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from frankfurt should reach? (Why: impacts reachability)
+A: The exact destination subnet that traffic from Frankfurt should reach is 100.0.4.0/24.
+
+Q: What is the exact router hostname you are referring to when you mention 'route via basel'? (Why: impacts waypointing)
+A: The specification does not provide an exact router hostname for 'route via basel'. It only indicates that basel is a waypoint for traffic to the 100.0.4.0/24 network in Frankfurt.
+
+Q: What is the exact router hostname you are referring to when you mention 'route through london'? (Why: impacts waypointing)
+A: I am referring to the waypoint for the Marseille subnet, which routes through London.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that marseille needs to reach? (Why: impacts reachability)
+A: The exact destination subnet that marseille needs to reach is 100.0.29.0/24.
+
+Q: How many paths should be used to distribute traffic across available paths? (Why: impacts load balancing)
+A: The number of paths to distribute traffic for each location is as follows: 
+
+- For Frankfurt (100.0.4.0/24), use 2 paths.
+- For Geneva (100.0.9.0/24), use 3 paths.
+- For Marseille (100.0.29.0/24), use 4 paths.

@@ -1,0 +1,10 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Praha, Rotterdam
+
+Reasoning:
+1. Reachability requirements dictate that Praha must reach 100.0.29.0/24 via London, requiring bypass paths to be high cost (1000) while ensuring multiple equal-cost paths exist.
+2. For Madrid and Barcelona, routing through Rotterdam was stipulated for both with load balancing requiring exactly two equal-cost paths.
+3. Set Amsterdam and Brussels to have a cost of 1000 to their respective bypass paths ensuring traffic goes through the correct waypoints while still maintaining load-balanced paths where feasible.
+4. All other links support the minimum routing paths necessary, aligning with the requested 3 ECMP paths from Praha to 100.0.29.0/24, and ensuring 2 paths from both Madrid and Barcelona to their target prefixes.
+
+Limitations (if any):
+None

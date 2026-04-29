@@ -1,0 +1,10 @@
+Routers modified: [Vienna, Basel, Geneva, Marseille]
+
+Reasoning:
+1. Vienna needs to reach 100.0.4.0/24 via Basel as a mandatory waypoint. All paths bypassing Basel are set to cost 1000. Thus, the cost to Basel is set to 1.
+2. Basel must also connect to 100.0.4.0/24 and therefore requires a cost of 1 to the path leading to Vienna, while all bypass paths should be set to cost 1000.
+3. Geneva should reach 100.0.29.0/24 through Rotterdam as a mandatory waypoint. Therefore, all bypass paths are set to 1000 and the path through Rotterdam is set to 1.
+4. Marseille needs to reach 100.0.4.0/24 via Basel while ensuring 3 ECMP paths. Hence, the cost to Basel is set to 1 and all other bypass paths to 1000.
+
+Limitations (if any):
+None

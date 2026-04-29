@@ -63,7 +63,7 @@ If the Selection Agent cannot converge (operator rejects all options, or max rou
 | [Batfish](https://batfish.readthedocs.io/en/latest/getting_started.html) | latest | Required for Selection Agent; not needed for `--dry-run` or `--skip-selector` |
 | pybatfish | latest | `pip install pybatfish` |
 
-Batfish must be running locally (default: `localhost:9996`) before invoking the full pipeline. See [Batfish quickstart](https://batfish.readthedocs.io/en/latest/getting_started.html) for Docker setup instructions.
+Batfish must be reachable locally (default: `localhost:9996`) before selection can complete. If Batfish is down, NetSocratic will try `docker start batfish` once and retry the diff; use `--batfish-container NAME` if your container has a different name, or `--no-auto-start-batfish` to fail immediately instead. See [Batfish quickstart](https://batfish.readthedocs.io/en/latest/getting_started.html) for Docker setup instructions.
 
 ---
 
@@ -97,6 +97,7 @@ All settings are read from `.env` (via `python-dotenv`) or environment variables
 | `OPENAI_MODEL` | `gpt-4o` | Model name passed to the Chat Completions API |
 | `OPENAI_MIN_SECONDS_BETWEEN_REQUESTS` | `0` | Optional client-side delay between OpenAI calls; increase to reduce 429 rate-limit retries during experiments |
 | `MAX_CLARIFY_ROUNDS` | `5` | Maximum clarification rounds before best-effort synthesis |
+| `MAX_QUESTIONS_PER_ROUND` | `8` | Maximum clarification questions asked in each clarification round |
 | `NUM_CANDIDATES` | `3` | Number of candidate rule sets the Generator produces |
 | `KB_DIR` | `agents/knowledge-base` | Directory for knowledge-base Markdown/text files |
 | `TOPO_DIR` | `topo` | Directory of base `.cfg` files — one per router |
@@ -120,13 +121,16 @@ python main.py --intent "Ensure connectivity between Athens and our servers in L
 
 --model MODEL           OpenAI model (default: gpt-4o)
 --max-rounds N          Max clarification rounds per pass (default: 5)
+--max-questions N       Max clarification questions per round (default: 8)
 --num-candidates N      Candidate rule sets to generate (default: 3)
 --kb-dir PATH           Knowledge-base directory (default: agents/knowledge-base)
 --topo-dir PATH         Base topology directory with one .cfg per router
 --results-dir PATH      Root output directory (default: results)
 --batfish-script-dir P  Directory containing Batfish diff scripts (default: batfish)
+--batfish-container N   Docker container to auto-start if Batfish is down (default: batfish)
 --max-recovery-rounds N Max full-pipeline restarts on failure (default: 2)
 
+--no-auto-start-batfish Do not run docker start when Batfish is unavailable
 --no-strategies         Disable per-candidate strategy hints; rely on temperature variation only
 --skip-generator        Run clarification only; stop before generation
 --skip-selector         Run clarification + generation only; stop before selection
@@ -490,8 +494,10 @@ The input CSV must have at least these two columns:
 --topo-dir PATH         Base topology directory
 --results-dir PATH      Root output directory (default: results/experiments)
 --batfish-script-dir P  Batfish diff script directory
+--batfish-container N   Docker container to auto-start if Batfish is down (default: batfish)
 --max-recovery-rounds N Max pipeline restarts on failure (default: 2)
 
+--no-auto-start-batfish Do not run docker start when Batfish is unavailable
 --no-strategies         Temperature-only diversity (no strategy hints)
 --skip-selector         Skip Batfish selection; evaluate generation candidates only
 --verbose-operator      Print every LLM operator Q&A exchange to stdout

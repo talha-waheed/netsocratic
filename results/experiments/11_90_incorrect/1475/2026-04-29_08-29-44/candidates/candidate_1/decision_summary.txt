@@ -1,0 +1,12 @@
+Routers modified: Frankfurt, Warsaw
+
+Reasoning:
+1. Reachability from praha to 100.0.1.0/24 (Kiev) is established through Frankfurt and Warsaw.
+2. To enforce the waypointing via Kiev, I set the cost of the links that bypass Kiev (Frankfurt to Warsaw and Warsaw to Frankfurt) to 1000, effectively blocking those paths.
+3. For load balancing, I need 2 equal-cost paths from praha to 100.0.1.0/24. The paths are:
+   - Path 1: Praha → Frankfurt → Warsaw → Kiev
+   - Path 2: Praha → Warsaw → Kiev
+4. The costs were adjusted so that both paths have the same total cost, allowing for redundancy.
+
+Limitations (if any):
+None

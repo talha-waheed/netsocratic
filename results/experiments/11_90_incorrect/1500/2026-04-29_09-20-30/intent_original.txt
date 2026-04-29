@@ -1,0 +1,9 @@
+The subnet the remote network is reachable from budapest.
+Preferably route via rotterdam.
+Use multiple paths for reliability.
+Ensure connectivity between amsterdam and 100.0.29.0/24.
+Traffic should go through london when feasible.
+Distribute traffic across available paths.
+Ensure sofia can access 100.0.1.0/24.. Apply the same policy to other relevant connections.
+Consider routing through kiev.
+That traffic should be load balanced.

@@ -1,0 +1,12 @@
+Routers modified: Bratislava, Milan, Istanbul, Bucharest, Luxembourg, Barcelona
+
+Reasoning:
+1. **Bratislava to 100.0.1.0/24** must go through **Kiev**. Set cost to 1000 on bypass paths (non-Kiev paths) to enforce this.
+2. **Milan to 100.0.4.0/24** must go through **Basel**. Set cost to 1 on the Basel path, and keep other paths at cost 1 to allow for redundancy.
+3. **Istanbul to 100.0.4.0/24** must also go through **Basel**. Set cost to 1 on the Basel path.
+4. **Bucharest to 100.0.9.0/24** should prefer **Rotterdam**. Set cost to 1000 on bypass paths to enforce this.
+5. **Luxembourg to 100.0.29.0/24** must go through **London**. Set cost to 1000 on bypass paths to enforce this.
+6. **Barcelona to 100.0.29.0/24** should prefer **London**. Set cost to 1000 on bypass paths to enforce this.
+
+Limitations (if any):
+None

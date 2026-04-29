@@ -1,0 +1,9 @@
+100.0.1.0/24 is accessible from athens.
+The route from athens to 100.0.1.0/24 includes kiev.
+Load balance the traffic appropriately.
+Traffic originating from vienna can reach the subnet 100.0.9.0/24.
+Traffic should go through rotterdam when feasible.
+Use multiple paths for reliability.
+bratislava and that network need connectivity.
+Preferably route via london.
+Load balance the traffic appropriately.

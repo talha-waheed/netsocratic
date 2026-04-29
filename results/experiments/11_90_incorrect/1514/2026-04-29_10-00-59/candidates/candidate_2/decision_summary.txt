@@ -1,0 +1,20 @@
+Routers modified: [Brussels, Bratislava, Budapest]
+
+Reasoning:
+1. **Brussels**:
+   - Required to reach 100.0.9.0/24 via Rotterdam (waypoint).
+   - Set cost 1000 on bypass paths (to London and Frankfurt) to ensure traffic routes through Rotterdam.
+   - Kept cost to Rotterdam at 1 to allow traffic to utilize this path.
+   
+2. **Bratislava**:
+   - Required to reach 100.0.4.0/24 via Basel (waypoint).
+   - Set costs on bypass paths (to Budapest and Vienna) to 1000 to ensure traffic routes through Basel.
+   - Kept cost to Basel at 1 to allow traffic to utilize this path.
+   
+3. **Budapest**:
+   - Must reach 100.0.1.0/24 via Kiev (waypoint).
+   - Set cost to bypass paths (Budapest to Sofia) to 1000 to ensure traffic routes through Kiev.
+   - Set cost to Kiev at 1 to allow traffic to utilize this path.
+   
+Limitations (if any):
+None

@@ -1,0 +1,27 @@
+Routers modified: Rotterdam, Dublin, Bucharest
+
+Reasoning:
+1. **Reachability**: 
+   - Rotterdam must reach 100.0.29.0/24 (London's subnet). 
+   - Bucharest must reach 100.0.4.0/24 (Basel's subnet).
+   - Marseille must reach 100.0.29.0/24 (London's subnet).
+
+2. **Waypointing**: 
+   - No mandatory waypoints were specified in the rules, so we do not enforce any high-cost paths.
+
+3. **Load Balancing**: 
+   - For Rotterdam to 100.0.29.0/24, we need 2 equal-cost paths.
+   - The paths available are:
+     - Path 1: Rotterdam → Amsterdam → London
+     - Path 2: Rotterdam → Brussels → London
+   - Both paths can be set to cost 1, allowing for ECMP.
+   - No other paths should be blocked, so we do not set any costs to 1000.
+
+4. **Dublin**: 
+   - Dublin must reach 100.0.29.0/24 (London's subnet) but should not have a direct path to it. Thus, we set the cost to 1000 on the link to London to ensure traffic does not route through Dublin to London.
+
+5. **Bucharest**: 
+   - Bucharest must reach 100.0.4.0/24 (Basel's subnet) with paths through Budapest or Istanbul. We set costs to 1 for the direct paths to Budapest and Istanbul, allowing Bucharest to reach Basel.
+
+Limitations (if any):
+None

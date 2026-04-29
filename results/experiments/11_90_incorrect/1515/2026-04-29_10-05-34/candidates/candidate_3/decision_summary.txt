@@ -1,0 +1,32 @@
+Routers modified: Amsterdam, Budapest, Frankfurt, Luxembourg, Strasbourg
+
+Reasoning:
+1. **Amsterdam to 100.0.29.0/24**: Needs to pass through London (mandatory waypoint). 
+   Paths: 
+   - 1. Amsterdam → London (cost 1)
+   - 2. Amsterdam → Brussels → London (cost 1 + 1 = 2); hence, set Amsterdam to 1000 for bypass.
+   Total paths := 2.
+
+2. **Budapest to 100.0.9.0/24**: Needs to pass through Rotterdam (mandatory waypoint).
+   Paths:
+   - 1. Budapest → Bratislava → Rotterdam (cost 1 + 1 = 2)
+   - 2. Budapest → Zagreb → Ljubljana → Rotterdam (cost 1 + 1 + 1 = 3); hence, the other paths are set to 1000.
+   Total paths := 2.
+   
+3. **Frankfurt to 100.0.4.0/24**: Needs to pass through Basel (mandatory waypoint).
+   Paths: 
+   - 1. Frankfurt → Basel (cost 1)
+   - 2. Frankfurt → Strasbourg (cost 1) needs cost raised to reach Basel.
+   Set all bypasses to 1000, total paths := 1.
+
+4. **Luxembourg to 100.0.1.0/24**: Needs to pass through Kiev (mandatory waypoint).
+   Path:
+   - 1. Luxembourg → Brussels → Frankfurt → Kiev (cost 1 to Brussels + cost 1 from Frankfurt to Kiev)
+   Bypass paths set to 1000, guaranteeing that 1 path goes through Kiev, total paths := 1.
+
+5. **Strasbourg to 100.0.4.0/24**: Needs to pass through Basel (mandatory waypoint).
+   Paths:
+   - 1. Strasbourg → Basel (cost 1); thus paths set to 1000 for bypasses guaranteeing 1 active path through Basel.
+
+Limitations (if any):
+None

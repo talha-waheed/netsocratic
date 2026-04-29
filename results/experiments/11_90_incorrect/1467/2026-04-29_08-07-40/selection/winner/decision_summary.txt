@@ -1,0 +1,11 @@
+Routers modified: Amsterdam, Bratislava, Frankfurt, Strasbourg
+
+Reasoning:
+1. **Amsterdam to 100.0.29.0/24 (London)**: Traffic must pass through London. Set costs on all bypass paths (to Brussels, Rotterdam, and Frankfurt) to 1000 to enforce this waypoint.
+2. **Bratislava to 100.0.9.0/24 (Rotterdam)**: Traffic must pass through Rotterdam. Set costs on the bypass path (to Budapest) to 1000 to enforce this waypoint.
+3. **Frankfurt to 100.0.29.0/24 (London)**: Traffic must pass through London. Set costs on the bypass paths (to Strasbourg and Vienna) to 1000 to enforce this waypoint.
+4. **Strasbourg to 100.0.4.0/24 (Basel)**: Traffic must pass through Basel. Set costs on the bypass path (to Frankfurt) to 1000 to enforce this waypoint.
+5. **Load Balancing**: For both Praha and Bratislava to 100.0.9.0/24, two equal-cost paths must be established through Rotterdam. The costs on the bypass paths were set high enough to ensure only the desired paths are used.
+
+Limitations (if any):
+None

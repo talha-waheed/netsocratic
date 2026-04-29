@@ -1,0 +1,9 @@
+our servers is accessible from marseille.
+Route through basel if possible.
+Distribute traffic across available paths.
+Ensure sofia can access 100.0.29.0/24.. Apply the same policy to other relevant connections.
+Routing traffic between sofia and 100.0.29.0/24 goes via london.
+It should also have redundancy.
+Ensure basel can access 100.0.1.0/24. Apply the same policy to other relevant connections.
+Route through kiev if possible.
+The number of paths between basel and 100.0.1.0/24 should be 2.

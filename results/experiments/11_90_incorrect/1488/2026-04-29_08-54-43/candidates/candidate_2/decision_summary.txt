@@ -1,0 +1,16 @@
+Routers modified: Brussels, Warsaw
+
+Reasoning:
+1. Brussels needs to connect to 100.0.9.0/24 via Rotterdam, which means all paths to 100.0.9.0/24 that do not go through Rotterdam must be set to a high cost (1000) to enforce the waypoint.
+2. The paths for Brussels to reach 100.0.9.0/24 are as follows:
+   - Brussels → Rotterdam → 100.0.9.0/24 (total cost = 1+1 = 2)
+   - Brussels → Amsterdam → 100.0.9.0/24 (total cost = 1+1 = 2) (this is the low-cost path)
+   Therefore, we set the cost to 1000 on the link to Amsterdam to enforce using Rotterdam.
+3. Warsaw needs to reach 100.0.9.0/24 with a mandatory waypoint at Basel, and we need two equal-cost paths.
+4. The paths for Warsaw to reach 100.0.9.0/24 are:
+   - Warsaw → Frankfurt → Basel → Rotterdam → 100.0.9.0/24 (total cost = 2)
+   - Warsaw → Kiev → Bucharest → Basel → Rotterdam → 100.0.9.0/24 (total cost = 2)
+5. To ensure we have exactly 2 paths, we set the cost of links bypassing Basel (to Frankfurt) to 1000.
+
+Limitations (if any):
+None

@@ -1,0 +1,26 @@
+Routers modified: Brussels, London, Lyon, Rotterdam, Warsaw
+
+Reasoning:
+1. **Brussels to 100.0.29.0/24**: 
+   - Required to allow 2 equal-cost paths. Paths through Rotterdam and London are valid.
+   - Set cost on Fa1/0 (to London) to 1000 to enforce routing through London for Warsaw's traffic.
+   - Paths through Rotterdam remain at cost 1.
+  
+2. **London to 100.0.9.0/24**: 
+   - Traffic from London to 100.0.9.0/24 must be via Rotterdam.
+   - Set cost on Fa0/1 (to Brussels) to 1000, allowing traffic to go through Rotterdam.
+
+3. **Lyon to 100.0.29.0/24**: 
+   - No specific waypointing required, but must ensure connections through Rotterdam or Brussels.
+   - Set cost on all paths bypassing Brussels to 1000.
+
+4. **Rotterdam**: 
+   - Paths to London and Brussels are preferred (cost 1).
+   - No changes are needed as it naturally supports the required paths.
+
+5. **Warsaw to 100.0.29.0/24**: 
+   - Must pass through London (mandatory waypoint).
+   - Set cost to 1000 on other paths to enforce this.
+
+Limitations (if any):
+None

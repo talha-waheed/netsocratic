@@ -1,0 +1,11 @@
+Q: Did your original intent require traffic from sofia to 100.0.9.0/24 to pass through rotterdam, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from sofia to 100.0.9.0/24 to pass through rotterdam as the waypoint.
+
+Q: Did your original intent require traffic from istanbul to 100.0.2.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+A: My original intent did not require traffic from Istanbul to 100.0.2.0/24 to pass through London, nor was a waypoint required for that prefix. The requirements only specify a waypoint for traffic to 100.0.29.0/24 from Istanbul, which is London.
+
+Q: Did your original intent require traffic from bucharest to 100.0.4.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent required traffic from bucharest to 100.0.4.0/24 to be load-balanced across exactly 2 paths.
+
+Q: Did your original intent require traffic from istanbul to 100.0.2.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent did not specify an exact path count for traffic from Istanbul to 100.0.2.0/24. Therefore, no exact path count was required.

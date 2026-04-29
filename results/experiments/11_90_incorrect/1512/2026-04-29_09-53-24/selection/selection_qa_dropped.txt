@@ -1,0 +1,23 @@
+Q: Did your original intent require traffic from brussels to 100.0.29.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from brussels to 100.0.29.0/24 to pass through london as the waypoint.
+
+Q: Did your original intent require traffic from lyon to 100.0.4.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from lyon to 100.0.4.0/24 to pass through the waypoint basel.
+
+Q: Did your original intent require traffic from lyon to 100.0.9.0/24 to pass through rotterdam, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from lyon to 100.0.9.0/24 to pass through rotterdam.
+
+Q: Did your original intent require traffic from praha to 100.0.4.0/24 to pass through basel, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from praha to 100.0.4.0/24 to pass through basel.
+
+Q: Did your original intent require traffic from madrid to 100.0.9.0/24 to pass through rotterdam, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from madrid to 100.0.9.0/24 to pass through rotterdam as the waypoint.
+
+Q: Did your original intent require traffic from brussels to 100.0.29.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent required traffic from brussels to 100.0.29.0/24 to be load-balanced across exactly 2 paths.
+
+Q: Did your original intent require traffic from lyon to 100.0.4.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent required traffic from lyon to 100.0.4.0/24 to be load-balanced across exactly 2 paths.
+
+Q: Did your original intent require traffic from praha to 100.0.4.0/24 to be load-balanced across exactly 2 paths, was no exact path count required, or was a different exact path count required?
+A: My original intent required traffic from praha to 100.0.4.0/24 to be load-balanced across exactly 2 paths.

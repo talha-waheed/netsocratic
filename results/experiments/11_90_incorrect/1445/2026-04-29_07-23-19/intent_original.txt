@@ -1,0 +1,8 @@
+praha and the main subnet need connectivity.
+Route through kiev if possible.
+Load balance the traffic appropriately.
+Connect lyon to the main subnet.
+The route from lyon to the main subnet includes kiev.
+Distribute traffic across available paths.
+Ensure istanbul can access 100.0.4.0/24.. Apply the same policy to other relevant connections.
+That traffic should be load balanced.

@@ -1,0 +1,26 @@
+Routers modified: Amsterdam, Luxembourg, Athens
+
+Reasoning:
+1. **Amsterdam to 100.0.1.0/24**:
+   - Paths: 
+     - Via Kiev: Amsterdam → London → Frankfurt → Warsaw → Kiev (cost 4).
+     - Bypass paths (Fa0/1): Amsterdam → Brussels → Frankfurt, cost >= 1000.
+   - Kept cost of path through Kiev at 1; all non-Kiev paths set to 1000 (mandatory waypoint).
+
+2. **Luxembourg to 100.0.29.0/24**:
+   - Paths: 
+     - Via London: Luxembourg → Brussels → Frankfurt → Warsaw → London (cost 4).
+     - Bypass paths (Fa1/0): Luxembourg → Strasbourg → Frankfurt with cost 1000.
+   - Enforced London as a mandatory waypoint by setting high cost to routes that bypass London.
+
+3. **Athens to 100.0.4.0/24**:
+   - Paths: 
+     - Via Basel: Athens → Istanbul → Bucharest → Frankfurt → Basel (cost 4).
+     - Bypass paths (Fa0/1): Athens → Sofia → Budapest with cost >= 1000.
+   - Ensured that Basel was used as an intermediate step, thus setting high costs to bypass it.
+
+4. Introduced ECMP for all routes yielded 2 paths to the destinations needed, ensuring each has a cost of '1' for intended reliability.
+5. Identified inferred LB counts based on broader language (assigned counted paths as 2).
+
+Limitations (if any):
+None

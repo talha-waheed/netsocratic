@@ -1,0 +1,6 @@
+Round 1 — Clarification Questions
+
+1. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from luxembourg should reach? (Why: impacts reachability)
+2. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from strasbourg should reach when connecting to the remote network? (Why: impacts reachability)
+3. What is the exact router hostname you are referring to when you mention "the remote network"? (Why: impacts reachability)
+4. How many paths should be used for load balancing when routing traffic from luxembourg and basel? (Why: impacts load balancing)

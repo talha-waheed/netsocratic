@@ -1,0 +1,1 @@
+Traffic originating from the router "rotterdam" can reach the subnet 100.0.1.0/24. Ensure good redundancy. The router "sofia" can reach 100.0.29.0/24. Load balance the traffic appropriately with 11 paths. Connect the router "vienna" to 100.0.29.0/24. Routing traffic between "vienna" and 100.0.29.0/24 goes via "london". Ensure fault tolerance with multiple routes.

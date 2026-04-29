@@ -1,0 +1,11 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Milan, Paris
+
+Reasoning:
+1. For reachability from Paris to 100.0.9.0/24 (Rotterdam) via Rotterdam, we set the cost of bypass paths to high (1000) and the direct path through Rotterdam will remain lower (cost 1).
+2. For reachability from Paris to 100.0.29.0/24 (London) ensuring traversal through London, bypass paths were also assigned a cost of 1000, while paths through London remain at cost 1.
+3. For Athens to reach 100.0.9.0/24 (Rotterdam), similar adjustments were made with high costs on bypass paths ensuring passage through Amsterdam, which in practice aligns with the base cost.
+4. For Basel needing to reach London, we implement costs to ensure traffic is routed through London (cost 1) and other paths are set to 1000, maintaining 2 equal-cost paths.
+5. Each adjustment maintains the correctness of the network intent through the usage of costs.
+
+Limitations (if any):
+None.

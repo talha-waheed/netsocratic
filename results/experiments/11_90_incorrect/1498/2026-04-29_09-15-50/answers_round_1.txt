@@ -1,0 +1,16 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from frankfurt should reach? (Why: impacts reachability)
+A: The exact destination subnet that traffic from Frankfurt should reach is 100.0.29.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from istanbul should reach? (Why: impacts reachability)
+A: The exact destination subnet that traffic from Istanbul should reach is 100.0.9.0/24.
+
+Q: What is the exact router hostname you are referring to when you mention 'the remote network'? (Why: impacts waypointing)
+A: The exact router hostname is not specified in the requirements. The focus is on the reachability and waypointing for the specified networks.
+
+Q: What is the exact router hostname you are referring to when you mention 'the target subnet'? (Why: impacts waypointing)
+A: I am referring to the target subnets as follows: for Frankfurt, it's 100.0.29.0/24; for Istanbul, it's 100.0.9.0/24; and for Budapest, it's 100.0.1.0/24.
+
+Q: What is the exact integer path count for the multiple paths you mentioned for reliability? (Why: impacts load balancing)
+A: The exact integer path count for each of the specified routes is 2. This applies to Frankfurt, Istanbul, and Budapest.

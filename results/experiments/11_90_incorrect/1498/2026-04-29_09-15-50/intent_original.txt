@@ -1,0 +1,7 @@
+Connect frankfurt to the remote network.
+Use multiple paths for reliability.
+Connect istanbul to the target subnet.
+Traffic should go through rotterdam when feasible.
+The subnet the main subnet is reachable from budapest.
+Traffic from budapest to the main subnet passes through kiev.
+Make sure there's redundancy.

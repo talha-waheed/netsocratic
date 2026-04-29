@@ -1,0 +1,26 @@
+Routers modified: Rotterdam, Frankfurt, Kiev
+
+Reasoning:
+1. **Reachability & Waypointing for Frankfurt to 100.0.29.0/24**:
+   - Traffic from Frankfurt to 100.0.29.0/24 must traverse Rotterdam.
+   - Bypass paths from Frankfurt to 100.0.29.0/24 include: 
+     - Frankfurt → Amsterdam → Brussels → London
+     - Frankfurt → Brussels → London
+   - Set cost to 1000 on these bypass paths (all non-Rotterdam paths).
+   - Cost on the path through Rotterdam (Frankfurt → Rotterdam → Amsterdam → London) remains 1.
+
+2. **Reachability for Budapest to 100.0.1.0/24**:
+   - Traffic from Budapest to 100.0.1.0/24 must traverse Kiev. 
+   - All paths bypassing Kiev must have a higher cost.
+   - Cost on the bypass path from Budapest to 100.0.1.0/24 through Frankfurt remains 1000.
+
+3. **Final Verification of Costs**:
+   - For Frankfurt to 100.0.29.0/24:
+     - Path through Rotterdam: Cost = 1 (Frankfurt → Rotterdam) + 1 (Rotterdam → Amsterdam) + 1 (Amsterdam → London) = 3
+     - Bypass paths were set to 1000, making them non-viable.
+   - For Budapest to 100.0.1.0/24:
+     - Path through Kiev: Cost = 1 (Budapest → Kiev) + 1 (Kiev → Frankfurt) = 2
+     - Bypass paths through Frankfurt set to 1000, ensuring traffic goes through Kiev.
+
+Limitations (if any):
+None.

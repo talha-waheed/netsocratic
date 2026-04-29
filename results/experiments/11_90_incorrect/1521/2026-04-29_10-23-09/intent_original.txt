@@ -1,0 +1,8 @@
+luxembourg and that network need connectivity.
+Route through kiev if possible.
+Load balance the traffic appropriately.
+strasbourg should connect to 100.0.1.0/24., and similar routing should be used for related traffic.
+Traffic should go through kiev when feasible.
+Ensure fault tolerance with multiple routes.
+marseille and 100.0.9.0/24 should be connected.
+Traffic should go through rotterdam when feasible.

@@ -1,0 +1,17 @@
+Routers modified: ['Kiev', 'Milan', 'Lyon']
+
+Reasoning:
+1. For traffic from Lyon to 100.0.1.0/24 (Kiev's subnet), we need to ensure that it can reach this subnet via two paths. The paths are:
+   - Lyon → Paris → Geneva → Basel → Frankfurt → Kiev
+   - Lyon → Marseille → Milan → Zurich → Frankfurt → Kiev
+   To achieve this, we set the costs on the relevant interfaces in Kiev and Lyon to 1, allowing both paths to be viable.
+
+2. For traffic from Milan to 100.0.29.0/24 (London's subnet), we need to ensure that it can reach this subnet via two paths. The paths are:
+   - Milan → Zurich → Frankfurt → London
+   - Milan → Roma → Frankfurt → London
+   To achieve this, we set the costs on the relevant interfaces in Milan to 1, allowing both paths to be viable.
+
+3. The modifications ensure that both the waypointing and load balancing requirements are satisfied. The paths through the required routers are preferred, but alternatives remain available.
+
+Limitations (if any):
+None

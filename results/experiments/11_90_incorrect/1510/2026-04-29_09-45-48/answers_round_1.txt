@@ -1,0 +1,24 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from geneva should connect to? (Why: impacts reachability)
+A: Traffic from Geneva should connect to the following destination subnets: 100.0.1.0/24 and 100.0.4.0/24.
+
+Q: What is the exact router hostname for the "main subnet"? (Why: impacts waypointing)
+A: The specification does not provide information about the exact router hostname for the "main subnet."
+
+Q: What is the exact subnet that "our servers" refers to? (Why: impacts reachability)
+A: The term "our servers" is not specified in the provided requirements. Please clarify which location or context you are referring to for the subnet information.
+
+Q: What is the exact subnet that "the remote network" refers to? (Why: impacts reachability)
+A: "The remote network" refers to the subnets: 100.0.1.0/24 and 100.0.4.0/24 for Geneva, 100.0.4.0/24 for Luxembourg, 100.0.9.0/24 for Frankfurt, 100.0.1.0/24 for Bucharest, 100.0.4.0/24 and 100.0.1.0/24 for Madrid, 100.0.1.0/24 for Milan, and 100.0.29.0/24 for Strasbourg.
+
+Q: What is the exact subnet that "the destination network" refers to? (Why: impacts reachability)
+A: The destination network refers to the specific subnets listed in the reachability requirements, which are:
+
+- Geneva: 100.0.1.0/24, 100.0.4.0/24
+- Luxembourg: 100.0.4.0/24
+- Frankfurt: 100.0.9.0/24
+- Bucharest: 100.0.1.0/24
+- Madrid: 100.0.4.0/24, 100.0.1.0/24
+- Milan: 100.0.1.0/24
+- Strasbourg: 100.0.29.0/24

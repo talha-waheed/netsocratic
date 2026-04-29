@@ -1,0 +1,15 @@
+{
+  "reachability": {
+    "bratislava": ["100.0.9.0/24"]
+  },
+  "waypoint": {
+    "(bratislava,100.0.9.0/24)": ["rotterdam"],
+    "(strasbourg,100.0.4.0/24)": ["basel"],
+    "(luxembourg,100.0.1.0/24)": ["kiev"]
+  },
+  "loadbalancing": {
+    "(bratislava,100.0.9.0/24)": 2,
+    "(strasbourg,100.0.4.0/24)": 3,
+    "(luxembourg,100.0.1.0/24)": 2
+  }
+}

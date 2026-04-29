@@ -1,0 +1,10 @@
+Routers modified: ["brussels", "rotterdam"]
+
+Reasoning:
+1. Requirement for Brussels to access 100.0.9.0/24 via Rotterdam.
+2. To ensure that traffic from Brussels to 100.0.9.0/24 can be load-balanced across 3 paths, I set the cost on paths going directly to Rotterdam (one required path) to 1, and all other bypass paths to Brussels to 1000.
+3. Rotterdam must reach 100.0.1.0/24 via Kiev (mandatory waypoint). Set the cost to 1000 on the bypass paths while ensuring a cost of 1 remains through Kiev.
+4. For load balancing from Rotterdam to 100.0.1.0/24, set costs of the alternative paths to 10 while ensuring the path through Kiev is at cost 1.
+
+Limitations (if any):
+The number of paths to satisfy all load balancing requirements was limited due to the imposed waypoint restrictions and the existing topology constraints.

@@ -1,0 +1,16 @@
+Routers modified: Amsterdam, Athens, Bratislava, Frankfurt
+
+Reasoning:
+1. **Reachability**: All required reachabilities (Athens to Brussels, Bratislava to Basel, Roma to London) are inherently satisfied by OSPF’s connected subnet redistribution.
+  
+2. **Waypointing**:
+   - For Athens to 100.0.9.0/24, mandatory waypoint through Basel necessitates setting costs on paths directly bypassing Basel to 1000.
+   - For Bratislava to 100.0.4.0/24, all paths bypassing Basel must also be blocked with a cost of 1000.
+   - The route from Roma to 100.0.29.0/24 didn’t require waypointing since no required waypoint is specified.
+
+3. **Load Balancing**:
+   - Bratislava requires 4 equal-cost paths to reach 100.0.4.0/24. Set routing costs to ensure exactly 4 paths share the same minimum cost (ensured through total cost configuration leading via Basel).
+   - Roma to 100.0.29.0/24 requires 2 paths, which has been configured as 2 equal-cost paths.
+
+Limitations (if any):
+None

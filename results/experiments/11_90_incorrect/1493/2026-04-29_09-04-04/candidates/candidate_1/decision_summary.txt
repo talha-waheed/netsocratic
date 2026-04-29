@@ -1,0 +1,21 @@
+Routers modified: Frankfurt, Lyon, Rotterdam
+
+Reasoning:
+1. **Reachability**: 
+   - Praha needs to reach 100.0.4.0/24 via Basel. This is achieved by ensuring Frankfurt has a path to Basel with a lower cost.
+   - Lyon needs to reach 100.0.29.0/24 (London) and 100.0.9.0/24 (Amsterdam) with specific path requirements.
+
+2. **Waypointing**: 
+   - No mandatory waypoints were specified, but we need to ensure that Lyon prefers to go through London for 100.0.29.0/24. Thus, we set the cost to 1 on the paths through London while allowing other paths to remain available.
+
+3. **Load Balancing**: 
+   - For Lyon to 100.0.29.0/24, we need 2 paths. We achieve this by setting costs appropriately on the interfaces leading to London.
+   - For Lyon to 100.0.9.0/24, we need 6 paths. We ensure that the paths through Rotterdam are set to cost 1, allowing for multiple equal-cost paths to Amsterdam.
+
+4. **Cost Adjustments**: 
+   - Frankfurt's costs to bypass Basel are set to 1000 to ensure traffic goes through Basel.
+   - Lyon's costs to London are set to 1 to prefer that path for 100.0.29.0/24.
+   - Rotterdam's costs are adjusted to allow for multiple paths to Amsterdam.
+
+Limitations (if any):
+None

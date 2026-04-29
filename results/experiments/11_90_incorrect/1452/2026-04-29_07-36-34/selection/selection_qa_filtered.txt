@@ -1,0 +1,2 @@
+Q: Did your original intent require traffic from praha to 100.0.9.0/24 to pass through rotterdam, was no waypoint required, or was a different waypoint required?
+A: My original intent required traffic from praha to 100.0.9.0/24 to pass through rotterdam as the specified waypoint.

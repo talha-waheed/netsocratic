@@ -1,0 +1,8 @@
+Traffic originating from brussels can reach the subnet the target subnet
+Traffic from brussels to 100.0.9.0/24 should be load-balanced across 3 paths.
+Traffic originating from rotterdam can reach the subnet 100.0.1.0/24.
+Preferably route via kiev.
+Traffic from rotterdam to 100.0.1.0/24 is evenly distributed across 4 paths.
+Ensure amsterdam can access 100.0.9.0/24. Apply the same policy to other relevant connections.
+Preferably route via rotterdam.
+Load balance the traffic appropriately.

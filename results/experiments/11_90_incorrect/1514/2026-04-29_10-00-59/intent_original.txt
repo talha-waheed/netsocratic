@@ -1,0 +1,23 @@
+The subnet our servers is reachable from marseille.
+The route from marseille to our servers includes rotterdam.
+Load balance the traffic appropriately.
+Traffic originating from kiev can reach the subnet 100.0.29.0/24.
+Routing traffic between kiev and 100.0.29.0/24 goes via london.
+Connectivity from paris to our servers is established.
+Use london as intermediate hop if available.
+Connectivity from frankfurt to the remote network is established.
+Route through london if possible.
+It should also have redundancy.
+istanbul needs to reach 100.0.9.0/24.. The same connectivity requirements apply to the other subnets as well.
+Ensure good redundancy.
+Ensure budapest can access the remote network. Apply the same policy to other relevant connections.
+To reach the remote network from budapest, traffic is directed through kiev.
+The number of paths between budapest and the remote network should be 2.
+athens can reach the main subnet
+Ensure good redundancy.
+bratislava can reach 100.0.4.0/24.
+The path between bratislava and 100.0.4.0/24 involves basel.
+The number of paths between bratislava and 100.0.4.0/24 should be 4.
+roma and our servers should be connected.
+The route from roma to 100.0.29.0/24 includes london.
+Distribute traffic across available paths.

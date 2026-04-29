@@ -1,0 +1,21 @@
+Routers modified: Amsterdam, Warsaw, Budapest
+
+Reasoning:
+1. Traffic from Amsterdam to 100.0.1.0/24 (Kiev) must pass through Kiev. The paths are:
+   - Amsterdam → Brussels → Frankfurt → Warsaw → Kiev (total cost 4)
+   - Amsterdam → Rotterdam → Frankfurt → Warsaw → Kiev (total cost 4)
+   - Direct to Kiev is not allowed, so both paths to Kiev need to have the same cost.
+   - Set cost to 1000 on bypass paths (to Frankfurt), and keep the path through Brussels with cost 1.
+
+2. Traffic from Warsaw to 100.0.1.0/24 (Kiev) must also pass through Kiev. The paths are:
+   - Warsaw → Frankfurt → Kiev (total cost 2)
+   - Warsaw → Brussels → Frankfurt → Kiev (total cost 3)
+   - Again, set cost to 1000 on the bypass path to Frankfurt, and keep the path through Brussels with cost 1.
+
+3. Traffic from Budapest to 100.0.9.0/24 (Rotterdam) must pass through Rotterdam. The paths are:
+   - Budapest → Bratislava → Frankfurt → Rotterdam (total cost 3)
+   - Budapest → Zagreb → Rotterdam (total cost 2)
+   - Set cost to 1000 on the bypass path to Frankfurt, and keep the path through Zagreb with cost 1.
+
+Limitations (if any):
+None

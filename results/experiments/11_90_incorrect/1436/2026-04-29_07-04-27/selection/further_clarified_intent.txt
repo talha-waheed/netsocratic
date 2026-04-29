@@ -1,0 +1,1 @@
+Traffic from Paris to 100.0.1.0/24 must pass through Kiev. Traffic from Sofia to 100.0.1.0/24 must be reachable. Traffic from Paris to 100.0.1.0/24 must be load-balanced across exactly 2 equal-cost paths. The route from London to 100.0.4.0/24 must include Basel.

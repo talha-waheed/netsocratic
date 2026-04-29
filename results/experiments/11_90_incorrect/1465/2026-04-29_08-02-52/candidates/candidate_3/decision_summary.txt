@@ -1,0 +1,13 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Geneva, Milan, Rotterdam, Sofia, Vienna
+
+Reasoning:
+1. Amsterdam needs to block paths to London and Frankfurt for the route to 100.0.4.0/24, hence the costs to these neighbors are set to 1000.
+2. Brussels requires a mandatory waypoint to Basel when routing to 100.0.4.0/24, thus the cost to Basel is raised to 1000.
+3. Frankfurt must route traffic to Bucharest through London, so the cost to London is set to 1000.
+4. Geneva must also route traffic to Basel for 100.0.4.0/24 so costs are set to 1000.
+5. Milan needs to use Rotterdam as a mandatory waypoint to reach 100.0.9.0/24, hence the cost to it is set to 1 ensuring comparability to other paths.
+6. Rotterdam's path to Amsterdam is kept at a cost of 1 to facilitate load balancing.
+7. Sofia and Vienna must route traffic via Basel to get to 100.0.4.0/24, requiring the costs to Basel to remain at 1, enabling acceptable routing.
+
+Limitations (if any):
+None

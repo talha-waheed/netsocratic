@@ -1,0 +1,7 @@
+Ensure connectivity between sofia and our servers.
+Traffic should go through basel when feasible.
+Load balance the traffic appropriately.
+100.0.4.0/24 is accessible from rotterdam.
+Traffic from rotterdam to 100.0.4.0/24 is evenly distributed across 3 paths.
+Connectivity from barcelona to 100.0.1.0/24 is established.
+Load balance the traffic appropriately.

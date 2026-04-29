@@ -1,0 +1,11 @@
+Routers modified: Bratislava, Milan, Istanbul
+
+Reasoning:
+1. **Bratislava** needs to reach `100.0.1.0/24` (Kiev). To ensure this, the cost to bypass the required path through `Basel` is set to `1000`, while the direct path through `Budapest` remains at `1`.
+2. **Milan** must connect to `100.0.4.0/24` (Basel). The cost to reach `Basel` is set to `1` to ensure traffic flows through it. No bypass paths are blocked.
+3. **Istanbul** also needs to reach `100.0.4.0/24` (Basel). The cost to reach `Basel` is set to `1`, allowing traffic to flow through it without blocking alternatives.
+
+Load balancing is achieved by ensuring that both `Istanbul` and `Milan` can reach `100.0.4.0/24` through `Basel` with a cost of `1`, while maintaining higher costs for bypass paths.
+
+Limitations (if any):
+None
