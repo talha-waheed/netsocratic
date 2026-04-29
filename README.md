@@ -183,7 +183,7 @@ If a `RuntimeContext` from a previous failed attempt is provided, it is injected
 
 ### Phase 2 — Generator Agent
 
-The Generator Agent is a two-step process. **Structured rules are the primary unit of analysis** — candidates differ at the rules level, not the config level.
+The Generator Agent is a two-step process. **Structured rules are the primary unit of analysis** since we only have ground truth for structured rules. There might be different configurations possible for the same structured rules that deviate on unspecified aspects (e.g., both configs load balance across 4 paths but they take different paths). Although we cannot verify ambiguity at the configuration level (since we don't have ground truth for it), we evaluate the ambiguity of our final clarified intent by analyzing the number of ECs obtained from configs generated from the clarified intent (see Phase 3: Further Clarified Intent + Corrected Generation).
 
 #### Step 1 — Intent → Rules JSON (varied per candidate)
 
@@ -249,8 +249,6 @@ A union-find algorithm groups behaviorally identical candidates into equivalence
 #### Follow-up Q&A Loop
 
 For each surviving pair, the LLM converts the Batfish-detected behavioral difference into a single plain-English question for the operator. The operator's answers are accumulated as new intent constraints instead of pruning to one existing candidate, so the final output can combine dimensions that were correct in different candidates.
-
-Priority order for which difference to surface: **reachability > waypointing > load-balancing**.
 
 After a pair has been asked about, it is skipped for subsequent rounds and the agent moves to the next most-salient distinguishable pair, preventing the same question from repeating indefinitely.
 
