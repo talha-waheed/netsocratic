@@ -50,6 +50,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
 from agents.clarification_agent import ClarificationAgent
 from agents.generator_agent import (
+    RULES_EXTRACTOR_MAX_TOKENS,
     RULES_EXTRACTOR_SYSTEM,
     GeneratorAgent,
 )
@@ -70,13 +71,42 @@ log = logging.getLogger(__name__)
 
 def _normalise_spec(spec: dict) -> dict:
     """Normalise a rules dict for comparison: lowercase keys, sorted lists."""
+    if not isinstance(spec, dict):
+        raise ValueError("rules JSON must be an object")
     out: dict = {}
     reach = spec.get("reachability") or {}
-    out["reachability"] = {k.lower(): sorted(v) for k, v in reach.items()}
+    if not isinstance(reach, dict):
+        raise ValueError("reachability must be an object")
+    normalised_reach = {}
+    for k, v in reach.items():
+        if not isinstance(k, str) or not isinstance(v, list):
+            raise ValueError("reachability must map source strings to prefix lists")
+        if not all(isinstance(prefix, str) for prefix in v):
+            raise ValueError("reachability prefixes must be strings")
+        normalised_reach[k.lower()] = sorted(v)
+    out["reachability"] = normalised_reach
+
     wp = spec.get("waypoint") or {}
-    out["waypoint"] = {k.lower(): sorted(w.lower() for w in v) for k, v in wp.items()}
+    if not isinstance(wp, dict):
+        raise ValueError("waypoint must be an object")
+    normalised_wp = {}
+    for k, v in wp.items():
+        if not isinstance(k, str) or not isinstance(v, list):
+            raise ValueError("waypoint must map pair strings to router lists")
+        if not all(isinstance(w, str) for w in v):
+            raise ValueError("waypoint routers must be strings")
+        normalised_wp[k.lower()] = sorted(w.lower() for w in v)
+    out["waypoint"] = normalised_wp
+
     lb = spec.get("loadbalancing") or {}
-    out["loadbalancing"] = {k.lower(): int(v) for k, v in lb.items()}
+    if not isinstance(lb, dict):
+        raise ValueError("loadbalancing must be an object")
+    normalised_lb = {}
+    for k, v in lb.items():
+        if not isinstance(k, str):
+            raise ValueError("loadbalancing keys must be strings")
+        normalised_lb[k.lower()] = int(v)
+    out["loadbalancing"] = normalised_lb
     return out
 
 
@@ -88,14 +118,14 @@ def evaluate(generated_rules_str: str, correct_spec_str: str) -> dict:
     """
     try:
         gen = _normalise_spec(json.loads(generated_rules_str))
-    except Exception:
-        return {"error": "could not parse generated rules", "exact_match": False,
+    except Exception as exc:
+        return {"error": f"could not parse generated rules: {exc}", "exact_match": False,
                 "reachability_match": False, "waypoint_match": False, "loadbalancing_match": False}
 
     try:
         ref = _normalise_spec(json.loads(correct_spec_str))
-    except Exception:
-        return {"error": "could not parse correct spec", "exact_match": False,
+    except Exception as exc:
+        return {"error": f"could not parse correct spec: {exc}", "exact_match": False,
                 "reachability_match": False, "waypoint_match": False, "loadbalancing_match": False}
 
     def reach_pairs(r: dict) -> set:
@@ -151,7 +181,7 @@ def extract_rules_neutral(llm, clarified_intent: str) -> str:
         Message(role="system", content=RULES_EXTRACTOR_SYSTEM),
         Message(role="user", content=clarified_intent),
     ]
-    raw = llm.complete(messages, temperature=0.0, max_tokens=1024)
+    raw = llm.complete(messages, temperature=0.0, max_tokens=RULES_EXTRACTOR_MAX_TOKENS)
     raw = _re.sub(r"^```[^\n]*\n", "", raw.strip())
     raw = _re.sub(r"\n```$", "", raw.strip())
     try:

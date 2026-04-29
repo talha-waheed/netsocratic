@@ -544,7 +544,8 @@ class SelectionAgent:
             )
 
             if rule_options:
-                options = rule_options
+                batch_option = _batch_rule_diff_option(rule_options)
+                options = ([batch_option] if batch_option else []) + rule_options
             else:
                 only_i = adv.get("nodes_only_in_c1", set()) if i < j else adv.get("nodes_only_in_c2", set())
                 only_j = adv.get("nodes_only_in_c2", set()) if i < j else adv.get("nodes_only_in_c1", set())
@@ -924,7 +925,7 @@ def _rule_diff_options(
             continue
         src, prefix = _split_rule_key(key)
         options.append({
-            "priority": 3,
+            "priority": 5,
             "dimension": "load_balancing",
             "detail_id": f"load_balancing:{key}",
             "c1_desc": _lb_desc(cand_names[i], src, prefix, vi),
@@ -949,6 +950,60 @@ def _rule_diff_options(
         })
 
     return options
+
+
+def _batch_rule_diff_option(options: list[dict]) -> dict | None:
+    """Ask several same-dimension rule questions at once for dense intents."""
+    if len(options) < 3:
+        return None
+
+    lb_options = [o for o in options if o.get("dimension") == "load_balancing"]
+    if len(lb_options) >= 3:
+        selected = lb_options[:8]
+        flows = []
+        for option in selected:
+            match = re.search(r"load_balancing:\(([^,]+),([^)]+)\)", option["detail_id"])
+            if match:
+                flows.append(f"{match.group(1)} to {match.group(2)}")
+        if flows:
+            return {
+                "priority": 6,
+                "dimension": "load_balancing",
+                "detail_id": "load_balancing:batch:" + "|".join(flows),
+                "c1_desc": "candidate rules disagree on several exact ECMP counts",
+                "c2_desc": "candidate rules disagree on several exact ECMP counts",
+                "question": (
+                    "For each of these flows, did your original intent require an "
+                    "exact load-balanced path count, and if so what count: "
+                    + "; ".join(flows)
+                    + "? Answer as source to prefix equals count, or no exact count."
+                ),
+            }
+
+    waypoint_options = [o for o in options if o.get("dimension") == "waypointing"]
+    if len(waypoint_options) >= 3:
+        selected = waypoint_options[:8]
+        flows = []
+        for option in selected:
+            match = re.search(r"waypointing:\(([^,]+),([^)]+)\)", option["detail_id"])
+            if match:
+                flows.append(f"{match.group(1)} to {match.group(2)}")
+        if flows:
+            return {
+                "priority": 5,
+                "dimension": "waypointing",
+                "detail_id": "waypointing:batch:" + "|".join(flows),
+                "c1_desc": "candidate rules disagree on several waypoint requirements",
+                "c2_desc": "candidate rules disagree on several waypoint requirements",
+                "question": (
+                    "For each of these flows, did your original intent require a "
+                    "specific waypoint, and if so which router: "
+                    + "; ".join(flows)
+                    + "? Answer as source to prefix equals waypoint, or no waypoint."
+                ),
+            }
+
+    return None
 
 
 def _normalise_rule_value(value) -> tuple[str, ...]:
@@ -1085,6 +1140,10 @@ def _filter_selection_qa_for_synthesis(
 
 def _answer_declines_requirement(answer: str) -> bool:
     lower = answer.lower()
+    if re.search(r"\b\d+\s*(?:paths?|equal-cost|$)", lower):
+        return False
+    if re.search(r"\b(?:equals|=|is|via|through|waypoint)\s+[a-z][a-z0-9_-]*\b", lower):
+        return False
     patterns = [
         r"\b(no|not|none)\s+(exact\s+)?(path\s+count|waypoint|requirement)\b",
         r"\b(no|not)\s+(required|needed|specified)\b",
@@ -1120,8 +1179,12 @@ def _extract_intent_pairs(intent: str) -> set[tuple[str, str]]:
 
     patterns = [
         r"traffic\s+(?:originating\s+)?from\s+([a-z][a-z0-9_-]*)\s+(?:can\s+)?(?:reach|to)\s+(?:the\s+)?(?:subnet\s+|target\s+subnet\s+|main\s+subnet\s+)?(\d+\.\d+\.\d+\.\d+/\d+)",
+        r"traffic\s+from\s+([a-z][a-z0-9_-]*)\s+to\s+(\d+\.\d+\.\d+\.\d+/\d+)\s+must\s+pass\s+through",
+        r"traffic\s+from\s+([a-z][a-z0-9_-]*)\s+to\s+(\d+\.\d+\.\d+\.\d+/\d+)\s+must\s+be\s+load-balanced",
+        r"routing\s+traffic\s+between\s+([a-z][a-z0-9_-]*)\s+and\s+(?:the\s+)?(?:subnet\s+)?(\d+\.\d+\.\d+\.\d+/\d+)",
         r"connect(?:ivity\s+from)?\s+([a-z][a-z0-9_-]*)\s+(?:to\s+)?(?:the\s+)?(?:subnet\s+|target\s+subnet\s+)?(\d+\.\d+\.\d+\.\d+/\d+)",
         r"([a-z][a-z0-9_-]*)\s+(?:needs?|should|can)\s+(?:to\s+)?(?:reach|connect\s+to|access)\s+(?:the\s+)?(?:subnet\s+|target\s+subnet\s+)?(\d+\.\d+\.\d+\.\d+/\d+)",
+        r"([a-z][a-z0-9_-]*)\s+and\s+(?:the\s+)?(?:subnet\s+)?(\d+\.\d+\.\d+\.\d+/\d+)\s+should\s+be\s+connected",
         r"([a-z][a-z0-9_-]*)\s+and\s+(?:the\s+)?(?:subnet\s+)?(\d+\.\d+\.\d+\.\d+/\d+)\s+(?:need|should)\s+connectivity",
         r"([a-z][a-z0-9_-]*)\s*\(\s*(\d+\.\d+\.\d+\.\d+/\d+)\s*\)\s+is\s+accessible",
     ]

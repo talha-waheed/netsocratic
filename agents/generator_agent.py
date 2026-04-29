@@ -35,6 +35,9 @@ import re
 from llm.base import BaseLLMClient, Message
 
 
+RULES_EXTRACTOR_MAX_TOKENS = 4096
+
+
 # ── Rules-extraction prompt ────────────────────────────────────────────────────
 
 RULES_EXTRACTOR_SYSTEM = """\
@@ -61,6 +64,13 @@ object from a network intent. Output ONLY valid JSON — no prose, no markdown f
 - Prefixes use CIDR notation (e.g. "100.0.29.0/24").
 - Always include a reachability entry for every source-prefix pair mentioned.
 - Omit sections that have no entries (use empty objects {}).
+- Do not invent router names or prefixes. If topology context is provided, use only
+  router names and stub prefixes that appear in that context. If no topology context
+  is provided, use only router names and prefixes that appear in the intent.
+- JSON values must have these exact shapes:
+  - reachability: object whose values are arrays of CIDR strings.
+  - waypoint: object whose values are arrays of lowercase router-name strings.
+  - loadbalancing: object whose values are integers.
 - Output nothing except the JSON object.
 
 ## Strategy-governed rules (read your Extraction Strategy first)
@@ -338,6 +348,38 @@ def generate_topology_doc(topo_configs: dict[str, str]) -> str:
     return "\n".join(lines)
 
 
+def _validate_rules_shape(parsed: dict) -> None:
+    """Fail early when the rules JSON is parseable but not evaluable."""
+    if not isinstance(parsed, dict):
+        raise ValueError("Rules extractor returned a non-object JSON value.")
+
+    allowed = {"reachability", "waypoint", "loadbalancing"}
+    for section, value in parsed.items():
+        if section not in allowed:
+            raise ValueError(f"Rules extractor returned unexpected section: {section}")
+        if not isinstance(value, dict):
+            raise ValueError(f"Rules section {section} must be a JSON object.")
+
+    reach = parsed.get("reachability") or {}
+    for src, prefixes in reach.items():
+        if not isinstance(src, str) or not isinstance(prefixes, list):
+            raise ValueError("Reachability must map source strings to prefix lists.")
+        if not all(isinstance(prefix, str) for prefix in prefixes):
+            raise ValueError("Reachability prefix values must all be strings.")
+
+    waypoint = parsed.get("waypoint") or {}
+    for key, routers in waypoint.items():
+        if not isinstance(key, str) or not isinstance(routers, list):
+            raise ValueError("Waypoint must map pair strings to router lists.")
+        if not all(isinstance(router, str) for router in routers):
+            raise ValueError("Waypoint router values must all be strings.")
+
+    loadbalancing = parsed.get("loadbalancing") or {}
+    for key, count in loadbalancing.items():
+        if not isinstance(key, str) or not isinstance(count, int):
+            raise ValueError("Loadbalancing must map pair strings to integer counts.")
+
+
 # ── Agent ─────────────────────────────────────────────────────────────────────
 
 class GeneratorAgent:
@@ -485,7 +527,11 @@ class GeneratorAgent:
             Message(role="system", content=RULES_EXTRACTOR_SYSTEM),
             Message(role="user", content=user_content),
         ]
-        raw = self._llm.complete(messages, temperature=temperature, max_tokens=1024)
+        raw = self._llm.complete(
+            messages,
+            temperature=temperature,
+            max_tokens=RULES_EXTRACTOR_MAX_TOKENS,
+        )
 
         # Strip any accidental markdown fences the model may add
         raw = re.sub(r"^```[^\n]*\n", "", raw.strip())
@@ -494,9 +540,37 @@ class GeneratorAgent:
         try:
             parsed = json.loads(raw)
         except json.JSONDecodeError as exc:
-            raise ValueError(
-                f"Rules extractor returned invalid JSON: {exc}\n---\n{raw}"
-            ) from exc
+            repair_messages = messages + [
+                Message(
+                    role="assistant",
+                    content=raw,
+                ),
+                Message(
+                    role="user",
+                    content=(
+                        "The previous response was invalid JSON. Return the same "
+                        "rules as one complete valid JSON object only. Do not omit "
+                        "closing braces, do not add prose, and preserve all entries."
+                    ),
+                ),
+            ]
+            repaired = self._llm.complete(
+                repair_messages,
+                temperature=0.0,
+                max_tokens=RULES_EXTRACTOR_MAX_TOKENS,
+            )
+            repaired = re.sub(r"^```[^\n]*\n", "", repaired.strip())
+            repaired = re.sub(r"\n```$", "", repaired.strip())
+            try:
+                parsed = json.loads(repaired)
+                raw = repaired
+            except json.JSONDecodeError as repair_exc:
+                raise ValueError(
+                    f"Rules extractor returned invalid JSON: {exc}\n"
+                    f"Repair also failed: {repair_exc}\n---\n{raw}"
+                ) from repair_exc
+
+        _validate_rules_shape(parsed)
 
         # Detect unfilled template placeholders (e.g. "<destination_subnet>")
         raw_str = json.dumps(parsed)
