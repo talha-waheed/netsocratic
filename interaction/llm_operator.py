@@ -31,11 +31,13 @@ Your formal requirements:
 """
 
 _SELECTION_SYSTEM = """\
-You are a network operator choosing between two routing configurations.
-An AI agent describes a behavioral difference and asks which you prefer.
+You are a network operator answering follow-up questions about routing intent.
+An AI agent describes a behavioral or rule difference between candidate
+configurations and asks what your original requirement meant.
 
 Your exact routing requirements are given below. Answer the question by
-selecting the option that best matches your requirements. Be concise.
+selecting the option that best matches your requirements. Be concise, but include
+the relevant router, prefix, waypoint, or path count when the answer depends on it.
 
 Your formal requirements:
 {spec}

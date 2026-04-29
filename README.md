@@ -23,14 +23,28 @@ Operator intent (vague)
 │  1. Intent → Rules JSON                 │  ← N times, varied temperatures + strategies
 │     (reachability / waypoint / ECMP)    │
 │                                         │
-│  2. Rules JSON → OSPF configs           │  ← once per candidate, fixed temperature
+│  2. Rules JSON → OSPF configs           │  ← same temperature as rules for each candidate
 └─────────────────────────────────────────┘
         │ N candidate dicts (rules + configs)
         ▼
-┌─────────────────────┐
-│   Selection Agent   │  ← Batfish EC-pruning + distinguishing Q&A → 1 winner
-└─────────────────────┘
-        │ winner config (or recovery)
+┌─────────────────────────────────────────┐
+│           Selection Agent               │
+│                                         │
+│  1. Batfish EC-pruning                  │  ← collapse behaviourally identical candidates
+│  2. Follow-up Q&A over Batfish diffs    │  ← LLM-generated questions, operator answers
+│  3. Further clarified intent            │  ← selection Q&A merged back into the intent
+│  4. Corrected generation                │  ← new config from refined intent
+└─────────────────────────────────────────┘
+        │ corrected config + further_clarified_intent (or recovery)
+        ▼
+┌─────────────────────────────────────────┐
+│     Verification (experiments only)     │
+│                                         │
+│  Re-generate N candidates from the      │  ← same procedure as Phase 2
+│  further-clarified intent, then count   │
+│  Batfish ECs.  Goal: EC count = 1.      │
+└─────────────────────────────────────────┘
+        │
         ▼
   Network Specification
   results/<timestamp>/selection/winner/
@@ -196,9 +210,9 @@ Two mechanisms drive diversity across candidates:
 
 Pass `--no-strategies` (or `use_strategies=False`) to disable strategy hints and rely on temperature variation alone.
 
-#### Step 2 — Rules JSON → OSPF configs (fixed per candidate)
+#### Step 2 — Rules JSON → OSPF configs (per candidate)
 
-Config generation runs at a fixed temperature (default `0.0`) given the candidate's rules. The LLM outputs only the routers whose `ip ospf cost` values must change; all other routers are copied verbatim from the base topology in `TOPO_DIR`.
+Config generation runs at the **same temperature used for that candidate's rules extraction**. This means candidate 1 uses temperature 0.2 for both steps, candidate 2 uses 0.7, and candidate 3 uses 1.0. The LLM outputs only the routers whose `ip ospf cost` values must change; all other routers are copied verbatim from the base topology in `TOPO_DIR`.
 
 Key constraints enforced in the prompt:
 - Only `ip ospf cost` values may change from the base topology.
@@ -220,7 +234,7 @@ results/<timestamp>/candidates/candidate_N/
 
 ### Phase 3 — Selection Agent
 
-The Selection Agent narrows N candidates to a single Network Specification using two sub-steps.
+The Selection Agent uses Batfish differences between N candidates to ask follow-up questions, then generates a fresh Network Specification from the refined intent.
 
 #### EC-Based Pruning (Batfish)
 
@@ -231,13 +245,25 @@ All pairwise candidate comparisons are run via subprocess calls to the Batfish s
 
 A union-find algorithm groups behaviorally identical candidates into equivalence classes. One representative per class survives.
 
-#### Distinguishing Q&A Loop
+#### Follow-up Q&A Loop
 
-For each surviving pair, the LLM converts the Batfish-detected behavioral difference into a single plain-English question for the operator. The operator's answer prunes candidates whose behavior matches the rejected side (using already-computed pairwise diffs — no Batfish re-runs).
+For each surviving pair, the LLM converts the Batfish-detected behavioral difference into a single plain-English question for the operator. The operator's answers are accumulated as new intent constraints instead of pruning to one existing candidate, so the final output can combine dimensions that were correct in different candidates.
 
 Priority order for which difference to surface: **reachability > waypointing > load-balancing**.
 
-When the operator's answer is unclear, the pair is skipped for subsequent rounds and the agent moves to the next most-salient distinguishable pair, preventing the same question from repeating indefinitely.
+After a pair has been asked about, it is skipped for subsequent rounds and the agent moves to the next most-salient distinguishable pair, preventing the same question from repeating indefinitely.
+
+#### Further Clarified Intent + Corrected Generation
+
+After follow-up Q&A, the selection Q&A is fed back to the LLM alongside the original clarified intent to produce a **further clarified intent** — a refined, more precise version of the intent that incorporates the operator's answers. The Generator Agent then runs once at temperature `0.0` against that further clarified intent to produce the final corrected configuration.
+
+This further clarified intent is:
+- Saved to `selection/further_clarified_intent.txt`.
+- Displayed in the terminal when it differs from the original clarified intent.
+- Used as the basis for the **verification phase** in experiments (see below).
+- Evaluated separately in the experiment runner (`eval_further_clarified`).
+
+The corrected configuration is saved to `selection/winner/`, including `rules.json`, `decision_summary.txt`, and full router configs. If no distinguishing Q&A occurred (e.g. only one EC survived pruning), the further clarified intent is identical to the original and the surviving candidate is saved directly.
 
 #### Recovery
 
@@ -277,20 +303,30 @@ results/2026-04-22_03-36-57/
 │   └── candidate_3/             # Exploratory interpretation
 │       └── ...
 │
-└── selection/
-    ├── batfish/
-    │   ├── candidate_1_vs_candidate_2_reachability.txt
-    │   ├── candidate_1_vs_candidate_2_advanced.txt
+├── selection/
+│   ├── batfish/
+│   │   ├── candidate_1_vs_candidate_2_reachability.txt
+│   │   ├── candidate_1_vs_candidate_2_advanced.txt
+│   │   └── ...
+│   ├── selection_log.txt              # EC grouping, Q&A rounds, synthesis decisions
+│   ├── further_clarified_intent.txt   # intent refined with selection Q&A preferences
+│   ├── runtime_context.txt            # (if recovery) packed state for next Clarification pass
+│   └── winner/
+│       ├── rules.json
+│       ├── decision_summary.txt
+│       └── configs/
+│           ├── Athens.cfg
+│           ├── London.cfg
+│           └── ...
+│
+└── verification/                      # (experiments only) re-generation from further intent
+    ├── candidates/
+    │   ├── candidate_1/rules.json
+    │   ├── candidate_2/rules.json
+    │   └── candidate_3/rules.json
+    ├── batfish/                        # pairwise Batfish diffs for verification candidates
     │   └── ...
-    ├── selection_log.txt         # EC grouping, Q&A rounds, pruning decisions
-    ├── runtime_context.txt       # (if recovery) packed state for next Clarification pass
-    └── winner/
-        ├── rules.json
-        ├── decision_summary.txt
-        └── configs/
-            ├── Athens.cfg
-            ├── London.cfg
-            └── ...
+    └── selection_log.txt               # EC count (goal: 1 = fully disambiguated)
 ```
 
 ---
@@ -353,10 +389,10 @@ Saves: `intent_original.txt`, `clarify_prompt.txt`, `questions_round_N.txt`, `an
 
 ### `agents/generator_agent.py`
 
-- `GeneratorAgent(llm, kb_dir, topo_dir, num_candidates, rules_temperatures, config_temperature, use_strategies, dry_run)`
+- `GeneratorAgent(llm, kb_dir, topo_dir, num_candidates, rules_temperatures, use_strategies, dry_run)`
 - `run(clarified_intent, results_dir) -> list[dict[str, str]]`
 
-Each returned dict contains `"__rules__"` (rules JSON string), `"decision_summary.txt"`, and one key per router (full config text).
+Each returned dict contains `"__rules__"` (rules JSON string), `"decision_summary.txt"`, and one key per router (full config text). Both rules extraction and OSPF config generation for a given candidate use the same temperature (no separate `config_temperature` — the rules temperature drives both steps).
 
 Module-level constants: `CANDIDATE_STRATEGIES` (list of 3 strategy dicts with `rules_hint` and `config_hint` keys — extend to add more candidates).
 
@@ -365,11 +401,15 @@ Key helpers: `load_knowledge_base()`, `load_topo_configs()`, `generate_topology_
 ### `agents/selection_agent.py`
 
 - `SelectionAgent(llm, interactor, batfish_script_dir, max_rounds, dry_run)`
-- `run(candidates, clarified_intent, results_dir, prior_clarification_qa) -> dict | None`
+- `run(candidates, clarified_intent, results_dir, prior_clarification_qa) -> tuple[dict, str] | tuple[None, None]`
 
-Returns the winning candidate dict, or `None` to trigger a recovery loop in `main.py`.
+Returns `(winner_dict, further_clarified_intent)` on success, or `(None, None)` to trigger a recovery loop. `further_clarified_intent` incorporates selection Q&A preferences into the clarified intent (saved to `selection/further_clarified_intent.txt`).
 
-Key helpers: `_ec_prune()` (union-find), `_run_all_diffs()` (subprocess Batfish), `_find_best_pair()` (priority scan), `_generate_question()` (LLM), `_prune()` (answer-based pruning), `_do_recovery()` (writes `RuntimeContext`).
+- `count_ecs(n, cands_dir, results_dir) -> int`
+
+Runs Batfish pairwise diffs on `n` pre-saved candidates in `cands_dir` and returns the number of behaviourally distinct equivalence classes. Used by the experiment runner's verification phase — a return value of 1 means all candidates are identical.
+
+Key helpers: `_synthesise_further_clarified()` (LLM merge of clarified intent + selection Q&A), `_synthesise_winner()` (fresh generation from the refined intent), `_ec_prune()` (union-find), `_run_all_diffs()` (subprocess Batfish), `_find_best_pair()` (priority scan), `_generate_question()` (LLM), `_do_recovery()` (writes `RuntimeContext`).
 
 ### `interaction/llm_operator.py`
 
@@ -404,10 +444,11 @@ Standalone batch runner for offline analysis. Iterates over a set of experiment 
 - CLI: `python experiments/runner.py --csv <path> [options]`
 - Reads `Ambiguous High Level Intent` and `Correct Formal Specification` columns from a CSV file.
 - Constructs an `LLMOperator` per row using the correct spec and runs the full pipeline without a human in the loop.
-- Evaluates generated rules against the correct spec at three checkpoints: post-clarification, best-of-N candidates, and winner (if selection ran).
+- Evaluates generated rules against the correct spec at four checkpoints: post-clarification, best-of-N candidates, winner, and further-clarified intent.
+- **Phase 4 — Verification**: after selection, re-runs `GeneratorAgent` using the further-clarified intent and calls `SelectionAgent.count_ecs()` to measure how many behaviourally distinct candidates result. A count of 1 means the intent was fully disambiguated.
 - Writes `summary.csv` and `summary.json` incrementally after every row — partial runs are fully usable if interrupted.
 
-Key functions: `evaluate()` (per-dimension rule comparison), `extract_rules_neutral()` (rules at temp=0.0, no strategy — post-clarification baseline), `_count_clarify_questions()` (parses saved question files), `_parse_selection_log()` (extracts EC count and selection round count from `selection_log.txt`), `_print_aggregate()` (terminal summary table).
+Key functions: `evaluate()` (per-dimension rule comparison), `extract_rules_neutral()` (rules at temp=0.0, no strategy — post-clarification and further-clarified baselines), `_count_clarify_questions()` (parses saved question files), `_parse_selection_log()` (extracts EC count and selection round count from `selection_log.txt`), `_print_aggregate()` (terminal summary table with verification EC stats).
 
 ---
 
@@ -483,23 +524,31 @@ results/experiments/<run_timestamp>/
 └── <row_id>/
     └── <pipeline_timestamp>/      # same layout as a normal pipeline run
         ├── clarified_intent.txt
-        ├── rules.json
         ├── candidates/
         │   ├── candidate_1/rules.json
         │   ├── candidate_2/rules.json
         │   └── candidate_3/rules.json
-        └── selection/winner/rules.json   (if selection ran)
+        ├── selection/
+        │   ├── winner/rules.json
+        │   └── further_clarified_intent.txt
+        └── verification/          # re-generation from further_clarified_intent
+            ├── candidates/
+            │   ├── candidate_1/rules.json
+            │   ├── candidate_2/rules.json
+            │   └── candidate_3/rules.json
+            └── selection_log.txt  # EC count for the 3 regenerated configs
 ```
 
 ### Metrics
 
-The terminal summary and `summary.csv` report accuracy at three checkpoints:
+The terminal summary and `summary.csv` report accuracy at four checkpoints:
 
 | Checkpoint | How it is produced | What it measures |
 |---|---|---|
 | **Post-clarify** | Rules extracted at temp=0.0, no strategy, directly from the clarified intent | Quality of the clarification phase alone |
 | **Best-of-N** | `OR` across all N candidates | Upper bound on generation quality |
-| **Winner** | The Batfish-selected candidate | End-to-end pipeline accuracy |
+| **Winner** | Corrected configuration generated from the further-clarified intent, or the single surviving EC candidate when no follow-up was needed | End-to-end pipeline accuracy |
+| **Furt.Clar.** | Rules extracted at temp=0.0 from the further-clarified intent | Whether selection Q&A improved the intent |
 
 Each checkpoint reports four match flags against the ground-truth spec:
 
@@ -510,7 +559,21 @@ Each checkpoint reports four match flags against the ground-truth spec:
 | `wp` | Waypoint assignments match |
 | `lb` | Load-balancing path counts match |
 
-Additional columns: `n_clarify_rounds`, `n_clarify_questions`, `n_ecs` (equivalence classes after Batfish pruning), `n_selection_rounds`, `time_clarify_s`, `time_generate_s`, `time_select_s`.
+Additional columns:
+
+| Column | Meaning |
+|---|---|
+| `n_clarify_rounds` | Number of clarification rounds |
+| `n_clarify_questions` | Total clarification questions asked |
+| `n_ecs` | Equivalence classes after Batfish pruning (selection phase) |
+| `n_selection_rounds` | Follow-up Q&A rounds in selection |
+| `n_verification_ecs` | ECs among the 3 configs regenerated from the further-clarified intent; **1 = fully disambiguated** |
+| `time_clarify_s` | Clarification phase wall time |
+| `time_generate_s` | Generation phase wall time |
+| `time_select_s` | Selection phase wall time |
+| `time_verify_s` | Verification phase wall time |
+
+The aggregate terminal table shows `Avg verification ECs` alongside a `(perfect=1: X/N)` counter — the fraction of runs where re-generation produced only one distinct behaviour.
 
 ---
 

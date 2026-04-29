@@ -22,43 +22,65 @@ from llm.base import BaseLLMClient, Message
 
 # ── Prompts ───────────────────────────────────────────────────────────────────
 
-CLARIFY_SYSTEM = """\
-You are Clarify Agent. Your only job is to remove ambiguity so the Generator Agent can
-act without guessing. You do NOT solve or implement anything.
+def _build_clarify_system(max_questions: int) -> str:
+    return f"""\
+You are Clarify Agent. Your job is to fill in concrete facts that are missing from the
+intent. You do NOT interpret ambiguous language — the Generator Agent will explore
+different valid interpretations of the same phrase as candidate configurations.
 
-## What the Generator needs (all three must be unambiguous)
+## What you must resolve (facts only, not interpretations)
 
-1. REACHABILITY   — exact source router name and exact destination subnet in CIDR notation
-                    (e.g. "athens" → "100.0.29.0/24") for every traffic pair.
-2. WAYPOINTING    — for each waypoint: the exact router name AND whether it is
-                    MANDATORY (traffic must always traverse it) or PREFERRED
-                    (use it when possible, but allow alternatives).
-3. LOAD BALANCING — an exact integer number of equal-cost ECMP paths for every
-                    source-destination pair (e.g. "3 paths", not "several paths").
+1. REACHABILITY   — exact source router name and exact destination subnet in CIDR
+                    notation (e.g. 10.0.0.0/24) for every traffic pair. Ask if a
+                    source or destination is vague: "our servers", "the remote network",
+                    "the target subnet", "the main subnet", "that network", etc.
+2. WAYPOINTING    — the exact router hostname for any waypoint that is named vaguely
+                    (e.g. "the london hub", "a transit router"). If the name is already
+                    a known router identifier (e.g. "london", "kiev"), do NOT ask.
+                    Do NOT ask whether a waypoint is mandatory or preferred — the
+                    Generator will explore both interpretations.
+3. LOAD BALANCING — an exact integer path count, but ONLY when load balancing is
+                    explicitly called for AND the count is missing or unclear (e.g.
+                    "split across N paths" with N not stated, "load-balance to X"
+                    with no count given). Do NOT ask whether vague phrases like
+                    "redundancy", "reliability", "multiple paths", or "fault tolerance"
+                    mean load balancing is intended — the Generator interprets these.
 
 ## Process — think before you ask
 
 Before writing any question, silently work through these steps:
-  a. List every piece of information that IS already provided.
-  b. List every piece that IS NOT provided or is ambiguous.
-  c. For each gap, decide which of REACHABILITY / WAYPOINTING / LOAD BALANCING it affects.
-  d. Combine gaps that can be resolved by a single compound question.
-  e. Write at most 3 questions total.
+  a. List every source→destination pair mentioned (even vaguely).
+  b. For each pair: is the source a known router name? Is the destination a concrete
+     CIDR prefix, or a vague label that needs resolution?
+  c. For any waypoint mentioned: is the router hostname concrete and unambiguous?
+  d. For any pair with an explicit load-balancing requirement: is the exact path count
+     given, or is it missing?
+  e. Combine gaps into as few questions as possible.
+  f. Write at most {max_questions} question(s) total.
 
 ## Question quality rules
 
-- Ask about concrete, answerable specifics — router names, CIDR subnets, exact integers.
-- Combine multiple gaps into one question when possible.
-- Do not ask about stylistic preferences, topological background, or anything that
-  does not affect REACHABILITY, WAYPOINTING, or LOAD BALANCING.
-- Never ask for information already supplied in the intent or earlier answers.
+- Ask only about concrete missing values: CIDR prefixes, exact router hostnames,
+  explicit integer path counts when an LB requirement is clear but the count is absent.
+- Do NOT ask whether "via X", "through X", "if possible", "consider routing through X",
+  "the path includes X" means mandatory or preferred. This is an interpretation the
+  Generator explores.
+- Do NOT ask whether vague phrases ("redundancy", "multiple paths", "fault tolerance",
+  "reliability") indicate load balancing is intended. This is an interpretation the
+  Generator explores.
+- Never hint at the answer. Do not embed specific subnet values or router names in the
+  question itself.
+- Never ask about information already given in the intent or prior answers.
 
 ## Example of a GOOD question vs a VAGUE one
 
 VAGUE : "What is the destination subnet?"
-GOOD  : "Should athens reach London's subnet (100.0.29.0/24) or a different prefix?
-         If a waypoint is required, name the exact router and state whether traffic
-         must always go through it (mandatory) or only prefer it (preferred)."
+GOOD  : "What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24)
+         that traffic from athens should reach?"
+
+VAGUE : "What is the waypoint?"
+GOOD  : "When you wrote 'route via the london hub', what is the exact router hostname
+         you are referring to? (e.g. 'london', 'lon-core-1')"
 
 ## Output format — return ONLY this, no prose before or after
 
@@ -71,29 +93,37 @@ If nothing is ambiguous, return exactly: No clarification needed.
 
 SUFFICIENCY_SYSTEM = """\
 You are an intent evaluator for network configuration. Given the original vague intent
-and all clarification Q&A so far, determine whether the intent is now fully specified.
+and all clarification Q&A so far, determine whether the concrete facts needed by the
+Generator Agent are now known.
 
-The downstream Generator Agent needs ALL of the following to be unambiguous:
-1. REACHABILITY : exact source node and exact destination subnet (CIDR notation) for every pair.
-2. WAYPOINTING  : whether each waypoint is mandatory (must always traverse) or a preference
-                  (prefer if possible), and the exact waypoint router name.
-3. LOAD BALANCING: an exact integer number of equal-cost paths for every destination pair.
+The Generator needs these concrete facts to be resolved:
+1. REACHABILITY : exact source router name and exact destination subnet (CIDR notation)
+                  for every pair. Vague labels like "our servers" or "the remote network"
+                  must be replaced with actual values.
+2. WAYPOINTING  : the exact router hostname for any named waypoint. The mandatory vs
+                  preferred distinction does NOT need to be resolved here — the Generator
+                  will produce candidate configurations for both interpretations.
+3. LOAD BALANCING: an exact integer path count for any pair where load balancing is
+                  explicitly called for AND the count is missing. Vague phrases like
+                  "redundancy" or "multiple paths" do NOT need to be resolved here —
+                  the Generator will produce candidate configurations for those too.
 
 Respond with EXACTLY one of the two formats below — nothing else.
+Do NOT copy the format examples into your response; output only the keyword and content.
 
-────────────────────────────────────────────────
-Format A  (all ambiguity resolved):
-
+Format A (all required concrete facts are known):
 CLARIFIED
-<the full clarified intent written as precise, imperative sentences — no vague phrases>
-────────────────────────────────────────────────
-Format B  (critical information still missing):
+<the clarified intent — resolve vague references (e.g. replace "our servers" with the
+actual CIDR) but PRESERVE the original soft phrasing for waypoints and load balancing.
+Do NOT add "mandatory", "must", or "always" to a waypoint unless the original intent
+or an operator answer used that exact language. Do NOT invent a path count unless the
+operator explicitly stated one.>
 
+Format B (a required concrete fact is still missing):
 MORE_QUESTIONS
 Clarification Questions
 1. <question> (Why: <impact>)
 2. <question> (Why: <impact>)
-────────────────────────────────────────────────
 """
 
 
@@ -114,11 +144,12 @@ class ClarificationAgent:
 
     Parameters
     ----------
-    llm          : any BaseLLMClient implementation (OpenAI, Anthropic, …)
-    interactor   : TerminalInteractor (or any compatible replacement)
-    results_dir  : directory where output files are written
-    max_rounds   : hard cap on clarification rounds
-    dry_run      : if True, skip LLM calls and return canned responses
+    llm                  : any BaseLLMClient implementation (OpenAI, Anthropic, …)
+    interactor           : TerminalInteractor (or any compatible replacement)
+    results_dir          : directory where output files are written
+    max_rounds           : hard cap on clarification rounds
+    max_questions_per_round : maximum questions allowed per round (injected into prompt)
+    dry_run              : if True, skip LLM calls and return canned responses
     """
 
     def __init__(
@@ -127,6 +158,7 @@ class ClarificationAgent:
         interactor: TerminalInteractor,
         results_dir: str = "results",
         max_rounds: int = 5,
+        max_questions_per_round: int = 5,
         dry_run: bool = False,
     ) -> None:
         self._llm = llm
@@ -134,6 +166,8 @@ class ClarificationAgent:
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         self._results_dir = os.path.join(results_dir, timestamp)
         self._max_rounds = max_rounds
+        self._max_questions_per_round = max_questions_per_round
+        self._clarify_system = _build_clarify_system(max_questions_per_round)
         self._dry_run = dry_run
         os.makedirs(self._results_dir, exist_ok=True)
 
@@ -243,7 +277,7 @@ class ClarificationAgent:
             )
         else:
             messages = [
-                Message(role="system", content=CLARIFY_SYSTEM),
+                Message(role="system", content=self._clarify_system),
                 Message(role="user", content=user_content),
             ]
             response = self._llm.complete(messages, temperature=0.3)
@@ -390,18 +424,31 @@ class ClarificationAgent:
         """
         Parse the SUFFICIENCY_SYSTEM response.
         Returns (True, clarified_intent) or (False, remainder_of_response).
-        """
-        response = response.strip()
 
-        if response.startswith("CLARIFIED"):
-            clarified = response[len("CLARIFIED"):].strip()
+        Searches for the keyword anywhere in the response so that preamble text
+        (format examples, separator lines, etc. echoed from the system prompt)
+        does not prevent correct parsing.
+        """
+        # Find the first occurrence of either keyword
+        clarified_pos = response.find("CLARIFIED")
+        more_q_pos    = response.find("MORE_QUESTIONS")
+
+        # Both present — pick whichever comes first
+        if clarified_pos != -1 and more_q_pos != -1:
+            if clarified_pos < more_q_pos:
+                more_q_pos = -1
+            else:
+                clarified_pos = -1
+
+        if clarified_pos != -1:
+            clarified = response[clarified_pos + len("CLARIFIED"):].strip()
             return True, clarified
 
-        if response.startswith("MORE_QUESTIONS"):
-            return False, response
+        if more_q_pos != -1:
+            return False, response[more_q_pos:]
 
-        # Fallback: if neither keyword is present, treat as clarified
-        return True, response
+        # Fallback: no keyword found — treat entire response as clarified
+        return True, response.strip()
 
     # ── File I/O ──────────────────────────────────────────────────────────────
 
@@ -411,7 +458,7 @@ class ClarificationAgent:
 
     def _save_prompt(self, rendered_prompt: str) -> None:
         path = os.path.join(self._results_dir, "clarify_prompt.txt")
-        full_content = f"=== CLARIFY AGENT — SYSTEM PROMPT ===\n\n{CLARIFY_SYSTEM}\n\n=== USER MESSAGE ===\n\n{rendered_prompt}\n"
+        full_content = f"=== CLARIFY AGENT — SYSTEM PROMPT ===\n\n{self._clarify_system}\n\n=== USER MESSAGE ===\n\n{rendered_prompt}\n"
         self._write(path, full_content)
 
     def _save_questions(self, round_num: int, questions: list[str]) -> None:

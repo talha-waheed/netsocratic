@@ -1,7 +1,9 @@
 """
 Selection Agent
 ===============
-Narrows N candidate configurations to a single Network Specification.
+Uses Batfish differences between N candidate configurations to ask targeted
+follow-up questions, then synthesises a new Network Specification from the
+operator's answers.
 
 Sub-steps
 ---------
@@ -12,12 +14,19 @@ Sub-steps
    Candidates with identical behaviour across all three EC dimensions are
    collapsed to one representative, following the same approach as run_all_diffs.py.
 
-2. Distinguishing Q&A (LLM + operator)
+2. Follow-up Q&A (LLM + operator)
    For each surviving pair, the LLM converts the Batfish-detected behavioural
-   difference into a targeted plain-English question.  The operator's answer
-   prunes candidates whose behaviour matches the rejected side.
+   difference into a targeted plain-English question.  Answers are accumulated
+   as additional constraints instead of forcing selection of one existing
+   candidate.
 
-3. Recovery
+3. Synthesis
+   The clarified intent plus follow-up Q&A are merged into a refined intent.
+   The Generator Agent then produces one fresh candidate from that refined
+   intent, allowing the final configuration to combine dimensions that were
+   split across the original candidates.
+
+4. Recovery
    Two conditions trigger recovery (pass runtime context back to the
    Clarification Agent):
      a. User rejection  — operator says "try again", "none of these", etc.
@@ -27,12 +36,14 @@ All intermediate artefacts are written to results_dir/selection/.
 """
 
 import os
+import json
 import re
 import subprocess
 import sys
 from dataclasses import dataclass, field
 from itertools import combinations
 
+from agents.generator_agent import GeneratorAgent
 from interaction.terminal import TerminalInteractor
 from llm.base import BaseLLMClient, Message
 
@@ -40,16 +51,59 @@ from llm.base import BaseLLMClient, Message
 # ── Prompts ───────────────────────────────────────────────────────────────────
 
 DISTINGUISHING_QUESTION_SYSTEM = """\
-You are a network policy expert helping a network operator choose between two configurations.
-Given their clarified intent and a concrete behavioural difference detected by Batfish,
-write exactly ONE plain-English question that determines which behaviour they prefer.
+You are a network policy expert helping a network operator clarify what their original
+network intent meant. Two candidate configurations have been generated from that intent
+because the intent was genuinely ambiguous — both candidates are valid interpretations
+of what was written. Given the clarified intent and a concrete behavioural difference
+detected by Batfish, write exactly ONE plain-English question that clarifies what the
+original intent meant, using the detected behavioural difference to identify the specific
+point of ambiguity to resolve.
 
 Rules:
 1. Ask about observable routing behaviour only — which routers traffic passes through,
    how many paths exist, whether traffic reaches its destination.
 2. One sentence only — no preamble, no explanation.
-3. Frame as a binary choice or clear preference question.
-4. Use the router names and subnets from the intent; never mention OSPF costs or interface names.
+3. Frame as a question about what the original intent required, not about what the
+   operator would like to change or add. For example: "Did your original intent require
+   traffic to always pass through London, or only to prefer London when available?" is
+   better than "Would you prefer traffic to always pass through London?"
+4. Use the router names and subnets from the intent; never mention OSPF costs or
+   interface names.
+"""
+
+FURTHER_CLARIFY_SYSTEM = """\
+You are a network intent synthesiser. You will be given:
+1. A clarified network intent (already resolved from an initial vague intent).
+2. Selection Q&A — questions asked to distinguish between candidate configurations,
+   and the operator's answers, which reveal additional preferences.
+
+Your task: produce a single, precise, updated clarified intent that incorporates all
+information from both the original clarified intent and the selection Q&A.
+
+Rules:
+- Preserve ALL constraints already in the clarified intent — never drop or weaken them.
+- From selection Q&A: incorporate ONLY concrete routing constraints such as specific
+  router names, exact ECMP path counts, or mandatory/preferred waypoint requirements.
+- Rewrite the result as explicit per-flow policy statements. For every source→prefix
+  pair, name the source router and destination prefix directly in each reachability,
+  waypoint, and load-balancing sentence.
+- Do NOT use inherited or vague phrases such as "same requirements", "other subnets",
+  "redundancy", "reliability", "if possible", "consider", "includes", or "available
+  paths" in the final output. Expand them into concrete per-flow constraints or omit
+  them if the Q&A did not resolve them.
+- For waypoint constraints, use the exact wording:
+  "Traffic from <source> to <prefix> must pass through <waypoint>."
+- For load-balancing constraints, use the exact wording:
+  "Traffic from <source> to <prefix> must be load-balanced across exactly <N>
+  equal-cost paths."
+- If a source→prefix pair has no resolved waypoint or no resolved exact path count,
+  do not invent one.
+- Do NOT incorporate meta-level evaluation criteria from selection questions, such as
+  "permissive vs strict", "unintended traffic", "all traffic reaches destination",
+  "strict routing", or similar framing — these describe evaluation dimensions, not
+  routing policy.
+- Write concise, imperative sentences.
+- Output ONLY the updated intent text — no preamble, no explanation.
 """
 
 
@@ -97,13 +151,15 @@ class RuntimeContext:
 
 class SelectionAgent:
     """
-    Prunes candidate configurations to a single Network Specification.
+    Produces a corrected Network Specification from candidate differences.
 
     Parameters
     ----------
     llm               : LLM client for distinguishing-question generation
     interactor        : shared TerminalInteractor for operator Q&A
     batfish_script_dir: directory containing diff_analysis.py / diff_advanced.py
+    kb_dir            : knowledge-base directory passed to the synthesis generator
+    topo_dir          : base topology directory passed to the synthesis generator
     max_rounds        : max distinguishing-question rounds before triggering recovery
     dry_run           : skip Batfish + LLM; return first candidate immediately
     """
@@ -113,12 +169,16 @@ class SelectionAgent:
         llm: BaseLLMClient,
         interactor: TerminalInteractor,
         batfish_script_dir: str = "batfish",
+        kb_dir: str = "agents/knowledge-base",
+        topo_dir: str = "",
         max_rounds: int = 10,
         dry_run: bool = False,
     ) -> None:
         self._llm = llm
         self._interactor = interactor
         self._script_dir = batfish_script_dir
+        self._kb_dir = kb_dir
+        self._topo_dir = topo_dir
         self._max_rounds = max_rounds
         self._dry_run = dry_run
 
@@ -130,9 +190,9 @@ class SelectionAgent:
         clarified_intent: str,
         results_dir: str,
         prior_clarification_qa: str = "",
-    ) -> dict[str, str] | None:
+    ) -> tuple[dict[str, str], str] | tuple[None, None]:
         """
-        Select the single configuration matching the operator's intent.
+        Synthesize the configuration matching the operator's intent.
 
         Parameters
         ----------
@@ -143,8 +203,9 @@ class SelectionAgent:
 
         Returns
         -------
-        dict[str, str] | None
-            The winning candidate dict, or None to trigger a recovery loop.
+        (winner_dict, further_clarified_intent) on success, or (None, None) to
+        trigger a recovery loop.  winner_dict is a freshly generated config when
+        Batfish follow-up Q&A revealed additional constraints.
         """
         sel_dir = os.path.join(results_dir, "selection")
         bat_dir = os.path.join(sel_dir, "batfish")
@@ -162,11 +223,12 @@ class SelectionAgent:
         if self._dry_run:
             self._interactor.display("[Selection] dry-run mode — returning candidate 1.")
             self._save_winner(candidates[0], sel_dir)
-            return candidates[0]
+            return candidates[0], clarified_intent
 
         # ── Step 1: run all pairwise Batfish diffs ────────────────────────────
         self._interactor.display(f"\n[Selection] Running Batfish on {n} candidate(s)…")
         pairwise = self._run_all_diffs(cands_dir, cand_names, bat_dir, log_lines)
+        candidate_rules = [_parse_rules(c.get("__rules__", "")) for c in candidates]
 
         # ── Step 2: EC-based pruning ──────────────────────────────────────────
         survivors = self._ec_prune(n, pairwise, log_lines)
@@ -181,35 +243,35 @@ class SelectionAgent:
             return self._do_recovery(
                 candidates, cand_names, pairwise, prior_clarification_qa,
                 selection_qa, "No reachable candidates after EC pruning", sel_dir, log_lines,
-            )
+            ), None
 
         if len(survivors) == 1:
             winner = candidates[survivors[0]]
             self._save_winner(winner, sel_dir)
             self._save_log(log_lines, sel_dir)
-            return winner
+            return winner, clarified_intent
 
-        # ── Step 3: distinguishing Q&A loop ──────────────────────────────────
-        # asked_pairs tracks (i,j) pairs whose question got an unclear answer so
-        # we skip them next round rather than repeating the same question forever.
-        asked_pairs: set[tuple[int, int]] = set()
+        # ── Step 3: follow-up Q&A loop ───────────────────────────────────────
+        # We ask about Batfish-observed differences without pruning candidates.
+        # This lets the final generated config combine constraints that were
+        # correct in different original candidates.
+        asked_diffs: set[str] = set()
 
         for round_num in range(1, self._max_rounds + 1):
-            if len(survivors) == 1:
-                break
-
             self._interactor.display_section(
-                f"Selection Round {round_num}",
-                f"({len(survivors)} candidates still in contention)",
+                f"Follow-up Round {round_num}",
+                f"({len(survivors)} behaviourally unique candidate(s) being compared)",
             )
 
-            diff_info = self._find_best_pair(survivors, cand_names, pairwise, skip_pairs=asked_pairs)
+            diff_info = self._find_best_pair(
+                survivors, cand_names, pairwise, candidate_rules, skip_diffs=asked_diffs,
+            )
 
             if diff_info is None:
                 log_lines.append("Remaining candidates are behaviourally indistinguishable "
                                  "or all distinguishable pairs already asked.")
                 self._interactor.display(
-                    "[Selection] No more distinguishable pairs to ask about — selecting first."
+                    "[Selection] No more distinguishable Batfish differences to ask about."
                 )
                 break
 
@@ -227,50 +289,27 @@ class SelectionAgent:
                 return self._do_recovery(
                     candidates, cand_names, pairwise, prior_clarification_qa,
                     selection_qa, f"User rejected all options: '{answer}'", sel_dir, log_lines,
-                )
+                ), None
 
-            # Prune based on answer
-            chosen_idx, rejected_idx = _classify_answer(answer, diff_info)
-            if rejected_idx is not None:
-                survivors = self._prune(survivors, rejected_idx, pairwise, log_lines, cand_names)
-                self._interactor.display(
-                    f"[Selection] {len(survivors)} candidate(s) remain after round {round_num}."
-                )
-            else:
-                # Answer was unclear — mark this pair so we don't repeat the question
-                pair_key = (
-                    min(diff_info["c1_orig_idx"], diff_info["c2_orig_idx"]),
-                    max(diff_info["c1_orig_idx"], diff_info["c2_orig_idx"]),
-                )
-                asked_pairs.add(pair_key)
-                self._interactor.display(
-                    "[Selection] Answer unclear — will try a different pair next round."
-                )
-
-            if not survivors:
-                return self._do_recovery(
-                    candidates, cand_names, pairwise, prior_clarification_qa,
-                    selection_qa, "All candidates eliminated by pruning", sel_dir, log_lines,
-                )
+            asked_diffs.add(diff_info["detail_id"])
 
         else:
             # Loop exhausted without converging
-            self._interactor.display(
-                f"\n[Selection] Reached max {self._max_rounds} rounds — triggering recovery."
-            )
-            return self._do_recovery(
-                candidates, cand_names, pairwise, prior_clarification_qa,
-                selection_qa, "Max rounds reached", sel_dir, log_lines,
-            )
+            log_lines.append(f"Reached max {self._max_rounds} follow-up rounds.")
 
-        winner = candidates[survivors[0]]
+        further_clarified = self._synthesise_further_clarified(
+            clarified_intent, selection_qa, sel_dir,
+        )
+        winner = self._synthesise_winner(further_clarified, log_lines)
         self._save_winner(winner, sel_dir)
         self._save_log(log_lines, sel_dir)
         self._interactor.display_section(
-            "Selected Configuration",
-            f"Winner: {cand_names[survivors[0]]}",
+            "Synthesized Configuration",
+            "Generated a new configuration from the follow-up answers.",
         )
-        return winner
+        if further_clarified != clarified_intent:
+            self._interactor.display_section("Further Clarified Intent", further_clarified)
+        return winner, further_clarified
 
     # ── Batfish orchestration ─────────────────────────────────────────────────
 
@@ -331,6 +370,41 @@ class SelectionAgent:
         except Exception as e:
             return f"[Script execution failed: {e}]"
 
+    # ── EC count (verification) ───────────────────────────────────────────────
+
+    def count_ecs(self, n: int, cands_dir: str, results_dir: str) -> int:
+        """
+        Run Batfish pairwise diffs on N pre-saved candidates and return the
+        number of behaviourally distinct equivalence classes.
+
+        A return value of 1 means all candidates are identical — the intent
+        was fully disambiguated.  Used for verification after re-generating
+        from a further-clarified intent.
+
+        Parameters
+        ----------
+        n          : number of candidates (candidate_1 … candidate_N)
+        cands_dir  : directory containing candidate_1/, candidate_2/, … sub-dirs
+        results_dir: where to write batfish output and the EC log
+        """
+        if self._dry_run:
+            return n  # conservative placeholder: assume all different
+
+        if n <= 1:
+            return n
+
+        cand_names = [f"candidate_{i + 1}" for i in range(n)]
+        bat_dir = os.path.join(results_dir, "batfish")
+        os.makedirs(bat_dir, exist_ok=True)
+        log_lines: list[str] = []
+
+        pairwise = self._run_all_diffs(cands_dir, cand_names, bat_dir, log_lines)
+        survivors = self._ec_prune(n, pairwise, log_lines)
+
+        log_lines.append(f"Verification EC count: {len(survivors)}")
+        self._save_log(log_lines, results_dir)
+        return len(survivors)
+
     # ── EC pruning ────────────────────────────────────────────────────────────
 
     def _ec_prune(
@@ -375,66 +449,138 @@ class SelectionAgent:
         survivors: list[int],
         cand_names: list[str],
         pairwise: dict[tuple[int, int], dict],
-        skip_pairs: set[tuple[int, int]] | None = None,
+        candidate_rules: list[dict] | None = None,
+        skip_diffs: set[str] | None = None,
     ) -> dict | None:
         """
         Scan survivor pairs for the most salient behavioural difference.
         Priority: reachability > waypointing > load-balancing.
-        Pairs in skip_pairs are ignored (already asked, answer was unclear).
+        Entries in skip_diffs are ignored after that concrete rule/trace difference
+        has been asked.
         Returns a diff_info dict or None if all are indistinguishable.
         """
-        skip_pairs = skip_pairs or set()
+        skip_diffs = skip_diffs or set()
         best: dict | None = None
         best_priority = -1
 
         for i, j in combinations(survivors, 2):
             key = (min(i, j), max(i, j))
-            if key in skip_pairs:
-                continue
             data = pairwise.get(key, {})
             adv  = data.get("adv_diff", {})
+            rule_options = _rule_diff_options(
+                i, j, cand_names, candidate_rules or [], data, adv,
+            )
 
-            if data.get("reach_diff"):
-                priority = 3
-                dimension = "reachability"
-                c1_desc = f"{cand_names[i]} permits some traffic that {cand_names[j]} denies"
-                c2_desc = f"{cand_names[j]} permits some traffic that {cand_names[i]} denies"
-            elif adv.get("waypoint_diff"):
-                priority = 2
-                dimension = "waypointing"
+            if rule_options:
+                options = rule_options
+            else:
                 only_i = adv.get("nodes_only_in_c1", set()) if i < j else adv.get("nodes_only_in_c2", set())
                 only_j = adv.get("nodes_only_in_c2", set()) if i < j else adv.get("nodes_only_in_c1", set())
-                c1_desc = f"{cand_names[i]} routes through {only_i or '(direct)'}"
-                c2_desc = f"{cand_names[j]} routes through {only_j or '(direct)'}"
-            elif adv.get("lb_diff"):
-                priority = 1
-                dimension = "load_balancing"
-                p_i = adv.get("paths_c1") if i < j else adv.get("paths_c2")
-                p_j = adv.get("paths_c2") if i < j else adv.get("paths_c1")
-                c1_desc = f"{cand_names[i]} provides {p_i} equal-cost path(s)"
-                c2_desc = f"{cand_names[j]} provides {p_j} equal-cost path(s)"
-            else:
-                continue
+                has_concrete_waypoint_diff = adv.get("waypoint_diff") and (only_i or only_j)
+                options: list[dict] = []
+                if has_concrete_waypoint_diff:
+                    # Waypoint enforcement causes reachability diffs in Batfish; ask
+                    # about the waypoint directly.
+                    options.append({
+                        "priority": 3,
+                        "dimension": "waypointing",
+                        "detail_id": "waypointing:batfish-trace",
+                        "c1_desc": f"{cand_names[i]} routes through {only_i or '(direct)'}",
+                        "c2_desc": f"{cand_names[j]} routes through {only_j or '(direct)'}",
+                    })
+                if data.get("reach_diff"):
+                    options.append({
+                        "priority": 2,
+                        "dimension": "reachability",
+                        "detail_id": "reachability:batfish-trace",
+                        "c1_desc": f"{cand_names[i]} permits some traffic that {cand_names[j]} denies",
+                        "c2_desc": f"{cand_names[j]} permits some traffic that {cand_names[i]} denies",
+                    })
+                elif adv.get("waypoint_diff"):
+                    # waypoint_diff detected but no concrete node names to distinguish;
+                    # still ask, letting the LLM frame it from the clarified intent.
+                    options.append({
+                        "priority": 2,
+                        "dimension": "waypointing",
+                        "detail_id": "waypointing:batfish-trace",
+                        "c1_desc": f"{cand_names[i]} routes through {only_i or '(direct)'}",
+                        "c2_desc": f"{cand_names[j]} routes through {only_j or '(direct)'}",
+                    })
+                if adv.get("lb_diff"):
+                    p_i = adv.get("paths_c1") if i < j else adv.get("paths_c2")
+                    p_j = adv.get("paths_c2") if i < j else adv.get("paths_c1")
+                    options.append({
+                        "priority": 1,
+                        "dimension": "load_balancing",
+                        "detail_id": "load_balancing:batfish-trace",
+                        "c1_desc": f"{cand_names[i]} provides {p_i} equal-cost path(s)",
+                        "c2_desc": f"{cand_names[j]} provides {p_j} equal-cost path(s)",
+                    })
 
-            if priority > best_priority:
-                best_priority = priority
-                best = {
-                    "c1_orig_idx": i,
-                    "c2_orig_idx": j,
-                    "c1_name": cand_names[i],
-                    "c2_name": cand_names[j],
-                    "dimension": dimension,
-                    "c1_desc": c1_desc,
-                    "c2_desc": c2_desc,
-                    "adv": adv,
-                }
+            for option in options:
+                if option["detail_id"] in skip_diffs:
+                    continue
+                if option["priority"] > best_priority:
+                    best_priority = option["priority"]
+                    best = {
+                        "c1_orig_idx": i,
+                        "c2_orig_idx": j,
+                        "c1_name": cand_names[i],
+                        "c2_name": cand_names[j],
+                        "dimension": option["dimension"],
+                        "detail_id": option["detail_id"],
+                        "c1_desc": option["c1_desc"],
+                        "c2_desc": option["c2_desc"],
+                        "adv": adv,
+                    }
+                    if "question" in option:
+                        best["question"] = option["question"]
 
         return best
+
+    # ── Further clarified intent synthesis ────────────────────────────────────
+
+    def _synthesise_further_clarified(
+        self,
+        clarified_intent: str,
+        selection_qa: list[tuple[str, str]],
+        sel_dir: str,
+    ) -> str:
+        """
+        Merge the original clarified intent with selection Q&A preferences into
+        a refined intent.  Saves the result to selection/further_clarified_intent.txt.
+        If there is no selection Q&A, returns the clarified intent unchanged.
+        """
+        if not selection_qa:
+            _write(
+                os.path.join(sel_dir, "further_clarified_intent.txt"),
+                clarified_intent + "\n",
+            )
+            return clarified_intent
+
+        qa_text = "\n".join(f"Q: {q}\nA: {a}" for q, a in selection_qa)
+        user_content = (
+            f"Clarified intent:\n{clarified_intent}\n\n"
+            f"Selection Q&A:\n{qa_text}"
+        )
+        messages = [
+            Message(role="system", content=FURTHER_CLARIFY_SYSTEM),
+            Message(role="user", content=user_content),
+        ]
+        further = self._llm.complete(messages, temperature=0.1).strip()
+        _write(
+            os.path.join(sel_dir, "further_clarified_intent.txt"),
+            further + "\n",
+        )
+        return further
 
     # ── Distinguishing question generation ────────────────────────────────────
 
     def _generate_question(self, clarified_intent: str, diff_info: dict) -> str:
         """Use LLM to convert a Batfish diff into a plain-English operator question."""
+        if diff_info.get("question"):
+            return diff_info["question"]
+
         diff_desc = (
             f"Option A ({diff_info['c1_name']}): {diff_info['c1_desc']}.\n"
             f"Option B ({diff_info['c2_name']}): {diff_info['c2_desc']}."
@@ -448,6 +594,30 @@ class SelectionAgent:
             Message(role="user",   content=user_msg),
         ]
         return self._llm.complete(messages, temperature=0.3, max_tokens=128).strip()
+
+    # ── Corrected configuration synthesis ────────────────────────────────────
+
+    def _synthesise_winner(
+        self,
+        further_clarified: str,
+        log_lines: list[str],
+    ) -> dict[str, str]:
+        """Generate one fresh candidate from the refined intent."""
+        self._interactor.display(
+            "[Selection] Generating corrected configuration from follow-up answers…"
+        )
+        gen_agent = GeneratorAgent(
+            llm=self._llm,
+            kb_dir=self._kb_dir,
+            topo_dir=self._topo_dir,
+            num_candidates=1,
+            rules_temperatures=[0.0],
+            use_strategies=False,
+            dry_run=self._dry_run,
+        )
+        generated = gen_agent.run(further_clarified, results_dir=None)[0]
+        log_lines.append("Synthesized corrected candidate from further clarified intent.")
+        return generated
 
     # ── Answer classification + pruning ───────────────────────────────────────
 
@@ -538,7 +708,9 @@ class SelectionAgent:
         os.makedirs(configs_dir, exist_ok=True)
 
         for name, content in winner.items():
-            if name == "decision_summary.txt":
+            if name == "__rules__":
+                path = os.path.join(winner_dir, "rules.json")
+            elif name == "decision_summary.txt":
                 path = os.path.join(winner_dir, name)
             else:
                 path = os.path.join(configs_dir, f"{name}.cfg")
@@ -599,6 +771,169 @@ def _parse_advanced(stdout: str) -> dict:
     }
 
 
+def _parse_rules(raw: str) -> dict:
+    """Parse a candidate rules JSON string. Invalid/missing rules become empty."""
+    if not raw:
+        return {}
+    try:
+        parsed = json.loads(raw)
+    except json.JSONDecodeError:
+        return {}
+    return parsed if isinstance(parsed, dict) else {}
+
+
+def _rule_diff_options(
+    i: int,
+    j: int,
+    cand_names: list[str],
+    candidate_rules: list[dict],
+    data: dict,
+    adv: dict,
+) -> list[dict]:
+    """
+    Build concrete follow-up options from structured rule differences for a
+    Batfish-distinguished pair. Batfish tells us the candidates differ in
+    behavior; rules tell us which source/prefix constraint likely caused it.
+    """
+    if i >= len(candidate_rules) or j >= len(candidate_rules):
+        return []
+    if not data.get("reach_diff") and not adv.get("has_diff"):
+        return []
+
+    ri = candidate_rules[i] or {}
+    rj = candidate_rules[j] or {}
+    options: list[dict] = []
+
+    waypoint_keys = sorted(
+        set((ri.get("waypoint") or {}).keys()) |
+        set((rj.get("waypoint") or {}).keys())
+    )
+    for key in waypoint_keys:
+        vi = _normalise_rule_value((ri.get("waypoint") or {}).get(key))
+        vj = _normalise_rule_value((rj.get("waypoint") or {}).get(key))
+        if vi == vj:
+            continue
+        src, prefix = _split_rule_key(key)
+        options.append({
+            "priority": 4,
+            "dimension": "waypointing",
+            "detail_id": f"waypointing:{key}",
+            "c1_desc": _waypoint_desc(cand_names[i], src, prefix, vi),
+            "c2_desc": _waypoint_desc(cand_names[j], src, prefix, vj),
+            "question": _waypoint_question(src, prefix, vi, vj),
+        })
+
+    lb_keys = sorted(
+        set((ri.get("loadbalancing") or {}).keys()) |
+        set((rj.get("loadbalancing") or {}).keys())
+    )
+    for key in lb_keys:
+        vi = (ri.get("loadbalancing") or {}).get(key)
+        vj = (rj.get("loadbalancing") or {}).get(key)
+        if vi == vj:
+            continue
+        src, prefix = _split_rule_key(key)
+        options.append({
+            "priority": 3,
+            "dimension": "load_balancing",
+            "detail_id": f"load_balancing:{key}",
+            "c1_desc": _lb_desc(cand_names[i], src, prefix, vi),
+            "c2_desc": _lb_desc(cand_names[j], src, prefix, vj),
+            "question": _lb_question(src, prefix, vi, vj),
+        })
+
+    reach_pairs_i = _reachability_pairs(ri)
+    reach_pairs_j = _reachability_pairs(rj)
+    for src, prefix in sorted(reach_pairs_i ^ reach_pairs_j):
+        in_i = (src, prefix) in reach_pairs_i
+        options.append({
+            "priority": 2,
+            "dimension": "reachability",
+            "detail_id": f"reachability:({src},{prefix})",
+            "c1_desc": _reach_desc(cand_names[i], src, prefix, in_i),
+            "c2_desc": _reach_desc(cand_names[j], src, prefix, not in_i),
+            "question": (
+                f"Did your original intent require traffic from {src} to {prefix} "
+                "to be reachable, or should that reachability not be required?"
+            ),
+        })
+
+    return options
+
+
+def _normalise_rule_value(value) -> tuple[str, ...]:
+    if value is None:
+        return ()
+    if isinstance(value, list):
+        return tuple(str(v).lower() for v in value)
+    return (str(value).lower(),)
+
+
+def _split_rule_key(key: str) -> tuple[str, str]:
+    m = re.match(r"\(?\s*([^,]+?)\s*,\s*([^)]+?)\s*\)?$", key)
+    if not m:
+        return key, "the destination prefix"
+    return m.group(1).strip().lower(), m.group(2).strip()
+
+
+def _reachability_pairs(rules: dict) -> set[tuple[str, str]]:
+    pairs: set[tuple[str, str]] = set()
+    reach = rules.get("reachability") or {}
+    for src, prefixes in reach.items():
+        if isinstance(prefixes, list):
+            for prefix in prefixes:
+                pairs.add((str(src).lower(), str(prefix)))
+    return pairs
+
+
+def _waypoint_desc(candidate_name: str, src: str, prefix: str, waypoints: tuple[str, ...]) -> str:
+    if waypoints:
+        return f"{candidate_name} requires {src} to {prefix} to pass through {', '.join(waypoints)}"
+    return f"{candidate_name} has no waypoint requirement for {src} to {prefix}"
+
+
+def _waypoint_question(src: str, prefix: str, vi: tuple[str, ...], vj: tuple[str, ...]) -> str:
+    if vi and vj:
+        return (
+            f"Did your original intent require traffic from {src} to {prefix} "
+            f"to pass through {', '.join(vi)}, through {', '.join(vj)}, "
+            "or through a different waypoint?"
+        )
+    waypoints = vi or vj
+    return (
+        f"Did your original intent require traffic from {src} to {prefix} "
+        f"to pass through {', '.join(waypoints)}, was no waypoint required, "
+        "or was a different waypoint required?"
+    )
+
+
+def _lb_desc(candidate_name: str, src: str, prefix: str, count) -> str:
+    if count is None:
+        return f"{candidate_name} has no exact ECMP count for {src} to {prefix}"
+    return f"{candidate_name} requires {count} equal-cost path(s) for {src} to {prefix}"
+
+
+def _lb_question(src: str, prefix: str, vi, vj) -> str:
+    if vi is not None and vj is not None:
+        return (
+            f"Did your original intent require traffic from {src} to {prefix} "
+            f"to be load-balanced across exactly {vi} paths, exactly {vj} paths, "
+            "or a different exact path count?"
+        )
+    count = vi if vi is not None else vj
+    return (
+        f"Did your original intent require traffic from {src} to {prefix} "
+        f"to be load-balanced across exactly {count} paths, was no exact path count required, "
+        "or was a different exact path count required?"
+    )
+
+
+def _reach_desc(candidate_name: str, src: str, prefix: str, required: bool) -> str:
+    if required:
+        return f"{candidate_name} requires reachability from {src} to {prefix}"
+    return f"{candidate_name} does not require reachability from {src} to {prefix}"
+
+
 def _is_rejection(answer: str) -> bool:
     """Return True if the operator's answer signals rejection of all options."""
     lower = answer.lower()
@@ -628,6 +963,14 @@ def _classify_answer(
         c1_has_waypoint = bool(adv.get("nodes_only_in_c1"))
         want_through = bool(re.search(r"\b(always|mandatory|must|yes|through|via|require|enforce)\b", lower))
         want_bypass  = bool(re.search(r"\b(bypass|skip|no|optional|flexible|avoid|either)\b", lower))
+
+        # Negation: "does not require", "not always", "not through", etc. cancel want_through.
+        # This handles accidental-path nodes (e.g. Batfish reports c1 transits 'brussels' due
+        # to default OSPF, but the operator says "not brussels, the waypoint is X").
+        if re.search(r"\b(not|no|never)\s+(always|mandatory|must|required|through|via|require)\b", lower):
+            want_through = False
+            want_bypass = True
+
         if want_through and not want_bypass:
             chosen = c1_idx if c1_has_waypoint else c2_idx
             return chosen, (c2_idx if chosen == c1_idx else c1_idx)
@@ -650,10 +993,11 @@ def _classify_answer(
         if re.search(r"\b(yes|reachable|need|connect|require|a)\b", lower):
             return c1_idx, c2_idx  # prefer the one with more reachability (c1 in diff_analysis)
 
-    # Fallback: "option a" / "option b" / "first" / "second" / "1" / "2"
-    if re.search(r"\b(option a|first|1|candidate 1)\b", lower):
+    # Fallback: "option a/b", "first/second" — bare digits omitted to avoid false
+    # matches against subnet addresses like 100.0.1.0/24.
+    if re.search(r"\b(option a|first|candidate 1)\b", lower):
         return c1_idx, c2_idx
-    if re.search(r"\b(option b|second|2|candidate 2)\b", lower):
+    if re.search(r"\b(option b|second|candidate 2)\b", lower):
         return c2_idx, c1_idx
 
     return None, None

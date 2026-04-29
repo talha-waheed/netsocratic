@@ -50,6 +50,12 @@ def build_arg_parser() -> argparse.ArgumentParser:
         help=f"Maximum clarification rounds (default: {config.MAX_CLARIFY_ROUNDS}).",
     )
     p.add_argument(
+        "--max-questions",
+        type=int,
+        default=config.MAX_QUESTIONS_PER_ROUND,
+        help=f"Maximum clarification questions per round (default: {config.MAX_QUESTIONS_PER_ROUND}).",
+    )
+    p.add_argument(
         "--num-candidates",
         type=int,
         default=config.NUM_CANDIDATES,
@@ -156,6 +162,7 @@ def main() -> None:
             interactor=interactor,
             results_dir=args.results_dir,
             max_rounds=args.max_rounds,
+            max_questions_per_round=args.max_questions,
             dry_run=args.dry_run,
         )
 
@@ -209,10 +216,12 @@ def main() -> None:
             llm=llm,
             interactor=interactor,
             batfish_script_dir=args.batfish_script_dir,
+            kb_dir=args.kb_dir,
+            topo_dir=args.topo_dir,
             dry_run=args.dry_run,
         )
 
-        winner = sel_agent.run(
+        winner, further_clarified = sel_agent.run(
             candidates,
             clarified,
             results_dir=run_dir,
@@ -220,6 +229,11 @@ def main() -> None:
         )
 
         if winner is not None:
+            if further_clarified and further_clarified != clarified:
+                print("\n" + "=" * 60)
+                print("FURTHER CLARIFIED INTENT (after selection)")
+                print("=" * 60)
+                print(further_clarified)
             break  # success
 
         # Recovery: load context and loop

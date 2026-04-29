@@ -3,14 +3,15 @@ Generator Agent
 ===============
 Takes a clarified network intent and a knowledge base, then produces N candidate
 rule sets by running the rules extractor at varied temperatures.  Each rule set is
-then compiled into a deterministic OSPF configuration at a fixed temperature.
+then compiled into an OSPF configuration at the same temperature used for that
+candidate's rule extraction.
 
 Workflow per candidate
 ----------------------
 1. Rules LLM (temperature varies per candidate) receives the clarified intent and
    outputs a structured ground-truth rules JSON (reachability / waypoint /
    loadbalancing).  This is the primary unit of analysis — candidates differ here.
-2. Config LLM (fixed temperature) receives the rules JSON + topology + KB and
+2. Config LLM (same temperature as rules) receives the rules JSON + topology + KB and
    outputs only the router configs that need to change.
 3. All remaining routers are copied verbatim from `topo_dir`.
 4. Each candidate is saved to results_dir/candidates/candidate_N/ containing:
@@ -37,11 +38,11 @@ from llm.base import BaseLLMClient, Message
 # ── Rules-extraction prompt ────────────────────────────────────────────────────
 
 RULES_EXTRACTOR_SYSTEM = """\
-You are a network policy analyst. Convert the clarified network routing intent
-into a structured ground-truth rules object using the format below. Output ONLY
-valid JSON — no prose, no markdown fences.
+You are a network policy analyst. Your task is to extract a structured routing rules
+object from a network intent. Output ONLY valid JSON — no prose, no markdown fences.
 
-Format:
+## Output format
+
 {
   "reachability": {
     "<source_router>": ["<prefix>", ...]
@@ -54,14 +55,19 @@ Format:
   }
 }
 
-Rules:
+## Fixed rules (always apply)
+
 - Router names are lowercase (e.g. "athens", "london").
 - Prefixes use CIDR notation (e.g. "100.0.29.0/24").
-- Include a reachability entry for every source-prefix pair mentioned.
-- Include a waypoint entry only when a mandatory intermediate router is required.
-- Include a loadbalancing entry only when a specific path count is required.
+- Always include a reachability entry for every source-prefix pair mentioned.
 - Omit sections that have no entries (use empty objects {}).
 - Output nothing except the JSON object.
+
+## Strategy-governed rules (read your Extraction Strategy first)
+
+The user message begins with an ## Extraction Strategy block that is AUTHORITATIVE.
+It governs exactly what to include in "waypoint" and "loadbalancing". Follow it
+strictly — it overrides any general intuition you might otherwise apply.
 """
 
 
@@ -127,53 +133,124 @@ Limitations (if any):
 CANDIDATE_STRATEGIES: list[dict[str, str]] = [
     {
         # Candidate 1 — Conservative
+        # Waypoints only when explicitly required; LB only when count is stated.
+        # Represents the interpretation: soft phrases ("via", "if possible", "consider")
+        # describe the expected path but do not impose a routing constraint.
         "rules_hint": """\
 ## Extraction Strategy: Conservative
-- Include only explicitly stated reachability pairs; do not infer extras.
-- If a waypoint is ambiguous (e.g. "prefer", "should"), treat it as PREFERRED —
-  omit it from the "waypoint" section (waypoint entries mean mandatory traversal).
-- If a load-balancing count is not stated as an exact integer, omit it.
-- When in doubt, produce fewer constraints.""",
+
+You produce the interpretation where only explicitly required constraints are captured.
+Soft or directional language does not create a routing constraint on its own.
+
+Waypoints:
+- Include a waypoint entry ONLY if the intent uses strong mandatory language tied to
+  a specific router: "must go through", "must always pass through", "mandatory",
+  "required", "always via", "forced through".
+- Phrases like "via", "through", "passes through", "includes", "goes through",
+  "if possible", "consider routing through", "preferably route via", "route through X"
+  describe the expected path but do NOT impose a constraint — omit these as waypoints.
+- Do NOT infer waypoints from topology.
+
+Load balancing:
+- Include a loadbalancing entry ONLY if the intent states an exact integer count
+  directly tied to a specific source→prefix pair (e.g. "3 equal-cost paths from
+  athens to 100.0.29.0/24", "split across 2 paths").
+- Phrases like "redundancy", "multiple paths", "reliability", "fault tolerance",
+  "distribute traffic", "load balance" without an explicit count are NOT sufficient.
+- Do NOT infer a count from topology or general language.""",
         "config_hint": """\
 ## Implementation Strategy: Conservative
 - Make the fewest possible cost changes from the base topology.
-- Any waypoint listed is preferred, not mandatory — do NOT set any link to cost 1000.
+- For any waypoint in the rules: set cost 1 on the waypoint path but do NOT block
+  bypass paths (no cost 1000). Traffic prefers the waypoint but can use alternatives.
 - Achieve load-balancing with the minimum number of modified routers.
-- Leave all non-essential routers at base cost 1.""",
+- Leave all non-essential routers at their base cost 1.""",
     },
     {
         # Candidate 2 — Standard
+        # Directional language → waypoint constraint; LB only when count is stated.
+        # Represents the interpretation: any path-directing phrase imposes a constraint.
         "rules_hint": """\
 ## Extraction Strategy: Standard
-- Include every reachability pair that is explicitly or clearly implicitly stated.
-- Treat every waypoint as MANDATORY (include in "waypoint") unless the intent
-  explicitly says "prefer" or "if possible".
-- Use the exact integer for load balancing as stated.
-- Produce the most straightforward structured representation of the intent.""",
+
+You produce the literal interpretation: any phrase that directs traffic through a
+named router creates a waypoint constraint, and load balancing is included only when
+an explicit count is given.
+
+Waypoints:
+- Include a waypoint entry for any router explicitly named with directional language:
+  "via", "through", "passes through", "includes", "goes through", "route through",
+  "if possible" (treat as soft mandatory), "consider routing through".
+- Treat all named waypoints as a MANDATORY routing constraint (traffic must traverse
+  the waypoint router).
+- Do NOT infer waypoints from topology.
+
+Load balancing:
+- Include a loadbalancing entry ONLY if the intent states an exact integer count
+  directly tied to a specific source→prefix pair (e.g. "3 equal-cost paths from
+  athens to 100.0.29.0/24", "split across 2 paths", "evenly distributed across 4 paths").
+- Vague phrases ("redundancy", "multiple paths", "reliability", "fault tolerance",
+  "distribute traffic") without an explicit count are NOT sufficient — omit these.
+- Do NOT infer a count from topology.""",
         "config_hint": """\
 ## Implementation Strategy: Standard
-- For mandatory waypoints: cost 1000 on all bypass paths, cost 1 on waypoint paths.
-- For ECMP: ensure exactly the specified number of equal-cost paths by adjusting
-  the source router's outgoing link costs first before touching intermediate routers.
+- For mandatory waypoints: set cost 1000 on all bypass paths (paths to the destination
+  that do not traverse the named waypoint router), cost 1 on the waypoint path.
+- For ECMP load balancing: ensure exactly the stated number of equal-cost paths by
+  adjusting the source router's outgoing link costs first.
 - Document every cost decision in decision_summary.txt.""",
     },
     {
-        # Candidate 3 — Exploratory
+        # Candidate 3 — Topology-Aware
+        # Uses the network topology to infer the waypoint for every destination prefix
+        # (the stub-owner router), even when the intent omits it.  Also applies the
+        # generous-LB rule for vague redundancy language.
+        # include_topology_in_rules=True appends the topology doc to the user message.
+        "include_topology_in_rules": True,
         "rules_hint": """\
-## Extraction Strategy: Exploratory
-- Include any reachability pairs that are strongly implied (e.g. bidirectional).
-- If a waypoint could be either mandatory or preferred, treat it as MANDATORY.
-- If load-balancing is ambiguous, round up to the next power of two, capped at
-  the number of distinct paths available in the topology.
-- Prefer more constraints over fewer when ambiguity exists.""",
+## Extraction Strategy: Topology-Aware
+
+You produce the most complete interpretation by combining the intent text with the
+Network Topology to recover constraints that may have been omitted from the intent.
+
+Waypoints — USE TOPOLOGY to infer:
+- For EVERY source→prefix pair in the intent, look up the destination prefix in the
+  ## Network Topology table (Router Summary section, "Stub Subnet" column).
+  Find the single router whose Fa0/0 stub interface owns that prefix.
+  Add that router as the MANDATORY waypoint for the pair, even if the intent does
+  not mention any waypoint for that pair.
+- If the intent explicitly names a DIFFERENT router as the waypoint (e.g. "via X"),
+  use the explicitly named router instead of the topology-inferred one.
+- Treat all waypoints as MANDATORY. Bypass paths must be blocked (cost 1000).
+
+Load balancing:
+- Include a loadbalancing entry when ANY of these conditions apply to a pair:
+    a. An exact integer count is directly stated for the pair — use that exact count.
+    b. Load-balancing or redundancy language appears near the pair: "redundancy",
+       "multiple paths", "fault tolerance", "reliability", "distribute traffic",
+       "load balance", "spread traffic", "resilient", "evenly distributed".
+       Use a count of 2 as the minimum.
+    c. The intent uses "same (connectivity) requirements", "same constraints",
+       "similar requirements", or "apply to the other subnets as well" to link this
+       pair back to another pair — apply ALL LB constraints from the referenced pair,
+       using the same count if stated or LB=2 if inferred from vague language.
+    d. A load-balancing or redundancy sentence appears as a GENERAL/GLOBAL statement
+       with NO explicit router name in that sentence (e.g. "Distribute traffic across
+       available paths." or "Use multiple paths for reliability." without naming a
+       specific router). Apply that LB constraint to ALL source→prefix pairs in the
+       intent, not just the nearest one. Use any explicitly stated count, or LB=2
+       as the minimum.
+- Do NOT try to count topological paths — the network is too dense for that to be
+  meaningful. Stick to explicit counts or the minimum-2 rule.""",
         "config_hint": """\
-## Implementation Strategy: Exploratory
-- Use a graduated cost scale: preferred=1, acceptable alternatives=10, blocked=1000.
-  This creates a tiered fallback rather than binary on/off.
-- Distribute cost changes across intermediate routers (not only the source router)
-  for a more topology-wide implementation.
-- Note in decision_summary.txt how this graduated scale differs from the standard
-  binary approach and what operational benefit it provides.""",
+## Implementation Strategy: Topology-Aware
+- For MANDATORY waypoints: set cost 1000 on all bypass paths, cost 1 on waypoint path.
+- For ECMP load balancing:
+    * When an explicit count was stated: ensure exactly that many equal-cost paths.
+    * When count was inferred as 2 from vague language: ensure exactly 2 equal-cost
+      paths; all remaining paths at cost 10 or higher.
+- In decision_summary.txt note which waypoints came from the intent vs topology
+  inference, and whether any LB count was inferred from vague language.""",
     },
 ]
 
@@ -275,8 +352,8 @@ class GeneratorAgent:
     topo_dir             : base topology directory containing one .cfg per router
     num_candidates       : number of rule-set candidates to generate
     rules_temperatures   : LLM temperature per rules-extraction run
-                           (length must equal num_candidates)
-    config_temperature   : fixed LLM temperature for OSPF config generation
+                           (length must equal num_candidates); the same temperature
+                           is reused for that candidate's OSPF config generation
     use_strategies       : if True (default), inject CANDIDATE_STRATEGIES hints into
                            each candidate's prompts for semantic diversity; if False,
                            rely on temperature variation alone (simpler, faster)
@@ -284,7 +361,6 @@ class GeneratorAgent:
     """
 
     DEFAULT_RULES_TEMPERATURES = [0.2, 0.7, 1.0]
-    DEFAULT_CONFIG_TEMPERATURE = 0.0
 
     def __init__(
         self,
@@ -293,7 +369,6 @@ class GeneratorAgent:
         topo_dir: str = "",
         num_candidates: int = 3,
         rules_temperatures: list[float] | None = None,
-        config_temperature: float | None = None,
         use_strategies: bool = False,
         dry_run: bool = False,
     ) -> None:
@@ -302,8 +377,6 @@ class GeneratorAgent:
         self._topo_dir = topo_dir
         self._num_candidates = num_candidates
         self._rules_temperatures = rules_temperatures or self.DEFAULT_RULES_TEMPERATURES[:num_candidates]
-        self._config_temperature = config_temperature if config_temperature is not None \
-            else self.DEFAULT_CONFIG_TEMPERATURE
         self._use_strategies = use_strategies
         self._dry_run = dry_run
 
@@ -350,15 +423,17 @@ class GeneratorAgent:
             print(f"\n[Generator] Candidate {i}/{self._num_candidates} — "
                   f"extracting rules (temperature={temp}, strategy={strategy_name})…")
 
-            rules_json = self._extract_rules(clarified_intent, temperature=temp, strategy=strategy)
+            rules_json = self._extract_rules(
+                clarified_intent, temperature=temp, strategy=strategy, topo_doc=topo_doc
+            )
             print(f"[Generator] Rules:\n{rules_json}")
 
             print(f"[Generator] Candidate {i}/{self._num_candidates} — "
-                  f"generating OSPF configs (temperature={self._config_temperature}, "
+                  f"generating OSPF configs (temperature={temp}, "
                   f"strategy={strategy_name})…")
 
             llm_output = self._generate_configs(
-                rules_json, clarified_intent, kb, topo_doc, strategy=strategy
+                rules_json, clarified_intent, kb, topo_doc, temperature=temp, strategy=strategy
             )
 
             candidate = dict(base_topo)
@@ -379,6 +454,7 @@ class GeneratorAgent:
         clarified_intent: str,
         temperature: float,
         strategy: dict[str, str] | None = None,
+        topo_doc: str = "",
     ) -> str:
         """Convert clarified intent to structured ground-truth rules JSON string."""
         if self._dry_run:
@@ -397,9 +473,13 @@ class GeneratorAgent:
                 "Increase --max-rounds or provide a more specific intent."
             )
 
-        user_content = clarified_intent
+        # Strategy instruction comes FIRST so the LLM reads it before the intent.
         if strategy and strategy.get("rules_hint"):
-            user_content = clarified_intent + "\n\n" + strategy["rules_hint"].strip()
+            user_content = strategy["rules_hint"].strip() + "\n\n## Intent\n\n" + clarified_intent
+        else:
+            user_content = clarified_intent
+        if topo_doc and strategy and strategy.get("include_topology_in_rules"):
+            user_content += "\n\n" + topo_doc
 
         messages = [
             Message(role="system", content=RULES_EXTRACTOR_SYSTEM),
@@ -437,6 +517,7 @@ class GeneratorAgent:
         clarified_intent: str,
         kb: dict[str, str],
         topo_doc: str,
+        temperature: float = 0.0,
         strategy: dict[str, str] | None = None,
     ) -> dict[str, str]:
         """Compile rules JSON + topology into OSPF router configs."""
@@ -451,7 +532,7 @@ class GeneratorAgent:
             Message(role="user", content=user_message),
         ]
         response = self._llm.complete(
-            messages, temperature=self._config_temperature, max_tokens=4096
+            messages, temperature=temperature, max_tokens=4096
         )
         return self._parse_response(response)
 

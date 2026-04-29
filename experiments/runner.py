@@ -214,6 +214,7 @@ def run_experiment(
     llm: OpenAIClient,
     base_results_dir: str,
     max_rounds: int,
+    max_questions_per_round: int,
     num_candidates: int,
     kb_dir: str,
     topo_dir: str,
@@ -260,11 +261,16 @@ def run_experiment(
         "eval_per_candidate":       {},
         "time_generate_s":          None,
         # Selection
-        "winner_rules":             None,
-        "eval_winner":              None,
-        "n_ecs":                    None,
-        "n_selection_rounds":       None,
-        "time_select_s":            None,
+        "winner_rules":                  None,
+        "eval_winner":                   None,
+        "further_clarified_intent":      None,
+        "eval_further_clarified":        None,
+        "n_ecs":                         None,
+        "n_selection_rounds":            None,
+        "time_select_s":                 None,
+        # Verification (re-generation from further_clarified_intent)
+        "n_verification_ecs":            None,
+        "time_verify_s":                 None,
         # Misc
         "pipeline_dir":             None,
     }
@@ -280,6 +286,7 @@ def run_experiment(
                 interactor=operator,
                 results_dir=row_dir,
                 max_rounds=max_rounds,
+                max_questions_per_round=max_questions_per_round,
                 dry_run=dry_run,
             )
             clarified = clarify_agent.run(intent, runtime_context=runtime_context)
@@ -329,9 +336,11 @@ def run_experiment(
                 llm=llm,
                 interactor=operator,
                 batfish_script_dir=batfish_script_dir,
+                kb_dir=kb_dir,
+                topo_dir=topo_dir,
                 dry_run=dry_run,
             )
-            winner = sel_agent.run(
+            winner, further_clarified = sel_agent.run(
                 candidates,
                 clarified,
                 results_dir=run_dir,
@@ -345,8 +354,40 @@ def run_experiment(
 
             if winner is not None:
                 winner_rules = winner.get("__rules__", "")
-                result["winner_rules"] = winner_rules
-                result["eval_winner"]  = evaluate(winner_rules, correct_spec)
+                result["winner_rules"]             = winner_rules
+                result["eval_winner"]              = evaluate(winner_rules, correct_spec)
+                result["further_clarified_intent"] = further_clarified
+                if further_clarified and not dry_run:
+                    fc_rules = extract_rules_neutral(llm, further_clarified)
+                    result["eval_further_clarified"] = evaluate(fc_rules, correct_spec)
+
+                # ── Phase 4: Verification ─────────────────────────────────────
+                # Only run when the winner is known-correct (exact match).
+                # Generates 3 temperature-only candidates from the further-clarified
+                # intent and counts ECs across those regenerated configs only.
+                winner_is_correct = (result.get("eval_winner") or {}).get("exact_match")
+                if winner_is_correct and not dry_run:
+                    t0 = time.perf_counter()
+                    verif_dir = os.path.join(run_dir, "verification")
+                    verif_gen = GeneratorAgent(
+                        llm=llm,
+                        kb_dir=kb_dir,
+                        topo_dir=topo_dir,
+                        num_candidates=3,
+                        use_strategies=False,
+                        dry_run=dry_run,
+                    )
+                    verif_gen.run(further_clarified, results_dir=verif_dir)
+                    verif_cands_dir = os.path.join(verif_dir, "candidates")
+
+                    n_verif_ecs = sel_agent.count_ecs(
+                        n=3,
+                        cands_dir=verif_cands_dir,
+                        results_dir=verif_dir,
+                    )
+                    result["n_verification_ecs"] = n_verif_ecs
+                    result["time_verify_s"]      = round(time.perf_counter() - t0, 2)
+
                 result["status"] = "done"
                 break
 
@@ -378,10 +419,13 @@ _CSV_FIELDS = [
     "c3_exact", "c3_reach", "c3_wp", "c3_lb",
     # Winner accuracy
     "winner_exact", "winner_reach", "winner_wp", "winner_lb",
+    # Further clarified intent accuracy
+    "fc_exact", "fc_reach", "fc_wp", "fc_lb",
     # Counts
     "n_clarify_rounds", "n_clarify_questions", "n_ecs", "n_selection_rounds",
+    "n_verification_ecs",
     # Timing (seconds)
-    "time_clarify_s", "time_generate_s", "time_select_s",
+    "time_clarify_s", "time_generate_s", "time_select_s", "time_verify_s",
     # Context
     "clarified_intent", "pipeline_dir",
 ]
@@ -412,9 +456,11 @@ def _to_csv_row(result: dict) -> dict:
         "n_clarify_questions": result.get("n_clarify_questions"),
         "n_ecs":               result.get("n_ecs"),
         "n_selection_rounds":  result.get("n_selection_rounds"),
+        "n_verification_ecs":  result.get("n_verification_ecs"),
         "time_clarify_s":      result.get("time_clarify_s"),
         "time_generate_s":     result.get("time_generate_s"),
         "time_select_s":       result.get("time_select_s"),
+        "time_verify_s":       result.get("time_verify_s"),
         "clarified_intent": (result.get("clarified_intent") or "").replace("\n", " "),
         "pipeline_dir":     result.get("pipeline_dir") or "",
     }
@@ -422,6 +468,7 @@ def _to_csv_row(result: dict) -> dict:
     for i in range(1, 4):
         row.update(_flat_eval(f"c{i}", evals.get(f"candidate_{i}")))
     row.update(_flat_eval("winner", result.get("eval_winner")))
+    row.update(_flat_eval("fc", result.get("eval_further_clarified")))
     return row
 
 
@@ -460,6 +507,8 @@ def build_arg_parser() -> argparse.ArgumentParser:
                    help=f"OpenAI model (default: {config.OPENAI_MODEL}).")
     p.add_argument("--max-rounds", type=int, default=config.MAX_CLARIFY_ROUNDS,
                    help=f"Max clarification rounds (default: {config.MAX_CLARIFY_ROUNDS}).")
+    p.add_argument("--max-questions", type=int, default=config.MAX_QUESTIONS_PER_ROUND,
+                   help=f"Max clarification questions per round (default: {config.MAX_QUESTIONS_PER_ROUND}).")
     p.add_argument("--num-candidates", type=int, default=config.NUM_CANDIDATES,
                    help=f"Candidates per run (default: {config.NUM_CANDIDATES}).")
     p.add_argument("--kb-dir",  default=config.KB_DIR)
@@ -521,6 +570,7 @@ def main() -> None:
             llm=llm,
             base_results_dir=out_dir,
             max_rounds=args.max_rounds,
+            max_questions_per_round=args.max_questions,
             num_candidates=args.num_candidates,
             kb_dir=args.kb_dir,
             topo_dir=args.topo_dir,
@@ -590,6 +640,13 @@ def _print_aggregate(results: list[dict]) -> None:
     w_wp    = sum(1 for r in selected if (r.get("eval_winner") or {}).get("waypoint_match"))
     w_lb    = sum(1 for r in selected if (r.get("eval_winner") or {}).get("loadbalancing_match"))
 
+    # Further-clarified accuracy (subset of selected rows)
+    fc_rows = [r for r in results if r.get("eval_further_clarified")]
+    fc_exact = sum(1 for r in fc_rows if (r.get("eval_further_clarified") or {}).get("exact_match"))
+    fc_reach = sum(1 for r in fc_rows if (r.get("eval_further_clarified") or {}).get("reachability_match"))
+    fc_wp    = sum(1 for r in fc_rows if (r.get("eval_further_clarified") or {}).get("waypoint_match"))
+    fc_lb    = sum(1 for r in fc_rows if (r.get("eval_further_clarified") or {}).get("loadbalancing_match"))
+
     # Counts & timing
     def _avg(vals):
         v = [x for x in vals if x is not None]
@@ -599,37 +656,49 @@ def _print_aggregate(results: list[dict]) -> None:
     avg_clarify_s   = _avg([r.get("time_clarify_s") for r in results])
     avg_generate_s  = _avg([r.get("time_generate_s") for r in results])
     avg_select_s    = _avg([r.get("time_select_s") for r in results])
+    avg_verify_s    = _avg([r.get("time_verify_s") for r in results])
     avg_ecs         = _avg([r.get("n_ecs") for r in results])
     avg_sel_rounds  = _avg([r.get("n_selection_rounds") for r in results])
 
-    w = 64
+    verif_rows = [r for r in results if r.get("n_verification_ecs") is not None]
+    avg_verif_ecs    = _avg([r.get("n_verification_ecs") for r in verif_rows])
+    verif_perfect    = sum(1 for r in verif_rows if r.get("n_verification_ecs") == 1)
+
+    w = 76
     print("\n" + "=" * w)
     print("  Experiment Results")
     print("=" * w)
     print(f"  Total rows processed       : {total}")
     print(f"  Pipeline completed         : {_pct(done)}")
     print()
-    print(f"  {'Metric':<38}  {'Post-clarify':>12}  {'Best-of-N':>9}  {'Winner':>6}")
-    print(f"  {'-'*38}  {'-'*12}  {'-'*9}  {'-'*6}")
-    for label, pc_v, bn_v, w_v in [
-        ("Exact match",      pc_exact, bn_exact, w_exact),
-        ("Reachability",     pc_reach, bn_reach, w_reach),
-        ("Waypoint",         pc_wp,    bn_wp,    w_wp),
-        ("Load balancing",   pc_lb,    bn_lb,    w_lb),
+    print(f"  {'Metric':<38}  {'Post-clarify':>12}  {'Best-of-N':>9}  {'Winner':>6}  {'Furt.Clar.':>10}")
+    print(f"  {'-'*38}  {'-'*12}  {'-'*9}  {'-'*6}  {'-'*10}")
+    for label, pc_v, bn_v, w_v, fc_v in [
+        ("Exact match",    pc_exact, bn_exact, w_exact, fc_exact),
+        ("Reachability",   pc_reach, bn_reach, w_reach, fc_reach),
+        ("Waypoint",       pc_wp,    bn_wp,    w_wp,    fc_wp),
+        ("Load balancing", pc_lb,    bn_lb,    w_lb,    fc_lb),
     ]:
-        wn = f"{w_v}/{len(selected)}" if selected else "n/a"
-        print(f"  {label:<38}  {pc_v:>5}/{total:<6}  {bn_v:>4}/{total:<4}  {wn:>6}")
+        wn  = f"{w_v}/{len(selected)}" if selected else "n/a"
+        fcn = f"{fc_v}/{len(fc_rows)}" if fc_rows else "n/a"
+        print(f"  {label:<38}  {pc_v:>5}/{total:<6}  {bn_v:>4}/{total:<4}  {wn:>6}  {fcn:>10}")
     print()
     print(f"  Avg clarification questions: {avg_clarify_q}")
     print(f"  Avg ECs after Batfish      : {avg_ecs}")
     print(f"  Avg selection rounds       : {avg_sel_rounds}")
+    if verif_rows:
+        print(f"  Avg verification ECs       : {avg_verif_ecs}  "
+              f"(perfect=1: {verif_perfect}/{len(verif_rows)})")
     print()
+
     def _fmt_s(v: str) -> str:
         return f"{v}s" if v != "n/a" else v
 
     print(f"  Avg time — clarify         : {_fmt_s(avg_clarify_s)}")
     print(f"  Avg time — generate        : {_fmt_s(avg_generate_s)}")
     print(f"  Avg time — select          : {_fmt_s(avg_select_s)}")
+    if verif_rows:
+        print(f"  Avg time — verify          : {_fmt_s(avg_verify_s)}")
     print("=" * w)
 
 
