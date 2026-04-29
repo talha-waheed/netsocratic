@@ -95,6 +95,7 @@ All settings are read from `.env` (via `python-dotenv`) or environment variables
 |---|---|---|
 | `OPENAI_API_KEY` | *(required)* | Your OpenAI API key |
 | `OPENAI_MODEL` | `gpt-4o` | Model name passed to the Chat Completions API |
+| `OPENAI_MIN_SECONDS_BETWEEN_REQUESTS` | `0` | Optional client-side delay between OpenAI calls; increase to reduce 429 rate-limit retries during experiments |
 | `MAX_CLARIFY_ROUNDS` | `5` | Maximum clarification rounds before best-effort synthesis |
 | `NUM_CANDIDATES` | `3` | Number of candidate rule sets the Generator produces |
 | `KB_DIR` | `agents/knowledge-base` | Directory for knowledge-base Markdown/text files |
