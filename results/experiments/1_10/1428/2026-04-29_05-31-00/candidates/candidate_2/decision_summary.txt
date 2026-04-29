@@ -1,0 +1,20 @@
+Routers modified: Brussels, Amsterdam, Zagreb, Basel, Geneva
+
+Reasoning:
+1. **Budapest to 100.0.29.0/24 (via London)**:
+   - Mandatory waypoint: London must be traversed.
+   - Modified Brussels to have cost 1000 on non-London paths (via Amsterdam, Rotterdam).
+   - Result: Only path through London is viable.
+
+2. **Rotterdam to 100.0.29.0/24 (via London, 2 ECMP paths)**:
+   - Mandatory waypoint: London must be traversed.
+   - Modified Amsterdam to have cost 1000 on paths not leading to London.
+   - Ensured 2 ECMP paths by leaving two paths available via Brussels.
+
+3. **Geneva to 100.0.1.0/24 (via Kiev, 5 ECMP paths)**:
+   - Mandatory waypoint: Kiev must be traversed.
+   - Modified Basel to have cost 1000 on paths that would bypass Kiev.
+   - Modified Geneva to ensure 5 paths by utilizing the existing topology through Budapest.
+
+Limitations (if any):
+None. All constraints have been met successfully.

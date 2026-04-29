@@ -1,0 +1,19 @@
+Routers modified: Amsterdam, Brussels, Geneva, Kiev, London, Lyon, Roma, Vienna
+
+Reasoning:
+1. Lyon to 100.0.9.0/24 (Rotterdam) with 6 ECMP paths:
+   - Paths through Rotterdam must be preferred.
+   - Block all paths bypassing Rotterdam by setting high costs on bypass links.
+   - Ensure 6 paths through Rotterdam have equal cost.
+
+2. Roma to 100.0.29.0/24 (London) with 2 ECMP paths:
+   - Paths must pass through London.
+   - Block all paths bypassing London by setting high costs on bypass links.
+   - Ensure 2 paths through London have equal cost.
+
+3. Brussels to 100.0.1.0/24 (Kiev) with 4 ECMP paths:
+   - Paths must pass through Kiev.
+   - Block all paths bypassing Kiev by setting high costs on bypass links.
+   - Ensure 4 paths through Kiev have equal cost.
+
+Limitations: None

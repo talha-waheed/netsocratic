@@ -1,0 +1,20 @@
+Routers modified: Brussels, Lyon, Roma, Kiev, Vienna, Warsaw
+
+Reasoning:
+- For traffic from Lyon to 100.0.9.0/24, it must pass through Rotterdam. The two paths from Lyon to Rotterdam are:
+  1. Lyon → Geneva → Basel → Strasbourg → Brussels → Rotterdam
+  2. Lyon → Marseille → Barcelona → Amsterdam → Rotterdam 
+  Set high costs (1000) on bypass paths through Paris and Luxembourg (Lyon → Paris → Brussels and Vienna → Luxembourg).
+
+- For Roma to reach 100.0.29.0/24, traffic must go through London. Two equal-cost paths:
+  1. Roma → Milan → Marseille → Barcelona → Paris → London
+  2. Roma → Zurich → Frankfurt → Brussels → Amsterdam → London
+  Costs adjusted to ensure traffic passes through London before terminating.
+
+- Brussels must reach 100.0.1.0/24 via Kiev. Two paths:
+  1. Brussels → Frankfurt → Warsaw → Kiev
+  2. Brussels → Zurich → Milan → Vienna → Bratislava → Budapest → Bucharest → Kiev
+  Ensured these routes have equal cost by applying high cost on Brussels' bypass links.
+
+Limitations:
+None – all intents satisfied within the topology and policy constraints.

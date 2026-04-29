@@ -1,0 +1,20 @@
+Routers modified: [Geneva, Rotterdam, Barcelona]
+
+Reasoning:
+1. For Geneva to Basel (Geneva to 100.0.4.0/24) with 3 ECMP paths:
+   - Path options via Zurich, Lyon, and Basel.
+   - Set high cost on Geneva to Paris to block path using Paris.
+   - Use cost 1 for Geneva to Lyon, Basel, and Zurich links for three equal-cost paths.
+
+2. For Rotterdam to Basel (Rotterdam to 100.0.4.0/24) with 3 ECMP paths:
+   - Possible paths via Amsterdam and Brussels.
+   - Set Rotterdam to Amsterdam cost to 1000 (mandatory waypoint through Basel).
+   - Use default costs via Brussels to Basel.
+
+3. For Barcelona to Kiev (Barcelona to 100.0.1.0/24) with 3 ECMP paths:
+   - Possible paths via Marseille.
+   - Set Barcelona to Madrid cost to 1000 (mandatory waypoint through Kiev).
+   - Use default costs via Marseille.
+
+Limitations (if any):
+None

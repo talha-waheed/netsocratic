@@ -1,0 +1,10 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from paris should reach? (Why: impact on reachability)
+A: The destination subnet that traffic from Paris should reach is 100.0.29.0/24.
+
+Q: When you wrote 'route through rotterdam', what is the exact router hostname you are referring to? (Why: impact on waypointing)
+A: The requirement specifies routing through "rotterdam" as a waypoint for traffic destined to "100.0.9.0/24" from "vienna". However, the exact router hostname is not provided in the specification.
+
+Q: When you wrote 'traffic should go through london', what is the exact router hostname you are referring to? (Why: impact on waypointing)
+A: The requirement specifies that traffic destined for the network 100.0.29.0/24 should go through London. However, the exact router hostname in London is not provided in the specification.

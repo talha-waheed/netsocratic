@@ -1,0 +1,13 @@
+candidate_1 vs candidate_2: reach_diff=True, waypoint_diff=False, lb_diff=False
+candidate_1 vs candidate_3: reach_diff=False, waypoint_diff=False, lb_diff=False
+candidate_2 vs candidate_3: reach_diff=True, waypoint_diff=False, lb_diff=False
+candidate_1 and candidate_3 are EC-equivalent → merged
+EC pruning: 3 candidates → 2 survivors: ['candidate_1', 'candidate_2']
+Round 1  Q: Did your original intent require traffic from paris to 100.0.4.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+Round 1  A: No waypoint was required for traffic from paris to 100.0.4.0/24.
+Round 2  Q: Did your original intent require traffic from praha to 100.0.4.0/24 to pass through london, was no waypoint required, or was a different waypoint required?
+Round 2  A: A different waypoint was required. Traffic from praha to 100.0.4.0/24 was required to pass through basel.
+Round 3  Q: Did your original intent require traffic from vienna to 100.0.9.0/24 to pass through rotterdam, was no waypoint required, or was a different waypoint required?
+Round 3  A: My original intent required traffic from vienna to 100.0.9.0/24 to pass through rotterdam.
+Remaining candidates are behaviourally indistinguishable or all distinguishable pairs already asked.
+Synthesized corrected candidate from further clarified intent.

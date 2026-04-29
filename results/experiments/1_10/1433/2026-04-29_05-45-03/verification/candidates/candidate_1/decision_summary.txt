@@ -1,0 +1,30 @@
+Routers modified: Basel
+
+Reasoning:
+1. **Kiev to 100.0.4.0/24 via Basel with 2 ECMP paths:**
+   - Possible paths from Kiev to Basel:
+     - Kiev → Bucharest → Budapest → Vienna → Frankfurt → Strasbourg → Basel
+     - Kiev → Warsaw → Frankfurt → Strasbourg → Basel
+   - Both paths must have the same cost. Since all links have a base cost of 1, no changes are needed on Basel for this requirement.
+
+2. **Budapest to 100.0.4.0/24 via Basel with 4 ECMP paths:**
+   - Possible paths from Budapest to Basel:
+     - Budapest → Vienna → Frankfurt → Strasbourg → Basel
+     - Budapest → Zagreb → Ljubjana → Zurich → Basel
+     - Budapest → Bratislava → Vienna → Frankfurt → Strasbourg → Basel
+     - Budapest → Sofia → Athens → Istanbul → Bucharest → Kiev → Warsaw → Frankfurt → Strasbourg → Basel
+   - All paths must have the same cost. Since all links have a base cost of 1, no changes are needed on Basel for this requirement.
+
+3. **Amsterdam to 100.0.4.0/24 via Basel with 7 ECMP paths:**
+   - Possible paths from Amsterdam to Basel:
+     - Amsterdam → Brussels → Luxembourg → Strasbourg → Basel
+     - Amsterdam → Frankfurt → Strasbourg → Basel
+     - Amsterdam → Rotterdam → Brussels → Luxembourg → Strasbourg → Basel
+     - Amsterdam → London → Paris → Geneva → Basel
+     - Amsterdam → Brussels → Paris → Geneva → Basel
+     - Amsterdam → Frankfurt → Zurich → Basel
+     - Amsterdam → Frankfurt → Vienna → Milan → Zurich → Basel
+   - All paths must have the same cost. Since all links have a base cost of 1, no changes are needed on Basel for this requirement.
+
+Limitations (if any):
+None. The topology allows for the specified number of ECMP paths through Basel for each source-destination pair.

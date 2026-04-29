@@ -1,0 +1,37 @@
+Routers modified: Kiev, Budapest, Amsterdam
+
+Reasoning:
+1. For Kiev to 100.0.4.0/24:
+   - Must pass through Basel.
+   - Two paths are required with equal cost.
+   - Possible paths through Basel are:
+     - Kiev → Bucharest → Budapest → Basel
+     - Kiev → Warsaw → Frankfurt → Strasbourg → Basel
+   - Set cost to 1000 on Kiev → Warsaw link to enforce Basel waypoint.
+   - Ensure both paths through Basel have equal cost by keeping costs at 1.
+
+2. For Budapest to 100.0.4.0/24:
+   - Must pass through Basel.
+   - Four paths are required with equal cost.
+   - Possible paths through Basel are:
+     - Budapest → Bucharest → Basel
+     - Budapest → Sofia → Basel
+     - Budapest → Bratislava → Vienna → Basel
+     - Budapest → Zagreb → Basel
+   - All paths naturally go through Basel with cost 1, so no changes needed.
+
+3. For Amsterdam to 100.0.4.0/24:
+   - Must pass through Basel.
+   - Seven paths are required with equal cost.
+   - Possible paths through Basel are:
+     - Amsterdam → Brussels → Paris → Geneva → Basel
+     - Amsterdam → Frankfurt → Strasbourg → Basel
+     - Amsterdam → Rotterdam → Paris → Geneva → Basel
+     - Amsterdam → London → Paris → Geneva → Basel
+     - Amsterdam → Brussels → Luxembourg → Strasbourg → Basel
+     - Amsterdam → Frankfurt → Zurich → Basel
+     - Amsterdam → Frankfurt → Praha → Basel
+   - Ensure all paths through Basel have equal cost by keeping costs at 1.
+
+Limitations (if any):
+None

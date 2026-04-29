@@ -1,0 +1,7 @@
+madrid and the remote network should be connected.
+The path between madrid and the remote network involves london.
+Ensure barcelona can access 100.0.29.0/24. Apply the same policy to other relevant connections.
+Route through london if possible.
+Connect warsaw to our servers.
+Use basel as intermediate hop if available.
+Traffic from warsaw to our servers is evenly distributed across 2 paths.

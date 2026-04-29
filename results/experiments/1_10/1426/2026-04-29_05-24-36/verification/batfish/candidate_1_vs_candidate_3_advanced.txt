@@ -1,0 +1,7 @@
+--- Initializing Snapshots ---
+Searching for behavioral divergences...
+
+[DIVERGENCE DISCOVERED]
+Flow: start=stockholm interface=FastEthernet0/0 [100.0.19.2->10.0.0.82 ICMP (type=8, code=0)]
+- Waypointing Difference:
+  * Candidate 2 uniquely transits: {'frankfurt'}

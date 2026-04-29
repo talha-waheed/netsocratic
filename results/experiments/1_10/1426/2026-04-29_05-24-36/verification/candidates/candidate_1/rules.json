@@ -1,0 +1,17 @@
+{
+  "reachability": {
+    "frankfurt": ["100.0.29.0/24"],
+    "zurich": ["100.0.9.0/24"],
+    "luxembourg": ["100.0.1.0/24"]
+  },
+  "waypoint": {
+    "(frankfurt,100.0.29.0/24)": ["london"],
+    "(zurich,100.0.9.0/24)": ["rotterdam"],
+    "(luxembourg,100.0.1.0/24)": ["kiev"]
+  },
+  "loadbalancing": {
+    "(frankfurt,100.0.29.0/24)": 2,
+    "(zurich,100.0.9.0/24)": 3,
+    "(luxembourg,100.0.1.0/24)": 4
+  }
+}

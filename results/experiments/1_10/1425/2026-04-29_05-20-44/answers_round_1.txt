@@ -1,0 +1,13 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from athens should reach? (Why: Impact on reachability)
+A: The exact destination subnet that traffic from Athens should reach is 100.0.29.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) referred to as "the remote network" that luxembourg needs to reach? (Why: Impact on reachability)
+A: The exact destination subnet that Luxembourg needs to reach is 100.0.4.0/24.
+
+Q: When you wrote 'route through london if possible', what is the exact router hostname you are referring to? (e.g. 'london', 'lon-core-1') (Why: Impact on waypointing)
+A: The exact router hostname I am referring to is 'london'.
+
+Q: When you wrote 'the route from luxembourg to the remote network includes basel', what is the exact router hostname you are referring to? (e.g. 'basel', 'bas-core-1') (Why: Impact on waypointing)
+A: The exact router hostname I am referring to is 'basel'.

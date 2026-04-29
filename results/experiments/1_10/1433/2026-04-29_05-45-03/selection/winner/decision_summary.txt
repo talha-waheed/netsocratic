@@ -1,0 +1,17 @@
+Routers modified: Kiev, Budapest, Amsterdam
+
+Reasoning:
+1. **Kiev to 100.0.4.0/24 via Basel with 2 ECMP paths:**
+   - Possible paths: Kiev → Bucharest → Budapest → Basel and Kiev → Warsaw → Frankfurt → Basel.
+   - Set cost 1000 on Kiev's interface to Bucharest to block non-Basel paths.
+   - Ensure two paths through Basel have equal cost by setting cost 1 on the Warsaw path.
+
+2. **Budapest to 100.0.4.0/24 via Basel with 4 ECMP paths:**
+   - Possible paths: Budapest → Bratislava → Vienna → Frankfurt → Basel, Budapest → Zagreb → Ljubjana → Basel, Budapest → Sofia → Athens → Basel, Budapest → Bucharest → Kiev → Basel.
+   - Set cost 1 on all interfaces leading to these paths to ensure 4 equal-cost paths through Basel.
+
+3. **Amsterdam to 100.0.4.0/24 via Basel with 7 ECMP paths:**
+   - Possible paths: Amsterdam → Brussels → Luxembourg → Basel, Amsterdam → Frankfurt → Basel, Amsterdam → Rotterdam → Brussels → Basel, Amsterdam → London → Paris → Basel, Amsterdam → Dublin → London → Basel, Amsterdam → Lisbon → London → Basel, Amsterdam → Stockholm → Frankfurt → Basel.
+   - Set cost 1 on all interfaces leading to these paths to ensure 7 equal-cost paths through Basel.
+
+Limitations: None

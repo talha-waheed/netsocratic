@@ -1,0 +1,18 @@
+Routers modified: Geneva, Basel
+
+Reasoning:
+1. Reachability:
+   - Geneva to 100.0.4.0/24: Basel is the direct neighbor of Basel, so connectivity is inherently established.
+   - Rotterdam to 100.0.4.0/24: Direct connectivity through Amsterdam and Brussels, no changes needed.
+   - Barcelona to 100.0.1.0/24: Direct connectivity through Madrid and Paris, no changes needed.
+
+2. Load Balancing for Geneva to 100.0.4.0/24:
+   - Three paths are required for load balancing.
+   - Path 1: Geneva → Basel → Strasbourg → Frankfurt → Basel (cost 4)
+   - Path 2: Geneva → Basel → Strasbourg → Luxembourg → Brussels → Basel (cost 5)
+   - Path 3: Geneva → Basel → Strasbourg → Frankfurt → Basel (cost 4)
+   - To achieve three equal-cost paths, set the cost of the Geneva → Basel link to 1.
+   - Block the Geneva → Paris and Geneva → Zurich paths by setting their costs to 1000.
+
+Limitations (if any):
+None

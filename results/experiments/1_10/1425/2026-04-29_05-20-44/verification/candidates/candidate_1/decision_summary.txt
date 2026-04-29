@@ -1,0 +1,22 @@
+Routers modified: Athens, Budapest, Geneva, Kiev, London, Luxembourg, Strasbourg, Vienna
+
+Reasoning:
+1. Athens to 100.0.29.0/24 (London):
+   - Must pass through London.
+   - Load balance across 3 paths.
+   - Paths: Athens→Istanbul→Bucharest→London, Athens→Istanbul→Bucharest→Budapest→London, Athens→Istanbul→Bucharest→Budapest→Vienna→London.
+   - Set costs to ensure these paths have equal cost and pass through London.
+
+2. Strasbourg to 100.0.1.0/24 (Kiev):
+   - Must pass through Kiev.
+   - Load balance across 2 paths.
+   - Paths: Strasbourg→Frankfurt→Warsaw→Kiev, Strasbourg→Frankfurt→Praha→Warsaw→Kiev.
+   - Set costs to ensure these paths have equal cost and pass through Kiev.
+
+3. Luxembourg to 100.0.4.0/24 (Basel):
+   - Must pass through Basel.
+   - Load balance across 4 paths.
+   - Paths: Luxembourg→Brussels→Paris→Geneva→Basel, Luxembourg→Brussels→Amsterdam→Frankfurt→Basel, Luxembourg→Strasbourg→Frankfurt→Basel, Luxembourg→Strasbourg→Basel.
+   - Set costs to ensure these paths have equal cost and pass through Basel.
+
+Limitations: None

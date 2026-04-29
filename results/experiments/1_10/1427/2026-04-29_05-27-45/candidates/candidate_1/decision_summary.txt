@@ -1,0 +1,22 @@
+Routers modified: Kiev, London
+
+Reasoning:
+1. Reachability:
+   - Vienna to 100.0.1.0/24: Vienna → Bratislava → Budapest → Bucharest → Kiev
+     - No cost changes needed as the path is direct and already optimal.
+   - Istanbul to 100.0.9.0/24: Istanbul → Athens → Sofia → Budapest → Zagreb → Rotterdam
+     - No cost changes needed as the path is direct and already optimal.
+
+2. Load Balancing:
+   - Kiev to 100.0.29.0/24 requires 3 equal-cost paths.
+   - Path 1: Kiev → Warsaw → Frankfurt → Amsterdam → London
+   - Path 2: Kiev → Bucharest → Budapest → Vienna → Frankfurt → London
+   - Path 3: Kiev → Warsaw → Praha → Frankfurt → London
+   - Set costs on Kiev and London interfaces to ensure these paths have equal total cost.
+
+3. Cost Adjustments:
+   - Kiev: Set cost 1 on interfaces to Warsaw and Bucharest to ensure paths through Warsaw and Bucharest are preferred.
+   - London: Set cost 1 on interfaces to Paris, Dublin, and Lisbon to ensure paths through these interfaces are preferred.
+
+Limitations (if any):
+None

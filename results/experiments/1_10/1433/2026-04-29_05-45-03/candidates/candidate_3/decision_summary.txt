@@ -1,0 +1,19 @@
+Routers modified: Basel, Budapest, Frankfurt, Geneva, Strasbourg, Vienna
+
+Reasoning:
+1. Basel is the waypoint for all routes to 100.0.4.0/24 from Kiev, Budapest, and Amsterdam.
+   Therefore, costs for all bypass routes must be set to 1000 to enforce the waypoint.
+2. For Kiev to 100.0.4.0/24:
+   - Possible paths via Basel: Kiev → Bucharest → Budapest → Sofia → Basel or Kiev → Warsaw → Praha → Frankfurt → Strasbourg → Basel.
+   - Both paths have been preferred by assigning cost 1 to links towards Basel.
+   - Adjust other routes to yield exactly 2 equal-cost paths (via Geneva or Frankfurt → Strasbourg).
+3. For Budapest to 100.0.4.0/24:
+   - Possible paths via Basel: Budapest → Sofia → Basel and Budapest → Vienna → Prague → Frankfurt → Strasbourg → Basel.
+   - By directing through Budapest → Sofia or Budapest → Vienna, we ensure exactly two paths via Basel.
+4. For Amsterdam to 100.0.4.0/24:
+   - Multiple paths exist through Basel (Amsterdam → Frankfurt → Strasbourg or via Frankfurt to Geneva).
+   - We ensure that paths through Basel are available and have cost 1, while other routes not through Basel are at cost 1000.
+5. Load balancing is achieved with two paths for each originating city to Basel.
+   - Explicit paths were established for both cases, ensuring 2 ECMP routes with costs adjusted as stated.
+
+Limitations: None

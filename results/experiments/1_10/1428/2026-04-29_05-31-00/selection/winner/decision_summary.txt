@@ -1,0 +1,36 @@
+Routers modified: Budapest, Rotterdam, Geneva
+
+Reasoning:
+1. Budapest to 100.0.29.0/24 (London):
+   - Mandatory waypoint: London
+   - Load balancing: 3 paths
+   - Paths considered:
+     a. Budapest → Bratislava → Vienna → Frankfurt → London
+     b. Budapest → Zagreb → Ljubljana → Vienna → Frankfurt → London
+     c. Budapest → Bratislava → Praha → Frankfurt → London
+   - Set high cost (1000) on Budapest's links to Bucharest and Sofia to block non-London paths.
+   - Ensure 3 paths have equal cost by setting costs on Bratislava and Zagreb paths to 1.
+
+2. Rotterdam to 100.0.29.0/24 (London):
+   - Mandatory waypoint: London
+   - Load balancing: 2 paths
+   - Paths considered:
+     a. Rotterdam → Amsterdam → London
+     b. Rotterdam → Brussels → London
+   - Set high cost (1000) on Rotterdam's link to Brussels to block non-London paths.
+   - Ensure 2 paths have equal cost by setting costs on Amsterdam path to 1.
+
+3. Geneva to 100.0.1.0/24 (Kiev):
+   - Mandatory waypoint: Kiev
+   - Load balancing: 5 paths
+   - Paths considered:
+     a. Geneva → Basel → Strasbourg → Frankfurt → Warsaw → Kiev
+     b. Geneva → Zurich → Frankfurt → Warsaw → Kiev
+     c. Geneva → Lyon → Paris → Brussels → Frankfurt → Warsaw → Kiev
+     d. Geneva → Basel → Strasbourg → Luxembourg → Brussels → Frankfurt → Warsaw → Kiev
+     e. Geneva → Zurich → Milan → Vienna → Bratislava → Praha → Warsaw → Kiev
+   - Set high cost (1000) on Geneva's links to Paris and Lyon to block non-Kiev paths.
+   - Ensure 5 paths have equal cost by setting costs on Basel and Zurich paths to 1.
+
+Limitations (if any):
+None

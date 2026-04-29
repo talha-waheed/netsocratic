@@ -1,0 +1,4 @@
+candidate_1 vs candidate_2: reach_diff=True, waypoint_diff=False, lb_diff=False
+candidate_1 vs candidate_3: reach_diff=True, waypoint_diff=True, lb_diff=False
+candidate_2 vs candidate_3: reach_diff=True, waypoint_diff=True, lb_diff=False
+Verification EC count: 3

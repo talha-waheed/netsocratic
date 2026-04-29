@@ -1,0 +1,8 @@
+Ensure connectivity between athens and our servers.
+Route through london if possible.
+Make sure there's redundancy.
+strasbourg needs to reach 100.0.1.0/24.. The same connectivity requirements apply to the other subnets as well.
+Consider routing through kiev.
+luxembourg needs to reach the remote network. The same connectivity requirements apply to the other subnets as well.
+The route from luxembourg to the remote network includes basel.
+Traffic from luxembourg to the remote network should be load-balanced across 4 paths.

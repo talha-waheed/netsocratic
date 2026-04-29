@@ -1,0 +1,7 @@
+The subnet 100.0.9.0/24 is reachable from vienna.
+Route through rotterdam if possible.
+Make sure there's redundancy.
+Ensure praha can access 100.0.4.0/24.. Apply the same policy to other relevant connections.
+Use multiple paths for reliability.
+Ensure paris can access the target subnet. Apply the same policy to other relevant connections.
+Traffic should go through london when feasible.

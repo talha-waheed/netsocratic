@@ -1,0 +1,23 @@
+Routers modified: Vienna, Praha, Paris
+
+Reasoning:
+1. Vienna to 100.0.9.0/24 (Rotterdam's stub):
+   - Vienna must pass through Rotterdam.
+   - Paths: Vienna→Frankfurt→Amsterdam→Rotterdam, Vienna→Bratislava→Budapest→Zagreb→Ljubjana→Rotterdam.
+   - Block Vienna→Frankfurt→Amsterdam by setting high cost on Vienna→Frankfurt and Vienna→Milan.
+   - Set Vienna→Bratislava cost to 1 to ensure path through Rotterdam.
+
+2. Praha to 100.0.4.0/24 (Basel's stub):
+   - Praha must pass through Basel.
+   - Paths: Praha→Frankfurt→Strasbourg→Basel, Praha→Bratislava→Budapest→Zagreb→Ljubjana→Basel.
+   - Block Praha→Frankfurt→Strasbourg by setting high cost on Praha→Frankfurt and Praha→Warsaw.
+   - Set Praha→Bratislava cost to 1 to ensure path through Basel.
+
+3. Paris to 100.0.4.0/24 (Basel's stub):
+   - Load balance across 2 paths.
+   - Paths: Paris→Geneva→Basel, Paris→Brussels→Luxembourg→Strasbourg→Basel.
+   - Set Paris→Geneva and Paris→Brussels costs to 1.
+   - Block Paris→Madrid and Paris→London by setting high cost to ensure only 2 paths.
+
+Limitations (if any):
+None

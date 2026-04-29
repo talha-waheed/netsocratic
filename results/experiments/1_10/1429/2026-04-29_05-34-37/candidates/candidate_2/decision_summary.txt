@@ -1,0 +1,19 @@
+Routers modified: Lyon, Brussels
+
+Reasoning:
+1. For the waypoint requirement from Lyon to 100.0.9.0/24 (Rotterdam's stub) via Rotterdam:
+   - The possible paths are Lyon→Geneva→Basel→Strasbourg→Frankfurt→Amsterdam→Rotterdam and Lyon→Geneva→Zurich→Frankfurt→Amsterdam→Rotterdam.
+   - To enforce the waypoint through Rotterdam, block bypass paths by setting the cost to 1000 on alternative paths.
+   - Modified Lyon's interface costs to:
+     a. Lyon→Geneva cost set to 1000 (because Geneva routes don't go through Rotterdam).
+     b. Lyon→Paris cost set to 1000 (because Paris routes don't go through Rotterdam).
+
+2. For the waypoint requirement from Brussels to 100.0.1.0/24 (Kiev's stub) via Kiev:
+   - The possible paths are Brussels→Luxembourg→Strasbourg→Frankfurt→Warsaw→Kiev and Brussels→Frankfurt→Warsaw→Kiev.
+   - To enforce the waypoint through Kiev, block bypass paths by setting the cost to 1000 on alternative paths.
+   - Modified Brussels's interface costs to:
+     a. Brussels→Amsterdam cost set to 1000 (because Amsterdam routes don't go through Kiev).
+     b. Brussels→Paris cost set to 1000 (because Paris routes don't go through Kiev).
+
+Limitations (if any):
+None

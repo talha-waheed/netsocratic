@@ -1,0 +1,16 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from madrid should reach? (Why: impact on reachability)
+A: The exact destination subnet that traffic from Madrid should reach is 100.0.29.0/24.
+
+Q: When you wrote 'the remote network', what is the exact destination subnet in CIDR notation? (Why: impact on reachability)
+A: The exact destination subnets in CIDR notation are "100.0.29.0/24" for both Madrid and Barcelona, and "100.0.4.0/24" for Warsaw.
+
+Q: What is the exact router hostname you are referring to with 'our servers'? (Why: impact on reachability)
+A: The specification does not mention any specific router hostname referred to as 'our servers'. It only specifies reachability and waypoint requirements for certain IP prefixes and locations.
+
+Q: When you mentioned 'the london hub', what is the exact router hostname you are referring to? (Why: impact on waypointing)
+A: I didn't mention a specific router hostname. The requirement is for traffic to pass through London as a waypoint, but it doesn't specify an exact router hostname.
+
+Q: When you mentioned 'basel as intermediate hop', what is the exact router hostname you are referring to? (Why: impact on waypointing)
+A: The exact router hostname I am referring to as the intermediate hop for waypointing is "basel".

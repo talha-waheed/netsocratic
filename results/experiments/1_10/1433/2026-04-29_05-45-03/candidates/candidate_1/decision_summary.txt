@@ -1,0 +1,20 @@
+Routers modified: Amsterdam, Budapest, Kiev
+
+Reasoning:
+1. Reachability from Kiev to 100.0.4.0/24 (Basel):
+   - Possible paths: Kiev → Bucharest → Budapest → Basel and Kiev → Warsaw → Frankfurt → Basel.
+   - To prefer Basel, set high cost on bypass paths: Kiev → Warsaw and Kiev → Bucharest.
+   - Modified Kiev to set high cost on interfaces towards Warsaw and Bucharest.
+
+2. Reachability from Budapest to 100.0.4.0/24 (Basel):
+   - Possible paths: Budapest → Bratislava → Vienna → Frankfurt → Basel and Budapest → Zagreb → Ljubjana → Basel.
+   - To prefer Basel, set high cost on bypass paths: Budapest → Bratislava and Budapest → Bucharest.
+   - Modified Budapest to set high cost on interfaces towards Bratislava and Bucharest.
+
+3. Reachability from Amsterdam to 100.0.4.0/24 (Basel):
+   - Possible paths: Amsterdam → Brussels → Frankfurt → Basel and Amsterdam → London → Paris → Basel.
+   - To prefer Basel, set high cost on bypass paths: Amsterdam → Brussels and Amsterdam → Frankfurt.
+   - Modified Amsterdam to set high cost on interfaces towards Brussels and Frankfurt.
+
+Limitations (if any):
+None

@@ -1,0 +1,10 @@
+--- Analyzing results/experiments/2026-04-29_05-20-44/1428/2026-04-29_05-31-00/candidates: candidate_2 vs candidate_3 ---
+
+[DIFFERENCE DETECTED]
+Counter-example Packet (Packet P): start=amsterdam [10.0.0.33->10.0.0.56 ICMP (type=8, code=0)]
+
+Trace in Candidate 1 (Permitted):
+[((ORIGINATED(default), NO_ROUTE(Discarded)))]
+
+Trace in Candidate 2 (Denied/Different):
+[((ORIGINATED(default), FORWARDED(Forwarded out interface: FastEthernet0/1, Routes: [connected (Network: 10.0.0.56/31, Next Hop: interface FastEthernet0/1)]), TRANSMITTED(FastEthernet0/1)), (RECEIVED(FastEthernet0/1), ACCEPTED(FastEthernet0/1)))]

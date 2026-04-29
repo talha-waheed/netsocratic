@@ -1,0 +1,20 @@
+Routers modified: Lyon, Roma, Brussels, Kiev
+
+Reasoning:
+1. Lyon to 100.0.9.0/24 (Rotterdam's stub):
+   - Must pass through Rotterdam and have 6 equal-cost paths.
+   - Block paths bypassing Rotterdam by setting high cost on Lyon→Paris and Lyon→Geneva.
+   - This forces traffic through Amsterdam with 6 paths through different intermediaries.
+
+2. Roma to 100.0.29.0/24 (London's stub):
+   - Must pass through London and have 2 equal-cost paths.
+   - Block paths bypassing London by setting high cost on Roma→Milan.
+   - Paths are forced through Paris→London and Brussels→London.
+
+3. Brussels to 100.0.1.0/24 (Kiev's stub):
+   - Must pass through Kiev and have 4 equal-cost paths.
+   - Block paths bypassing Kiev by setting high cost on Brussels→Paris, Brussels→Luxembourg, and Brussels→London.
+   - This maintains paths through various intermediaries like Bucharest while ensuring paths through Kiev.
+
+Limitations:
+None

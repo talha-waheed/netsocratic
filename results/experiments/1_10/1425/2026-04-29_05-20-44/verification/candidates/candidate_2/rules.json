@@ -1,0 +1,17 @@
+{
+  "reachability": {
+    "athens": ["100.0.29.0/24"],
+    "strasbourg": ["100.0.1.0/24"],
+    "luxembourg": ["100.0.4.0/24"]
+  },
+  "waypoint": {
+    "(athens,100.0.29.0/24)": ["london"],
+    "(strasbourg,100.0.1.0/24)": ["kiev"],
+    "(luxembourg,100.0.4.0/24)": ["basel"]
+  },
+  "loadbalancing": {
+    "(athens,100.0.29.0/24)": 3,
+    "(strasbourg,100.0.1.0/24)": 2,
+    "(luxembourg,100.0.4.0/24)": 4
+  }
+}

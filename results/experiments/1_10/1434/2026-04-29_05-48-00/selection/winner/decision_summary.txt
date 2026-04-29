@@ -1,0 +1,23 @@
+Routers modified: Brussels, Frankfurt
+
+Reasoning:
+1. Reachability:
+   - Madrid to 100.0.29.0/24 (London's stub) is inherently reachable via the base OSPF setup.
+   - Barcelona to 100.0.29.0/24 is inherently reachable via the base OSPF setup.
+   - Warsaw to 100.0.4.0/24 (Basel's stub) is inherently reachable via the base OSPF setup.
+
+2. Waypointing:
+   - For Madrid to 100.0.29.0/24 via London:
+     - Possible paths: Madrid → Paris → London, Madrid → Barcelona → Marseille → Lyon → Paris → London.
+     - Block bypass paths: Set high cost on Brussels → London and Frankfurt → London links to ensure traffic passes through London.
+   - For Barcelona to 100.0.29.0/24 via London:
+     - Possible paths: Barcelona → Madrid → Paris → London, Barcelona → Marseille → Lyon → Paris → London.
+     - Block bypass paths: Same as above, ensure traffic passes through London.
+
+3. Load Balancing:
+   - For Warsaw to 100.0.4.0/24 with 2 ECMP paths:
+     - Possible paths: Warsaw → Frankfurt → Strasbourg → Basel, Warsaw → Praha → Frankfurt → Strasbourg → Basel.
+     - Ensure both paths have equal cost by maintaining the base cost of 1 on all links involved in these paths.
+
+Limitations (if any):
+None

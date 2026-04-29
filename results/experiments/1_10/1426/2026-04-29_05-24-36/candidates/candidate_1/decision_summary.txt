@@ -1,0 +1,17 @@
+Routers modified: Frankfurt, Zurich, Luxembourg
+
+Reasoning:
+1. Frankfurt to 100.0.29.0/24 (London's stub):
+   - Must pass through London. Set cost 1000 on Frankfurt's direct link to Amsterdam to ensure traffic goes through Brussels or Vienna, both leading to London.
+   - Set cost 1 on Frankfurt's links to Brussels and Vienna to prefer these paths.
+
+2. Zurich to 100.0.9.0/24 (Rotterdam's stub):
+   - Must pass through Rotterdam. Set cost 1000 on Zurich's direct link to Geneva to ensure traffic goes through Frankfurt and then Amsterdam to reach Rotterdam.
+   - Set cost 1 on Zurich's link to Frankfurt to prefer this path.
+
+3. Luxembourg to 100.0.1.0/24 (Kiev's stub):
+   - No specific waypoint, but multiple paths are required for reliability.
+   - Set cost 1 on both links from Luxembourg to Brussels and Strasbourg to allow multiple paths.
+
+Limitations (if any):
+None

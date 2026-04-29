@@ -1,0 +1,12 @@
+Routers modified: Bucharest, Bratislava
+
+Reasoning:
+- Bucharest to 100.0.1.0/24 (Kiev's subnet) requires 2 equal-cost paths.
+- Path 1: Bucharest → Istanbul → Kiev
+- Path 2: Bucharest → Kiev
+- Set Bucharest→Budapest (Fa0/1) to cost 1000 to block this path and ensure traffic goes through Kiev.
+- Set Bucharest→Istanbul (Fa1/0) and Bucharest→Kiev (Fa1/1) to cost 1 to allow two equal-cost paths.
+- Bratislava's link to Praha (Fa1/0) is set to cost 1000 to prevent traffic from using this path as an alternative to reach Kiev.
+
+Limitations (if any):
+None

@@ -1,0 +1,25 @@
+Routers modified: Kiev, Istanbul
+
+Reasoning:
+1. For Vienna to 100.0.1.0/24:
+   - Mandatory waypoint: Kiev
+   - Two paths are required.
+   - Candidates: Vienna → Bratislava → Budapest → Bucharest → Kiev and Vienna → Frankfurt → Warsaw → Kiev.
+   - Both paths go through Kiev, satisfying the waypoint constraint.
+   - Set costs to maintain two equal-cost paths through these routes.
+
+2. For Istanbul to 100.0.9.0/24:
+   - Mandatory waypoint: Rotterdam
+   - Two paths are required.
+   - Candidates: Istanbul → Bucharest → Budapest → Vienna → Milan → Zurich → Amsterdam → Rotterdam and Istanbul → Athens → Sofia → Budapest → Vienna → Milan → Zurich → Amsterdam → Rotterdam.
+   - Both paths go through Rotterdam, satisfying the waypoint constraint.
+   - Set costs to maintain two equal-cost paths through these routes.
+
+3. For Kiev to 100.0.29.0/24:
+   - Mandatory waypoint: London
+   - Three paths are required.
+   - Candidates: Kiev → Bucharest → Budapest → Vienna → Milan → Zurich → Frankfurt → Amsterdam → London, Kiev → Warsaw → Frankfurt → Amsterdam → London, and Kiev → Bucharest → Istanbul → Athens → Sofia → Budapest → Vienna → Milan → Zurich → Frankfurt → Amsterdam → London.
+   - All paths go through London, satisfying the waypoint constraint.
+   - Set costs to maintain three equal-cost paths through these routes.
+
+Limitations: None

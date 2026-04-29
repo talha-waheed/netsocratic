@@ -1,0 +1,14 @@
+Routers modified: Amsterdam, Brussels, Frankfurt, Rotterdam, Zurich
+
+Reasoning:
+- For the waypoint rule (Frankfurt to 100.0.29.0/24 via London):
+  - Bypass paths through Amsterdam and Brussels were set to cost 1000 to ensure traffic passes through London.
+  - Frankfurt's direct bypass interfaces to Amsterdam and Brussels were set to cost 1000.
+
+- For the waypoint rule (Zurich to 100.0.9.0/24 via Rotterdam):
+  - Rotterdam's interface to Amsterdam was set to cost 1 to ensure traffic passes through Rotterdam.
+
+- The reachability rule for Luxembourg to 100.0.1.0/24 through Kiev was inherently satisfied due to the existing topology.
+
+Limitations (if any):
+None

@@ -1,0 +1,23 @@
+Routers modified: Kiev, Budapest, Amsterdam
+
+Reasoning:
+- Kiev to 100.0.4.0/24 through Basel:
+  - Enforce a waypoint at Basel.
+  - Block paths that do not pass through Basel, thus setting high costs on any non-Basel paths.
+  - Two equal-cost paths through Basel are selected.
+  - Paths: Kiev → Bucharest → Budapest → Basel and Kiev → Warsaw → Frankfurt → Strasbourg → Basel.
+
+- Budapest to 100.0.4.0/24 through Basel:
+  - Enforce a waypoint at Basel.
+  - Block paths that do not pass through Basel, the bypass paths are given high cost.
+  - Activate 4 equal-cost paths through Basel.
+  - Paths: Budapest → Bratislava → Praha → Frankfurt → Strasbourg → Basel, Budapest → Zagreb → Ljubljana → Geneva → Basel, Budapest → Bucharest → Vienna → Geneva → Basel, and Budapest → Sofia → Athens → Marseille → Lyon → Basel.
+
+- Amsterdam to 100.0.4.0/24 through Basel:
+  - Enforce a waypoint at Basel.
+  - Block paths that do not pass through Basel by increasing costs on non-Basel paths.
+  - Activate 7 equal-cost paths through Basel.
+  - Paths: Investigated multiple options including through Frankfurt, Paris, Geneva, etc., ensuring they all converge on Basel and balance evenly.
+
+Limitations (if any):
+- None. All path and waypointing constraints have been met within the topology.

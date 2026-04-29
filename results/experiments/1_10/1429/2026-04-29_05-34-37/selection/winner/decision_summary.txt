@@ -1,0 +1,26 @@
+Routers modified: Lyon, Roma, Brussels
+
+Reasoning:
+1. Lyon to 100.0.9.0/24 (Rotterdam):
+   - Mandatory waypoint: Rotterdam
+   - Load balancing: 6 paths
+   - Paths through Rotterdam: Lyon→Paris→Brussels→Amsterdam→Rotterdam
+   - Block non-Rotterdam paths by setting high cost on Lyon→Geneva and Lyon→Paris links.
+   - Ensure 6 equal-cost paths through Rotterdam by adjusting costs on intermediate routers.
+
+2. Roma to 100.0.29.0/24 (London):
+   - Mandatory waypoint: London
+   - Load balancing: 2 paths
+   - Paths through London: Roma→Milan→Zurich→Frankfurt→Amsterdam→London
+   - Block non-London paths by setting high cost on Roma→Milan link.
+   - Ensure 2 equal-cost paths through London by adjusting costs on intermediate routers.
+
+3. Brussels to 100.0.1.0/24 (Kiev):
+   - Mandatory waypoint: Kiev
+   - Load balancing: 4 paths
+   - Paths through Kiev: Brussels→Frankfurt→Warsaw→Kiev
+   - Block non-Kiev paths by setting high cost on Brussels→Paris, Brussels→Luxembourg, and Brussels→London links.
+   - Ensure 4 equal-cost paths through Kiev by adjusting costs on intermediate routers.
+
+Limitations (if any):
+None

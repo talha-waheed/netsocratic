@@ -1,0 +1,20 @@
+Routers modified: Basel, Bratislava, Budapest, Geneva, Kiev, Rotterdam
+
+Reasoning:
+1. Geneva to 100.0.4.0/24:
+   - Must pass through Basel and be load-balanced across 3 paths.
+   - Paths: Geneva→Basel→Strasbourg→Frankfurt→Basel, Geneva→Basel→Zurich→Frankfurt→Basel, Geneva→Basel→Zurich→Milan→Basel.
+   - Set costs to ensure these paths have equal cost and are the only available paths.
+
+2. Rotterdam to 100.0.4.0/24:
+   - Must pass through Basel and be load-balanced across 3 paths.
+   - Paths: Rotterdam→Amsterdam→Frankfurt→Basel, Rotterdam→Brussels→Frankfurt→Basel, Rotterdam→Brussels→Luxembourg→Basel.
+   - Set costs to ensure these paths have equal cost and are the only available paths.
+
+3. Barcelona to 100.0.1.0/24:
+   - Must pass through Kiev and be load-balanced across 3 paths.
+   - Paths: Barcelona→Marseille→Milan→Vienna→Kiev, Barcelona→Marseille→Lyon→Geneva→Kiev, Barcelona→Madrid→Paris→Geneva→Kiev.
+   - Set costs to ensure these paths have equal cost and are the only available paths.
+
+Limitations (if any):
+None

@@ -1,0 +1,7 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from marseille should reach? (Why: impact on reachability)
+A: The exact destination subnet that traffic from Marseille should reach is 100.0.9.0/24.
+
+Q: How many paths should traffic from marseille to its destination be distributed across? (Why: impact on load-balancing)
+A: Traffic from Marseille to its destination should be distributed across 4 paths.

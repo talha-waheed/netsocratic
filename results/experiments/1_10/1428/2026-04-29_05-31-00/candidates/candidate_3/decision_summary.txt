@@ -1,0 +1,17 @@
+Routers modified: Budapest, Vienna, Rotterdam, Amsterdam, Geneva
+
+Reasoning:
+1. Budapest to 100.0.29.0/24 (London's stub) with a waypoint in London and 2 ECMP paths:
+   - Paths through Bratislava/Vienna and Frankfurt directly to London were set to cost 1000 to enforce the waypoint through London.
+   - Kept paths through Bucharest/Istanbul and through Zagreb accessible with cost 1.
+
+2. Rotterdam to 100.0.29.0/24 with a waypoint in London and 2 ECMP paths:
+   - Paths using direct links other than via London were set to cost 1000, enforcing the waypoint through London.
+   - Both paths via Frankfurt and Brussels were maintained with cost 1 for ECMP.
+
+3. Geneva to 100.0.1.0/24 (Kiev's stub) with a waypoint in Kiev and 5 ECMP paths:
+   - Block paths that bypass Kiev via cost increase (1000).
+   - Ensured multiple paths through Geneva-Zurich-Kiev, Geneva-Basel-Zurich-Kiev, and other Zurich alternate paths.
+
+Limitations (if any):
+- Path options are based on the existing network topology. The network restrictions caused slight deviations where perfect parallel paths could not be maintained due to limited alternate options. The maximum of 5 paths was approached where topology allowed.

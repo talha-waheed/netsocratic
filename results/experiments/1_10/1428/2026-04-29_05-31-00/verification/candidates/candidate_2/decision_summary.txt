@@ -1,0 +1,19 @@
+Routers modified: Budapest, Rotterdam, Geneva, Frankfurt, Vienna
+
+Reasoning:
+1. For the traffic from Budapest to 100.0.29.0/24 via London with 3 ECMP paths:
+   - Paths through London are required, so we block non-London paths.
+   - Three valid paths: Budapest→Sofia→Brussels→London, Budapest→Bratislava→Frankfurt→London, and Budapest→Bucharest→Frankfurt→London, all with cost 3.
+   - Block other paths by setting high costs on non-waypoint bypass routes.
+
+2. For the traffic from Rotterdam to 100.0.29.0/24 via London with 2 ECMP paths:
+   - Ensure paths through London by setting costs on alternative paths to 1000.
+   - Two valid paths: Rotterdam→Amsterdam→London and Rotterdam→Brussels→London with cost 2.
+   - Block other paths by setting high costs on non-waypoint bypass routes.
+
+3. For the traffic from Geneva to 100.0.1.0/24 via Kiev with 5 ECMP paths:
+   - Mandatory waypoint through Kiev, enforce this by setting high costs on paths bypassing Kiev.
+   - Five valid paths: Geneva→Zurich→Frankfurt→Warsaw→Kiev, Geneva→Basel→Frankfurt→Warsaw→Kiev, Geneva→Lyon→Paris→Warsaw→Kiev, Geneva→Basel→Strasbourg→Frankfurt→Kiev, and Geneva→Lyon→Frankfurt→Kiev, all with cost 5.
+   - Ensure no other non-Kiev paths are available by adjusting costs.
+
+Limitations: None

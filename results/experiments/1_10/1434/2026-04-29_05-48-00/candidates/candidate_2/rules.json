@@ -1,0 +1,14 @@
+{
+  "reachability": {
+    "madrid": ["remote network"],
+    "barcelona": ["100.0.29.0/24"],
+    "warsaw": ["our servers"]
+  },
+  "waypoint": {
+    "(madrid,remote network)": ["london"],
+    "(barcelona,100.0.29.0/24)": ["london"]
+  },
+  "loadbalancing": {
+    "(warsaw,our servers)": 2
+  }
+}

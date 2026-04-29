@@ -1,0 +1,25 @@
+Routers modified: Lyon, Basel, Frankfurt, Rotterdam, Paris, Vienna, Milan, Bruxelles, Kiev
+
+Reasoning:
+1. **Lyon to 100.0.9.0/24**:
+   - Must pass through Rotterdam.
+   - Aiming for 6 ECMP paths.
+   - Path analysis:
+     - Prefer paths via Paris, Brussels, Frankfurt, Vienna, and Milan to Amsterdam, all relayed through Rotterdam.
+     - Non-Rotterdam paths are blocked by setting prohibitively high costs.
+     - Ensured alternate paths are strictly inferior by adjusting the cost on geneva→frankfurt paths to align up to 6 equal-cost paths.
+
+2. **Roma to 100.0.29.0/24**:
+   - Must pass through London.
+   - Aiming for 2 ECMP paths.
+   - Path analysis:
+     - Roma→Milan→Vienna→Frankfurt→Paris→London and Roma→Milan→Geneva→Paris→London.
+     - All non-London paths are blocked by setting a high cost on the direct Geneva→London path.
+
+3. **Brussels to 100.0.1.0/24**:
+   - Must pass through Kiev.
+   - Aiming for 4 ECMP paths.
+   - Paths from Brussels through Frankfurt to Kiev provide multiple paths.
+   - High-cost blocking done on direct routes Brussels→Frankfurt and Kiev→Frankfurt, leaving paths via Bratislava, Vienna, and elsewhere intact.
+
+Limitations: None

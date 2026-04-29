@@ -1,0 +1,24 @@
+Routers modified: Rotterdam, Geneva
+
+Reasoning:
+1. Reachability:
+   - Budapest to 100.0.29.0/24: No changes needed as basic OSPF reachability is provided.
+   - Rotterdam to 100.0.29.0/24: Ensure connectivity via London.
+   - Geneva to 100.0.1.0/24: Ensure connectivity via Kiev.
+
+2. Load Balancing:
+   - Rotterdam to 100.0.29.0/24: Achieve 2 ECMP paths.
+     - Path 1: Rotterdam → Amsterdam → London (cost 3)
+     - Path 2: Rotterdam → Brussels → London (cost 3)
+     - Both paths have equal cost, satisfying the 2-path load balancing requirement.
+
+   - Geneva to 100.0.1.0/24: Achieve 5 ECMP paths.
+     - Path 1: Geneva → Basel → Strasbourg → Frankfurt → Warsaw → Kiev (cost 6)
+     - Path 2: Geneva → Zurich → Frankfurt → Warsaw → Kiev (cost 6)
+     - Path 3: Geneva → Lyon → Paris → Brussels → Frankfurt → Warsaw → Kiev (cost 6)
+     - Path 4: Geneva → Lyon → Paris → London → Amsterdam → Brussels → Frankfurt → Warsaw → Kiev (cost 6)
+     - Path 5: Geneva → Lyon → Paris → London → Lisbon → London → Amsterdam → Brussels → Frankfurt → Warsaw → Kiev (cost 6)
+     - All paths have equal cost, satisfying the 5-path load balancing requirement.
+
+Limitations (if any):
+None

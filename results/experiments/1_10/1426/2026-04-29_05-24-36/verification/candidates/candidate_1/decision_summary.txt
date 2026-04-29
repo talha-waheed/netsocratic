@@ -1,0 +1,39 @@
+Routers modified: Frankfurt, Zurich, Luxembourg
+
+Reasoning:
+1. Frankfurt to 100.0.29.0/24 (London's stub):
+   - Mandatory waypoint: London
+   - Load balancing: 2 paths
+   - Possible paths through London:
+     a. Frankfurt → Amsterdam → London
+     b. Frankfurt → Brussels → London
+   - Block other paths bypassing London by setting high cost on:
+     a. Frankfurt → Amsterdam (cost 1000)
+     b. Frankfurt → Brussels (cost 1000)
+   - Ensure both paths through London have equal cost.
+
+2. Zurich to 100.0.9.0/24 (Rotterdam's stub):
+   - Mandatory waypoint: Rotterdam
+   - Load balancing: 3 paths
+   - Possible paths through Rotterdam:
+     a. Zurich → Geneva → Basel → Strasbourg → Luxembourg → Brussels → Rotterdam
+     b. Zurich → Geneva → Basel → Strasbourg → Frankfurt → Amsterdam → Rotterdam
+     c. Zurich → Milan → Vienna → Bratislava → Budapest → Zagreb → Ljubjana → Rotterdam
+   - Block other paths bypassing Rotterdam by setting high cost on:
+     a. Zurich → Geneva (cost 1000)
+     b. Zurich → Milan (cost 1000)
+   - Ensure all 3 paths through Rotterdam have equal cost.
+
+3. Luxembourg to 100.0.1.0/24 (Kiev's stub):
+   - Mandatory waypoint: Kiev
+   - Load balancing: 4 paths
+   - Possible paths through Kiev:
+     a. Luxembourg → Brussels → Frankfurt → Warsaw → Kiev
+     b. Luxembourg → Strasbourg → Frankfurt → Warsaw → Kiev
+     c. Luxembourg → Brussels → Amsterdam → Frankfurt → Warsaw → Kiev
+     d. Luxembourg → Strasbourg → Basel → Geneva → Zurich → Frankfurt → Warsaw → Kiev
+   - Block other paths bypassing Kiev by setting high cost on:
+     a. Luxembourg → Brussels (cost 1000)
+   - Ensure all 4 paths through Kiev have equal cost.
+
+Limitations: None

@@ -1,0 +1,1 @@
+Connectivity from frankfurt to 100.0.29.0/24 is established. Traffic from frankfurt to 100.0.29.0/24 passes through london. zurich and 100.0.9.0/24 should be connected. The route from zurich to 100.0.9.0/24 includes rotterdam. Distribute traffic across available paths. Connect luxembourg to 100.0.1.0/24. Use multiple paths for reliability.

@@ -1,0 +1,19 @@
+Routers modified: Kiev, Vienna, London
+
+Reasoning:
+1. Vienna to 100.0.1.0/24 (Kiev's subnet):
+   - The waypoint rule mandates that traffic from Vienna to 100.0.1.0/24 must pass through Kiev.
+   - Vienna has two direct paths to reach Kiev: via Bratislava→Budapest→Bucharest→Kiev and via Frankfurt→Warsaw→Kiev.
+   - To enforce routing through Kiev, Vienna's link to Frankfurt (Fa1/0) is set to cost 1000, forcing the path through Budapest and Bucharest.
+
+2. Kiev to 100.0.29.0/24 (London's subnet):
+   - The waypoint rule requires that traffic from Kiev to 100.0.29.0/24 must pass through London.
+   - Kiev connects to London via Bucharest→Istanbul→Athens→Sofia→Budapest→Zagreb→Ljubljana→Zagreb→Budapest→Vienna→Frankfurt→Amsterdam→London.
+   - To enforce the waypoint, the direct path from Kiev to Warsaw is set to cost 1000 to ensure all traffic routes through London.
+
+3. Load balancing for Kiev to 100.0.29.0/24:
+   - Three paths should be equal cost: via Istanbul→Athens, via Istanbul→Bucharest, and via Bucharest→Budapest→Zagreb→Ljubljana→Zagreb→Budapest→Vienna→Frankfurt→Amsterdam.
+   - Configure the costs such that these paths have identical total metrics.
+
+Limitations:
+None

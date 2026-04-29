@@ -1,0 +1,20 @@
+Routers modified: Frankfurt, Zurich, Geneva, Luxembourg, Strasbourg, Milan, Vienna, Budapest, Kiev
+
+Reasoning:
+1. Frankfurt to 100.0.29.0/24 via London with 2 ECMP:
+   - Candidates: Frankfurt->Amsterdam->London, Frankfurt->Brussels->London.
+   - Other paths (via Stockholm) are blocked (cost 1000).
+   - ECMP through London achieved with minimum cost-paths set to 2.
+
+2. Zurich to 100.0.9.0/24 via Rotterdam with 3 ECMP:
+   - Candidates: Zurich->Geneva->Basel->Amsterdam->Rotterdam, Zurich->Frankfurt->Amsterdam->Rotterdam, and Zurich->Frankfurt->Brussels->Rotterdam.
+   - Other paths bypassing Rotterdam are blocked (cost 1000).
+   - 3 ECMP paths achieved via Rotterdam.
+
+3. Luxembourg to 100.0.1.0/24 via Kiev with 4 ECMP:
+   - Candidates: Luxembourg->Strasourg->Frankfurt->Warsaw->Kiev, Luxembourg->Strasbourg->Frankfurt->Praha->Warsaw->Kiev, Luxembourg->Strasbourg->Frankfurt->Vienna->Warsaw->Kiev, Luxembourg->Strasbourg->Frankfurt->Oxford->Warsaw->Kiev.
+   - Directions bypassing Kiev are blocked (cost 1000).
+   - Ensured 4 ECMP paths through Kiev.
+
+Limitations (if any):
+None

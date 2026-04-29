@@ -1,0 +1,1519 @@
+[
+  {
+    "row_id": "1425",
+    "intent": "Ensure connectivity between athens and our servers.\nRoute through london if possible.\nMake sure there's redundancy.\nstrasbourg needs to reach 100.0.1.0/24.. The same connectivity requirements apply to the other subnets as well.\nConsider routing through kiev.\nluxembourg needs to reach the remote network. The same connectivity requirements apply to the other subnets as well.\nThe route from luxembourg to the remote network includes basel.\nTraffic from luxembourg to the remote network should be load-balanced across 4 paths.",
+    "correct_spec": "{\"reachability\": {\"athens\": [\"100.0.29.0/24\"], \"strasbourg\": [\"100.0.1.0/24\"], \"luxembourg\": [\"100.0.4.0/24\"]}, \"waypoint\": {\"(athens,100.0.29.0/24)\": [\"london\"], \"(strasbourg,100.0.1.0/24)\": [\"kiev\"], \"(luxembourg,100.0.4.0/24)\": [\"basel\"]}, \"loadbalancing\": {\"(athens,100.0.29.0/24)\": 3, \"(strasbourg,100.0.1.0/24)\": 2, \"(luxembourg,100.0.4.0/24)\": 4}}",
+    "status": "done",
+    "error": null,
+    "clarified_intent": "Ensure connectivity between athens and 100.0.29.0/24. Route through london if possible. Make sure there's redundancy. strasbourg needs to reach 100.0.1.0/24. The same connectivity requirements apply to the other subnets as well. Consider routing through kiev. luxembourg needs to reach 100.0.4.0/24. The same connectivity requirements apply to the other subnets as well. The route from luxembourg to 100.0.4.0/24 includes basel. Traffic from luxembourg to 100.0.4.0/24 should be load-balanced across 4 paths.",
+    "post_clarify_rules": "{\n  \"reachability\": {\n    \"athens\": [\"100.0.29.0/24\"],\n    \"strasbourg\": [\"100.0.1.0/24\"],\n    \"luxembourg\": [\"100.0.4.0/24\"]\n  },\n  \"waypoint\": {\n    \"(athens,100.0.29.0/24)\": [\"london\"],\n    \"(luxembourg,100.0.4.0/24)\": [\"basel\"]\n  },\n  \"loadbalancing\": {\n    \"(luxembourg,100.0.4.0/24)\": 4\n  }\n}",
+    "eval_post_clarify": {
+      "exact_match": false,
+      "reachability_match": true,
+      "waypoint_match": false,
+      "loadbalancing_match": false,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [
+        "(strasbourg,100.0.1.0/24)"
+      ],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [
+        "(athens,100.0.29.0/24)",
+        "(strasbourg,100.0.1.0/24)"
+      ],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "n_clarify_questions": 4,
+    "n_clarify_rounds": 1,
+    "time_clarify_s": 9.44,
+    "candidate_rules": {
+      "candidate_1": "{\n  \"reachability\": {\n    \"athens\": [\"100.0.29.0/24\"],\n    \"strasbourg\": [\"100.0.1.0/24\"],\n    \"luxembourg\": [\"100.0.4.0/24\"]\n  },\n  \"loadbalancing\": {\n    \"(luxembourg,100.0.4.0/24)\": 4\n  }\n}",
+      "candidate_2": "{\n  \"reachability\": {\n    \"athens\": [\"100.0.29.0/24\"],\n    \"strasbourg\": [\"100.0.1.0/24\"],\n    \"luxembourg\": [\"100.0.4.0/24\"]\n  },\n  \"waypoint\": {\n    \"(athens,100.0.29.0/24)\": [\"london\"],\n    \"(luxembourg,100.0.4.0/24)\": [\"basel\", \"kiev\"]\n  },\n  \"loadbalancing\": {\n    \"(luxembourg,100.0.4.0/24)\": 4\n  }\n}",
+      "candidate_3": "{\n  \"reachability\": {\n    \"athens\": [\"100.0.29.0/24\"],\n    \"strasbourg\": [\"100.0.1.0/24\"],\n    \"luxembourg\": [\"100.0.4.0/24\"]\n  },\n  \"waypoint\": {\n    \"(athens,100.0.29.0/24)\": [\"london\"],\n    \"(strasbourg,100.0.1.0/24)\": [\"kiev\"],\n    \"(luxembourg,100.0.4.0/24)\": [\"basel\"]\n  },\n  \"loadbalancing\": {\n    \"(athens,100.0.29.0/24)\": 2,\n    \"(strasbourg,100.0.1.0/24)\": 2,\n    \"(luxembourg,100.0.4.0/24)\": 4\n  }\n}"
+    },
+    "eval_per_candidate": {
+      "candidate_1": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [
+          "(athens,100.0.29.0/24)",
+          "(luxembourg,100.0.4.0/24)",
+          "(strasbourg,100.0.1.0/24)"
+        ],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(athens,100.0.29.0/24)",
+          "(strasbourg,100.0.1.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": []
+      },
+      "candidate_2": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [
+          "(strasbourg,100.0.1.0/24)"
+        ],
+        "wrong_waypoints": [
+          "(luxembourg,100.0.4.0/24)"
+        ],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(athens,100.0.29.0/24)",
+          "(strasbourg,100.0.1.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": []
+      },
+      "candidate_3": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": true,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [],
+        "wrong_lb": [
+          "(athens,100.0.29.0/24)"
+        ],
+        "extra_lb": []
+      }
+    },
+    "time_generate_s": 50.91,
+    "winner_rules": "{\n  \"reachability\": {\n    \"athens\": [\"100.0.29.0/24\"],\n    \"strasbourg\": [\"100.0.1.0/24\"],\n    \"luxembourg\": [\"100.0.4.0/24\"]\n  },\n  \"waypoint\": {\n    \"(athens,100.0.29.0/24)\": [\"london\"],\n    \"(strasbourg,100.0.1.0/24)\": [\"kiev\"],\n    \"(luxembourg,100.0.4.0/24)\": [\"basel\"]\n  },\n  \"loadbalancing\": {\n    \"(athens,100.0.29.0/24)\": 3,\n    \"(strasbourg,100.0.1.0/24)\": 2,\n    \"(luxembourg,100.0.4.0/24)\": 4\n  }\n}",
+    "eval_winner": {
+      "exact_match": true,
+      "reachability_match": true,
+      "waypoint_match": true,
+      "loadbalancing_match": true,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "further_clarified_intent": "Traffic from athens to 100.0.29.0/24 must pass through london. Traffic from athens to 100.0.29.0/24 must be load-balanced across exactly 3 equal-cost paths. Traffic from strasbourg to 100.0.1.0/24 must pass through kiev. Traffic from strasbourg to 100.0.1.0/24 must be load-balanced across exactly 2 equal-cost paths. Traffic from luxembourg to 100.0.4.0/24 must pass through basel. Traffic from luxembourg to 100.0.4.0/24 must be load-balanced across exactly 4 equal-cost paths.",
+    "eval_further_clarified": {
+      "exact_match": true,
+      "reachability_match": true,
+      "waypoint_match": true,
+      "loadbalancing_match": true,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "n_ecs": 3,
+    "n_selection_rounds": 5,
+    "time_select_s": 90.69,
+    "n_verification_ecs": 3,
+    "time_verify_s": 76.16,
+    "pipeline_dir": "results/experiments/2026-04-29_05-20-44/1425/2026-04-29_05-20-44"
+  },
+  {
+    "row_id": "1426",
+    "intent": "Connectivity from frankfurt to 100.0.29.0/24 is established.\nTraffic from frankfurt to 100.0.29.0/24 passes through london.\nzurich and 100.0.9.0/24. should be connected.\nThe route from zurich to 100.0.9.0/24 includes rotterdam.\nDistribute traffic across available paths.\nConnect luxembourg to 100.0.1.0/24..\nUse multiple paths for reliability.",
+    "correct_spec": "{\"reachability\": {\"frankfurt\": [\"100.0.29.0/24\"], \"zurich\": [\"100.0.9.0/24\"], \"luxembourg\": [\"100.0.1.0/24\"]}, \"waypoint\": {\"(frankfurt,100.0.29.0/24)\": [\"london\"], \"(zurich,100.0.9.0/24)\": [\"rotterdam\"], \"(luxembourg,100.0.1.0/24)\": [\"kiev\"]}, \"loadbalancing\": {\"(frankfurt,100.0.29.0/24)\": 2, \"(zurich,100.0.9.0/24)\": 3, \"(luxembourg,100.0.1.0/24)\": 4}}",
+    "status": "done",
+    "error": null,
+    "clarified_intent": "Connectivity from frankfurt to 100.0.29.0/24 is established. Traffic from frankfurt to 100.0.29.0/24 passes through london. zurich and 100.0.9.0/24 should be connected. The route from zurich to 100.0.9.0/24 includes rotterdam. Distribute traffic across available paths. Connect luxembourg to 100.0.1.0/24. Use multiple paths for reliability.",
+    "post_clarify_rules": "{\n  \"reachability\": {\n    \"frankfurt\": [\"100.0.29.0/24\"],\n    \"zurich\": [\"100.0.9.0/24\"],\n    \"luxembourg\": [\"100.0.1.0/24\"]\n  },\n  \"waypoint\": {\n    \"(frankfurt,100.0.29.0/24)\": [\"london\"],\n    \"(zurich,100.0.9.0/24)\": [\"rotterdam\"]\n  },\n  \"loadbalancing\": {\n    \"(luxembourg,100.0.1.0/24)\": 2\n  }\n}",
+    "eval_post_clarify": {
+      "exact_match": false,
+      "reachability_match": true,
+      "waypoint_match": false,
+      "loadbalancing_match": false,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [
+        "(luxembourg,100.0.1.0/24)"
+      ],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [
+        "(frankfurt,100.0.29.0/24)",
+        "(zurich,100.0.9.0/24)"
+      ],
+      "wrong_lb": [
+        "(luxembourg,100.0.1.0/24)"
+      ],
+      "extra_lb": []
+    },
+    "n_clarify_questions": 3,
+    "n_clarify_rounds": 1,
+    "time_clarify_s": 6.25,
+    "candidate_rules": {
+      "candidate_1": "{\n  \"reachability\": {\n    \"frankfurt\": [\"100.0.29.0/24\"],\n    \"zurich\": [\"100.0.9.0/24\"],\n    \"luxembourg\": [\"100.0.1.0/24\"]\n  },\n  \"waypoint\": {},\n  \"loadbalancing\": {}\n}",
+      "candidate_2": "{\n  \"reachability\": {\n    \"frankfurt\": [\"100.0.29.0/24\"],\n    \"zurich\": [\"100.0.9.0/24\"],\n    \"luxembourg\": [\"100.0.1.0/24\"]\n  },\n  \"waypoint\": {\n    \"(frankfurt,100.0.29.0/24)\": [\"london\"],\n    \"(zurich,100.0.9.0/24)\": [\"rotterdam\"]\n  }\n}",
+      "candidate_3": "{\n  \"reachability\": {\n    \"frankfurt\": [\n      \"100.0.29.0/24\"\n    ],\n    \"zurich\": [\n      \"100.0.9.0/24\"\n    ],\n    \"luxembourg\": [\n      \"100.0.1.0/24\"\n    ]\n  },\n  \"waypoint\": {\n    \"(frankfurt,100.0.29.0/24)\": [\n      \"london\"\n    ],\n    \"(zurich,100.0.9.0/24)\": [\n      \"rotterdam\"\n    ],\n    \"(luxembourg,100.0.1.0/24)\": [\n      \"kiev\"\n    ]\n  },\n  \"loadbalancing\": {\n    \"(frankfurt,100.0.29.0/24)\": 2,\n    \"(zurich,100.0.9.0/24)\": 2,\n    \"(luxembourg,100.0.1.0/24)\": 2\n  }\n}"
+    },
+    "eval_per_candidate": {
+      "candidate_1": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [
+          "(frankfurt,100.0.29.0/24)",
+          "(luxembourg,100.0.1.0/24)",
+          "(zurich,100.0.9.0/24)"
+        ],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(frankfurt,100.0.29.0/24)",
+          "(luxembourg,100.0.1.0/24)",
+          "(zurich,100.0.9.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": []
+      },
+      "candidate_2": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [
+          "(luxembourg,100.0.1.0/24)"
+        ],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(frankfurt,100.0.29.0/24)",
+          "(luxembourg,100.0.1.0/24)",
+          "(zurich,100.0.9.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": []
+      },
+      "candidate_3": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": true,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [],
+        "wrong_lb": [
+          "(luxembourg,100.0.1.0/24)",
+          "(zurich,100.0.9.0/24)"
+        ],
+        "extra_lb": []
+      }
+    },
+    "time_generate_s": 66.68,
+    "winner_rules": "{\n  \"reachability\": {\n    \"frankfurt\": [\"100.0.29.0/24\"],\n    \"zurich\": [\"100.0.9.0/24\"],\n    \"luxembourg\": [\"100.0.1.0/24\"]\n  },\n  \"waypoint\": {\n    \"(frankfurt,100.0.29.0/24)\": [\"london\"],\n    \"(zurich,100.0.9.0/24)\": [\"rotterdam\"],\n    \"(luxembourg,100.0.1.0/24)\": [\"kiev\"]\n  },\n  \"loadbalancing\": {\n    \"(frankfurt,100.0.29.0/24)\": 2,\n    \"(zurich,100.0.9.0/24)\": 3,\n    \"(luxembourg,100.0.1.0/24)\": 4\n  }\n}",
+    "eval_winner": {
+      "exact_match": true,
+      "reachability_match": true,
+      "waypoint_match": true,
+      "loadbalancing_match": true,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "further_clarified_intent": "Traffic from frankfurt to 100.0.29.0/24 must pass through london. Traffic from frankfurt to 100.0.29.0/24 must be load-balanced across exactly 2 equal-cost paths. Traffic from zurich to 100.0.9.0/24 must pass through rotterdam. Traffic from zurich to 100.0.9.0/24 must be load-balanced across exactly 3 equal-cost paths. Traffic from luxembourg to 100.0.1.0/24 must pass through kiev. Traffic from luxembourg to 100.0.1.0/24 must be load-balanced across exactly 4 equal-cost paths.",
+    "eval_further_clarified": {
+      "exact_match": true,
+      "reachability_match": true,
+      "waypoint_match": true,
+      "loadbalancing_match": true,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "n_ecs": 3,
+    "n_selection_rounds": 6,
+    "time_select_s": 45.05,
+    "n_verification_ecs": 3,
+    "time_verify_s": 66.93,
+    "pipeline_dir": "results/experiments/2026-04-29_05-20-44/1426/2026-04-29_05-24-36"
+  },
+  {
+    "row_id": "1427",
+    "intent": "Ensure connectivity between vienna and 100.0.1.0/24..\nPreferably route via kiev.\n100.0.9.0/24 is accessible from istanbul.\nMake sure there's redundancy.\nthe target subnet is accessible from kiev.\nRoute through london if possible.\nTraffic from kiev to the target subnet is evenly distributed across 3 paths.",
+    "correct_spec": "{\"reachability\": {\"vienna\": [\"100.0.1.0/24\"], \"istanbul\": [\"100.0.9.0/24\"], \"kiev\": [\"100.0.29.0/24\"]}, \"waypoint\": {\"(vienna,100.0.1.0/24)\": [\"kiev\"], \"(istanbul,100.0.9.0/24)\": [\"rotterdam\"], \"(kiev,100.0.29.0/24)\": [\"london\"]}, \"loadbalancing\": {\"(vienna,100.0.1.0/24)\": 2, \"(istanbul,100.0.9.0/24)\": 2, \"(kiev,100.0.29.0/24)\": 3}}",
+    "status": "done",
+    "error": null,
+    "clarified_intent": "Ensure connectivity between vienna and 100.0.1.0/24. Preferably route via kiev. 100.0.9.0/24 is accessible from istanbul. Make sure there's redundancy. The target subnet 100.0.29.0/24 is accessible from kiev. Route through london if possible. Traffic from kiev to the target subnet is evenly distributed across 3 paths.",
+    "post_clarify_rules": "{\n  \"reachability\": {\n    \"vienna\": [\"100.0.1.0/24\"],\n    \"istanbul\": [\"100.0.9.0/24\"],\n    \"kiev\": [\"100.0.29.0/24\"]\n  },\n  \"waypoint\": {\n    \"(vienna,100.0.1.0/24)\": [\"kiev\"],\n    \"(kiev,100.0.29.0/24)\": [\"london\"]\n  },\n  \"loadbalancing\": {\n    \"(kiev,100.0.29.0/24)\": 3\n  }\n}",
+    "eval_post_clarify": {
+      "exact_match": false,
+      "reachability_match": true,
+      "waypoint_match": false,
+      "loadbalancing_match": false,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [
+        "(istanbul,100.0.9.0/24)"
+      ],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [
+        "(istanbul,100.0.9.0/24)",
+        "(vienna,100.0.1.0/24)"
+      ],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "n_clarify_questions": 2,
+    "n_clarify_rounds": 1,
+    "time_clarify_s": 5.64,
+    "candidate_rules": {
+      "candidate_1": "{\n  \"reachability\": {\n    \"vienna\": [\"100.0.1.0/24\"],\n    \"istanbul\": [\"100.0.9.0/24\"],\n    \"kiev\": [\"100.0.29.0/24\"]\n  },\n  \"loadbalancing\": {\n    \"(kiev,100.0.29.0/24)\": 3\n  }\n}",
+      "candidate_2": "{\n  \"reachability\": {\n    \"vienna\": [\"100.0.1.0/24\"],\n    \"istanbul\": [\"100.0.9.0/24\"],\n    \"kiev\": [\"100.0.29.0/24\"]\n  },\n  \"waypoint\": {\n    \"(vienna,100.0.1.0/24)\": [\"kiev\"],\n    \"(kiev,100.0.29.0/24)\": [\"london\"]\n  },\n  \"loadbalancing\": {\n    \"(kiev,100.0.29.0/24)\": 3\n  }\n}",
+      "candidate_3": "{\n  \"reachability\": {\n    \"vienna\": [\"100.0.1.0/24\"],\n    \"istanbul\": [\"100.0.9.0/24\"],\n    \"kiev\": [\"100.0.29.0/24\"]\n  },\n  \"waypoint\": {\n    \"(vienna,100.0.1.0/24)\": [\"kiev\"],\n    \"(istanbul,100.0.9.0/24)\": [\"rotterdam\"],\n    \"(kiev,100.0.29.0/24)\": [\"london\"]\n  },\n  \"loadbalancing\": {\n    \"(vienna,100.0.1.0/24)\": 2,\n    \"(istanbul,100.0.9.0/24)\": 2,\n    \"(kiev,100.0.29.0/24)\": 3\n  }\n}"
+    },
+    "eval_per_candidate": {
+      "candidate_1": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [
+          "(istanbul,100.0.9.0/24)",
+          "(kiev,100.0.29.0/24)",
+          "(vienna,100.0.1.0/24)"
+        ],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(istanbul,100.0.9.0/24)",
+          "(vienna,100.0.1.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": []
+      },
+      "candidate_2": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [
+          "(istanbul,100.0.9.0/24)"
+        ],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(istanbul,100.0.9.0/24)",
+          "(vienna,100.0.1.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": []
+      },
+      "candidate_3": {
+        "exact_match": true,
+        "reachability_match": true,
+        "waypoint_match": true,
+        "loadbalancing_match": true,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [],
+        "wrong_lb": [],
+        "extra_lb": []
+      }
+    },
+    "time_generate_s": 36.28,
+    "winner_rules": "{\n  \"reachability\": {\n    \"vienna\": [\"100.0.1.0/24\"],\n    \"istanbul\": [\"100.0.9.0/24\"],\n    \"kiev\": [\"100.0.29.0/24\"]\n  },\n  \"waypoint\": {\n    \"(vienna,100.0.1.0/24)\": [\"kiev\"],\n    \"(istanbul,100.0.9.0/24)\": [\"rotterdam\"],\n    \"(kiev,100.0.29.0/24)\": [\"london\"]\n  },\n  \"loadbalancing\": {\n    \"(vienna,100.0.1.0/24)\": 2,\n    \"(istanbul,100.0.9.0/24)\": 2,\n    \"(kiev,100.0.29.0/24)\": 3\n  }\n}",
+    "eval_winner": {
+      "exact_match": true,
+      "reachability_match": true,
+      "waypoint_match": true,
+      "loadbalancing_match": true,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "further_clarified_intent": "Traffic from vienna to 100.0.1.0/24 must pass through kiev. Traffic from vienna to 100.0.1.0/24 must be load-balanced across exactly 2 equal-cost paths. Traffic from istanbul to 100.0.9.0/24 must pass through rotterdam. Traffic from istanbul to 100.0.9.0/24 must be load-balanced across exactly 2 equal-cost paths. Traffic from kiev to 100.0.29.0/24 must pass through london. Traffic from kiev to 100.0.29.0/24 must be load-balanced across exactly 3 equal-cost paths.",
+    "eval_further_clarified": {
+      "exact_match": true,
+      "reachability_match": true,
+      "waypoint_match": true,
+      "loadbalancing_match": true,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "n_ecs": 3,
+    "n_selection_rounds": 5,
+    "time_select_s": 63.89,
+    "n_verification_ecs": 3,
+    "time_verify_s": 85.13,
+    "pipeline_dir": "results/experiments/2026-04-29_05-20-44/1427/2026-04-29_05-27-45"
+  },
+  {
+    "row_id": "1428",
+    "intent": "Connectivity from budapest to 100.0.29.0/24 is established.\nConsider routing through london.\nEnsure fault tolerance with multiple routes.\nEnsure connectivity between rotterdam and 100.0.29.0/24.\nThe path between rotterdam and 100.0.29.0/24 involves london.\nTo reach 100.0.29.0/24 from rotterdam, traffic is balanced on 2 paths.\ngeneva and the destination network should be connected.\nRouting traffic between geneva and the destination network goes via kiev.\nThe number of paths between geneva and the destination network should be 5.",
+    "correct_spec": "{\"reachability\": {\"budapest\": [\"100.0.29.0/24\"], \"rotterdam\": [\"100.0.29.0/24\"], \"geneva\": [\"100.0.1.0/24\"]}, \"waypoint\": {\"(budapest,100.0.29.0/24)\": [\"london\"], \"(rotterdam,100.0.29.0/24)\": [\"london\"], \"(geneva,100.0.1.0/24)\": [\"kiev\"]}, \"loadbalancing\": {\"(budapest,100.0.29.0/24)\": 3, \"(rotterdam,100.0.29.0/24)\": 2, \"(geneva,100.0.1.0/24)\": 5}}",
+    "status": "done",
+    "error": null,
+    "clarified_intent": "Connectivity from budapest to 100.0.29.0/24 is established. Consider routing through london. Ensure fault tolerance with multiple routes. Ensure connectivity between rotterdam and 100.0.29.0/24. The path between rotterdam and 100.0.29.0/24 involves london. To reach 100.0.29.0/24 from rotterdam, traffic is balanced on 2 paths. geneva and 100.0.1.0/24 should be connected. Routing traffic between geneva and 100.0.1.0/24 goes via kiev. The number of paths between geneva and 100.0.1.0/24 should be 5.",
+    "post_clarify_rules": "{\n  \"reachability\": {\n    \"budapest\": [\"100.0.29.0/24\"],\n    \"rotterdam\": [\"100.0.29.0/24\"],\n    \"geneva\": [\"100.0.1.0/24\"]\n  },\n  \"waypoint\": {\n    \"(budapest,100.0.29.0/24)\": [\"london\"],\n    \"(rotterdam,100.0.29.0/24)\": [\"london\"],\n    \"(geneva,100.0.1.0/24)\": [\"kiev\"]\n  },\n  \"loadbalancing\": {\n    \"(rotterdam,100.0.29.0/24)\": 2,\n    \"(geneva,100.0.1.0/24)\": 5\n  }\n}",
+    "eval_post_clarify": {
+      "exact_match": false,
+      "reachability_match": true,
+      "waypoint_match": true,
+      "loadbalancing_match": false,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [
+        "(budapest,100.0.29.0/24)"
+      ],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "n_clarify_questions": 2,
+    "n_clarify_rounds": 1,
+    "time_clarify_s": 7.12,
+    "candidate_rules": {
+      "candidate_1": "{\n  \"reachability\": {\n    \"budapest\": [\"100.0.29.0/24\"],\n    \"rotterdam\": [\"100.0.29.0/24\"],\n    \"geneva\": [\"100.0.1.0/24\"]\n  },\n  \"loadbalancing\": {\n    \"(rotterdam,100.0.29.0/24)\": 2,\n    \"(geneva,100.0.1.0/24)\": 5\n  }\n}",
+      "candidate_2": "{\n  \"reachability\": {\n    \"budapest\": [\"100.0.29.0/24\"],\n    \"rotterdam\": [\"100.0.29.0/24\"],\n    \"geneva\": [\"100.0.1.0/24\"]\n  },\n  \"waypoint\": {\n    \"(budapest,100.0.29.0/24)\": [\"london\"],\n    \"(rotterdam,100.0.29.0/24)\": [\"london\"],\n    \"(geneva,100.0.1.0/24)\": [\"kiev\"]\n  },\n  \"loadbalancing\": {\n    \"(rotterdam,100.0.29.0/24)\": 2,\n    \"(geneva,100.0.1.0/24)\": 5\n  }\n}",
+      "candidate_3": "{\n  \"reachability\": {\n    \"budapest\": [\n      \"100.0.29.0/24\"\n    ],\n    \"rotterdam\": [\n      \"100.0.29.0/24\"\n    ],\n    \"geneva\": [\n      \"100.0.1.0/24\"\n    ]\n  },\n  \"waypoint\": {\n    \"(budapest,100.0.29.0/24)\": [\n      \"london\"\n    ],\n    \"(rotterdam,100.0.29.0/24)\": [\n      \"london\"\n    ],\n    \"(geneva,100.0.1.0/24)\": [\n      \"kiev\"\n    ]\n  },\n  \"loadbalancing\": {\n    \"(budapest,100.0.29.0/24)\": 2,\n    \"(rotterdam,100.0.29.0/24)\": 2,\n    \"(geneva,100.0.1.0/24)\": 5\n  }\n}"
+    },
+    "eval_per_candidate": {
+      "candidate_1": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [
+          "(budapest,100.0.29.0/24)",
+          "(geneva,100.0.1.0/24)",
+          "(rotterdam,100.0.29.0/24)"
+        ],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(budapest,100.0.29.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": []
+      },
+      "candidate_2": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": true,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(budapest,100.0.29.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": []
+      },
+      "candidate_3": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": true,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [],
+        "wrong_lb": [
+          "(budapest,100.0.29.0/24)"
+        ],
+        "extra_lb": []
+      }
+    },
+    "time_generate_s": 54.95,
+    "winner_rules": "{\n  \"reachability\": {\n    \"budapest\": [\"100.0.29.0/24\"],\n    \"rotterdam\": [\"100.0.29.0/24\"],\n    \"geneva\": [\"100.0.1.0/24\"]\n  },\n  \"waypoint\": {\n    \"(budapest,100.0.29.0/24)\": [\"london\"],\n    \"(rotterdam,100.0.29.0/24)\": [\"london\"],\n    \"(geneva,100.0.1.0/24)\": [\"kiev\"]\n  },\n  \"loadbalancing\": {\n    \"(budapest,100.0.29.0/24)\": 3,\n    \"(rotterdam,100.0.29.0/24)\": 2,\n    \"(geneva,100.0.1.0/24)\": 5\n  }\n}",
+    "eval_winner": {
+      "exact_match": true,
+      "reachability_match": true,
+      "waypoint_match": true,
+      "loadbalancing_match": true,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "further_clarified_intent": "Traffic from budapest to 100.0.29.0/24 must pass through london. Traffic from budapest to 100.0.29.0/24 must be load-balanced across exactly 3 equal-cost paths. Traffic from rotterdam to 100.0.29.0/24 must pass through london. Traffic from rotterdam to 100.0.29.0/24 must be load-balanced across exactly 2 equal-cost paths. Traffic from geneva to 100.0.1.0/24 must pass through kiev. Traffic from geneva to 100.0.1.0/24 must be load-balanced across exactly 5 equal-cost paths.",
+    "eval_further_clarified": {
+      "exact_match": true,
+      "reachability_match": true,
+      "waypoint_match": true,
+      "loadbalancing_match": true,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "n_ecs": 3,
+    "n_selection_rounds": 4,
+    "time_select_s": 64.61,
+    "n_verification_ecs": 3,
+    "time_verify_s": 85.43,
+    "pipeline_dir": "results/experiments/2026-04-29_05-20-44/1428/2026-04-29_05-31-00"
+  },
+  {
+    "row_id": "1429",
+    "intent": "The subnet the main subnet is reachable from lyon.\nRoute through rotterdam if possible.\nMake sure there's redundancy.\nTraffic originating from roma can reach the subnet 100.0.29.0/24.\nEnsure good redundancy.\nConnect brussels to 100.0.1.0/24..\nRouting traffic between brussels and 100.0.1.0/24 goes via kiev.\nEnsure fault tolerance with multiple routes.",
+    "correct_spec": "{\"reachability\": {\"lyon\": [\"100.0.9.0/24\"], \"roma\": [\"100.0.29.0/24\"], \"brussels\": [\"100.0.1.0/24\"]}, \"waypoint\": {\"(lyon,100.0.9.0/24)\": [\"rotterdam\"], \"(roma,100.0.29.0/24)\": [\"london\"], \"(brussels,100.0.1.0/24)\": [\"kiev\"]}, \"loadbalancing\": {\"(lyon,100.0.9.0/24)\": 6, \"(roma,100.0.29.0/24)\": 2, \"(brussels,100.0.1.0/24)\": 4}}",
+    "status": "done",
+    "error": null,
+    "clarified_intent": "The subnet 100.0.9.0/24 is reachable from lyon. Route through rotterdam if possible. Make sure there's redundancy. Traffic originating from roma can reach the subnet 100.0.29.0/24. Ensure good redundancy. Connect brussels to 100.0.1.0/24. Routing traffic between brussels and 100.0.1.0/24 goes via kiev. Ensure fault tolerance with multiple routes.",
+    "post_clarify_rules": "{\n  \"reachability\": {\n    \"lyon\": [\"100.0.9.0/24\"],\n    \"roma\": [\"100.0.29.0/24\"],\n    \"brussels\": [\"100.0.1.0/24\"]\n  },\n  \"waypoint\": {\n    \"(lyon,100.0.9.0/24)\": [\"rotterdam\"],\n    \"(brussels,100.0.1.0/24)\": [\"kiev\"]\n  },\n  \"loadbalancing\": {\n    \"(lyon,100.0.9.0/24)\": 2,\n    \"(roma,100.0.29.0/24)\": 2,\n    \"(brussels,100.0.1.0/24)\": 2\n  }\n}",
+    "eval_post_clarify": {
+      "exact_match": false,
+      "reachability_match": true,
+      "waypoint_match": false,
+      "loadbalancing_match": false,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [
+        "(roma,100.0.29.0/24)"
+      ],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [],
+      "wrong_lb": [
+        "(brussels,100.0.1.0/24)",
+        "(lyon,100.0.9.0/24)"
+      ],
+      "extra_lb": []
+    },
+    "n_clarify_questions": 2,
+    "n_clarify_rounds": 1,
+    "time_clarify_s": 5.51,
+    "candidate_rules": {
+      "candidate_1": "{\n  \"reachability\": {\n    \"lyon\": [\"100.0.9.0/24\"],\n    \"roma\": [\"100.0.29.0/24\"],\n    \"brussels\": [\"100.0.1.0/24\"]\n  },\n  \"waypoint\": {},\n  \"loadbalancing\": {}\n}",
+      "candidate_2": "{\n  \"reachability\": {\n    \"lyon\": [\"100.0.9.0/24\"],\n    \"roma\": [\"100.0.29.0/24\"],\n    \"brussels\": [\"100.0.1.0/24\"]\n  },\n  \"waypoint\": {\n    \"(lyon,100.0.9.0/24)\": [\"rotterdam\"],\n    \"(brussels,100.0.1.0/24)\": [\"kiev\"]\n  },\n  \"loadbalancing\": {}\n}",
+      "candidate_3": "{\n  \"reachability\": {\n    \"lyon\": [\"100.0.9.0/24\"],\n    \"roma\": [\"100.0.29.0/24\"],\n    \"brussels\": [\"100.0.1.0/24\"]\n  },\n  \"waypoint\": {\n    \"(lyon,100.0.9.0/24)\": [\"rotterdam\"],\n    \"(roma,100.0.29.0/24)\": [\"london\"],\n    \"(brussels,100.0.1.0/24)\": [\"kiev\"]\n  },\n  \"loadbalancing\": {\n    \"(lyon,100.0.9.0/24)\": 2,\n    \"(roma,100.0.29.0/24)\": 2,\n    \"(brussels,100.0.1.0/24)\": 2\n  }\n}"
+    },
+    "eval_per_candidate": {
+      "candidate_1": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [
+          "(brussels,100.0.1.0/24)",
+          "(lyon,100.0.9.0/24)",
+          "(roma,100.0.29.0/24)"
+        ],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(brussels,100.0.1.0/24)",
+          "(lyon,100.0.9.0/24)",
+          "(roma,100.0.29.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": []
+      },
+      "candidate_2": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [
+          "(roma,100.0.29.0/24)"
+        ],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(brussels,100.0.1.0/24)",
+          "(lyon,100.0.9.0/24)",
+          "(roma,100.0.29.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": []
+      },
+      "candidate_3": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": true,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [],
+        "wrong_lb": [
+          "(brussels,100.0.1.0/24)",
+          "(lyon,100.0.9.0/24)"
+        ],
+        "extra_lb": []
+      }
+    },
+    "time_generate_s": 39.32,
+    "winner_rules": "{\n  \"reachability\": {\n    \"lyon\": [\"100.0.9.0/24\"],\n    \"roma\": [\"100.0.29.0/24\"],\n    \"brussels\": [\"100.0.1.0/24\"]\n  },\n  \"waypoint\": {\n    \"(lyon,100.0.9.0/24)\": [\"rotterdam\"],\n    \"(roma,100.0.29.0/24)\": [\"london\"],\n    \"(brussels,100.0.1.0/24)\": [\"kiev\"]\n  },\n  \"loadbalancing\": {\n    \"(lyon,100.0.9.0/24)\": 6,\n    \"(roma,100.0.29.0/24)\": 2,\n    \"(brussels,100.0.1.0/24)\": 4\n  }\n}",
+    "eval_winner": {
+      "exact_match": true,
+      "reachability_match": true,
+      "waypoint_match": true,
+      "loadbalancing_match": true,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "further_clarified_intent": "Traffic from lyon to 100.0.9.0/24 must pass through rotterdam. Traffic from lyon to 100.0.9.0/24 must be load-balanced across exactly 6 equal-cost paths. Traffic from roma to 100.0.29.0/24 must pass through london. Traffic from roma to 100.0.29.0/24 must be load-balanced across exactly 2 equal-cost paths. Traffic from brussels to 100.0.1.0/24 must pass through kiev. Traffic from brussels to 100.0.1.0/24 must be load-balanced across exactly 4 equal-cost paths.",
+    "eval_further_clarified": {
+      "exact_match": true,
+      "reachability_match": true,
+      "waypoint_match": true,
+      "loadbalancing_match": true,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "n_ecs": 3,
+    "n_selection_rounds": 6,
+    "time_select_s": 72.93,
+    "n_verification_ecs": 3,
+    "time_verify_s": 104.36,
+    "pipeline_dir": "results/experiments/2026-04-29_05-20-44/1429/2026-04-29_05-34-37"
+  },
+  {
+    "row_id": "1430",
+    "intent": "Connectivity from bucharest to 100.0.1.0/24 is established.\nTo reach 100.0.1.0/24 from bucharest, traffic is directed through kiev.\nTraffic from bucharest to 100.0.1.0/24 is evenly distributed across 2 paths.\nTraffic originating from marseille can reach the subnet that network\nTraffic from marseille to 100.0.9.0/24 passes through rotterdam.\nThe subnet 100.0.9.0/24 is reachable from frankfurt.\nUse rotterdam as intermediate hop if available.\nDistribute traffic across available paths.",
+    "correct_spec": "{\"reachability\": {\"bucharest\": [\"100.0.1.0/24\"], \"marseille\": [\"100.0.9.0/24\"], \"frankfurt\": [\"100.0.9.0/24\"]}, \"waypoint\": {\"(bucharest,100.0.1.0/24)\": [\"kiev\"], \"(marseille,100.0.9.0/24)\": [\"rotterdam\"], \"(frankfurt,100.0.9.0/24)\": [\"rotterdam\"]}, \"loadbalancing\": {\"(bucharest,100.0.1.0/24)\": 2, \"(marseille,100.0.29.0/24)\": 4, \"(frankfurt,100.0.9.0/24)\": 2}}",
+    "status": "done",
+    "error": null,
+    "clarified_intent": "Connectivity from bucharest to 100.0.1.0/24 is established. To reach 100.0.1.0/24 from bucharest, traffic is directed through kiev. Traffic from bucharest to 100.0.1.0/24 is evenly distributed across 2 paths. Traffic originating from marseille can reach the subnet 100.0.9.0/24. Traffic from marseille to 100.0.9.0/24 passes through rotterdam. The subnet 100.0.9.0/24 is reachable from frankfurt. Use rotterdam as intermediate hop if available. Distribute traffic from marseille across 4 paths.",
+    "post_clarify_rules": "{\n  \"reachability\": {\n    \"bucharest\": [\"100.0.1.0/24\"],\n    \"marseille\": [\"100.0.9.0/24\"],\n    \"frankfurt\": [\"100.0.9.0/24\"]\n  },\n  \"waypoint\": {\n    \"(bucharest,100.0.1.0/24)\": [\"kiev\"],\n    \"(marseille,100.0.9.0/24)\": [\"rotterdam\"]\n  },\n  \"loadbalancing\": {\n    \"(bucharest,100.0.1.0/24)\": 2,\n    \"(marseille,100.0.9.0/24)\": 4\n  }\n}",
+    "eval_post_clarify": {
+      "exact_match": false,
+      "reachability_match": true,
+      "waypoint_match": false,
+      "loadbalancing_match": false,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [
+        "(frankfurt,100.0.9.0/24)"
+      ],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [
+        "(frankfurt,100.0.9.0/24)",
+        "(marseille,100.0.29.0/24)"
+      ],
+      "wrong_lb": [],
+      "extra_lb": [
+        "(marseille,100.0.9.0/24)"
+      ]
+    },
+    "n_clarify_questions": 2,
+    "n_clarify_rounds": 1,
+    "time_clarify_s": 5.48,
+    "candidate_rules": {
+      "candidate_1": "{\n  \"reachability\": {\n    \"bucharest\": [\"100.0.1.0/24\"],\n    \"marseille\": [\"100.0.9.0/24\"],\n    \"frankfurt\": [\"100.0.9.0/24\"]\n  },\n  \"loadbalancing\": {\n    \"(bucharest,100.0.1.0/24)\": 2\n  }\n}",
+      "candidate_2": "{\n  \"reachability\": {\n    \"bucharest\": [\"100.0.1.0/24\"],\n    \"marseille\": [\"100.0.9.0/24\"],\n    \"frankfurt\": [\"100.0.9.0/24\"]\n  },\n  \"waypoint\": {\n    \"(bucharest,100.0.1.0/24)\": [\"kiev\"],\n    \"(marseille,100.0.9.0/24)\": [\"rotterdam\"]\n  },\n  \"loadbalancing\": {\n    \"(bucharest,100.0.1.0/24)\": 2\n  }\n}",
+      "candidate_3": "{\n  \"reachability\": {\n    \"bucharest\": [\"100.0.1.0/24\"],\n    \"marseille\": [\"100.0.9.0/24\"],\n    \"frankfurt\": [\"100.0.9.0/24\"]\n  },\n  \"waypoint\": {\n    \"(bucharest,100.0.1.0/24)\": [\"kiev\"],\n    \"(marseille,100.0.9.0/24)\": [\"rotterdam\"],\n    \"(frankfurt,100.0.9.0/24)\": [\"rotterdam\"]\n  },\n  \"loadbalancing\": {\n    \"(bucharest,100.0.1.0/24)\": 2,\n    \"(marseille,100.0.9.0/24)\": 4,\n    \"(frankfurt,100.0.9.0/24)\": 2\n  }\n}"
+    },
+    "eval_per_candidate": {
+      "candidate_1": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [
+          "(bucharest,100.0.1.0/24)",
+          "(frankfurt,100.0.9.0/24)",
+          "(marseille,100.0.9.0/24)"
+        ],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(frankfurt,100.0.9.0/24)",
+          "(marseille,100.0.29.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": []
+      },
+      "candidate_2": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [
+          "(frankfurt,100.0.9.0/24)"
+        ],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(frankfurt,100.0.9.0/24)",
+          "(marseille,100.0.29.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": []
+      },
+      "candidate_3": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": true,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(marseille,100.0.29.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": [
+          "(marseille,100.0.9.0/24)"
+        ]
+      }
+    },
+    "time_generate_s": 29.7,
+    "winner_rules": "{\n  \"reachability\": {\n    \"bucharest\": [\"100.0.1.0/24\"],\n    \"marseille\": [\"100.0.9.0/24\"],\n    \"frankfurt\": [\"100.0.9.0/24\"]\n  },\n  \"waypoint\": {\n    \"(bucharest,100.0.1.0/24)\": [\"kiev\"],\n    \"(marseille,100.0.9.0/24)\": [\"rotterdam\"],\n    \"(frankfurt,100.0.9.0/24)\": [\"rotterdam\"]\n  },\n  \"loadbalancing\": {\n    \"(bucharest,100.0.1.0/24)\": 2,\n    \"(frankfurt,100.0.9.0/24)\": 2\n  }\n}",
+    "eval_winner": {
+      "exact_match": false,
+      "reachability_match": true,
+      "waypoint_match": true,
+      "loadbalancing_match": false,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [
+        "(marseille,100.0.29.0/24)"
+      ],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "further_clarified_intent": "Traffic from bucharest to 100.0.1.0/24 must pass through kiev. Traffic from bucharest to 100.0.1.0/24 must be load-balanced across exactly 2 equal-cost paths. Traffic from marseille to 100.0.9.0/24 must pass through rotterdam. Traffic from frankfurt to 100.0.9.0/24 must pass through rotterdam. Traffic from frankfurt to 100.0.9.0/24 must be load-balanced across exactly 2 equal-cost paths.",
+    "eval_further_clarified": {
+      "exact_match": false,
+      "reachability_match": true,
+      "waypoint_match": true,
+      "loadbalancing_match": false,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [
+        "(marseille,100.0.29.0/24)"
+      ],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "n_ecs": 3,
+    "n_selection_rounds": 5,
+    "time_select_s": 65.46,
+    "n_verification_ecs": null,
+    "time_verify_s": null,
+    "pipeline_dir": "results/experiments/2026-04-29_05-20-44/1430/2026-04-29_05-38-24"
+  },
+  {
+    "row_id": "1431",
+    "intent": "Connect geneva to 100.0.4.0/24.\nThe number of paths between geneva and 100.0.4.0/24 should be 3.\nConnectivity from rotterdam to 100.0.4.0/24 is established.\nConsider routing through basel.\nLoad balance the traffic appropriately.\nbarcelona and 100.0.1.0/24 should be connected.\nTo reach 100.0.1.0/24 from barcelona, traffic is directed through kiev.\nMake sure there's redundancy.",
+    "correct_spec": "{\"reachability\": {\"geneva\": [\"100.0.4.0/24\"], \"rotterdam\": [\"100.0.4.0/24\"], \"barcelona\": [\"100.0.1.0/24\"]}, \"waypoint\": {\"(geneva,100.0.4.0/24)\": [\"basel\"], \"(rotterdam,100.0.4.0/24)\": [\"basel\"], \"(barcelona,100.0.1.0/24)\": [\"kiev\"]}, \"loadbalancing\": {\"(geneva,100.0.4.0/24)\": 3, \"(rotterdam,100.0.4.0/24)\": 3, \"(barcelona,100.0.1.0/24)\": 3}}",
+    "status": "done",
+    "error": null,
+    "clarified_intent": "Connect geneva to 100.0.4.0/24. The number of paths between geneva and 100.0.4.0/24 should be 3. Connectivity from rotterdam to 100.0.4.0/24 is established. Consider routing through basel. Load balance the traffic appropriately. barcelona and 100.0.1.0/24 should be connected. To reach 100.0.1.0/24 from barcelona, traffic is directed through kiev. Make sure there's redundancy.",
+    "post_clarify_rules": "{\n  \"reachability\": {\n    \"geneva\": [\"100.0.4.0/24\"],\n    \"rotterdam\": [\"100.0.4.0/24\"],\n    \"barcelona\": [\"100.0.1.0/24\"]\n  },\n  \"waypoint\": {\n    \"(rotterdam,100.0.4.0/24)\": [\"basel\"],\n    \"(barcelona,100.0.1.0/24)\": [\"kiev\"]\n  },\n  \"loadbalancing\": {\n    \"(geneva,100.0.4.0/24)\": 3\n  }\n}",
+    "eval_post_clarify": {
+      "exact_match": false,
+      "reachability_match": true,
+      "waypoint_match": false,
+      "loadbalancing_match": false,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [
+        "(geneva,100.0.4.0/24)"
+      ],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [
+        "(barcelona,100.0.1.0/24)",
+        "(rotterdam,100.0.4.0/24)"
+      ],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "n_clarify_questions": 2,
+    "n_clarify_rounds": 1,
+    "time_clarify_s": 4.6,
+    "candidate_rules": {
+      "candidate_1": "{\n  \"reachability\": {\n    \"geneva\": [\"100.0.4.0/24\"],\n    \"rotterdam\": [\"100.0.4.0/24\"],\n    \"barcelona\": [\"100.0.1.0/24\"]\n  },\n  \"loadbalancing\": {\n    \"(geneva,100.0.4.0/24)\": 3\n  }\n}",
+      "candidate_2": "{\n  \"reachability\": {\n    \"geneva\": [\"100.0.4.0/24\"],\n    \"rotterdam\": [\"100.0.4.0/24\"],\n    \"barcelona\": [\"100.0.1.0/24\"]\n  },\n  \"waypoint\": {\n    \"(rotterdam,100.0.4.0/24)\": [\"basel\"],\n    \"(barcelona,100.0.1.0/24)\": [\"kiev\"]\n  },\n  \"loadbalancing\": {\n    \"(geneva,100.0.4.0/24)\": 3\n  }\n}",
+      "candidate_3": "{\n  \"reachability\": {\n    \"geneva\": [\"100.0.4.0/24\"],\n    \"rotterdam\": [\"100.0.4.0/24\"],\n    \"barcelona\": [\"100.0.1.0/24\"]\n  },\n  \"waypoint\": {\n    \"(geneva,100.0.4.0/24)\": [\"basel\"],\n    \"(rotterdam,100.0.4.0/24)\": [\"basel\"],\n    \"(barcelona,100.0.1.0/24)\": [\"kiev\"]\n  },\n  \"loadbalancing\": {\n    \"(geneva,100.0.4.0/24)\": 3,\n    \"(rotterdam,100.0.4.0/24)\": 2,\n    \"(barcelona,100.0.1.0/24)\": 2\n  }\n}"
+    },
+    "eval_per_candidate": {
+      "candidate_1": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [
+          "(barcelona,100.0.1.0/24)",
+          "(geneva,100.0.4.0/24)",
+          "(rotterdam,100.0.4.0/24)"
+        ],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(barcelona,100.0.1.0/24)",
+          "(rotterdam,100.0.4.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": []
+      },
+      "candidate_2": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [
+          "(geneva,100.0.4.0/24)"
+        ],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(barcelona,100.0.1.0/24)",
+          "(rotterdam,100.0.4.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": []
+      },
+      "candidate_3": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": true,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [],
+        "wrong_lb": [
+          "(barcelona,100.0.1.0/24)",
+          "(rotterdam,100.0.4.0/24)"
+        ],
+        "extra_lb": []
+      }
+    },
+    "time_generate_s": 32.59,
+    "winner_rules": "{\n  \"reachability\": {\n    \"geneva\": [\"100.0.4.0/24\"],\n    \"rotterdam\": [\"100.0.4.0/24\"],\n    \"barcelona\": [\"100.0.1.0/24\"]\n  },\n  \"waypoint\": {\n    \"(geneva,100.0.4.0/24)\": [\"basel\"],\n    \"(rotterdam,100.0.4.0/24)\": [\"basel\"],\n    \"(barcelona,100.0.1.0/24)\": [\"kiev\"]\n  },\n  \"loadbalancing\": {\n    \"(geneva,100.0.4.0/24)\": 3,\n    \"(rotterdam,100.0.4.0/24)\": 3,\n    \"(barcelona,100.0.1.0/24)\": 3\n  }\n}",
+    "eval_winner": {
+      "exact_match": true,
+      "reachability_match": true,
+      "waypoint_match": true,
+      "loadbalancing_match": true,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "further_clarified_intent": "Traffic from geneva to 100.0.4.0/24 must be load-balanced across exactly 3 equal-cost paths. Traffic from geneva to 100.0.4.0/24 must pass through basel. Traffic from rotterdam to 100.0.4.0/24 is established. Traffic from rotterdam to 100.0.4.0/24 must pass through basel. Traffic from rotterdam to 100.0.4.0/24 must be load-balanced across exactly 3 equal-cost paths. Traffic from barcelona to 100.0.1.0/24 must pass through kiev. Traffic from barcelona to 100.0.1.0/24 must be load-balanced across exactly 3 equal-cost paths.",
+    "eval_further_clarified": {
+      "exact_match": true,
+      "reachability_match": true,
+      "waypoint_match": true,
+      "loadbalancing_match": true,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "n_ecs": 3,
+    "n_selection_rounds": 5,
+    "time_select_s": 62.47,
+    "n_verification_ecs": 3,
+    "time_verify_s": 84.38,
+    "pipeline_dir": "results/experiments/2026-04-29_05-20-44/1431/2026-04-29_05-40-10"
+  },
+  {
+    "row_id": "1432",
+    "intent": "The subnet 100.0.9.0/24 is reachable from vienna.\nRoute through rotterdam if possible.\nMake sure there's redundancy.\nEnsure praha can access 100.0.4.0/24.. Apply the same policy to other relevant connections.\nUse multiple paths for reliability.\nEnsure paris can access the target subnet. Apply the same policy to other relevant connections.\nTraffic should go through london when feasible.",
+    "correct_spec": "{\"reachability\": {\"vienna\": [\"100.0.9.0/24\"], \"praha\": [\"100.0.4.0/24\"], \"paris\": [\"100.0.29.0/24\"]}, \"waypoint\": {\"(vienna,100.0.9.0/24)\": [\"rotterdam\"], \"(praha,100.0.4.0/24)\": [\"basel\"], \"(paris,100.0.29.0/24)\": [\"london\"]}, \"loadbalancing\": {\"(vienna,100.0.9.0/24)\": 3, \"(praha,100.0.4.0/24)\": 2, \"(paris,100.0.9.0/24)\": 2}}",
+    "status": "done",
+    "error": null,
+    "clarified_intent": "The subnet 100.0.9.0/24 is reachable from vienna.\nRoute through rotterdam if possible.\nMake sure there's redundancy.\nEnsure praha can access 100.0.4.0/24.. Apply the same policy to other relevant connections.\nUse multiple paths for reliability.\nEnsure paris can access the target subnet. Apply the same policy to other relevant connections.\nTraffic should go through london when feasible.",
+    "post_clarify_rules": "{\n  \"reachability\": {\n    \"vienna\": [\"100.0.9.0/24\"],\n    \"praha\": [\"100.0.4.0/24\"],\n    \"paris\": [\"100.0.4.0/24\"]\n  },\n  \"waypoint\": {\n    \"(vienna,100.0.9.0/24)\": [\"rotterdam\"],\n    \"(praha,100.0.4.0/24)\": [\"london\"],\n    \"(paris,100.0.4.0/24)\": [\"london\"]\n  },\n  \"loadbalancing\": {\n    \"(vienna,100.0.9.0/24)\": 2,\n    \"(praha,100.0.4.0/24)\": 2,\n    \"(paris,100.0.4.0/24)\": 2\n  }\n}",
+    "eval_post_clarify": {
+      "exact_match": false,
+      "reachability_match": false,
+      "waypoint_match": false,
+      "loadbalancing_match": false,
+      "missing_reachability": [
+        [
+          "paris",
+          "100.0.29.0/24"
+        ]
+      ],
+      "extra_reachability": [
+        [
+          "paris",
+          "100.0.4.0/24"
+        ]
+      ],
+      "missing_waypoints": [
+        "(paris,100.0.29.0/24)"
+      ],
+      "wrong_waypoints": [
+        "(praha,100.0.4.0/24)"
+      ],
+      "extra_waypoints": [
+        "(paris,100.0.4.0/24)"
+      ],
+      "missing_lb": [
+        "(paris,100.0.9.0/24)"
+      ],
+      "wrong_lb": [
+        "(vienna,100.0.9.0/24)"
+      ],
+      "extra_lb": [
+        "(paris,100.0.4.0/24)"
+      ]
+    },
+    "n_clarify_questions": 3,
+    "n_clarify_rounds": 1,
+    "time_clarify_s": 6.39,
+    "candidate_rules": {
+      "candidate_1": "{\n  \"reachability\": {\n    \"vienna\": [\"100.0.9.0/24\"],\n    \"praha\": [\"100.0.4.0/24\"],\n    \"paris\": [\"100.0.4.0/24\"]\n  },\n  \"waypoint\": {},\n  \"loadbalancing\": {}\n}",
+      "candidate_2": "{\n  \"reachability\": {\n    \"vienna\": [\"100.0.9.0/24\"],\n    \"praha\": [\"100.0.4.0/24\"],\n    \"paris\": [\"100.0.4.0/24\"]\n  },\n  \"waypoint\": {\n    \"(vienna,100.0.9.0/24)\": [\"rotterdam\"],\n    \"(praha,100.0.4.0/24)\": [\"london\"],\n    \"(paris,100.0.4.0/24)\": [\"london\"]\n  },\n  \"loadbalancing\": {}\n}",
+      "candidate_3": "{\n  \"reachability\": {\n    \"vienna\": [\"100.0.9.0/24\"],\n    \"praha\": [\"100.0.4.0/24\"],\n    \"paris\": [\"100.0.4.0/24\"]\n  },\n  \"waypoint\": {\n    \"(vienna,100.0.9.0/24)\": [\"rotterdam\"],\n    \"(praha,100.0.4.0/24)\": [\"london\"],\n    \"(paris,100.0.4.0/24)\": [\"london\"]\n  },\n  \"loadbalancing\": {\n    \"(vienna,100.0.9.0/24)\": 2,\n    \"(praha,100.0.4.0/24)\": 2,\n    \"(paris,100.0.4.0/24)\": 2\n  }\n}"
+    },
+    "eval_per_candidate": {
+      "candidate_1": {
+        "exact_match": false,
+        "reachability_match": false,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [
+          [
+            "paris",
+            "100.0.29.0/24"
+          ]
+        ],
+        "extra_reachability": [
+          [
+            "paris",
+            "100.0.4.0/24"
+          ]
+        ],
+        "missing_waypoints": [
+          "(paris,100.0.29.0/24)",
+          "(praha,100.0.4.0/24)",
+          "(vienna,100.0.9.0/24)"
+        ],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(paris,100.0.9.0/24)",
+          "(praha,100.0.4.0/24)",
+          "(vienna,100.0.9.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": []
+      },
+      "candidate_2": {
+        "exact_match": false,
+        "reachability_match": false,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [
+          [
+            "paris",
+            "100.0.29.0/24"
+          ]
+        ],
+        "extra_reachability": [
+          [
+            "paris",
+            "100.0.4.0/24"
+          ]
+        ],
+        "missing_waypoints": [
+          "(paris,100.0.29.0/24)"
+        ],
+        "wrong_waypoints": [
+          "(praha,100.0.4.0/24)"
+        ],
+        "extra_waypoints": [
+          "(paris,100.0.4.0/24)"
+        ],
+        "missing_lb": [
+          "(paris,100.0.9.0/24)",
+          "(praha,100.0.4.0/24)",
+          "(vienna,100.0.9.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": []
+      },
+      "candidate_3": {
+        "exact_match": false,
+        "reachability_match": false,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [
+          [
+            "paris",
+            "100.0.29.0/24"
+          ]
+        ],
+        "extra_reachability": [
+          [
+            "paris",
+            "100.0.4.0/24"
+          ]
+        ],
+        "missing_waypoints": [
+          "(paris,100.0.29.0/24)"
+        ],
+        "wrong_waypoints": [
+          "(praha,100.0.4.0/24)"
+        ],
+        "extra_waypoints": [
+          "(paris,100.0.4.0/24)"
+        ],
+        "missing_lb": [
+          "(paris,100.0.9.0/24)"
+        ],
+        "wrong_lb": [
+          "(vienna,100.0.9.0/24)"
+        ],
+        "extra_lb": [
+          "(paris,100.0.4.0/24)"
+        ]
+      }
+    },
+    "time_generate_s": 33.09,
+    "winner_rules": "{\n  \"reachability\": {\n    \"vienna\": [\"100.0.9.0/24\"],\n    \"praha\": [\"100.0.4.0/24\"],\n    \"paris\": [\"100.0.4.0/24\"]\n  },\n  \"waypoint\": {\n    \"(vienna,100.0.9.0/24)\": [\"rotterdam\"],\n    \"(praha,100.0.4.0/24)\": [\"basel\"]\n  },\n  \"loadbalancing\": {\n    \"(paris,100.0.4.0/24)\": 2\n  }\n}",
+    "eval_winner": {
+      "exact_match": false,
+      "reachability_match": false,
+      "waypoint_match": false,
+      "loadbalancing_match": false,
+      "missing_reachability": [
+        [
+          "paris",
+          "100.0.29.0/24"
+        ]
+      ],
+      "extra_reachability": [
+        [
+          "paris",
+          "100.0.4.0/24"
+        ]
+      ],
+      "missing_waypoints": [
+        "(paris,100.0.29.0/24)"
+      ],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [
+        "(paris,100.0.9.0/24)",
+        "(praha,100.0.4.0/24)",
+        "(vienna,100.0.9.0/24)"
+      ],
+      "wrong_lb": [],
+      "extra_lb": [
+        "(paris,100.0.4.0/24)"
+      ]
+    },
+    "further_clarified_intent": "Traffic from vienna to 100.0.9.0/24 must pass through rotterdam.  \nTraffic from praha to 100.0.4.0/24 must pass through basel.  \nTraffic from paris to 100.0.4.0/24 must be load-balanced across exactly 2 equal-cost paths.",
+    "eval_further_clarified": {
+      "exact_match": false,
+      "reachability_match": false,
+      "waypoint_match": false,
+      "loadbalancing_match": false,
+      "missing_reachability": [
+        [
+          "paris",
+          "100.0.29.0/24"
+        ]
+      ],
+      "extra_reachability": [
+        [
+          "paris",
+          "100.0.4.0/24"
+        ]
+      ],
+      "missing_waypoints": [
+        "(paris,100.0.29.0/24)"
+      ],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [
+        "(paris,100.0.9.0/24)",
+        "(praha,100.0.4.0/24)",
+        "(vienna,100.0.9.0/24)"
+      ],
+      "wrong_lb": [],
+      "extra_lb": [
+        "(paris,100.0.4.0/24)"
+      ]
+    },
+    "n_ecs": 2,
+    "n_selection_rounds": 3,
+    "time_select_s": 61.71,
+    "n_verification_ecs": null,
+    "time_verify_s": null,
+    "pipeline_dir": "results/experiments/2026-04-29_05-20-44/1432/2026-04-29_05-43-18"
+  },
+  {
+    "row_id": "1433",
+    "intent": "The subnet 100.0.4.0/24 is reachable from kiev.\nRoute through basel if possible.\nDistribute traffic across available paths.\nbudapest and the main subnet need connectivity.\nRouting traffic between budapest and 100.0.4.0/24 goes via basel.\nUse multiple paths for reliability.\nThe subnet 100.0.4.0/24 is reachable from amsterdam.\nConsider routing through basel.\nUse multiple paths for reliability.",
+    "correct_spec": "{\"reachability\": {\"kiev\": [\"100.0.4.0/24\"], \"budapest\": [\"100.0.4.0/24\"], \"amsterdam\": [\"100.0.4.0/24\"]}, \"waypoint\": {\"(kiev,100.0.4.0/24)\": [\"basel\"], \"(budapest,100.0.4.0/24)\": [\"basel\"], \"(amsterdam,100.0.4.0/24)\": [\"basel\"]}, \"loadbalancing\": {\"(kiev,100.0.4.0/24)\": 2, \"(budapest,100.0.4.0/24)\": 4, \"(amsterdam,100.0.4.0/24)\": 7}}",
+    "status": "done",
+    "error": null,
+    "clarified_intent": "The subnet 100.0.4.0/24 is reachable from Kiev. Route through Basel if possible. Distribute traffic across available paths. Budapest and the subnet 100.0.4.0/24 need connectivity. Routing traffic between Budapest and 100.0.4.0/24 goes via Basel. Use multiple paths for reliability. The subnet 100.0.4.0/24 is reachable from Amsterdam. Consider routing through Basel. Use multiple paths for reliability.",
+    "post_clarify_rules": "{\n  \"reachability\": {\n    \"kiev\": [\"100.0.4.0/24\"],\n    \"budapest\": [\"100.0.4.0/24\"],\n    \"amsterdam\": [\"100.0.4.0/24\"]\n  },\n  \"waypoint\": {\n    \"(kiev,100.0.4.0/24)\": [\"basel\"],\n    \"(budapest,100.0.4.0/24)\": [\"basel\"],\n    \"(amsterdam,100.0.4.0/24)\": [\"basel\"]\n  },\n  \"loadbalancing\": {\n    \"(kiev,100.0.4.0/24)\": 2,\n    \"(budapest,100.0.4.0/24)\": 2,\n    \"(amsterdam,100.0.4.0/24)\": 2\n  }\n}",
+    "eval_post_clarify": {
+      "exact_match": false,
+      "reachability_match": true,
+      "waypoint_match": true,
+      "loadbalancing_match": false,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [],
+      "wrong_lb": [
+        "(amsterdam,100.0.4.0/24)",
+        "(budapest,100.0.4.0/24)"
+      ],
+      "extra_lb": []
+    },
+    "n_clarify_questions": 2,
+    "n_clarify_rounds": 1,
+    "time_clarify_s": 6.97,
+    "candidate_rules": {
+      "candidate_1": "{\n  \"reachability\": {\n    \"kiev\": [\"100.0.4.0/24\"],\n    \"budapest\": [\"100.0.4.0/24\"],\n    \"amsterdam\": [\"100.0.4.0/24\"]\n  },\n  \"waypoint\": {},\n  \"loadbalancing\": {}\n}",
+      "candidate_2": "{\n  \"reachability\": {\n    \"kiev\": [\"100.0.4.0/24\"],\n    \"budapest\": [\"100.0.4.0/24\"],\n    \"amsterdam\": [\"100.0.4.0/24\"]\n  },\n  \"waypoint\": {\n    \"(kiev,100.0.4.0/24)\": [\"basel\"],\n    \"(budapest,100.0.4.0/24)\": [\"basel\"],\n    \"(amsterdam,100.0.4.0/24)\": [\"basel\"]\n  }\n}",
+      "candidate_3": "{\n  \"reachability\": {\n    \"kiev\": [\"100.0.4.0/24\"],\n    \"budapest\": [\"100.0.4.0/24\"],\n    \"amsterdam\": [\"100.0.4.0/24\"]\n  },\n  \"waypoint\": {\n    \"(kiev,100.0.4.0/24)\": [\"basel\"],\n    \"(budapest,100.0.4.0/24)\": [\"basel\"],\n    \"(amsterdam,100.0.4.0/24)\": [\"basel\"]\n  },\n  \"loadbalancing\": {\n    \"(kiev,100.0.4.0/24)\": 2,\n    \"(budapest,100.0.4.0/24)\": 2,\n    \"(amsterdam,100.0.4.0/24)\": 2\n  }\n}"
+    },
+    "eval_per_candidate": {
+      "candidate_1": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [
+          "(amsterdam,100.0.4.0/24)",
+          "(budapest,100.0.4.0/24)",
+          "(kiev,100.0.4.0/24)"
+        ],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(amsterdam,100.0.4.0/24)",
+          "(budapest,100.0.4.0/24)",
+          "(kiev,100.0.4.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": []
+      },
+      "candidate_2": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": true,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(amsterdam,100.0.4.0/24)",
+          "(budapest,100.0.4.0/24)",
+          "(kiev,100.0.4.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": []
+      },
+      "candidate_3": {
+        "exact_match": false,
+        "reachability_match": true,
+        "waypoint_match": true,
+        "loadbalancing_match": false,
+        "missing_reachability": [],
+        "extra_reachability": [],
+        "missing_waypoints": [],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [],
+        "wrong_lb": [
+          "(amsterdam,100.0.4.0/24)",
+          "(budapest,100.0.4.0/24)"
+        ],
+        "extra_lb": []
+      }
+    },
+    "time_generate_s": 31.32,
+    "winner_rules": "{\n  \"reachability\": {\n    \"kiev\": [\"100.0.4.0/24\"],\n    \"budapest\": [\"100.0.4.0/24\"],\n    \"amsterdam\": [\"100.0.4.0/24\"]\n  },\n  \"waypoint\": {\n    \"(kiev,100.0.4.0/24)\": [\"basel\"],\n    \"(budapest,100.0.4.0/24)\": [\"basel\"],\n    \"(amsterdam,100.0.4.0/24)\": [\"basel\"]\n  },\n  \"loadbalancing\": {\n    \"(kiev,100.0.4.0/24)\": 2,\n    \"(budapest,100.0.4.0/24)\": 4,\n    \"(amsterdam,100.0.4.0/24)\": 7\n  }\n}",
+    "eval_winner": {
+      "exact_match": true,
+      "reachability_match": true,
+      "waypoint_match": true,
+      "loadbalancing_match": true,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "further_clarified_intent": "Traffic from Kiev to 100.0.4.0/24 must pass through Basel. Traffic from Kiev to 100.0.4.0/24 must be load-balanced across exactly 2 equal-cost paths. Traffic from Budapest to 100.0.4.0/24 must pass through Basel. Traffic from Budapest to 100.0.4.0/24 must be load-balanced across exactly 4 equal-cost paths. Traffic from Amsterdam to 100.0.4.0/24 must pass through Basel. Traffic from Amsterdam to 100.0.4.0/24 must be load-balanced across exactly 7 equal-cost paths.",
+    "eval_further_clarified": {
+      "exact_match": true,
+      "reachability_match": true,
+      "waypoint_match": true,
+      "loadbalancing_match": true,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "n_ecs": 3,
+    "n_selection_rounds": 6,
+    "time_select_s": 59.23,
+    "n_verification_ecs": 3,
+    "time_verify_s": 72.88,
+    "pipeline_dir": "results/experiments/2026-04-29_05-20-44/1433/2026-04-29_05-45-03"
+  },
+  {
+    "row_id": "1434",
+    "intent": "madrid and the remote network should be connected.\nThe path between madrid and the remote network involves london.\nEnsure barcelona can access 100.0.29.0/24. Apply the same policy to other relevant connections.\nRoute through london if possible.\nConnect warsaw to our servers.\nUse basel as intermediate hop if available.\nTraffic from warsaw to our servers is evenly distributed across 2 paths.",
+    "correct_spec": "{\"reachability\": {\"madrid\": [\"100.0.29.0/24\"], \"barcelona\": [\"100.0.29.0/24\"], \"warsaw\": [\"100.0.4.0/24\"]}, \"waypoint\": {\"(madrid,100.0.29.0/24)\": [\"london\"], \"(barcelona,100.0.29.0/24)\": [\"london\"], \"(warsaw,100.0.4.0/24)\": [\"basel\"]}, \"loadbalancing\": {\"(madrid,100.0.9.0/24)\": 2, \"(barcelona,100.0.9.0/24)\": 2, \"(warsaw,100.0.4.0/24)\": 2}}",
+    "status": "done",
+    "error": null,
+    "clarified_intent": "madrid and the remote network should be connected.\nThe path between madrid and the remote network involves london.\nEnsure barcelona can access 100.0.29.0/24. Apply the same policy to other relevant connections.\nRoute through london if possible.\nConnect warsaw to our servers.\nUse basel as intermediate hop if available.\nTraffic from warsaw to our servers is evenly distributed across 2 paths.",
+    "post_clarify_rules": "{\n  \"reachability\": {\n    \"madrid\": [\"remote network\"],\n    \"barcelona\": [\"100.0.29.0/24\"],\n    \"warsaw\": [\"our servers\"]\n  },\n  \"waypoint\": {\n    \"(madrid,remote network)\": [\"london\"],\n    \"(barcelona,100.0.29.0/24)\": [\"london\"],\n    \"(warsaw,our servers)\": [\"basel\"]\n  },\n  \"loadbalancing\": {\n    \"(warsaw,our servers)\": 2\n  }\n}",
+    "eval_post_clarify": {
+      "exact_match": false,
+      "reachability_match": false,
+      "waypoint_match": false,
+      "loadbalancing_match": false,
+      "missing_reachability": [
+        [
+          "madrid",
+          "100.0.29.0/24"
+        ],
+        [
+          "warsaw",
+          "100.0.4.0/24"
+        ]
+      ],
+      "extra_reachability": [
+        [
+          "madrid",
+          "remote network"
+        ],
+        [
+          "warsaw",
+          "our servers"
+        ]
+      ],
+      "missing_waypoints": [
+        "(madrid,100.0.29.0/24)",
+        "(warsaw,100.0.4.0/24)"
+      ],
+      "wrong_waypoints": [],
+      "extra_waypoints": [
+        "(madrid,remote network)",
+        "(warsaw,our servers)"
+      ],
+      "missing_lb": [
+        "(barcelona,100.0.9.0/24)",
+        "(madrid,100.0.9.0/24)",
+        "(warsaw,100.0.4.0/24)"
+      ],
+      "wrong_lb": [],
+      "extra_lb": [
+        "(warsaw,our servers)"
+      ]
+    },
+    "n_clarify_questions": 5,
+    "n_clarify_rounds": 1,
+    "time_clarify_s": 8.33,
+    "candidate_rules": {
+      "candidate_1": "{\n  \"reachability\": {\n    \"madrid\": [],\n    \"barcelona\": [\"100.0.29.0/24\"],\n    \"warsaw\": []\n  },\n  \"loadbalancing\": {\n    \"(warsaw,)\": 2\n  }\n}",
+      "candidate_2": "{\n  \"reachability\": {\n    \"madrid\": [\"remote network\"],\n    \"barcelona\": [\"100.0.29.0/24\"],\n    \"warsaw\": [\"our servers\"]\n  },\n  \"waypoint\": {\n    \"(madrid,remote network)\": [\"london\"],\n    \"(barcelona,100.0.29.0/24)\": [\"london\"]\n  },\n  \"loadbalancing\": {\n    \"(warsaw,our servers)\": 2\n  }\n}",
+      "candidate_3": "{\n  \"reachability\": {\n    \"madrid\": [\"100.0.32.0/24\"],\n    \"barcelona\": [\"100.0.29.0/24\"],\n    \"warsaw\": [\"100.0.28.0/24\"]\n  },\n  \"waypoint\": {\n    \"(madrid,100.0.32.0/24)\": [\"london\"],\n    \"(barcelona,100.0.29.0/24)\": [\"london\"],\n    \"(warsaw,100.0.28.0/24)\": [\"basel\"]\n  },\n  \"loadbalancing\": {\n    \"(warsaw,100.0.28.0/24)\": 2\n  }\n}"
+    },
+    "eval_per_candidate": {
+      "candidate_1": {
+        "exact_match": false,
+        "reachability_match": false,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [
+          [
+            "madrid",
+            "100.0.29.0/24"
+          ],
+          [
+            "warsaw",
+            "100.0.4.0/24"
+          ]
+        ],
+        "extra_reachability": [],
+        "missing_waypoints": [
+          "(barcelona,100.0.29.0/24)",
+          "(madrid,100.0.29.0/24)",
+          "(warsaw,100.0.4.0/24)"
+        ],
+        "wrong_waypoints": [],
+        "extra_waypoints": [],
+        "missing_lb": [
+          "(barcelona,100.0.9.0/24)",
+          "(madrid,100.0.9.0/24)",
+          "(warsaw,100.0.4.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": [
+          "(warsaw,)"
+        ]
+      },
+      "candidate_2": {
+        "exact_match": false,
+        "reachability_match": false,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [
+          [
+            "madrid",
+            "100.0.29.0/24"
+          ],
+          [
+            "warsaw",
+            "100.0.4.0/24"
+          ]
+        ],
+        "extra_reachability": [
+          [
+            "madrid",
+            "remote network"
+          ],
+          [
+            "warsaw",
+            "our servers"
+          ]
+        ],
+        "missing_waypoints": [
+          "(madrid,100.0.29.0/24)",
+          "(warsaw,100.0.4.0/24)"
+        ],
+        "wrong_waypoints": [],
+        "extra_waypoints": [
+          "(madrid,remote network)"
+        ],
+        "missing_lb": [
+          "(barcelona,100.0.9.0/24)",
+          "(madrid,100.0.9.0/24)",
+          "(warsaw,100.0.4.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": [
+          "(warsaw,our servers)"
+        ]
+      },
+      "candidate_3": {
+        "exact_match": false,
+        "reachability_match": false,
+        "waypoint_match": false,
+        "loadbalancing_match": false,
+        "missing_reachability": [
+          [
+            "madrid",
+            "100.0.29.0/24"
+          ],
+          [
+            "warsaw",
+            "100.0.4.0/24"
+          ]
+        ],
+        "extra_reachability": [
+          [
+            "madrid",
+            "100.0.32.0/24"
+          ],
+          [
+            "warsaw",
+            "100.0.28.0/24"
+          ]
+        ],
+        "missing_waypoints": [
+          "(madrid,100.0.29.0/24)",
+          "(warsaw,100.0.4.0/24)"
+        ],
+        "wrong_waypoints": [],
+        "extra_waypoints": [
+          "(madrid,100.0.32.0/24)",
+          "(warsaw,100.0.28.0/24)"
+        ],
+        "missing_lb": [
+          "(barcelona,100.0.9.0/24)",
+          "(madrid,100.0.9.0/24)",
+          "(warsaw,100.0.4.0/24)"
+        ],
+        "wrong_lb": [],
+        "extra_lb": [
+          "(warsaw,100.0.28.0/24)"
+        ]
+      }
+    },
+    "time_generate_s": 25.75,
+    "winner_rules": "{\n  \"reachability\": {\n    \"madrid\": [\"100.0.29.0/24\"],\n    \"barcelona\": [\"100.0.29.0/24\"],\n    \"warsaw\": [\"100.0.4.0/24\"]\n  },\n  \"waypoint\": {\n    \"(madrid,100.0.29.0/24)\": [\"london\"],\n    \"(barcelona,100.0.29.0/24)\": [\"london\"]\n  },\n  \"loadbalancing\": {\n    \"(warsaw,100.0.4.0/24)\": 2\n  }\n}",
+    "eval_winner": {
+      "exact_match": false,
+      "reachability_match": true,
+      "waypoint_match": false,
+      "loadbalancing_match": false,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [
+        "(warsaw,100.0.4.0/24)"
+      ],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [
+        "(barcelona,100.0.9.0/24)",
+        "(madrid,100.0.9.0/24)"
+      ],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "further_clarified_intent": "Traffic from madrid to 100.0.29.0/24 must pass through london.  \nTraffic from barcelona to 100.0.29.0/24 must pass through london.  \nTraffic from warsaw to 100.0.4.0/24 must be load-balanced across exactly 2 equal-cost paths.  \nTraffic from warsaw to 100.0.4.0/24 must be reachable.",
+    "eval_further_clarified": {
+      "exact_match": false,
+      "reachability_match": true,
+      "waypoint_match": false,
+      "loadbalancing_match": false,
+      "missing_reachability": [],
+      "extra_reachability": [],
+      "missing_waypoints": [
+        "(warsaw,100.0.4.0/24)"
+      ],
+      "wrong_waypoints": [],
+      "extra_waypoints": [],
+      "missing_lb": [
+        "(barcelona,100.0.9.0/24)",
+        "(madrid,100.0.9.0/24)"
+      ],
+      "wrong_lb": [],
+      "extra_lb": []
+    },
+    "n_ecs": 3,
+    "n_selection_rounds": 10,
+    "time_select_s": 65.64,
+    "n_verification_ecs": null,
+    "time_verify_s": null,
+    "pipeline_dir": "results/experiments/2026-04-29_05-20-44/1434/2026-04-29_05-48-00"
+  }
+]

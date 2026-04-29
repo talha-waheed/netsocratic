@@ -1,0 +1,7 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from budapest should reach? (Why: impact on reachability)
+A: The exact destination subnet that traffic from Budapest should reach is 100.0.4.0/24.
+
+Q: What is the exact source router name for "the main subnet" that needs connectivity? (Why: impact on reachability)
+A: The main subnet that needs connectivity is "100.0.4.0/24". The exact source routers for this subnet are Kiev, Budapest, and Amsterdam.

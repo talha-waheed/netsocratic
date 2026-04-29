@@ -1,0 +1,1 @@
+Ensure connectivity between vienna and 100.0.1.0/24. Preferably route via kiev. 100.0.9.0/24 is accessible from istanbul. Make sure there's redundancy. The target subnet 100.0.29.0/24 is accessible from kiev. Route through london if possible. Traffic from kiev to the target subnet is evenly distributed across 3 paths.

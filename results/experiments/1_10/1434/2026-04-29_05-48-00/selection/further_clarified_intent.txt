@@ -1,0 +1,4 @@
+Traffic from madrid to 100.0.29.0/24 must pass through london.  
+Traffic from barcelona to 100.0.29.0/24 must pass through london.  
+Traffic from warsaw to 100.0.4.0/24 must be load-balanced across exactly 2 equal-cost paths.  
+Traffic from warsaw to 100.0.4.0/24 must be reachable.

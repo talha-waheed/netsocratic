@@ -1,0 +1,17 @@
+Routers modified: Kiev, Rotterdam, London
+
+Reasoning:
+1. For Vienna to 100.0.1.0/24 via Kiev: Vienna must reach Kiev using two equal-cost paths, ensuring pass-through via Kiev to reach the destination.
+   - Set the cost of links from Bratislava to Frankfurt or Bratislava to Budapest (bypassing Kiev) to 1000 in order to enforce waypointing through Kiev.
+   - Ensure that the path via Kiev remains with cost 1 to allow only this path.
+
+2. For Istanbul to 100.0.9.0/24 via Rotterdam: Istanbul requires two equal-cost paths reaching Rotterdam, ensuring connectivity through Istanbul to Rotterdam to reach the destination.
+   - Bypass paths are de-prioritized by setting the cost to 1000 for any non-Rotterdam path from Amsterdam.
+   - Keeps alternative paths at cost 1 through Brussels and Amsterdam ensuring two paths via Rotterdam.
+
+3. For Kiev to 100.0.29.0/24 via London: Kiev to London needs three equal-cost paths covering mandatory traversal via London ensuring connectivity.
+   - Highest cost is configured for paths not passing through London.
+   - Adjust London’s costs ensuring three paths are maintained with same cost ensuring load balancing.
+
+Limitations (if any):
+None

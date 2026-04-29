@@ -1,0 +1,22 @@
+Routers modified: Athens, Budapest, Kiev, London, Luxembourg, Strasbourg
+
+Reasoning:
+1. Athens to 100.0.29.0/24 (London):
+   - Mandatory waypoint: London
+   - Load balancing: 3 paths
+   - Paths considered: Athens→Istanbul→Bucharest→London, Athens→Sofia→Budapest→London, Athens→Istanbul→Bucharest→Paris→London
+   - Set costs to ensure these paths have equal cost and pass through London.
+
+2. Strasbourg to 100.0.1.0/24 (Kiev):
+   - Mandatory waypoint: Kiev
+   - Load balancing: 2 paths
+   - Paths considered: Strasbourg→Frankfurt→Warsaw→Kiev, Strasbourg→Luxembourg→Brussels→Frankfurt→Warsaw→Kiev
+   - Set costs to ensure these paths have equal cost and pass through Kiev.
+
+3. Luxembourg to 100.0.4.0/24 (Basel):
+   - Mandatory waypoint: Basel
+   - Load balancing: 4 paths
+   - Paths considered: Luxembourg→Brussels→Paris→Geneva→Basel, Luxembourg→Strasbourg→Frankfurt→Zurich→Basel, Luxembourg→Strasbourg→Basel, Luxembourg→Brussels→Amsterdam→Frankfurt→Zurich→Basel
+   - Set costs to ensure these paths have equal cost and pass through Basel.
+
+Limitations: None

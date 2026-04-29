@@ -1,0 +1,17 @@
+Routers modified: Basel, Barcelona, Bratislava, Budapest, Geneva, Istanbul, Kiev, Rotterdam, Sofia, Strasbourg, Vienna, Zurich
+
+Reasoning:
+1. **Reachability and Load Balancing for Geneva to 100.0.4.0/24:**
+   - Three paths identified: Geneva→Paris→Basel, Geneva→Lyon→Basel, Geneva→Zurich→Basel.
+   - Set equal cost (1) on each path to achieve 3 ECMP paths.
+
+2. **Waypointing for Rotterdam to 100.0.4.0/24 via Basel:**
+   - Blocked non-Basel paths by setting cost 1000 on Rotterdam→Brussels and Rotterdam→Amsterdam that bypass Basel.
+   - Ensure Rotterdam→Amsterdam→Frankfurt→Strasbourg→Basel remains at cost 1.
+
+3. **Waypointing for Barcelona to 100.0.1.0/24 via Kiev:**
+   - Blocked non-Kiev paths by setting cost 1000 on paths that bypass Kiev.
+   - Ensured Barcelona→Marseille→Milan→Vienna→Frankfurt→Warsaw→Kiev is at cost 1.
+
+Limitations (if any):
+None

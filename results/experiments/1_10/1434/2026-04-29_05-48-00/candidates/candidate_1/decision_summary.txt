@@ -1,0 +1,16 @@
+Routers modified: Amsterdam, Brussels, Frankfurt
+
+Reasoning:
+1. Reachability for Barcelona to 100.0.29.0/24 (London's stub) is inherently satisfied by OSPF.
+2. For Warsaw's load balancing requirement to the remote network (interpreted as any external network), we need 2 equal-cost paths.
+3. The two paths from Warsaw to London (considered as the remote network) are:
+   - Warsaw → Praha → Frankfurt → Brussels → London
+   - Warsaw → Frankfurt → Amsterdam → London
+4. To ensure these paths are equal cost, we increase the cost of bypass paths:
+   - Increase cost on Amsterdam's interfaces to Brussels and Frankfurt to 1000 to prevent bypassing London.
+   - Increase cost on Brussels's interface to Frankfurt to 1000 to prevent bypassing London.
+   - Increase cost on Frankfurt's interfaces to Amsterdam and Brussels to 1000 to prevent bypassing London.
+5. This configuration ensures two equal-cost paths from Warsaw to London, satisfying the load balancing requirement.
+
+Limitations (if any):
+None

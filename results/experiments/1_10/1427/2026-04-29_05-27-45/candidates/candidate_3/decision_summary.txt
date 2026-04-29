@@ -1,0 +1,22 @@
+Routers modified: Vienna, Istanbul, Kiev, Brussels
+
+Reasoning:
+1. Vienna to 100.0.1.0/24 (via Kiev):
+   - Optimal paths include Vienna→Bratislava→Budapest→Bucharest→Kiev.
+   - Set the Vienna→Frankfurt path cost to 5 to enforce waypoints and allocate 2 ECMP paths.
+   - Vienna→Milan path was blocked (cost 1000) to ensure passes through Kiev.
+
+2. Istanbul to 100.0.9.0/24 (via Rotterdam):
+   - Optimal paths include Istanbul→Bucharest→Budapest→Vienna→Rotterdam.
+   - Cost on Istanbul→Athens set to 1000 to effectively block Athens path.
+   - Enforced 2 ECMP paths by keeping both Bucharest paths at cost 1.
+
+3. Kiev to 100.0.29.0/24 (via London):
+   - Optimal paths include Kiev→Bucharest→Athens→Istanbul→Rotterdam→London.
+   - Minsk to Warsaw was set to 1000 to ensure path via London.
+   - Enforced 3 ECMP paths by ensuring unique via Bucharest, Frankfurt, and Athens.
+
+4. Brussels was adjusted only for necessary support for routing path via Rotterdam.
+
+Limitations (if any):
+None. The constraints were fully satisfied with available topology.

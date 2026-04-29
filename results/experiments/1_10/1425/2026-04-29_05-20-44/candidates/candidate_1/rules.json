@@ -1,0 +1,10 @@
+{
+  "reachability": {
+    "athens": ["100.0.29.0/24"],
+    "strasbourg": ["100.0.1.0/24"],
+    "luxembourg": ["100.0.4.0/24"]
+  },
+  "loadbalancing": {
+    "(luxembourg,100.0.4.0/24)": 4
+  }
+}

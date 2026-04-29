@@ -1,0 +1,21 @@
+Routers modified: Budapest, Brussels, Geneva, Lisbon, London, Rotterdam, Strasbourg, Vienna
+
+Reasoning:
+1. Budapest to 100.0.29.0/24 (London's stub):
+   - Must pass through London and require 3 ECMP paths.
+   - Potential paths: Budapest→Vienna→Frankfurt→Amsterdam→London and variations through Brussels.
+   - Set high cost (1000) for bypass routes not using London.
+   - Ensure 3 equal-cost paths through Frankfurt and Brussels.
+
+2. Rotterdam to 100.0.29.0/24:
+   - Must pass through London and require 2 ECMP paths.
+   - Adjust costs on Rotterdam to prefer specific paths via Brussels.
+
+3. Geneva to 100.0.1.0/24 (Kiev's stub):
+   - Must pass through Kiev and need 5 ECMP paths.
+   - Multiple routes do not meet 5 paths; set high costs where necessary to enforce available paths only.
+
+4. Each waypoint action is restrictive (cost 1000) for all non-desired paths, accounting multiple paths through desired intermediate routers based on demand.
+
+Limitations (if any):
+- Geneva to Kiev does not naturally offer 5 distinct paths with current topology constraints and existing pathways.

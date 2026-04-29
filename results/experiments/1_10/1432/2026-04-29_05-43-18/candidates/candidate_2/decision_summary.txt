@@ -1,0 +1,26 @@
+Routers modified: Vienna, Praha, Paris, Frankfurt, Amsterdam, Brussels
+
+Reasoning:
+1. Vienna to 100.0.9.0/24 must pass through Rotterdam:
+   - Vienna can reach Rotterdam via Frankfurt-Amsterdam-Rotterdam or directly through Amsterdam.
+   - Set high cost on Frankfurt-Amsterdam and Frankfurt-Vienna links to ensure traffic uses Rotterdam.
+   - Modifications on Vienna's interfaces towards Frankfurt and Bratislava ensure the path preference.
+
+2. Praha to 100.0.4.0/24 must pass through London:
+   - Paths from Praha to Basel (100.0.4.0/24) need to be adjusted to force traffic through London.
+   - Set high cost on Bratislava-Praha and Praha-Warsaw links to ensure London is used as a waypoint.
+   - Changes on Praha's interfaces towards Bratislava and Warsaw enforce the waypoint.
+
+3. Paris to 100.0.4.0/24 must also pass through London:
+   - Paris is directly connected to Geneva (100.0.4.0/24), so set high cost on direct routes.
+   - Adjust Paris's interfaces to ensure traffic flows through London.
+
+4. Frankfurt modifications support the waypoint constraints for Vienna and Praha:
+   - Ensure Frankfurt routes to Amsterdam and Rotterdam are adjusted to support waypointing.
+   - High cost on Frankfurt's interfaces towards Warsaw and Vienna helps enforce these paths.
+
+5. Amsterdam and Brussels modifications assist in maintaining the path through Rotterdam and London:
+   - Amsterdam's high cost on links that bypass Rotterdam ensures correct waypointing.
+   - Brussels supports waypointing by having high costs on bypass routes towards Luxembourg and London.
+
+Limitations: None

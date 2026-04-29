@@ -1,0 +1,23 @@
+============================================================================
+  Experiment Results
+============================================================================
+  Total rows processed       : 10
+  Pipeline completed         :  10  (100%)
+
+  Metric                                  Post-clarify  Best-of-N  Winner  Furt.Clar.
+  --------------------------------------  ------------  ---------  ------  ----------
+  Exact match                                 0/10         1/10      7/10        7/10
+  Reachability                                8/10         8/10      9/10        9/10
+  Waypoint                                    2/10         8/10      8/10        8/10
+  Load balancing                              0/10         1/10      7/10        7/10
+
+  Avg clarification questions: 2.7
+  Avg ECs after Batfish      : 2.9
+  Avg selection rounds       : 5.5
+  Avg verification ECs       : 3.0  (perfect=1: 0/7)
+
+  Avg time — clarify         : 6.6s
+  Avg time — generate        : 40.1s
+  Avg time — select          : 65.2s
+  Avg time — verify          : 82.2s
+============================================================================

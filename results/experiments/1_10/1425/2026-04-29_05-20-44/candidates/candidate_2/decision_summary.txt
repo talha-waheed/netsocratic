@@ -1,0 +1,19 @@
+Routers modified: Athens, Brussels, Frankfurt, Kiev, London, Luxembourg, Vienna
+
+Reasoning:
+1. Athens to London (100.0.29.0/24) - Mandatory waypoint: London
+   - Block path via Sofia by setting cost 1000 on Athens-Sofia link.
+   - Ensure path through Istanbul remains preferred with cost 1.
+
+2. Strasbourg to Kiev (100.0.1.0/24) - No change needed as reachability is inherently provided.
+
+3. Luxembourg to Basel (100.0.4.0/24) - Mandatory waypoints: Basel, Kiev
+   - Ensure paths through Brussels to Basel are preferred by setting costs to 1.
+   - Block bypass paths through Frankfurt to Basel by setting Frankfurt-Warsaw link cost to 1000.
+   - Vienna ensures passage through Bratislava and Kiev with cost adjustments.
+
+4. Luxembourg Loadbalancing - 4 ECMP paths to Basel:
+   - Adjust costs on outgoing interfaces from Luxembourg to allow 4 paths with equal costs via Basel and Kiev.
+
+Limitations (if any):
+None

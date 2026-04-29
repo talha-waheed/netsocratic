@@ -1,0 +1,1 @@
+Connect geneva to 100.0.4.0/24. The number of paths between geneva and 100.0.4.0/24 should be 3. Connectivity from rotterdam to 100.0.4.0/24 is established. Consider routing through basel. Load balance the traffic appropriately. barcelona and 100.0.1.0/24 should be connected. To reach 100.0.1.0/24 from barcelona, traffic is directed through kiev. Make sure there's redundancy.

@@ -1,0 +1,3 @@
+Traffic from vienna to 100.0.9.0/24 must pass through rotterdam.  
+Traffic from praha to 100.0.4.0/24 must pass through basel.  
+Traffic from paris to 100.0.4.0/24 must be load-balanced across exactly 2 equal-cost paths.

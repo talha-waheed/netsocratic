@@ -1,0 +1,21 @@
+Routers modified: Bucharest, Marseille, Frankfurt, Rotterdam
+
+Reasoning:
+1. For Bucharest to 100.0.1.0/24 with waypoint Kiev:
+   - Paths: Bucharest → Kiev (stub is at Kiev), thus using Kiev directly.
+     Cost: Bucharest → Kiev (1), ensuring Bucharest → Istanbul path cost is 1000 as it 
+     should not bypass Kiev.
+
+2. For Marseille to 100.0.9.0/24 with waypoint Rotterdam and load-balancing 4 paths:
+   - Paths: Marseille → Lyon → Geneva → Zurich → Frankfurt → Warsaw → Prague → 
+     Bratislava → Vienna → Milan → Marseille → Zurich → Vaduz → Amsterdam → Rotterdam.
+     These paths need fine adjustment to reach cost equivalency. Set all paths on Marseille links to 3, 
+     allowing paths to sum to equal values along these routes.
+
+3. For Frankfurt to 100.0.9.0/24 with waypoint Rotterdam and load-balancing 2 paths:
+   - Paths: Frankfurt → Amsterdam → Rotterdam and Frankfurt → Brussels → Rotterdam need to be of equal cost.
+     Set direct Brussels/Amsterdam paths to 1000 to ensure traffic goes Frankfurt → Rotterdam through 
+     Amsterdam/Brussels but disallow stub route.
+
+Limitations (if any):
+None: All routing rules applied per topology constraints and no additional rules inferred.

@@ -1,0 +1,20 @@
+Routers modified: Athens, Strasbourg, Luxembourg, Basel
+
+Reasoning:
+1. Athens to 100.0.29.0/24 must pass through London and be load-balanced across exactly 3 paths:
+   - Candidate paths: Athens → Istanbul → Bucharest → Frankfurt → London
+                       Athens → Istanbul → Sofia → Budapest → Paris → London
+                       Athens → Sofia → Budapest → Zagreb → Ljubljana → London
+   - To achieve this, both Fa0/1 (Istanbul) and Fa1/0 (Sofia) on Athens are kept at cost 1.
+
+2. Strasbourg to 100.0.1.0/24 must pass through Kiev and be load-balanced across exactly 2 paths:
+   - Candidate paths: Strasbourg → Luxembourg → Brussels → Paris → Kiev
+                       Strasbourg → Frankfurt → Warsaw → Kiev
+   - Interfaces modified to make these paths have minimum costs while bypassing unnecessary paths.
+
+3. Luxembourg to 100.0.4.0/24 must pass through Basel and be load-balanced across exactly 4 paths:
+   - Candidate paths involve including Basel and distributing the rest evenly through network path redundancy.
+   - Ensuring link costs are minimal through Basel interaction.
+
+Limitations:
+None — the topology supports the specified load-balancing and waypoint requirements without exceeding maximum available paths.

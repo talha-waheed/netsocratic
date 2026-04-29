@@ -1,0 +1,11 @@
+{
+  "reachability": {
+    "budapest": ["100.0.29.0/24"],
+    "rotterdam": ["100.0.29.0/24"],
+    "geneva": ["100.0.1.0/24"]
+  },
+  "loadbalancing": {
+    "(rotterdam,100.0.29.0/24)": 2,
+    "(geneva,100.0.1.0/24)": 5
+  }
+}

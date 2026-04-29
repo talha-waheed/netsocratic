@@ -1,0 +1,4 @@
+Round 1 — Clarification Questions
+
+1. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from marseille should reach? (Why: impact on reachability)
+2. How many paths should traffic from marseille to its destination be distributed across? (Why: impact on load-balancing)

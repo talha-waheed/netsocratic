@@ -1,0 +1,30 @@
+Routers modified: Amsterdam, Budapest, Kiev, Frankfurt, Vienna
+
+Reasoning:
+1. Identify all paths from each source to 100.0.4.0/24 (Basel's stub network):
+   - From Amsterdam: 
+     - Amsterdam → Rotterdam → Brussels → Luxembourg → Strasbourg → Basel
+     - Amsterdam → Frankfurt → Strasbourg → Basel
+     - Amsterdam → Brussels → Luxembourg → Strasbourg → Basel
+   - From Budapest:
+     - Budapest → Vienna → Frankfurt → Strasbourg → Basel
+     - Budapest → Zagreb → Ljubjana → Strasbourg → Basel
+   - From Kiev:
+     - Kiev → Warsaw → Frankfurt → Strasbourg → Basel
+
+2. Enforce mandatory waypoint (Basel):
+   - For each source, set the cost for paths bypassing Basel to 1000.
+
+3. Ensure reachability and load balancing through Basel:
+   - Adjust costs to balance traffic across paths that include Basel.
+   - Ensure that paths through Basel remain at cost 1.
+
+4. Specific cost modifications:
+   - Amsterdam: Set high cost on bypass paths via Brussels and Frankfurt.
+   - Budapest: Set high cost on non-Basel paths via Bratislava and Sofia.
+   - Kiev: Set high cost on non-Basel path via Warsaw.
+   - Frankfurt: Set high cost on bypass paths via Amsterdam and Vienna.
+   - Vienna: Set high cost on bypass path via Bratislava.
+
+Limitations (if any):
+None

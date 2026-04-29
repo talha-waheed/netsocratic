@@ -1,0 +1,25 @@
+Routers modified: Kiev, Vienna, Istanbul
+
+Reasoning:
+1. Vienna to 100.0.1.0/24 (Kiev's stub):
+   - Mandatory waypoint: Kiev
+   - Load balancing: 2 paths
+   - Paths: Vienna → Bratislava → Budapest → Bucharest → Kiev and Vienna → Frankfurt → Warsaw → Kiev
+   - Set Vienna→Milan cost to 1000 to block non-Kiev paths.
+   - Both paths have equal cost, satisfying the load balancing requirement.
+
+2. Istanbul to 100.0.9.0/24 (Rotterdam's stub):
+   - Mandatory waypoint: Rotterdam
+   - Load balancing: 2 paths
+   - Paths: Istanbul → Athens → Sofia → Budapest → Zagreb → Ljubjana → Rotterdam and Istanbul → Bucharest → Budapest → Zagreb → Ljubjana → Rotterdam
+   - Both paths have equal cost, satisfying the load balancing requirement.
+
+3. Kiev to 100.0.29.0/24 (London's stub):
+   - Mandatory waypoint: London
+   - Load balancing: 3 paths
+   - Paths: Kiev → Warsaw → Frankfurt → Amsterdam → London, Kiev → Warsaw → Frankfurt → Brussels → London, and Kiev → Warsaw → Frankfurt → Amsterdam → Rotterdam → London
+   - Set Kiev→Praha cost to 1000 to block non-London paths.
+   - All three paths have equal cost, satisfying the load balancing requirement.
+
+Limitations (if any):
+None

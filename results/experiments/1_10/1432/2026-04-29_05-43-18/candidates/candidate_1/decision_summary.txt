@@ -1,0 +1,20 @@
+Routers modified: Vienna, Praha, Paris
+
+Reasoning:
+1. Vienna to 100.0.9.0/24 (Rotterdam's subnet):
+   - Vienna has two paths to Rotterdam: via Frankfurt or via Bratislava.
+   - To prefer the path through Bratislava, set Vienna→Frankfurt cost to 1000.
+   - This ensures traffic from Vienna to Rotterdam goes through Bratislava.
+
+2. Praha to 100.0.4.0/24 (Basel's subnet):
+   - Praha has two paths to Basel: via Frankfurt or via Bratislava.
+   - To prefer the path through Bratislava, set Praha→Frankfurt cost to 1000.
+   - This ensures traffic from Praha to Basel goes through Bratislava.
+
+3. Paris to 100.0.4.0/24 (Basel's subnet):
+   - Paris has multiple paths to Basel: direct or via Geneva.
+   - To prefer the path through Geneva, set Paris→London cost to 1000.
+   - This ensures traffic from Paris to Basel goes through Geneva.
+
+Limitations (if any):
+None

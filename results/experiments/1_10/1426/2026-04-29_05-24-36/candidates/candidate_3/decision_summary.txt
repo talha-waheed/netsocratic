@@ -1,0 +1,27 @@
+Routers modified: Frankfurt, Zurich, Luxembourg
+
+Reasoning:
+
+1. Frankfurt to 100.0.29.0/24 (London's subnet):
+   - Mandatory waypoint is London.
+   - ECMP: Require two equal-cost paths.
+   - Path through London: Frankfurt→Brussels→London (cost=3).
+   - Path through London: Frankfurt→Amsterdam→London (cost=3).
+   - Paths bypassing London are made costly (via Warsaw, etc.).
+
+2. Zurich to 100.0.9.0/24 (Rotterdam's subnet):
+   - Mandatory waypoint is Rotterdam.
+   - ECMP: Require two equal-cost paths.
+   - Path 1: Zurich→Amsterdam→Rotterdam (cost=3).
+   - Path 2: Zurich→Frankfurt→Amsterdam→Rotterdam (cost=3).
+   - All other bypass paths (via Geneva, etc.) are made costly.
+
+3. Luxembourg to 100.0.1.0/24 (Kiev's subnet):
+   - Mandatory waypoint is Kiev.
+   - ECMP: Require two equal-cost paths to Kiev.
+   - Path 1: Luxembourg→Frankfurt→Kiev (cost=4).
+   - Path 2: Luxembourg→Brussels→Frankfurt→Kiev (cost=4).
+   - Bypass paths to destination subnet are not used as bypassing is configured with cost 1000 on Frankfurt-Warsaw.
+
+Limitations:
+None

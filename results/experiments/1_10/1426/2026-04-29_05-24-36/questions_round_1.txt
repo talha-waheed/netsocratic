@@ -1,0 +1,5 @@
+Round 1 — Clarification Questions
+
+1. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from zurich should reach? (Why: impact on reachability for zurich to 100.0.9.0/24)
+2. What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from luxembourg should reach? (Why: impact on reachability for luxembourg to 100.0.1.0/24)
+3. What is the exact router hostname for the waypoint referred to as rotterdam? (Why: impact on waypointing for zurich to 100.0.9.0/24)

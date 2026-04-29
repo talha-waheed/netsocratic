@@ -1,0 +1,7 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from kiev should reach? (Why: impact on reachability)
+A: The exact destination subnet that traffic from Kiev should reach is 100.0.29.0/24.
+
+Q: When you wrote 'route via the london hub', what is the exact router hostname you are referring to? (e.g. 'london', 'lon-core-1') (Why: impact on waypointing)
+A: The exact router hostname I am referring to is 'london'.

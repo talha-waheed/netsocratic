@@ -1,0 +1,9 @@
+Connectivity from budapest to 100.0.29.0/24 is established.
+Consider routing through london.
+Ensure fault tolerance with multiple routes.
+Ensure connectivity between rotterdam and 100.0.29.0/24.
+The path between rotterdam and 100.0.29.0/24 involves london.
+To reach 100.0.29.0/24 from rotterdam, traffic is balanced on 2 paths.
+geneva and the destination network should be connected.
+Routing traffic between geneva and the destination network goes via kiev.
+The number of paths between geneva and the destination network should be 5.

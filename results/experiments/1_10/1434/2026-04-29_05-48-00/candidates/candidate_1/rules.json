@@ -1,0 +1,10 @@
+{
+  "reachability": {
+    "madrid": [],
+    "barcelona": ["100.0.29.0/24"],
+    "warsaw": []
+  },
+  "loadbalancing": {
+    "(warsaw,)": 2
+  }
+}

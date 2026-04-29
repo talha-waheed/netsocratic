@@ -1,0 +1,14 @@
+Routers modified: Warsaw, Frankfurt
+
+Reasoning:
+- For traffic from Warsaw to Praha (100.0.28.0/24), the policy states a mandatory waypoint through Basel.
+- Warsaw had its link to Praha set to cost 1000 to force traffic through Frankfurt to Basel.
+- Selected two balanced paths include Strasbourg and Geneva keeping in line with the waypoint preference for Basel.
+- Frankfurt cost adjustments ensure no direct bypass of Basel.
+
+Path enumeration:
+1) Warsaw -> Frankfurt -> Geneva -> Basel
+2) Warsaw -> Frankfurt -> Strasbourg -> Basel
+
+Limitations:
+- None. The topology allows the creation of two equal-cost multi-path (ECMP) aligned with the requirement.

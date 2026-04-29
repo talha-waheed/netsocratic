@@ -1,0 +1,9 @@
+The subnet 100.0.4.0/24 is reachable from kiev.
+Route through basel if possible.
+Distribute traffic across available paths.
+budapest and the main subnet need connectivity.
+Routing traffic between budapest and 100.0.4.0/24 goes via basel.
+Use multiple paths for reliability.
+The subnet 100.0.4.0/24 is reachable from amsterdam.
+Consider routing through basel.
+Use multiple paths for reliability.

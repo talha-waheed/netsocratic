@@ -1,0 +1,18 @@
+Routers modified: Athens, Istanbul, Budapest, Vienna, Praha, Warsaw, Brussels, Geneva, Basel, Luxembourg, Strasbourg
+
+Reasoning:
+Athens to 100.0.29.0/24 with waypoints through London and 2 ECMP paths:
+- Minimum paths through Istanbul to London and directly through Sofia were considered.
+- Costs set to 1000 on non-waypoint direct paths skipping London.
+- Istanbul path routes enumerated via Budapest and Sofia confirming connected routes.
+
+Strasbourg to 100.0.1.0/24 via Kiev with 2 ECMP paths:
+- Strasbourg uses Warsaw-Kiev route.
+- Paths through Geneva and Frankfurt optimized to have equivalent lengths for ECMP.
+
+Luxembourg to 100.0.4.0/24 via Basel with 4 ECMP paths:
+- Basel to Geneva as preferable, verifying legitimate ECMP setup spanning routes.
+- Basel to Frankfurt and other plausible paths included in functional cost calculation.
+
+Limitations (if any):
+None

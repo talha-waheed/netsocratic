@@ -1,0 +1,25 @@
+Routers modified: Luxembourg, Basel, Strasbourg
+
+Reasoning:
+1. Reachability:
+   - Athens to 100.0.29.0/24 (London's stub): No changes needed as reachability is inherently provided by OSPF.
+   - Strasbourg to 100.0.1.0/24 (Kiev's stub): No changes needed as reachability is inherently provided by OSPF.
+   - Luxembourg to 100.0.4.0/24 (Basel's stub): Requires load balancing across 4 paths.
+
+2. Load Balancing:
+   - Luxembourg to 100.0.4.0/24: The requirement is to have 4 equal-cost paths.
+   - Possible paths from Luxembourg to Basel:
+     a. Luxembourg → Brussels → Paris → Geneva → Basel
+     b. Luxembourg → Brussels → Amsterdam → Frankfurt → Basel
+     c. Luxembourg → Strasbourg → Frankfurt → Basel
+     d. Luxembourg → Strasbourg → Geneva → Basel
+   - To achieve load balancing, ensure these paths have equal cost.
+   - Set high cost (1000) on bypass paths to enforce these specific paths.
+
+3. Implementation:
+   - Luxembourg: Increase cost on interfaces towards Brussels and Strasbourg to 1000 to prevent bypassing the desired paths.
+   - Basel: Increase cost on interfaces towards Strasbourg and Geneva to 1000 to prevent bypassing the desired paths.
+   - Strasbourg: Increase cost on interfaces towards Frankfurt and Basel to 1000 to prevent bypassing the desired paths.
+
+Limitations (if any):
+None. The topology allows for the desired load balancing and reachability without further modifications.

@@ -1,0 +1,7 @@
+Round 1 — Q&A
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from rotterdam should reach? (Why: impact on reachability)
+A: The exact destination subnet that traffic from Rotterdam should reach is 100.0.4.0/24.
+
+Q: What is the exact destination subnet (in CIDR notation, e.g. 10.0.0.0/24) that traffic from geneva should reach when considering routing through basel? (Why: impact on waypointing)
+A: The exact destination subnet that traffic from Geneva should reach when considering routing through Basel is 100.0.4.0/24.

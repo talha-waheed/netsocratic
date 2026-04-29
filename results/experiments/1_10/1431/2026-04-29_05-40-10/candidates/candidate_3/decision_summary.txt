@@ -1,0 +1,29 @@
+Routers modified: Geneva, Brussels, Amsterdam, Rotterdam, Barcelona
+
+Reasoning:
+1. Geneva to 100.0.4.0/24:
+   - The mandatory waypoint is Basel.
+   - Potential paths: 
+     a) Geneva -> Basel -> 100.0.4.0/24 through Strasbourg
+     b) Geneva -> Lyon -> Paris -> 100.0.4.0/24
+     c) Geneva -> Zurich -> 100.0.4.0/24
+   - Only Basel is allowed as a waypoint, so costs to bypass Basel (via Lyon, Paris, Zurich) are set to 1000.
+   - To allow for 3 ECMP paths, only the path via Strasbourg to Basel is set at a cost of 1.
+
+2. Rotterdam to 100.0.4.0/24:
+   - The mandatory waypoint is Basel.
+   - Possible paths:
+     a) Rotterdam -> Amsterdam -> Frankfurt -> Basel -> 100.0.4.0/24
+     b) Rotterdam -> Brussels -> Luxembourg -> Strasbourg -> Basel
+     c) Rotterdam -> Amsterdam -> Brussels -> Frankfurt -> Basel
+   - To enforce the waypoint at Basel, costs bypassing Basel (via Brussels directly to 100.0.4.0/24) are set to 1000.
+   - Two ECMP paths are intended, so the paths via Frankfurt and Strasbourg are modified to be of equal cost.
+
+3. Barcelona to 100.0.1.0/24:
+   - The mandatory waypoint is Kiev.
+   - Direct paths via Marseille and Madrid bypassing Kiev were set to 1000 to enforce waypoint constraint.
+   - Potential paths via Sofia should traverse Kiev, thus set to cost 1.
+   - Adjust to have exactly 2 ECMP paths through Kiev.
+
+Limitations (if any):
+None
